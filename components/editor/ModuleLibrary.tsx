@@ -36,7 +36,7 @@ const iconMap: Record<string, React.ReactNode> = {
   star: <Star size={18} />,
 };
 
-const campaignCategories = ['Layout', 'Content', 'Commerce', 'Brand', 'Conversion', 'Float'];
+const campaignCategories = ['版面區塊', '活動商品', '內容說明', '品牌素材', '轉換行動'];
 const emailCategories = ['標題', '圖片', 'KV', '商品', '圖片帶商品', '活動', '銀行資訊', '文章', '折價券'];
 
 // ── Color picker ─────────────────────────────────────────────────────────────
@@ -99,7 +99,7 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
     <aside className="w-64 flex-shrink-0 bg-slate-900 border-r border-slate-800 flex flex-col overflow-hidden">
       <div className="px-4 py-4 border-b border-slate-800">
         <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
-          {isEmail ? 'Email Modules' : 'Modules'}
+          {isEmail ? '電子報模組' : '頁面模組'}
         </h2>
       </div>
 

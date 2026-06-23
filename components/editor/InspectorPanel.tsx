@@ -9,12 +9,12 @@ import { PageMode } from '@/app/page';
 import { getBannerProductsLayoutLabel } from '@/lib/modules/bannerProducts';
 
 const moduleLabels: Record<string, string> = {
-  'title': '標題區塊', 'hero': 'Hero', 'split-section': 'Split Content',
-  'product-grid': 'Product Grid', 'banner-products': 'Banner + Products',
-  'product-banner': 'Product Banner', 'product-carousel': 'Product Carousel',
-  'logo-wall': 'Logo Wall', 'cta': 'CTA Banner', 'faq': 'FAQ',
-  'sticky-sidebar': 'Sticky Bar', 'article-text': '文章（純文字）',
-  'article-image': '文章（帶圖片）', 'hero-carousel': 'KV 輪播', 'bank-promo': '銀行贈獎',
+  'title': '標題區塊', 'hero': '主視覺', 'split-section': '圖文區塊',
+  'product-grid': '商品列表', 'banner-products': '活動 Banner + 商品',
+  'product-banner': '單品主打', 'product-carousel': '商品輪播',
+  'logo-wall': '品牌 Logo 牆', 'cta': '行動呼籲', 'faq': 'FAQ',
+  'sticky-sidebar': '浮動工具列', 'article-text': '文章內容',
+  'article-image': '文章搭配圖片', 'hero-carousel': 'KV 輪播', 'bank-promo': '銀行優惠',
   'email-title': '標題', 'email-image': '純圖片', 'email-promo': '活動區塊',
   'email-kv': 'KV 主視覺', 'email-products': '商品', 'email-image-products': '圖片帶商品',
   'email-bank-info': '銀行資訊', 'email-article': '文章', 'email-coupon': '折價券',

@@ -29,7 +29,7 @@ export default function Page() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [deviceMode, setDeviceMode] = useState<DeviceMode>('desktop');
   const [buttonColor, setButtonColor] = useState('#6366f1');
-  const [pageBackgroundColor, setPageBackgroundColor] = useState('');
+  const [pageBackgroundColor, setPageBackgroundColor] = useState('#ffffff');
   const [pageBackgroundImage, setPageBackgroundImage] = useState('');
 
   // Email state
@@ -160,7 +160,7 @@ export default function Page() {
                 className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg transition-colors"
               >
                 <Download size={14} />
-                Export Code
+                匯出
               </button>
             </div>
           </header>

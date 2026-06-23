@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import { ImagePlus, Link2, X } from 'lucide-react';
+import { formatImageSpec, ImageSpec } from '@/lib/assets/imageSpecs';
 
 interface Option { value: string; label: string }
 
@@ -202,6 +204,7 @@ interface ImageFieldProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  spec?: ImageSpec;
 }
 
 const readFileAsDataUrl = (file: File) => new Promise<string>((resolve, reject) => {
@@ -211,18 +214,38 @@ const readFileAsDataUrl = (file: File) => new Promise<string>((resolve, reject) 
   reader.readAsDataURL(file);
 });
 
-export function ImageField({ label, value, onChange, placeholder = 'https://…' }: ImageFieldProps) {
+const readImageSize = (src: string) => new Promise<{ width: number; height: number }>((resolve, reject) => {
+  const image = new Image();
+  image.onload = () => resolve({ width: image.naturalWidth, height: image.naturalHeight });
+  image.onerror = () => reject(new Error('image-load-failed'));
+  image.src = src;
+});
+
+export function ImageField({ label, value, onChange, placeholder = 'https://…', spec }: ImageFieldProps) {
   const isUploaded = value.startsWith('data:image/');
+  const [error, setError] = useState('');
+  const specLabel = spec ? formatImageSpec(spec) : '';
 
   const handleUpload = async (file: File | undefined) => {
     if (!file) return;
     const dataUrl = await readFileAsDataUrl(file);
+    if (spec) {
+      const size = await readImageSize(dataUrl);
+      if (size.width !== spec.width || size.height !== spec.height) {
+        setError(`請上傳 ${specLabel} 圖檔`);
+        return;
+      }
+    }
+    setError('');
     onChange(dataUrl);
   };
 
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-xs font-medium text-slate-400 uppercase tracking-wide">{label}</label>
+      <div className="flex items-center justify-between gap-3">
+        <label className="text-xs font-medium text-slate-400 uppercase tracking-wide">{label}</label>
+        {spec && <span className="flex-shrink-0 text-xs text-slate-500">{specLabel}</span>}
+      </div>
       <div className="flex gap-2">
         <label className="inline-flex flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-indigo-500">
           <ImagePlus size={13} />
@@ -250,7 +273,10 @@ export function ImageField({ label, value, onChange, placeholder = 'https://…'
           {value && (
             <button
               type="button"
-              onClick={() => onChange('')}
+              onClick={() => {
+                setError('');
+                onChange('');
+              }}
               className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 transition-colors hover:text-slate-300"
               aria-label={`清除 ${label}`}
             >
@@ -259,6 +285,7 @@ export function ImageField({ label, value, onChange, placeholder = 'https://…'
           )}
         </div>
       </div>
+      {error && <p className="text-xs font-medium text-red-400">{error}</p>}
       {value && (
         <div className="overflow-hidden rounded-md border border-slate-700 bg-slate-950">
           <img

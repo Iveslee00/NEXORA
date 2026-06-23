@@ -2,6 +2,7 @@
 
 import { ProductBannerData } from '@/types/modules';
 import { FormField, SegmentedField, ToggleField, ColorSection, ImageField } from '@/components/ui/FormField';
+import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 
 interface Props { data: ProductBannerData; onChange: (data: ProductBannerData) => void }
 
@@ -45,7 +46,7 @@ export function ProductBannerForm({ data, onChange }: Props) {
 
       <div className="h-px bg-slate-700/60" />
       <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Image</p>
-      <ImageField label="商品圖片" value={data.image} onChange={(v) => set('image', v)} />
+      <ImageField label="商品主打圖片" value={data.image} onChange={(v) => set('image', v)} spec={IMAGE_SPECS.productBanner} />
 
       <div className="h-px bg-slate-700/60" />
       <ColorSection

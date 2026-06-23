@@ -30,12 +30,12 @@ import { GripVertical, Trash2, Copy, LayoutTemplate, Monitor, Smartphone, Mail }
 
 // ── Campaign module labels ────────────────────────────────────────────────────
 const campaignLabels: Record<string, string> = {
-  'title': '標題區塊', 'hero': 'Hero', 'split-section': 'Split Content',
-  'product-grid': 'Product Grid', 'banner-products': 'Banner + Products',
-  'product-banner': 'Product Banner', 'product-carousel': 'Product Carousel',
-  'logo-wall': 'Logo Wall', 'cta': 'CTA Banner', 'faq': 'FAQ',
-  'sticky-sidebar': 'Sticky Bar', 'article-text': '文章（純文字）',
-  'article-image': '文章（帶圖片）', 'hero-carousel': 'KV 輪播', 'bank-promo': '銀行贈獎',
+  'title': '標題區塊', 'hero': '主視覺', 'split-section': '圖文區塊',
+  'product-grid': '商品列表', 'banner-products': '活動 Banner + 商品',
+  'product-banner': '單品主打', 'product-carousel': '商品輪播',
+  'logo-wall': '品牌 Logo 牆', 'cta': '行動呼籲', 'faq': 'FAQ',
+  'sticky-sidebar': '浮動工具列', 'article-text': '文章內容',
+  'article-image': '文章搭配圖片', 'hero-carousel': 'KV 輪播', 'bank-promo': '銀行優惠',
 };
 
 const getCampaignModuleLabel = (module: PageModule) => {

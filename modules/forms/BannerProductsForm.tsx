@@ -2,6 +2,7 @@
 
 import { BannerProductsData, Product } from '@/types/modules';
 import { FormField, ToggleField, ColorField, SegmentedField, ColorSection, ImageField } from '@/components/ui/FormField';
+import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 import { generateId } from '@/lib/utils';
 import { Plus, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
@@ -41,7 +42,7 @@ export function BannerProductsForm({ data, onChange }: Props) {
       <FormField label="Banner Title" value={data.bannerTitle} onChange={(v) => onChange({ ...data, bannerTitle: v })} placeholder="Campaign Title" />
       <FormField label="Banner Subtitle" value={data.bannerSubtitle} onChange={(v) => onChange({ ...data, bannerSubtitle: v })} placeholder="Limited time offer" />
       <FormField label="Banner Link" value={data.bannerLink} onChange={(v) => onChange({ ...data, bannerLink: v })} type="url" placeholder="https://" />
-      <ImageField label="Banner 圖片" value={data.bannerImage} onChange={(v) => onChange({ ...data, bannerImage: v })} />
+      <ImageField label="活動 Banner 圖片" value={data.bannerImage} onChange={(v) => onChange({ ...data, bannerImage: v })} spec={IMAGE_SPECS.bannerProducts} />
       <ColorField label="Banner Title Color" value={data.bannerTitleColor} onChange={(v) => onChange({ ...data, bannerTitleColor: v })} />
       <SegmentedField
         label="Background"
@@ -101,7 +102,7 @@ export function BannerProductsForm({ data, onChange }: Props) {
                     <FormField label="特價" value={product.salePrice} onChange={(v) => updateProduct(product.id, 'salePrice', v)} placeholder="$0.00" />
                   </div>
                   <FormField label="Link" value={product.link} onChange={(v) => updateProduct(product.id, 'link', v)} type="url" placeholder="https://" />
-                  <ImageField label="商品圖片" value={product.image} onChange={(v) => updateProduct(product.id, 'image', v)} />
+                  <ImageField label="商品圖片" value={product.image} onChange={(v) => updateProduct(product.id, 'image', v)} spec={IMAGE_SPECS.product} />
                   <ToggleField label="顯示 Badge" value={product.showBadge} onChange={(v) => updateProduct(product.id, 'showBadge', v)} />
                   {product.showBadge && (
                     <FormField label="Badge Text" value={product.badgeText} onChange={(v) => updateProduct(product.id, 'badgeText', v)} placeholder="特賣 / NEW" />

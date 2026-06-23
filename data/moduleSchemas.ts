@@ -22,9 +22,9 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     type: 'title',
     key: 'title',
     label: '標題區塊',
-    description: 'Chinese + English bilingual section title',
+    description: '區塊主標與英文副標',
     icon: 'type',
-    category: 'Layout',
+    category: '版面區塊',
     defaultData: {
       titleCn: '主要標題',
       titleEn: 'Section Heading',
@@ -36,10 +36,10 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'hero',
     key: 'hero',
-    label: 'Hero',
-    description: 'Main banner with headline and CTA',
+    label: '主視覺',
+    description: '大圖搭配標題與按鈕',
     icon: 'layout',
-    category: 'Layout',
+    category: '版面區塊',
     defaultData: {
       kicker: 'Introducing',
       title: 'Your Campaign Headline Here',
@@ -59,13 +59,13 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'split-section',
     key: 'split-section',
-    label: 'Split Content',
-    description: 'Two-column image and text section',
+    label: '圖文區塊',
+    description: '圖片搭配文字說明',
     icon: 'columns',
-    category: 'Content',
+    category: '內容說明',
     defaultData: {
       title: 'Feature Highlight Title',
-      description: 'Describe the key benefit or feature here. Great for showcasing product details, brand stories, or any content pairing an image with text.',
+      description: '在這裡說明活動重點、商品特色或品牌故事，適合搭配一張情境圖片。',
       image: 'https://placehold.co/600x450/e8e8f8/6366f1?text=Feature+Image',
       buttonText: 'Learn More',
       buttonLink: '#',
@@ -79,9 +79,9 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     type: 'faq',
     key: 'faq',
     label: 'FAQ',
-    description: 'Frequently asked questions accordion',
+    description: '常見問題展開列表',
     icon: 'help-circle',
-    category: 'Content',
+    category: '內容說明',
     defaultData: {
       backgroundColor: '',
       titleColor: '',
@@ -98,10 +98,10 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'product-grid',
     key: 'product-grid',
-    label: 'Product Grid',
-    description: 'Grid layout for showcasing products',
+    label: '商品列表',
+    description: '多商品格狀排列',
     icon: 'grid',
-    category: 'Commerce',
+    category: '活動商品',
     defaultData: {
       backgroundColor: '',
       titleColor: '',
@@ -117,10 +117,10 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'product-carousel',
     key: 'product-carousel',
-    label: 'Product Carousel',
-    description: 'Horizontally scrollable product strip',
+    label: '商品輪播',
+    description: '橫向滑動商品列',
     icon: 'gallery-horizontal',
-    category: 'Commerce',
+    category: '活動商品',
     defaultData: {
       backgroundColor: '',
       titleColor: '',
@@ -138,12 +138,12 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'banner-products',
     key: 'banner-products-2',
-    label: 'Banner + 2 品',
-    description: 'Campaign banner alongside 2 product cards',
+    label: '活動 Banner + 2 商品',
+    description: '活動圖搭配 2 個商品',
     icon: 'layout-panel-left',
-    category: 'Commerce',
+    category: '活動商品',
     defaultData: {
-      layoutLabel: 'Banner + 2 品',
+      layoutLabel: '活動 Banner + 2 商品',
       bannerImage: 'https://placehold.co/500x600/1a1a2e/6366f1?text=Banner',
       bannerTitle: 'Campaign Title',
       bannerSubtitle: 'Limited time offer',
@@ -162,12 +162,12 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'banner-products',
     key: 'banner-products-3',
-    label: 'Banner + 3 品',
-    description: 'Campaign banner alongside 3 product cards',
+    label: '活動 Banner + 3 商品',
+    description: '活動圖搭配 3 個商品',
     icon: 'layout-panel-left',
-    category: 'Commerce',
+    category: '活動商品',
     defaultData: {
-      layoutLabel: 'Banner + 3 品',
+      layoutLabel: '活動 Banner + 3 商品',
       bannerImage: 'https://placehold.co/500x600/1a1a2e/6366f1?text=Banner',
       bannerTitle: 'Campaign Title',
       bannerSubtitle: 'Limited time offer',
@@ -187,12 +187,12 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'banner-products',
     key: 'banner-products-4',
-    label: 'Banner + 4 品',
-    description: 'Campaign banner alongside 4 product cards',
+    label: '活動 Banner + 4 商品',
+    description: '活動圖搭配 4 個商品',
     icon: 'layout-panel-left',
-    category: 'Commerce',
+    category: '活動商品',
     defaultData: {
-      layoutLabel: 'Banner + 4 品',
+      layoutLabel: '活動 Banner + 4 商品',
       bannerImage: 'https://placehold.co/500x600/1a1a2e/6366f1?text=Banner',
       bannerTitle: 'Campaign Title',
       bannerSubtitle: 'Limited time offer',
@@ -213,10 +213,10 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'product-banner',
     key: 'product-banner',
-    label: 'Product Banner',
-    description: 'Full-width banner showcasing a single product',
+    label: '單品主打',
+    description: '單一商品大型推薦區',
     icon: 'package',
-    category: 'Commerce',
+    category: '活動商品',
     defaultData: {
       kicker: '限時優惠 LIMITED OFFER',
       headline: 'Product Campaign Headline',
@@ -242,10 +242,10 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'logo-wall',
     key: 'logo-wall',
-    label: 'Logo Wall',
-    description: 'Brand logos or partner showcase',
+    label: '品牌 Logo 牆',
+    description: '品牌或合作夥伴 Logo',
     icon: 'image',
-    category: 'Brand',
+    category: '品牌素材',
     defaultData: {
       backgroundColor: '',
       titleColor: '',
@@ -263,10 +263,10 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'cta',
     key: 'cta',
-    label: 'CTA Banner',
-    description: 'Call-to-action section with button',
+    label: '行動呼籲',
+    description: '引導點擊的按鈕區塊',
     icon: 'megaphone',
-    category: 'Conversion',
+    category: '轉換行動',
     defaultData: {
       title: 'Ready to Get Started?',
       subtitle: 'Join thousands of customers who are already using our platform to grow their business.',
@@ -284,10 +284,10 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'article-text',
     key: 'article-text',
-    label: '文章欄位（純文字）',
-    description: 'Article block with title, content, author — no image',
+    label: '文章內容',
+    description: '純文字文章或活動說明',
     icon: 'file-text',
-    category: 'Content',
+    category: '內容說明',
     defaultData: {
       eyebrow: '品牌故事',
       title: '文章標題',
@@ -304,10 +304,10 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'article-image',
     key: 'article-image',
-    label: '文章欄位（帶圖片）',
-    description: 'Article block with hero image, title, and content',
+    label: '文章搭配圖片',
+    description: '文章內容加主圖',
     icon: 'file-image',
-    category: 'Content',
+    category: '內容說明',
     defaultData: {
       eyebrow: '品牌故事',
       title: '文章標題',
@@ -329,9 +329,9 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     type: 'hero-carousel',
     key: 'hero-carousel',
     label: 'KV 輪播',
-    description: 'Full-width KV banner carousel with text and image per slide',
+    description: '多張主視覺輪播，可純圖',
     icon: 'gallery-horizontal-end',
-    category: 'Layout',
+    category: '版面區塊',
     defaultData: {
       height: 'medium',
       autoPlay: true,
@@ -339,6 +339,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
       slides: [
         {
           id: generateId(),
+          showText: true,
           image: 'https://placehold.co/1200x600/e8e8f8/6366f1?text=KV+Image+1',
           title: 'Campaign Headline',
           subtitle: 'A compelling subtitle that supports the campaign message.',
@@ -352,6 +353,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
         },
         {
           id: generateId(),
+          showText: true,
           image: 'https://placehold.co/1200x600/f3e8ff/a78bfa?text=KV+Image+2',
           title: 'Second Slide Title',
           subtitle: 'Another slide with a different image and message.',
@@ -371,10 +373,10 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'bank-promo',
     key: 'bank-promo',
-    label: '銀行贈獎活動',
-    description: 'Credit card promotion block with benefit highlights',
+    label: '銀行優惠',
+    description: '信用卡或支付優惠說明',
     icon: 'credit-card',
-    category: 'Content',
+    category: '內容說明',
     defaultData: {
       title: '信用卡優惠說明',
       subtitle: '活動期間：即日起至 2024/12/31',
@@ -412,24 +414,6 @@ export const moduleSchemas: ModuleSchemaItem[] = [
           logo: '',
           accentColor: '#0ea5e9',
         },
-      ],
-    },
-  },
-
-  // ── Float ─────────────────────────────────────────────────────────────────
-  {
-    type: 'sticky-sidebar',
-    key: 'sticky-sidebar',
-    label: '黏人精 Sticky Bar',
-    description: 'Fixed floating sidebar with action buttons',
-    icon: 'pin',
-    category: 'Float',
-    defaultData: {
-      position: 'right',
-      items: [
-        { id: generateId(), label: '立即購買', link: '#', icon: '🛒', bgColor: '#e53e3e' },
-        { id: generateId(), label: '加入收藏', link: '#', icon: '❤️', bgColor: '#6366f1' },
-        { id: generateId(), label: '聯絡我們', link: '#', icon: '💬', bgColor: '#0ea5e9' },
       ],
     },
   },

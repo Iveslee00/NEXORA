@@ -2,6 +2,7 @@
 
 import { HeroData } from '@/types/modules';
 import { FormField, SegmentedField, ColorSection, ImageField } from '@/components/ui/FormField';
+import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 
 interface Props { data: HeroData; onChange: (data: HeroData) => void }
 
@@ -31,7 +32,7 @@ export function HeroForm({ data, onChange }: Props) {
       <FormField label="Button Text" value={data.buttonText} onChange={(v) => set('buttonText', v)} placeholder="Get Started" />
       <FormField label="Button Link" value={data.buttonLink} onChange={(v) => set('buttonLink', v)} type="url" placeholder="https://" />
       <div className="h-px bg-slate-700/60" />
-      <ImageField label="Hero 圖片" value={data.image} onChange={(v) => set('image', v)} />
+      <ImageField label="主視覺圖片" value={data.image} onChange={(v) => set('image', v)} spec={IMAGE_SPECS.hero} />
       <div className="h-px bg-slate-700/60" />
       <ColorSection
         backgroundColor={data.backgroundColor}

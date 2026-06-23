@@ -43,7 +43,7 @@ export function ProductBannerPreview({ data }: { data: ProductBannerData }) {
         </span>
       )}
       <h2 style={{ fontSize: isMobile ? '1.75rem' : '2.5rem', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.03em', margin: 0, ...titleStyle }}>
-        {data.headline || 'Product Banner'}
+        {data.headline || '單品主打'}
       </h2>
       {data.tagline && (
         <p style={{ fontSize: '0.95rem', lineHeight: 1.7, opacity: 0.75, margin: 0, ...textStyle }}>

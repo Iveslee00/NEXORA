@@ -2,6 +2,7 @@
 
 import { SplitSectionData } from '@/types/modules';
 import { FormField, ToggleField, ColorSection, ImageField } from '@/components/ui/FormField';
+import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 
 interface Props { data: SplitSectionData; onChange: (data: SplitSectionData) => void }
 
@@ -16,7 +17,7 @@ export function SplitSectionForm({ data, onChange }: Props) {
       <FormField label="Button Text" value={data.buttonText} onChange={(v) => set('buttonText', v)} placeholder="Learn More" />
       <FormField label="Button Link" value={data.buttonLink} onChange={(v) => set('buttonLink', v)} type="url" placeholder="https://" />
       <div className="h-px bg-slate-700/60" />
-      <ImageField label="內容圖片" value={data.image} onChange={(v) => set('image', v)} />
+      <ImageField label="內容圖片" value={data.image} onChange={(v) => set('image', v)} spec={IMAGE_SPECS.split} />
       <ToggleField label="Reverse Layout" description="Image on left, text on right" value={data.reverse} onChange={(v) => set('reverse', v)} />
       <div className="h-px bg-slate-700/60" />
       <ColorSection

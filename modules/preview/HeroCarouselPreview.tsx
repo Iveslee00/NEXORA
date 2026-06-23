@@ -23,6 +23,7 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
   const total = slides.length;
   const h = heightMap[data.height ?? 'medium'];
   const slideH = isMobile ? h.mobile : h.desktop;
+  const currentSlideHasText = slides[current]?.showText !== false;
 
   const goTo = useCallback((idx: number) => setCurrent((idx + total) % total), [total]);
   const prev = () => { setPaused(true); goTo(current - 1); };
@@ -59,9 +60,9 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
   };
 
   // Nav & dots live in the image area (image starts at 35% on desktop)
-  const imgCenterTop = isMobile ? `calc(${h.mobileImg} / 2)` : '50%';
+  const imgCenterTop = isMobile && currentSlideHasText ? `calc(${h.mobileImg} / 2)` : '50%';
   const imgRight = '14px';
-  const imgLeft = isMobile ? '8px' : 'calc(35% + 12px)';
+  const imgLeft = isMobile || !currentSlideHasText ? '8px' : 'calc(35% + 12px)';
 
   return (
     <section
@@ -72,6 +73,7 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
       {/* Slides strip */}
       <div style={{ display: 'flex', transform: `translateX(-${current * 100}%)`, transition: 'transform 0.5s cubic-bezier(0.4,0,0.2,1)', height: slideH }}>
         {slides.map((s) => {
+          const showText = s.showText !== false;
           const textBg = s.textBgColor || '#1a1a2e';
           const overlay = s.overlayOpacity ? `rgba(0,0,0,${s.overlayOpacity / 100})` : undefined;
           const align = s.alignment ?? 'left';
@@ -99,8 +101,15 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
                 height: slideH,
               }}
             >
+              {!showText && (
+                <div style={{ flex: '0 0 100%', position: 'relative', overflow: 'hidden' }}>
+                  {imageEl}
+                  {overlay && <div style={{ position: 'absolute', inset: 0, background: overlay }} />}
+                </div>
+              )}
+
               {/* Mobile: image on top */}
-              {isMobile && (
+              {showText && isMobile && (
                 <div style={{ height: h.mobileImg, flexShrink: 0, position: 'relative', overflow: 'hidden' }}>
                   {imageEl}
                   {overlay && <div style={{ position: 'absolute', inset: 0, background: overlay }} />}
@@ -108,37 +117,39 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
               )}
 
               {/* Text panel — left on desktop, bottom on mobile */}
-              <div
-                style={{
-                  background: textBg,
-                  flex: isMobile ? '1 0 0' : '0 0 35%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  padding: isMobile ? '20px 18px' : '0 36px 0 44px',
-                  overflow: 'hidden',
-                  ...alignStyle,
-                }}
-              >
-                {s.title && (
-                  <h1 style={{ fontSize: isMobile ? '1.15rem' : '1.6rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.02em', color: s.titleColor || '#ffffff', marginBottom: '8px' }}>
-                    {s.title}
-                  </h1>
-                )}
-                {s.subtitle && (
-                  <p style={{ fontSize: isMobile ? '0.8rem' : '0.85rem', lineHeight: 1.6, color: s.textColor || 'rgba(255,255,255,0.85)', marginBottom: '16px', maxWidth: '320px' }}>
-                    {s.subtitle}
-                  </p>
-                )}
-                {s.buttonText && (
-                  <span style={{ display: 'inline-flex', alignItems: 'center', padding: isMobile ? '8px 18px' : '10px 22px', background: buttonColor, color: '#fff', borderRadius: '7px', fontWeight: 700, fontSize: isMobile ? '12px' : '13px', cursor: 'default' }}>
-                    {s.buttonText}
-                  </span>
-                )}
-              </div>
+              {showText && (
+                <div
+                  style={{
+                    background: textBg,
+                    flex: isMobile ? '1 0 0' : '0 0 35%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    padding: isMobile ? '20px 18px' : '0 36px 0 44px',
+                    overflow: 'hidden',
+                    ...alignStyle,
+                  }}
+                >
+                  {s.title && (
+                    <h1 style={{ fontSize: isMobile ? '1.15rem' : '1.6rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.02em', color: s.titleColor || '#ffffff', marginBottom: '8px' }}>
+                      {s.title}
+                    </h1>
+                  )}
+                  {s.subtitle && (
+                    <p style={{ fontSize: isMobile ? '0.8rem' : '0.85rem', lineHeight: 1.6, color: s.textColor || 'rgba(255,255,255,0.85)', marginBottom: '16px', maxWidth: '320px' }}>
+                      {s.subtitle}
+                    </p>
+                  )}
+                  {s.buttonText && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', padding: isMobile ? '8px 18px' : '10px 22px', background: buttonColor, color: '#fff', borderRadius: '7px', fontWeight: 700, fontSize: isMobile ? '12px' : '13px', cursor: 'default' }}>
+                      {s.buttonText}
+                    </span>
+                  )}
+                </div>
+              )}
 
               {/* Desktop: image on the right */}
-              {!isMobile && (
+              {showText && !isMobile && (
                 <div style={{ flex: '0 0 65%', position: 'relative', overflow: 'hidden' }}>
                   {imageEl}
                   {overlay && <div style={{ position: 'absolute', inset: 0, background: overlay }} />}
@@ -165,8 +176,8 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
       {total > 1 && (
         <div style={{
           position: 'absolute',
-          bottom: isMobile ? `calc(${slideH} - ${h.mobileImg} + 14px)` : '16px',
-          left: isMobile ? '50%' : 'calc(35% + 32.5%)',
+          bottom: isMobile && currentSlideHasText ? `calc(${slideH} - ${h.mobileImg} + 14px)` : '16px',
+          left: isMobile || !currentSlideHasText ? '50%' : 'calc(35% + 32.5%)',
           transform: 'translateX(-50%)',
           display: 'flex', gap: '7px', zIndex: 3,
         }}>

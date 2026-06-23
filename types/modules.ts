@@ -285,6 +285,7 @@ export interface ArticleImageModule extends BaseModule {
 // ── Hero Carousel (KV輪播) ────────────────────────────────────────────────────
 export interface KvSlide {
   id: string;
+  showText: boolean;
   image: string;
   title: string;
   subtitle: string;

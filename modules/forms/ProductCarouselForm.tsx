@@ -2,6 +2,7 @@
 
 import { ProductCarouselData, Product } from '@/types/modules';
 import { FormField, ToggleField, ColorSection, ImageField } from '@/components/ui/FormField';
+import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 import { generateId } from '@/lib/utils';
 import { Plus, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
@@ -70,7 +71,7 @@ export function ProductCarouselForm({ data, onChange }: Props) {
                     <FormField label="特價" value={product.salePrice} onChange={(v) => updateProduct(product.id, 'salePrice', v)} placeholder="$0.00" />
                   </div>
                   <FormField label="Link" value={product.link} onChange={(v) => updateProduct(product.id, 'link', v)} type="url" placeholder="https://" />
-                  <ImageField label="商品圖片" value={product.image} onChange={(v) => updateProduct(product.id, 'image', v)} />
+                  <ImageField label="商品圖片" value={product.image} onChange={(v) => updateProduct(product.id, 'image', v)} spec={IMAGE_SPECS.product} />
                   <ToggleField label="顯示 Badge" value={product.showBadge} onChange={(v) => updateProduct(product.id, 'showBadge', v)} />
                   {product.showBadge && (
                     <FormField label="Badge Text" value={product.badgeText} onChange={(v) => updateProduct(product.id, 'badgeText', v)} placeholder="特賣 / NEW / HOT" />

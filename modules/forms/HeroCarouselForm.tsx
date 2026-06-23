@@ -2,6 +2,7 @@
 
 import { HeroCarouselData, KvSlide } from '@/types/modules';
 import { FormField, ColorField, ToggleField, SegmentedField, ImageField } from '@/components/ui/FormField';
+import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 import { generateId } from '@/lib/utils';
 import { Plus, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
@@ -11,13 +12,14 @@ interface Props { data: HeroCarouselData; onChange: (data: HeroCarouselData) => 
 export function HeroCarouselForm({ data, onChange }: Props) {
   const [expanded, setExpanded] = useState<string | null>(data.slides[0]?.id ?? null);
 
-  const updateSlide = (id: string, field: keyof KvSlide, value: string | number) => {
+  const updateSlide = (id: string, field: keyof KvSlide, value: string | number | boolean) => {
     onChange({ ...data, slides: data.slides.map((s) => s.id === id ? { ...s, [field]: value } : s) });
   };
 
   const addSlide = () => {
     const newSlide: KvSlide = {
       id: generateId(),
+      showText: true,
       image: '',
       title: 'Slide Title',
       subtitle: 'Slide subtitle text here.',
@@ -76,17 +78,22 @@ export function HeroCarouselForm({ data, onChange }: Props) {
             {expanded === slide.id && (
               <div className="px-3 pb-3 border-t border-slate-700/60">
                 <div className="pt-3 space-y-3">
-                  <ImageField label="KV 圖片" value={slide.image} onChange={(v) => updateSlide(slide.id, 'image', v)} />
-                  <FormField label="標題" value={slide.title} onChange={(v) => updateSlide(slide.id, 'title', v)} placeholder="Slide Title" />
-                  <FormField label="副標題" value={slide.subtitle} onChange={(v) => updateSlide(slide.id, 'subtitle', v)} type="textarea" rows={2} placeholder="Subtitle text…" />
-                  <FormField label="按鈕文字" value={slide.buttonText} onChange={(v) => updateSlide(slide.id, 'buttonText', v)} placeholder="Learn More" />
-                  <FormField label="按鈕連結" value={slide.buttonLink} onChange={(v) => updateSlide(slide.id, 'buttonLink', v)} type="url" placeholder="#" />
-                  <SegmentedField
-                    label="對齊"
-                    value={slide.alignment ?? 'center'}
-                    options={[{ value: 'left', label: '左' }, { value: 'center', label: '中' }, { value: 'right', label: '右' }]}
-                    onChange={(v) => updateSlide(slide.id, 'alignment', v)}
-                  />
+                  <ImageField label="KV 圖片" value={slide.image} onChange={(v) => updateSlide(slide.id, 'image', v)} spec={IMAGE_SPECS.kv} />
+                  <ToggleField label="顯示文字區" description="關閉後會成為純 Banner" value={slide.showText ?? true} onChange={(v) => updateSlide(slide.id, 'showText', v)} />
+                  {slide.showText !== false && (
+                    <>
+                      <FormField label="標題" value={slide.title} onChange={(v) => updateSlide(slide.id, 'title', v)} placeholder="Slide Title" />
+                      <FormField label="副標題" value={slide.subtitle} onChange={(v) => updateSlide(slide.id, 'subtitle', v)} type="textarea" rows={2} placeholder="Subtitle text…" />
+                      <FormField label="按鈕文字" value={slide.buttonText} onChange={(v) => updateSlide(slide.id, 'buttonText', v)} placeholder="Learn More" />
+                      <FormField label="按鈕連結" value={slide.buttonLink} onChange={(v) => updateSlide(slide.id, 'buttonLink', v)} type="url" placeholder="#" />
+                      <SegmentedField
+                        label="對齊"
+                        value={slide.alignment ?? 'center'}
+                        options={[{ value: 'left', label: '左' }, { value: 'center', label: '中' }, { value: 'right', label: '右' }]}
+                        onChange={(v) => updateSlide(slide.id, 'alignment', v)}
+                      />
+                    </>
+                  )}
                   <FormField
                     label="遮罩透明度 (%)"
                     value={String(slide.overlayOpacity ?? 40)}

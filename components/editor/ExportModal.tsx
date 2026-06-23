@@ -63,8 +63,8 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
               <FileCode2 size={16} className="text-indigo-400" />
             </div>
             <div>
-              <h2 className="text-slate-100 font-semibold text-base">Export Code</h2>
-              <p className="text-slate-500 text-xs mt-0.5">Copy and paste into your CMS or project</p>
+              <h2 className="text-slate-100 font-semibold text-base">匯出</h2>
+              <p className="text-slate-500 text-xs mt-0.5">選擇貼碼、ZIP 或電子報 HTML</p>
             </div>
           </div>
           <button
@@ -86,7 +86,7 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
             }`}
           >
             <Code2 size={12} />
-            活動頁面
+            貼碼使用
           </button>
           <button
             onClick={() => setTopTab('package')}
@@ -97,7 +97,7 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
             }`}
           >
             <Package size={12} />
-            精誠 ZIP
+            ZIP
           </button>
           <button
             onClick={() => setTopTab('email')}
@@ -117,7 +117,7 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
             {/* Usage note */}
             <div className="px-6 py-3 bg-indigo-950/40 border-b border-slate-800">
               <p className="text-xs text-indigo-300/80 leading-relaxed">
-                <strong className="text-indigo-300">How to use:</strong> Paste the <code className="bg-indigo-900/50 px-1 rounded">HTML</code> where your content goes, and add the <code className="bg-indigo-900/50 px-1 rounded">CSS</code> to your stylesheet or a <code className="bg-indigo-900/50 px-1 rounded">&lt;style&gt;</code> tag in <code className="bg-indigo-900/50 px-1 rounded">&lt;head&gt;</code>. All classes are prefixed with <code className="bg-indigo-900/50 px-1 rounded">cb-</code> to avoid conflicts.
+                <strong className="text-indigo-300">貼碼使用：</strong>複製 HTML 到內容區，再把 CSS 加到樣式表或頁面 head 的 style 標籤。所有 class 都使用 <code className="bg-indigo-900/50 px-1 rounded">cb-</code> 前綴，降低和既有網站衝突的機率。
               </p>
             </div>
 
@@ -166,7 +166,7 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
           <>
             <div className="px-6 py-3 bg-emerald-950/30 border-b border-slate-800">
               <p className="text-xs text-emerald-300/80 leading-relaxed">
-                <strong className="text-emerald-300">精誠後台大包：</strong>下載 ZIP 後直接上傳。內含 <code className="bg-emerald-900/50 px-1 rounded">index.html</code>、<code className="bg-emerald-900/50 px-1 rounded">css/style.css</code>、<code className="bg-emerald-900/50 px-1 rounded">js/campaign.js</code>，以及上傳圖片用的 <code className="bg-emerald-900/50 px-1 rounded">images/</code>。
+                <strong className="text-emerald-300">ZIP 大包：</strong>下載後可上傳到支援 ZIP 匯入的 CMS 或後台系統。內含 <code className="bg-emerald-900/50 px-1 rounded">index.html</code>、<code className="bg-emerald-900/50 px-1 rounded">css/style.css</code>、<code className="bg-emerald-900/50 px-1 rounded">js/campaign.js</code>，以及上傳圖片用的 <code className="bg-emerald-900/50 px-1 rounded">images/</code>。
               </p>
             </div>
 
@@ -177,7 +177,7 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
                     <div>
                       <h3 className="text-sm font-semibold text-slate-100">campaign-page.zip</h3>
                       <p className="mt-1 text-xs leading-relaxed text-slate-500">
-                        適合沒有圖床的行銷/營運使用者。只要在各模組圖片欄位按「上傳」，圖片就會在匯出時自動放入 ZIP 的 images 資料夾。
+                        適合需要整包上傳的頁面交付流程。只要在各模組圖片欄位按「上傳」，圖片就會在匯出時自動放入 ZIP 的 images 資料夾。
                       </p>
                     </div>
                     <button
@@ -211,7 +211,7 @@ images/`}</pre>
                     <p className="font-semibold text-emerald-300">ZIP 已建立，內含 {packageInfo.fileCount} 個檔案。</p>
                     {packageInfo.remoteImages.length > 0 && (
                       <div className="mt-3">
-                        <p className="text-amber-300">以下外部圖片網址未放入 images，請確認精誠後台可讀取：</p>
+                        <p className="text-amber-300">以下外部圖片網址未放入 images，請確認目標系統可讀取：</p>
                         <ul className="mt-2 max-h-28 space-y-1 overflow-y-auto text-slate-400">
                           {packageInfo.remoteImages.map((url) => (
                             <li key={url} className="truncate">{url}</li>

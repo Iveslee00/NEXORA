@@ -3,7 +3,7 @@ import { GlobalSettings } from '@/types/modules';
 export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   const btnColor = settings?.buttonColor || '#6366f1';
   const btnHover = settings?.buttonColor ? darken(settings.buttonColor) : '#4f46e5';
-  const pageBg = settings?.pageBackgroundColor || '';
+  const pageBg = settings?.pageBackgroundColor || '#ffffff';
   const pageBgImg = settings?.pageBackgroundImage || '';
 
   return `/* ============================================================
@@ -366,6 +366,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-kv--large  { height: 520px; }
 .cb-kv__track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
 .cb-kv__slide { flex: 0 0 100%; display: grid; grid-template-columns: 35% 65%; height: 100%; }
+.cb-kv__slide--image-only { grid-template-columns: 1fr; }
 .cb-kv__text { display: flex; flex-direction: column; justify-content: center; padding: 0 36px 0 44px; overflow: hidden; background: #1a1a2e; }
 .cb-kv__text--left   { align-items: flex-start; text-align: left; }
 .cb-kv__text--center { align-items: center; text-align: center; }
@@ -388,6 +389,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-kv--medium { height: 460px; }
   .cb-kv--large  { height: 550px; }
   .cb-kv__slide { grid-template-columns: 1fr; grid-template-rows: 210px 1fr; }
+  .cb-kv__slide--image-only { grid-template-rows: 1fr; }
   .cb-kv__img { grid-row: 1; grid-column: 1; }
   .cb-kv__text { grid-row: 2; grid-column: 1; padding: 20px 18px; }
   .cb-kv__text--center, .cb-kv__text--right { align-items: flex-start; text-align: left; }

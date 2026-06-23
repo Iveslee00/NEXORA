@@ -2,6 +2,7 @@
 
 import { BankPromoData, BankPromoItem } from '@/types/modules';
 import { FormField, ColorField, ColorSection, ImageField } from '@/components/ui/FormField';
+import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 import { generateId } from '@/lib/utils';
 import { Plus, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
@@ -70,7 +71,7 @@ export function BankPromoForm({ data, onChange }: Props) {
               <div className="px-3 pb-3 border-t border-slate-700/60">
                 <div className="pt-3 space-y-3">
                   <FormField label="卡片名稱" value={item.cardName} onChange={(v) => updateItem(item.id, 'cardName', v)} placeholder="台新 Richart 卡" />
-                  <ImageField label="銀行 Logo" value={item.logo} onChange={(v) => updateItem(item.id, 'logo', v)} />
+                  <ImageField label="銀行 Logo" value={item.logo} onChange={(v) => updateItem(item.id, 'logo', v)} spec={IMAGE_SPECS.bankLogo} />
                   <ColorField label="強調色" value={item.accentColor} onChange={(v) => updateItem(item.id, 'accentColor', v)} placeholder="#6366f1" />
                   <FormField label="活動條件" value={item.condition} onChange={(v) => updateItem(item.id, 'condition', v)} placeholder="指定通路消費滿 NT$1,000" />
                   <FormField label="優惠說明（主要）" value={item.benefit} onChange={(v) => updateItem(item.id, 'benefit', v)} placeholder="最高 3.8% 回饋" />
