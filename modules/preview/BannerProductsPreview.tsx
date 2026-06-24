@@ -15,6 +15,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
   const brandStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
   const nameStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
   const bannerSrc = isMobile ? (data.mobileBannerImage || data.bannerImage || PLACEHOLDER_BANNER) : (data.bannerImage || PLACEHOLDER_BANNER);
+  const bannerAspectRatio = isMobile ? '750 / 900' : count >= 4 ? '500 / 800' : '500 / 600';
 
   useEffect(() => {
     const node = containerRef.current;
@@ -53,7 +54,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
       <div ref={containerRef} style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: isMobile ? '12px' : '20px', alignItems: 'stretch' }}>
           {/* Banner */}
-          <div style={{ ...(isMobile || isCompact || count <= 0 ? { gridColumn: '1 / -1' } : {}), position: 'relative', borderRadius: '12px', overflow: 'hidden', background: '#1a1a2e', minHeight: isMobile ? '180px' : '280px', display: 'flex' }}>
+          <div style={{ ...(isMobile || isCompact || count <= 0 ? { gridColumn: '1 / -1' } : {}), position: 'relative', borderRadius: '12px', overflow: 'hidden', background: '#1a1a2e', aspectRatio: bannerAspectRatio, display: 'flex' }}>
             <img
               src={bannerSrc}
               alt={data.bannerTitle}

@@ -2,7 +2,7 @@
 
 import { ProductBannerData } from '@/types/modules';
 import { FormField, SegmentedField, ToggleField, ColorSection, ImageField } from '@/components/ui/FormField';
-import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
+import { getProductBannerImageSpecs } from '@/lib/assets/imageSpecs';
 
 interface Props { data: ProductBannerData; onChange: (data: ProductBannerData) => void }
 
@@ -14,6 +14,7 @@ const heightOptions = [
 
 export function ProductBannerForm({ data, onChange }: Props) {
   const set = <K extends keyof ProductBannerData>(key: K, val: ProductBannerData[K]) => onChange({ ...data, [key]: val });
+  const imageSpecs = getProductBannerImageSpecs(data.height);
 
   return (
     <div className="space-y-4">
@@ -46,11 +47,11 @@ export function ProductBannerForm({ data, onChange }: Props) {
 
       <div className="h-px bg-slate-700/60" />
       <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">圖片</p>
-      <ImageField label="商品主打圖片（PC）" value={data.image} onChange={(v) => set('image', v)} spec={IMAGE_SPECS.productBanner} />
+      <ImageField label="商品主打圖片（PC）" value={data.image} onChange={(v) => set('image', v)} spec={imageSpecs.desktop} />
       <button type="button" onClick={() => set('mobileImage', data.image)} className="text-xs font-semibold text-indigo-400 transition-colors hover:text-indigo-300">
         同 PC 視覺
       </button>
-      <ImageField label="商品主打圖片（M）" value={data.mobileImage ?? ''} onChange={(v) => set('mobileImage', v)} spec={IMAGE_SPECS.productBannerMobile} />
+      <ImageField label="商品主打圖片（M）" value={data.mobileImage ?? ''} onChange={(v) => set('mobileImage', v)} spec={imageSpecs.mobile} />
 
       <div className="h-px bg-slate-700/60" />
       <ColorSection

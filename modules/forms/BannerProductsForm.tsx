@@ -2,7 +2,7 @@
 
 import { BannerProductsData, Product } from '@/types/modules';
 import { FormField, ToggleField, ColorField, ColorSection, ImageField } from '@/components/ui/FormField';
-import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
+import { IMAGE_SPECS, getBannerProductsImageSpecs } from '@/lib/assets/imageSpecs';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 
@@ -10,6 +10,7 @@ interface Props { data: BannerProductsData; onChange: (data: BannerProductsData)
 
 export function BannerProductsForm({ data, onChange }: Props) {
   const [expanded, setExpanded] = useState<string | null>(data.products[0]?.id ?? null);
+  const bannerSpecs = getBannerProductsImageSpecs(data.products.length);
 
   const updateProduct = (id: string, field: keyof Product, value: string | boolean) => {
     onChange({ ...data, products: data.products.map((p) => p.id === id ? { ...p, [field]: value } : p) });
@@ -22,11 +23,11 @@ export function BannerProductsForm({ data, onChange }: Props) {
       <FormField label="Banner 標題" value={data.bannerTitle} onChange={(v) => onChange({ ...data, bannerTitle: v })} placeholder="活動主標" />
       <FormField label="Banner 副標" value={data.bannerSubtitle} onChange={(v) => onChange({ ...data, bannerSubtitle: v })} placeholder="限時優惠" />
       <FormField label="Banner 連結" value={data.bannerLink} onChange={(v) => onChange({ ...data, bannerLink: v })} type="url" placeholder="https://" />
-      <ImageField label="活動 Banner 圖片（PC）" value={data.bannerImage} onChange={(v) => onChange({ ...data, bannerImage: v })} spec={IMAGE_SPECS.bannerProducts} />
+      <ImageField label="活動 Banner 圖片（PC）" value={data.bannerImage} onChange={(v) => onChange({ ...data, bannerImage: v })} spec={bannerSpecs.desktop} />
       <button type="button" onClick={() => onChange({ ...data, mobileBannerImage: data.bannerImage })} className="text-xs font-semibold text-indigo-400 transition-colors hover:text-indigo-300">
         同 PC 視覺
       </button>
-      <ImageField label="活動 Banner 圖片（M）" value={data.mobileBannerImage ?? ''} onChange={(v) => onChange({ ...data, mobileBannerImage: v })} spec={IMAGE_SPECS.bannerProductsMobile} />
+      <ImageField label="活動 Banner 圖片（M）" value={data.mobileBannerImage ?? ''} onChange={(v) => onChange({ ...data, mobileBannerImage: v })} spec={bannerSpecs.mobile} />
       <ColorField label="Banner 標題色" value={data.bannerTitleColor} onChange={(v) => onChange({ ...data, bannerTitleColor: v })} />
 
       <div className="h-px bg-slate-700/60" />

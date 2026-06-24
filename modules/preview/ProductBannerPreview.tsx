@@ -3,6 +3,7 @@
 import { ProductBannerData } from '@/types/modules';
 import { useDevice } from '@/contexts/DeviceContext';
 import { useGlobalSettings } from '@/contexts/GlobalSettingsContext';
+import { getProductBannerImageSpecs } from '@/lib/assets/imageSpecs';
 
 const PLACEHOLDER = 'https://placehold.co/700x600/e0e0f0/9090c0?text=Product';
 
@@ -21,6 +22,8 @@ export function ProductBannerPreview({ data }: { data: ProductBannerData }) {
   const titleStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
   const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
   const imageSrc = isMobile ? (data.mobileImage || data.image || PLACEHOLDER) : (data.image || PLACEHOLDER);
+  const imageSpecs = getProductBannerImageSpecs(data.height);
+  const mediaSpec = isMobile ? imageSpecs.mobile : imageSpecs.desktop;
 
   const btnStyle: React.CSSProperties = {
     display: 'inline-flex', alignItems: 'center',
@@ -74,11 +77,11 @@ export function ProductBannerPreview({ data }: { data: ProductBannerData }) {
   );
 
   const media = (
-    <div style={{ position: 'relative', borderRadius: '14px', overflow: 'hidden' }}>
+    <div style={{ position: 'relative', borderRadius: '14px', overflow: 'hidden', aspectRatio: `${mediaSpec.width} / ${mediaSpec.height}` }}>
       <img
         src={imageSrc}
         alt={data.productName || ''}
-        style={{ width: '100%', display: 'block' }}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
         onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }}
       />
       {data.showBadge && data.badgeText && (

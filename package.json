@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "typecheck": "tsc --noEmit",
+    "verify:image-specs": "node --no-warnings scripts/verify-image-specs.mjs",
     "start": "next start",
     "lint": "next lint"
   },

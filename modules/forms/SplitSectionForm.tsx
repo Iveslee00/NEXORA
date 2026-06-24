@@ -41,7 +41,11 @@ export function SplitSectionForm({ data, onChange }: Props) {
       <FormField label="按鈕文字" value={data.buttonText} onChange={(v) => set('buttonText', v)} placeholder="了解更多" />
       <FormField label="按鈕連結" value={data.buttonLink} onChange={(v) => set('buttonLink', v)} type="url" placeholder="https://" />
       <div className="h-px bg-slate-700/60" />
-      <ImageField label="內容圖片" value={data.image} onChange={(v) => set('image', v)} spec={IMAGE_SPECS.split} />
+      <ImageField label="內容圖片（PC）" value={data.image} onChange={(v) => set('image', v)} spec={IMAGE_SPECS.split} />
+      <button type="button" onClick={() => set('mobileImage', data.image)} className="text-xs font-semibold text-indigo-400 transition-colors hover:text-indigo-300">
+        同 PC 視覺
+      </button>
+      <ImageField label="內容圖片（M）" value={data.mobileImage ?? ''} onChange={(v) => set('mobileImage', v)} spec={IMAGE_SPECS.splitMobile} />
       <div className="h-px bg-slate-700/60" />
       <ColorSection
         backgroundColor={data.backgroundColor}

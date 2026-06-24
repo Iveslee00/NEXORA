@@ -12,6 +12,9 @@ export function generateSplitSectionHTML(data: SplitSectionData): string {
     : '';
 
   const bgOverride = data.backgroundColor ? ` style="background-color: ${escapeHtml(data.backgroundColor)}"` : '';
+  const imageEl = data.image
+    ? `<picture class="cb-split__picture">${data.mobileImage ? `\n          <source media="(max-width: 767px)" srcset="${escapeHtml(data.mobileImage)}">` : ''}\n          <img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.title)}">\n        </picture>`
+    : '';
 
   return `<section class="cb-split cb-section${heightClass}"${bgOverride}>
   <div class="cb-container">
@@ -21,7 +24,7 @@ export function generateSplitSectionHTML(data: SplitSectionData): string {
         <p class="cb-split__description"${textStyle}>${escapeHtml(data.description)}</p>${button}
       </div>
       <div class="cb-split__media">
-        <img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.title)}">
+        ${imageEl}
       </div>
     </div>
   </div>

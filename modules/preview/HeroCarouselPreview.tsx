@@ -9,9 +9,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 const PLACEHOLDER = 'https://placehold.co/1200x600/1a1a2e/6366f1?text=KV+Banner';
 
 const heightMap = {
-  small:  { desktop: '300px', mobile: '370px', mobileImg: '210px' },
-  medium: { desktop: '400px', mobile: '460px', mobileImg: '260px' },
-  large:  { desktop: '520px', mobile: '550px', mobileImg: '310px' },
+  small:  { desktopRatio: '1200 / 300', mobileFullRatio: '750 / 370', mobileImgRatio: '750 / 210' },
+  medium: { desktopRatio: '1200 / 400', mobileFullRatio: '750 / 460', mobileImgRatio: '750 / 260' },
+  large:  { desktopRatio: '1200 / 520', mobileFullRatio: '750 / 500', mobileImgRatio: '750 / 310' },
 };
 
 export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
@@ -22,8 +22,10 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
   const slides = data.slides;
   const total = slides.length;
   const h = heightMap[data.height ?? 'medium'];
-  const slideH = isMobile ? h.mobile : h.desktop;
   const currentSlideHasText = slides[current]?.showText !== false;
+  const frameStyle: React.CSSProperties = isMobile
+    ? currentSlideHasText ? {} : { aspectRatio: h.mobileFullRatio }
+    : { aspectRatio: h.desktopRatio };
 
   const goTo = useCallback((idx: number) => setCurrent((idx + total) % total), [total]);
   const prev = () => { setPaused(true); goTo(current - 1); };
@@ -43,7 +45,7 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
 
   if (!total) {
     return (
-      <section style={{ background: data.backgroundColor || '#1a1a2e', height: slideH, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+      <section style={{ background: data.backgroundColor || '#1a1a2e', aspectRatio: isMobile ? h.mobileFullRatio : h.desktopRatio, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
         <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '14px' }}>尚未新增任何 slide</p>
       </section>
     );
@@ -60,18 +62,18 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
   };
 
   // Nav & dots live in the image area (image starts at 35% on desktop)
-  const imgCenterTop = isMobile && currentSlideHasText ? `calc(${h.mobileImg} / 2)` : '50%';
+  const imgCenterTop = isMobile && currentSlideHasText ? 'calc(50vw / (750 / 260))' : '50%';
   const imgRight = '14px';
   const imgLeft = isMobile || !currentSlideHasText ? '8px' : 'calc(35% + 12px)';
 
   return (
     <section
-      style={{ position: 'relative', overflow: 'hidden', background: data.backgroundColor || '#1a1a2e', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', pointerEvents: 'auto' }}
+      style={{ position: 'relative', overflow: 'hidden', background: data.backgroundColor || '#1a1a2e', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', pointerEvents: 'auto', ...frameStyle }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       {/* Slides strip */}
-      <div style={{ display: 'flex', transform: `translateX(-${current * 100}%)`, transition: 'transform 0.5s cubic-bezier(0.4,0,0.2,1)', height: slideH }}>
+      <div style={{ display: 'flex', transform: `translateX(-${current * 100}%)`, transition: 'transform 0.5s cubic-bezier(0.4,0,0.2,1)', height: '100%' }}>
         {slides.map((s) => {
           const showText = s.showText !== false;
           const textBg = s.textBgColor || '#1a1a2e';
@@ -106,7 +108,7 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
                 flex: '0 0 100%',
                 display: 'flex',
                 flexDirection: isMobile ? 'column' : 'row',
-                height: slideH,
+                height: isMobile && showText ? 'auto' : '100%',
               }}
             >
               {!showText && (
@@ -121,7 +123,7 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
 
               {/* Mobile: image on top */}
               {showText && isMobile && (
-                <div style={{ height: h.mobileImg, flexShrink: 0, position: 'relative', overflow: 'hidden' }}>
+                <div style={{ aspectRatio: h.mobileImgRatio, flexShrink: 0, position: 'relative', overflow: 'hidden' }}>
                   {imageEl}
                   {overlay && <div style={{ position: 'absolute', inset: 0, background: overlay }} />}
                 </div>
@@ -132,7 +134,7 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
                 <div
                   style={{
                     background: textBg,
-                    flex: isMobile ? '1 0 0' : '0 0 35%',
+                    flex: isMobile ? '0 0 auto' : '0 0 35%',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
@@ -187,7 +189,8 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
       {total > 1 && (
         <div style={{
           position: 'absolute',
-          bottom: isMobile && currentSlideHasText ? `calc(${slideH} - ${h.mobileImg} + 14px)` : '16px',
+          bottom: isMobile && currentSlideHasText ? 'auto' : '16px',
+          top: isMobile && currentSlideHasText ? 'calc((100vw - 32px) / (750 / 210) - 22px)' : undefined,
           left: isMobile || !currentSlideHasText ? '50%' : 'calc(35% + 32.5%)',
           transform: 'translateX(-50%)',
           display: 'flex', gap: '7px', zIndex: 3,

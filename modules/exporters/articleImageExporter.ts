@@ -28,7 +28,7 @@ export function generateArticleImageHTML(data: ArticleImageData): string {
     : '';
 
   const imgEl = data.image
-    ? `<img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.title || '')}" class="cb-article-img__img">`
+    ? `<picture class="cb-article-img__picture">${data.mobileImage ? `\n          <source media="(max-width: 767px)" srcset="${escapeHtml(data.mobileImage)}">` : ''}\n          <img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.title || '')}" class="cb-article-img__img">\n        </picture>`
     : '';
 
   if (pos === 'top') {

@@ -68,9 +68,9 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    4. HERO MODULE
    ------------------------------------------------------------ */
 .cb-hero { position: relative; overflow: hidden; display: flex; background: #1a1a2e; color: #ffffff; }
-.cb-hero--small { height: 300px; }
-.cb-hero--medium { height: 400px; }
-.cb-hero--large { height: 520px; }
+.cb-hero--small { aspect-ratio: 1200 / 300; }
+.cb-hero--medium { aspect-ratio: 1200 / 400; }
+.cb-hero--large { aspect-ratio: 1200 / 520; }
 .cb-hero__content { flex: 0 0 35%; display: flex; flex-direction: column; justify-content: center; padding: 0 36px 0 44px; background: #1a1a2e; overflow: hidden; }
 .cb-hero__kicker { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.65; margin-bottom: 16px; }
 .cb-hero__title { font-size: clamp(1.25rem, 2.4vw, 2rem); font-weight: 800; line-height: 1.15; margin-bottom: 10px; color: #ffffff; }
@@ -93,8 +93,9 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-split__content { display: flex; flex-direction: column; gap: 20px; }
 .cb-split__title { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: #1a1a2e; }
 .cb-split__description { font-size: 1.05rem; line-height: 1.75; color: #4a4a6a; }
-.cb-split__media { border-radius: 16px; overflow: hidden; }
-.cb-split__media img { width: 100%; height: auto; display: block; }
+.cb-split__media { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4 / 3; }
+.cb-split__picture { position: absolute; inset: 0; display: block; }
+.cb-split__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .cb-split__btn { align-self: flex-start; padding-left: 18px; padding-right: 18px; }
 
 /* ------------------------------------------------------------
@@ -136,7 +137,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 /* ------------------------------------------------------------
    8. BANNER + PRODUCTS MODULE
    ------------------------------------------------------------ */
-.cb-banner-products__inner { display: grid; gap: 20px; align-items: stretch; }
+.cb-banner-products__inner { display: grid; gap: 20px; align-items: start; }
 .cb-banner-products__inner--0 { grid-template-columns: 1fr; }
 .cb-banner-products__inner--1 { grid-template-columns: minmax(0, 2fr) minmax(180px, 1fr); }
 .cb-banner-products__inner--2 { grid-template-columns: minmax(0, 2fr) repeat(2, minmax(160px, 1fr)); }
@@ -144,8 +145,9 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-banner-products__inner--4 { grid-template-columns: minmax(0, 2fr) repeat(4, minmax(140px, 1fr)); }
 .cb-banner-products__banner {
   position: relative; border-radius: 12px; overflow: hidden;
-  background-color: #1a1a2e; min-height: 280px; display: flex;
+  background-color: #1a1a2e; aspect-ratio: 5 / 6; display: flex;
 }
+.cb-banner-products__inner--4 .cb-banner-products__banner { aspect-ratio: 5 / 8; }
 .cb-banner-products__picture { position: absolute; inset: 0; display: block; }
 .cb-banner-products__banner-img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
 .cb-banner-products__banner-overlay {
@@ -203,9 +205,11 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-product-banner__original-price { font-size: 14px; font-weight: 500; opacity: 0.5; text-decoration: line-through; }
 .cb-product-banner__sale-price { font-size: 1.75rem; font-weight: 800; color: #ff6b6b; letter-spacing: -0.02em; }
 .cb-product-banner--light .cb-product-banner__sale-price { color: #e53e3e; }
-.cb-product-banner__media { position: relative; border-radius: 16px; overflow: hidden; }
-.cb-product-banner__picture { display: block; }
-.cb-product-banner__media img { width: 100%; height: auto; display: block; }
+.cb-product-banner__media { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 700 / 600; }
+.cb-product-banner--small .cb-product-banner__media { aspect-ratio: 700 / 460; }
+.cb-product-banner--large .cb-product-banner__media { aspect-ratio: 700 / 740; }
+.cb-product-banner__picture { position: absolute; inset: 0; display: block; }
+.cb-product-banner__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .cb-product-banner__badge { position: absolute; top: 16px; right: 16px; padding: 6px 12px; background-color: #e53e3e; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; border-radius: 6px; z-index: 1; }
 
 /* ------------------------------------------------------------
@@ -287,13 +291,16 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-section { padding-top: 48px; padding-bottom: 48px; }
   .cb-title-block { padding-top: 20px; }
   .cb-hero { flex-direction: column; }
-  .cb-hero--small { height: 370px; }
-  .cb-hero--medium { height: 460px; }
-  .cb-hero--large { height: 550px; }
-  .cb-hero__content { flex: 1 0 0; padding: 20px 18px; }
-  .cb-hero__media { flex: 0 0 260px; order: -1; }
-  .cb-hero--small .cb-hero__media { flex-basis: 210px; }
-  .cb-hero--large .cb-hero__media { flex-basis: 310px; }
+  .cb-hero--small,
+  .cb-hero--medium,
+  .cb-hero--large { aspect-ratio: auto; }
+  .cb-hero--image-only.cb-hero--small { aspect-ratio: 750 / 370; }
+  .cb-hero--image-only.cb-hero--medium { aspect-ratio: 750 / 460; }
+  .cb-hero--image-only.cb-hero--large { aspect-ratio: 750 / 500; }
+  .cb-hero__content { flex: 0 0 auto; padding: 20px 18px; }
+  .cb-hero__media { flex: 0 0 auto; order: -1; aspect-ratio: 750 / 260; }
+  .cb-hero--small .cb-hero__media { aspect-ratio: 750 / 210; }
+  .cb-hero--large .cb-hero__media { aspect-ratio: 750 / 310; }
   .cb-hero--image-only .cb-hero__media { flex: 1 1 auto; order: 0; }
   .cb-hero__title { font-size: 1.5rem; }
   .cb-split__inner { grid-template-columns: 1fr; gap: 32px; }
@@ -305,9 +312,13 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-banner-products__inner--2,
   .cb-banner-products__inner--3,
   .cb-banner-products__inner--4 { grid-template-columns: 1fr 1fr; }
-  .cb-banner-products__banner { grid-column: 1 / -1; min-height: 200px; }
+  .cb-banner-products__banner,
+  .cb-banner-products__inner--4 .cb-banner-products__banner { grid-column: 1 / -1; aspect-ratio: 5 / 6; }
   .cb-product-banner__inner { grid-template-columns: 1fr; gap: 32px; }
   .cb-product-banner__inner--reverse .cb-product-banner__media { order: 0; }
+  .cb-product-banner__media { aspect-ratio: 750 / 850; }
+  .cb-product-banner--small .cb-product-banner__media { aspect-ratio: 750 / 750; }
+  .cb-product-banner--large .cb-product-banner__media { aspect-ratio: 750 / 900; }
   .cb-logo-wall__grid { gap: 24px 32px; }
   .cb-logo-wall__item img { height: 32px; }
   .cb-cta__title { font-size: 1.75rem; }
@@ -344,32 +355,33 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 /* ------------------------------------------------------------
    17. ARTICLE IMAGE MODULE
    ------------------------------------------------------------ */
-.cb-article-img__img { width: 100%; height: auto; display: block; object-fit: cover; }
+.cb-article-img__picture { position: absolute; inset: 0; display: block; }
+.cb-article-img__img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
 .cb-article-img--top .cb-article-img__media--top { border-radius: 12px; overflow: hidden; margin-bottom: 36px; }
-.cb-article-img--top .cb-article-img__media--top img { max-height: 480px; width: 100%; }
+.cb-article-img--top .cb-article-img__media--top { position: relative; aspect-ratio: 1200 / 420; }
 .cb-article-img__layout { display: grid; gap: 48px; align-items: flex-start; }
 .cb-article-img__layout--left { grid-template-columns: 45% 1fr; }
 .cb-article-img__layout--right { grid-template-columns: 1fr 45%; }
 .cb-article-img__layout--right .cb-article-img__media { order: 2; }
 .cb-article-img__layout--right .cb-article__inner { order: 1; }
-.cb-article-img__layout .cb-article-img__media { border-radius: 12px; overflow: hidden; }
-.cb-article-img__layout .cb-article-img__media img { min-height: 320px; }
+.cb-article-img__layout .cb-article-img__media { position: relative; border-radius: 12px; overflow: hidden; min-height: 320px; }
 
 @media (max-width: 768px) {
   .cb-article-img__layout--left,
   .cb-article-img__layout--right { grid-template-columns: 1fr; }
   .cb-article-img__layout--right .cb-article-img__media { order: 0; margin-bottom: 28px; }
   .cb-article-img__layout--right .cb-article__inner { order: 0; }
-  .cb-article-img__layout .cb-article-img__media img { min-height: auto; height: 220px; }
+  .cb-article-img--top .cb-article-img__media--top { aspect-ratio: 750 / 420; }
+  .cb-article-img__layout .cb-article-img__media { min-height: auto; height: 420px; }
 }
 
 /* ------------------------------------------------------------
    18. HERO CAROUSEL (KV) MODULE — split layout (text left, image right)
    ------------------------------------------------------------ */
 .cb-kv { position: relative; overflow: hidden; }
-.cb-kv--small  { height: 300px; }
-.cb-kv--medium { height: 400px; }
-.cb-kv--large  { height: 520px; }
+.cb-kv--small  { aspect-ratio: 1200 / 300; }
+.cb-kv--medium { aspect-ratio: 1200 / 400; }
+.cb-kv--large  { aspect-ratio: 1200 / 520; }
 .cb-kv__track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
 .cb-kv__slide { flex: 0 0 100%; display: grid; grid-template-columns: 35% 65%; height: 100%; }
 .cb-kv__slide--image-only { grid-template-columns: 1fr; }
@@ -393,11 +405,19 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-kv__dot--active { width: 22px; background: #ffffff; }
 
 @media (max-width: 768px) {
-  .cb-kv--small  { height: 370px; }
-  .cb-kv--medium { height: 460px; }
-  .cb-kv--large  { height: 550px; }
-  .cb-kv__slide { grid-template-columns: 1fr; grid-template-rows: 210px 1fr; }
+  .cb-kv--small,
+  .cb-kv--medium,
+  .cb-kv--large { aspect-ratio: auto; }
+  .cb-kv__track { height: auto; }
+  .cb-kv__slide { grid-template-columns: 1fr; grid-template-rows: auto auto; height: auto; }
+  .cb-kv__img { aspect-ratio: 750 / 260; }
+  .cb-kv--small .cb-kv__img { aspect-ratio: 750 / 210; }
+  .cb-kv--large .cb-kv__img { aspect-ratio: 750 / 310; }
   .cb-kv__slide--image-only { grid-template-rows: 1fr; }
+  .cb-kv__slide--image-only .cb-kv__img { aspect-ratio: auto; }
+  .cb-kv--small .cb-kv__slide--image-only { aspect-ratio: 750 / 370; }
+  .cb-kv--medium .cb-kv__slide--image-only { aspect-ratio: 750 / 460; }
+  .cb-kv--large .cb-kv__slide--image-only { aspect-ratio: 750 / 500; }
   .cb-kv__img { grid-row: 1; grid-column: 1; }
   .cb-kv__text { grid-row: 2; grid-column: 1; padding: 20px 18px; }
   .cb-kv__text--center, .cb-kv__text--right { align-items: flex-start; text-align: left; }

@@ -3,7 +3,7 @@
 import { ArticleImageData } from '@/types/modules';
 import { useDevice } from '@/contexts/DeviceContext';
 
-const PLACEHOLDER = 'https://placehold.co/800x500/e8e8f8/6366f1?text=Article+Image';
+const PLACEHOLDER = 'https://placehold.co/1200x420/e8e8f8/6366f1?text=Article+Image';
 
 export function ArticleImagePreview({ data }: { data: ArticleImageData }) {
   const { isMobile } = useDevice();
@@ -11,21 +11,34 @@ export function ArticleImagePreview({ data }: { data: ArticleImageData }) {
   const pos = data.imagePosition || 'top';
   const titleStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
   const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
+  const imageSrc = isMobile ? (data.mobileImage || data.image || PLACEHOLDER) : (data.image || PLACEHOLDER);
 
   const isHorizontal = !isMobile && (pos === 'left' || pos === 'right');
+  const topImageRatio = isMobile ? '750 / 420' : '1200 / 420';
+  const isTopLayout = pos === 'top' || isMobile;
 
   const imageEl = (
     <div style={{
+      position: 'relative',
       flexShrink: 0,
       width: isHorizontal ? '45%' : '100%',
+      aspectRatio: isTopLayout ? topImageRatio : undefined,
       borderRadius: '12px',
       overflow: 'hidden',
       marginBottom: pos === 'top' ? '36px' : 0,
     }}>
       <img
-        src={data.image || PLACEHOLDER}
+        src={imageSrc}
         alt={data.title || 'Article image'}
-        style={{ width: '100%', height: pos === 'top' ? (isMobile ? '220px' : '420px') : '100%', objectFit: 'cover', display: 'block', minHeight: isHorizontal ? '320px' : undefined }}
+        style={{
+          position: isTopLayout ? 'absolute' : undefined,
+          inset: isTopLayout ? 0 : undefined,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          display: 'block',
+          minHeight: isHorizontal ? '320px' : undefined,
+        }}
         onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }}
       />
     </div>
@@ -68,7 +81,7 @@ export function ArticleImagePreview({ data }: { data: ArticleImageData }) {
       padding: isMobile ? '32px 16px' : '48px 24px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
     }}>
-      <div style={{ maxWidth: pos === 'top' ? '800px' : '1100px', margin: '0 auto' }}>
+      <div style={{ maxWidth: pos === 'top' ? '1200px' : '1100px', margin: '0 auto' }}>
         {pos === 'top' ? (
           <>
             {imageEl}
@@ -78,11 +91,11 @@ export function ArticleImagePreview({ data }: { data: ArticleImageData }) {
           <div style={{ display: 'flex', gap: '48px', alignItems: 'flex-start', flexDirection: (isMobile || pos === 'left') ? 'row' : 'row-reverse' }}>
             {isMobile ? (
               <div style={{ width: '100%' }}>
-                <div style={{ borderRadius: '12px', overflow: 'hidden', marginBottom: '28px' }}>
+                <div style={{ position: 'relative', aspectRatio: topImageRatio, borderRadius: '12px', overflow: 'hidden', marginBottom: '28px' }}>
                   <img
-                    src={data.image || PLACEHOLDER}
+                    src={imageSrc}
                     alt={data.title || 'Article image'}
-                    style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block' }}
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                     onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }}
                   />
                 </div>

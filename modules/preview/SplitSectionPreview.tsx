@@ -17,6 +17,7 @@ export function SplitSectionPreview({ data }: { data: SplitSectionData }) {
   const titleStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
   const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
   const padding = heightPadding[data.height ?? 'medium'];
+  const imageSrc = isMobile ? (data.mobileImage || data.image || PLACEHOLDER) : (data.image || PLACEHOLDER);
 
   const btnStyle: React.CSSProperties = {
     display: 'inline-flex', alignItems: 'center',
@@ -35,8 +36,8 @@ export function SplitSectionPreview({ data }: { data: SplitSectionData }) {
   );
 
   const media = (
-    <div style={{ borderRadius: '14px', overflow: 'hidden' }}>
-      <img src={data.image || PLACEHOLDER} alt="" style={{ width: '100%', display: 'block' }} onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }} />
+    <div style={{ position: 'relative', borderRadius: '14px', overflow: 'hidden', aspectRatio: '4 / 3' }}>
+      <img src={imageSrc} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }} />
     </div>
   );
 

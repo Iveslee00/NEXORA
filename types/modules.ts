@@ -84,6 +84,7 @@ export interface SplitSectionData {
   title: string;
   description: string;
   image: string;
+  mobileImage: string;
   buttonText: string;
   buttonLink: string;
   reverse: boolean;
@@ -278,6 +279,7 @@ export interface ArticleImageData {
   author: string;
   date: string;
   image: string;
+  mobileImage: string;
   imagePosition: 'top' | 'left' | 'right';
   alignment: 'left' | 'center';
   backgroundColor: string;
