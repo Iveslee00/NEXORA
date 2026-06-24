@@ -195,6 +195,7 @@ export default function Page() {
             <InspectorPanel
               pageMode={pageMode}
               module={selectedModule}
+              modules={modules}
               onChange={(data) => selectedId && updateModule(selectedId, data)}
               emailModule={selectedEmailModule}
               onEmailChange={(data) => selectedEmailId && updateEmailModule(selectedEmailId, data)}

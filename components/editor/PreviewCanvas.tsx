@@ -10,6 +10,7 @@ import { useGlobalSettings } from '@/contexts/GlobalSettingsContext';
 import { useEmailSettings } from '@/contexts/EmailSettingsContext';
 import { PageMode } from '@/app/page';
 import { getBannerProductsLayoutLabel } from '@/lib/modules/bannerProducts';
+import { getModuleAnchorId } from '@/lib/modules/anchors';
 import { SizeSpecGuide } from './SizeSpecGuide';
 import {
   DndContext,
@@ -37,6 +38,7 @@ const campaignLabels: Record<string, string> = {
   'logo-wall': '品牌 Logo 牆', 'cta': '行動呼籲', 'faq': 'FAQ',
   'sticky-sidebar': '浮動工具列', 'article-text': '文章內容',
   'article-image': '文章搭配圖片', 'hero-carousel': 'KV 輪播', 'bank-promo': '銀行優惠',
+  'anchor-nav': '錨點導覽',
 };
 
 const getCampaignModuleLabel = (module: PageModule) => {
@@ -54,13 +56,14 @@ const emailLabels: Record<string, string> = {
 // ── Sortable campaign module ──────────────────────────────────────────────────
 interface SortableModuleProps {
   module: PageModule;
+  modules: PageModule[];
   isSelected: boolean;
   onSelect: () => void;
   onDelete: () => void;
   onDuplicate: () => void;
 }
 
-function SortableModule({ module, isSelected, onSelect, onDelete, onDuplicate }: SortableModuleProps) {
+function SortableModule({ module, modules, isSelected, onSelect, onDelete, onDuplicate }: SortableModuleProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: module.id });
   const [hovered, setHovered] = React.useState(false);
 
@@ -78,7 +81,7 @@ function SortableModule({ module, isSelected, onSelect, onDelete, onDuplicate }:
     : '0 0 0 1px rgba(0,0,0,0.08), 0 1px 0 0 rgba(0,0,0,0.05)';
 
   return (
-    <div ref={setNodeRef} style={style} className="relative group">
+    <div ref={setNodeRef} id={'anchorName' in module.data && module.data.anchorName ? getModuleAnchorId(module.id) : undefined} style={style} className="relative group">
       <div
         onClick={onSelect}
         onMouseEnter={() => setHovered(true)}
@@ -112,7 +115,7 @@ function SortableModule({ module, isSelected, onSelect, onDelete, onDuplicate }:
           </button>
         </div>
         <div className="pointer-events-none select-none overflow-hidden">
-          <ModulePreviewRenderer module={module} />
+          <ModulePreviewRenderer module={module} modules={modules} />
         </div>
       </div>
     </div>
@@ -415,6 +418,7 @@ export function PreviewCanvas({
                           <SortableModule
                             key={module.id}
                             module={module}
+                            modules={modules}
                             isSelected={selectedId === module.id}
                             onSelect={() => onSelect(module.id)}
                             onDelete={() => onDelete(module.id)}

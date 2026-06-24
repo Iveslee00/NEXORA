@@ -14,10 +14,13 @@ import { generateArticleTextHTML } from '@/modules/exporters/articleTextExporter
 import { generateArticleImageHTML } from '@/modules/exporters/articleImageExporter';
 import { generateHeroCarouselHTML, generateHeroCarouselScript } from '@/modules/exporters/heroCarouselExporter';
 import { generateBankPromoHTML } from '@/modules/exporters/bankPromoExporter';
+import { generateAnchorNavHTML } from '@/modules/exporters/anchorNavExporter';
 import { generateCarouselScript } from '@/lib/export/cssGenerator';
+import { getModuleAnchorId } from '@/lib/modules/anchors';
 
-function renderModuleHTML(module: PageModule): string {
-  switch (module.type) {
+function renderModuleHTML(module: PageModule, modules: PageModule[]): string {
+  const raw = (() => {
+    switch (module.type) {
     case 'title':           return generateTitleHTML(module.data);
     case 'hero':            return generateHeroHTML(module.data);
     case 'split-section':   return generateSplitSectionHTML(module.data);
@@ -33,13 +36,19 @@ function renderModuleHTML(module: PageModule): string {
     case 'article-image':   return generateArticleImageHTML(module.data);
     case 'hero-carousel':   return generateHeroCarouselHTML(module.data);
     case 'bank-promo':      return generateBankPromoHTML(module.data);
+    case 'anchor-nav':      return generateAnchorNavHTML(module.data, module.id, modules);
     default:                return '';
-  }
+    }
+  })();
+
+  const anchorName = 'anchorName' in module.data ? module.data.anchorName?.trim() : '';
+  if (!raw || !anchorName || module.type === 'anchor-nav') return raw;
+  return `<div id="${getModuleAnchorId(module.id)}" class="cb-module-anchor">\n${raw}\n</div>`;
 }
 
 export function generatePageHTML(modules: PageModule[]): string {
   if (modules.length === 0) return '<div class="cb-page">\n  <!-- Add modules to get started -->\n</div>';
-  const sectionsHTML = modules.map(renderModuleHTML).filter(Boolean).join('\n\n');
+  const sectionsHTML = modules.map((module) => renderModuleHTML(module, modules)).filter(Boolean).join('\n\n');
   const hasCarousel = modules.some((m) => m.type === 'product-carousel');
   const hasKv = modules.some((m) => m.type === 'hero-carousel');
   const script = [

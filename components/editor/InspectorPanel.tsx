@@ -15,6 +15,7 @@ const moduleLabels: Record<string, string> = {
   'logo-wall': '品牌 Logo 牆', 'cta': '行動呼籲', 'faq': 'FAQ',
   'sticky-sidebar': '浮動工具列', 'article-text': '文章內容',
   'article-image': '文章搭配圖片', 'hero-carousel': 'KV 輪播', 'bank-promo': '銀行優惠',
+  'anchor-nav': '錨點導覽',
   'email-title': '標題', 'email-image': '純圖片', 'email-promo': '活動區塊',
   'email-kv': 'KV 主視覺', 'email-products': '商品', 'email-image-products': '圖片帶商品',
   'email-bank-info': '銀行資訊', 'email-article': '文章', 'email-coupon': '折價券',
@@ -36,6 +37,7 @@ const moduleColors: Record<string, string> = {
   'article-image': 'bg-indigo-600/20 text-indigo-400 border-indigo-600/30',
   'hero-carousel': 'bg-fuchsia-600/20 text-fuchsia-400 border-fuchsia-600/30',
   'bank-promo': 'bg-yellow-600/20 text-yellow-400 border-yellow-600/30',
+  'anchor-nav': 'bg-cyan-600/20 text-cyan-400 border-cyan-600/30',
   // email
   'email-title': 'bg-slate-600/20 text-slate-400 border-slate-600/30',
   'email-image': 'bg-violet-600/20 text-violet-400 border-violet-600/30',
@@ -51,12 +53,13 @@ const moduleColors: Record<string, string> = {
 interface Props {
   pageMode: PageMode;
   module: PageModule | null;
+  modules: PageModule[];
   onChange: (data: PageModule['data']) => void;
   emailModule: EmailPageModule | null;
   onEmailChange: (data: EmailPageModule['data']) => void;
 }
 
-export function InspectorPanel({ pageMode, module, onChange, emailModule, onEmailChange }: Props) {
+export function InspectorPanel({ pageMode, module, modules, onChange, emailModule, onEmailChange }: Props) {
   const isEmail = pageMode === 'email';
   const activeModule = isEmail ? emailModule : module;
 
@@ -92,7 +95,7 @@ export function InspectorPanel({ pageMode, module, onChange, emailModule, onEmai
       <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
         {isEmail
           ? <EmailFormRenderer module={emailModule!} onChange={onEmailChange} />
-          : <FormRenderer module={module!} onChange={onChange} />
+          : <FormRenderer module={module!} modules={modules} onChange={onChange} />
         }
       </div>
     </aside>

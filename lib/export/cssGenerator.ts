@@ -34,6 +34,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   padding-left: 24px; padding-right: 24px;
 }
 .cb-section { padding-top: 80px; padding-bottom: 80px; }
+.cb-module-anchor { scroll-margin-top: 16px; }
 
 /* Buttons */
 .cb-btn {
@@ -48,7 +49,19 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-btn--white:hover { background-color: rgba(255,255,255,0.9); transform: translateY(-1px); }
 
 /* ------------------------------------------------------------
-   3. TITLE BLOCK MODULE
+   3. ANCHOR NAV MODULE
+   ------------------------------------------------------------ */
+.cb-anchor-nav { padding: 18px 0; }
+.cb-anchor-nav__inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.cb-anchor-nav__link {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 36px; padding: 8px 16px; border-radius: 999px;
+  border: 1px solid #dfe3f0; background: #ffffff; color: #1a1a2e;
+  font-size: 14px; font-weight: 700; line-height: 1.2; text-decoration: none;
+}
+
+/* ------------------------------------------------------------
+   4. TITLE BLOCK MODULE
    ------------------------------------------------------------ */
 .cb-title-block { padding: 24px 0 8px; }
 .cb-title-block__cn {

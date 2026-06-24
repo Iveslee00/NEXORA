@@ -34,6 +34,19 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     },
   },
   {
+    type: 'anchor-nav',
+    key: 'anchor-nav',
+    label: '錨點導覽',
+    description: '跳轉到指定模組區塊',
+    icon: 'pin',
+    category: '版面區塊',
+    defaultData: {
+      hiddenTargetIds: [],
+      backgroundColor: '',
+      textColor: '',
+    },
+  },
+  {
     type: 'hero',
     key: 'hero',
     label: 'KV',

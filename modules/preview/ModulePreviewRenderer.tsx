@@ -16,8 +16,9 @@ import { ArticleTextPreview } from './ArticleTextPreview';
 import { ArticleImagePreview } from './ArticleImagePreview';
 import { HeroCarouselPreview } from './HeroCarouselPreview';
 import { BankPromoPreview } from './BankPromoPreview';
+import { AnchorNavPreview } from './AnchorNavPreview';
 
-export function ModulePreviewRenderer({ module }: { module: PageModule }) {
+export function ModulePreviewRenderer({ module, modules = [] }: { module: PageModule; modules?: PageModule[] }) {
   switch (module.type) {
     case 'title':            return <TitlePreview data={module.data} />;
     case 'hero':             return <HeroPreview data={module.data} />;
@@ -34,6 +35,7 @@ export function ModulePreviewRenderer({ module }: { module: PageModule }) {
     case 'article-image':    return <ArticleImagePreview data={module.data} />;
     case 'hero-carousel':    return <HeroCarouselPreview data={module.data} />;
     case 'bank-promo':       return <BankPromoPreview data={module.data} />;
+    case 'anchor-nav':       return <AnchorNavPreview data={module.data} moduleId={module.id} modules={modules} />;
     default:                 return null;
   }
 }

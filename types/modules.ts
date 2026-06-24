@@ -13,11 +13,16 @@ export type ModuleType =
   | 'article-text'
   | 'article-image'
   | 'hero-carousel'
-  | 'bank-promo';
+  | 'bank-promo'
+  | 'anchor-nav';
 
 export interface BaseModule {
   id: string;
   type: ModuleType;
+}
+
+export interface AnchorableData {
+  anchorName?: string;
 }
 
 // ── Shared Product ────────────────────────────────────────────────────────────
@@ -38,7 +43,7 @@ export interface Product {
 // ── Title Block ───────────────────────────────────────────────────────────────
 export type TitleAlignment = 'left' | 'center' | 'right';
 
-export interface TitleData {
+export interface TitleData extends AnchorableData {
   titleCn: string;
   titleEn: string;
   alignment: TitleAlignment;
@@ -56,7 +61,7 @@ export type HeroLayout = 'left-text-right-image' | 'centered';
 export type HeroBackground = 'light' | 'dark' | 'gradient';
 export type ModuleHeight = 'small' | 'medium' | 'large';
 
-export interface HeroData {
+export interface HeroData extends AnchorableData {
   showText: boolean;
   height: ModuleHeight;
   kicker: string;
@@ -79,7 +84,7 @@ export interface HeroModule extends BaseModule {
 }
 
 // ── Split Section ─────────────────────────────────────────────────────────────
-export interface SplitSectionData {
+export interface SplitSectionData extends AnchorableData {
   height: ModuleHeight;
   title: string;
   description: string;
@@ -99,7 +104,7 @@ export interface SplitSectionModule extends BaseModule {
 }
 
 // ── Product Grid ──────────────────────────────────────────────────────────────
-export interface ProductGridData {
+export interface ProductGridData extends AnchorableData {
   products: Product[];
   backgroundColor: string;
   titleColor: string;
@@ -112,7 +117,7 @@ export interface ProductGridModule extends BaseModule {
 }
 
 // ── Banner + Products ─────────────────────────────────────────────────────────
-export interface BannerProductsData {
+export interface BannerProductsData extends AnchorableData {
   layoutLabel: string;
   bannerImage: string;
   mobileBannerImage: string;
@@ -133,7 +138,7 @@ export interface BannerProductsModule extends BaseModule {
 }
 
 // ── Product Banner ────────────────────────────────────────────────────────────
-export interface ProductBannerData {
+export interface ProductBannerData extends AnchorableData {
   height: ModuleHeight;
   kicker: string;
   headline: string;
@@ -161,7 +166,7 @@ export interface ProductBannerModule extends BaseModule {
 }
 
 // ── Product Carousel ──────────────────────────────────────────────────────────
-export interface ProductCarouselData {
+export interface ProductCarouselData extends AnchorableData {
   products: Product[];
   backgroundColor: string;
   titleColor: string;
@@ -181,7 +186,7 @@ export interface LogoItem {
   link: string;
 }
 
-export interface LogoWallData {
+export interface LogoWallData extends AnchorableData {
   logos: LogoItem[];
   backgroundColor: string;
   titleColor: string;
@@ -196,7 +201,7 @@ export interface LogoWallModule extends BaseModule {
 export type CtaAlignment = 'left' | 'center' | 'right';
 export type CtaBackground = 'light' | 'dark' | 'gradient';
 
-export interface CtaData {
+export interface CtaData extends AnchorableData {
   title: string;
   subtitle: string;
   buttonText: string;
@@ -220,7 +225,7 @@ export interface FaqItem {
   answer: string;
 }
 
-export interface FaqData {
+export interface FaqData extends AnchorableData {
   items: FaqItem[];
   backgroundColor: string;
   titleColor: string;
@@ -241,7 +246,7 @@ export interface StickyItem {
   bgColor: string;
 }
 
-export interface StickySidebarData {
+export interface StickySidebarData extends AnchorableData {
   items: StickyItem[];
   position: 'right' | 'left';
 }
@@ -252,7 +257,7 @@ export interface StickySidebarModule extends BaseModule {
 }
 
 // ── Article Text ──────────────────────────────────────────────────────────────
-export interface ArticleTextData {
+export interface ArticleTextData extends AnchorableData {
   eyebrow: string;
   title: string;
   subtitle: string;
@@ -271,7 +276,7 @@ export interface ArticleTextModule extends BaseModule {
 }
 
 // ── Article Image ─────────────────────────────────────────────────────────────
-export interface ArticleImageData {
+export interface ArticleImageData extends AnchorableData {
   eyebrow: string;
   title: string;
   subtitle: string;
@@ -311,7 +316,7 @@ export interface KvSlide {
 
 export type KvHeight = ModuleHeight;
 
-export interface HeroCarouselData {
+export interface HeroCarouselData extends AnchorableData {
   slides: KvSlide[];
   height: KvHeight;
   autoPlay: boolean;
@@ -334,7 +339,7 @@ export interface BankPromoItem {
   accentColor: string;
 }
 
-export interface BankPromoData {
+export interface BankPromoData extends AnchorableData {
   title: string;
   subtitle: string;
   items: BankPromoItem[];
@@ -349,6 +354,18 @@ export interface BankPromoData {
 export interface BankPromoModule extends BaseModule {
   type: 'bank-promo';
   data: BankPromoData;
+}
+
+// ── Anchor Navigation ────────────────────────────────────────────────────────
+export interface AnchorNavData {
+  hiddenTargetIds: string[];
+  backgroundColor: string;
+  textColor: string;
+}
+
+export interface AnchorNavModule extends BaseModule {
+  type: 'anchor-nav';
+  data: AnchorNavData;
 }
 
 // ── Union & Export ────────────────────────────────────────────────────────────
@@ -367,7 +384,8 @@ export type PageModule =
   | ArticleTextModule
   | ArticleImageModule
   | HeroCarouselModule
-  | BankPromoModule;
+  | BankPromoModule
+  | AnchorNavModule;
 
 export interface ExportedCode {
   html: string;

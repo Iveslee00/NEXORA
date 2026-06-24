@@ -1,5 +1,6 @@
 'use client';
 
+import type React from 'react';
 import { PageModule } from '@/types/modules';
 import { TitleForm } from './TitleForm';
 import { HeroForm } from './HeroForm';
@@ -16,45 +17,80 @@ import { ArticleTextForm } from './ArticleTextForm';
 import { ArticleImageForm } from './ArticleImageForm';
 import { HeroCarouselForm } from './HeroCarouselForm';
 import { BankPromoForm } from './BankPromoForm';
+import { AnchorNavForm } from './AnchorNavForm';
+import { FormField } from '@/components/ui/FormField';
 
 interface Props {
   module: PageModule;
+  modules: PageModule[];
   onChange: (data: PageModule['data']) => void;
 }
 
-export function FormRenderer({ module, onChange }: Props) {
+export function FormRenderer({ module, modules, onChange }: Props) {
+  if (module.type === 'anchor-nav') {
+    return <AnchorNavForm data={module.data} moduleId={module.id} modules={modules} onChange={onChange as (d: typeof module.data) => void} />;
+  }
+
+  const anchorName = 'anchorName' in module.data ? module.data.anchorName ?? '' : '';
+  const updateAnchorName = (value: string) => onChange({ ...module.data, anchorName: value } as PageModule['data']);
+  const anchorField = (
+    <>
+      <FormField label="錨點名稱" value={anchorName} onChange={updateAnchorName} placeholder="例如：熱銷商品、活動說明" />
+      <p className="-mt-2 text-xs leading-relaxed text-slate-500">填寫後可被「錨點導覽」模組列為跳轉按鈕。</p>
+      <div className="h-px bg-slate-700/60" />
+    </>
+  );
+
+  let form: React.ReactNode = null;
   switch (module.type) {
     case 'title':
-      return <TitleForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <TitleForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'hero':
-      return <HeroForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <HeroForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'split-section':
-      return <SplitSectionForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <SplitSectionForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'product-grid':
-      return <ProductGridForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <ProductGridForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'banner-products':
-      return <BannerProductsForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <BannerProductsForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'product-banner':
-      return <ProductBannerForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <ProductBannerForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'product-carousel':
-      return <ProductCarouselForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <ProductCarouselForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'logo-wall':
-      return <LogoWallForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <LogoWallForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'cta':
-      return <CtaForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <CtaForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'faq':
-      return <FaqForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <FaqForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'sticky-sidebar':
-      return <StickySidebarForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <StickySidebarForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'article-text':
-      return <ArticleTextForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <ArticleTextForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'article-image':
-      return <ArticleImageForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <ArticleImageForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'hero-carousel':
-      return <HeroCarouselForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <HeroCarouselForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     case 'bank-promo':
-      return <BankPromoForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      form = <BankPromoForm data={module.data} onChange={onChange as (d: typeof module.data) => void} />;
+      break;
     default:
       return null;
   }
+
+  return <div className="space-y-4">{anchorField}{form}</div>;
 }

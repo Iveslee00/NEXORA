@@ -9,6 +9,7 @@ import { DeviceContext } from '@/contexts/DeviceContext';
 import { useGlobalSettings } from '@/contexts/GlobalSettingsContext';
 import { useEmailSettings } from '@/contexts/EmailSettingsContext';
 import { PageMode } from '@/app/page';
+import { getModuleAnchorId } from '@/lib/modules/anchors';
 import { X, Camera, Monitor, Smartphone } from 'lucide-react';
 
 type DeviceMode = 'desktop' | 'mobile';
@@ -55,6 +56,9 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
 
   const isEmail = pageMode === 'email';
   const isMobile = deviceMode === 'mobile';
+  const getPreviewAnchorId = (module: PageModule) => (
+    'anchorName' in module.data && module.data.anchorName ? getModuleAnchorId(module.id) : undefined
+  );
 
   const handleScreenshot = useCallback(async () => {
     if (!contentRef.current || capturing) return;
@@ -196,7 +200,9 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
                     }}
                   >
                     {modules.map((module) => (
-                      <ModulePreviewRenderer key={module.id} module={module} />
+                      <div key={module.id} id={getPreviewAnchorId(module)}>
+                        <ModulePreviewRenderer module={module} modules={modules} />
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -210,7 +216,9 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
                 }}
               >
                 {modules.map((module) => (
-                  <ModulePreviewRenderer key={module.id} module={module} />
+                  <div key={module.id} id={getPreviewAnchorId(module)}>
+                    <ModulePreviewRenderer module={module} modules={modules} />
+                  </div>
                 ))}
               </div>
             )}
