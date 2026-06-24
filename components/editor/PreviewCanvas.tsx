@@ -10,6 +10,7 @@ import { useGlobalSettings } from '@/contexts/GlobalSettingsContext';
 import { useEmailSettings } from '@/contexts/EmailSettingsContext';
 import { PageMode } from '@/app/page';
 import { getBannerProductsLayoutLabel } from '@/lib/modules/bannerProducts';
+import { SizeSpecGuide } from './SizeSpecGuide';
 import {
   DndContext,
   closestCenter,
@@ -26,7 +27,7 @@ import {
   useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { GripVertical, Trash2, Copy, LayoutTemplate, Monitor, Smartphone, Mail } from 'lucide-react';
+import { GripVertical, Trash2, Copy, LayoutTemplate, Monitor, Smartphone, Mail, Ruler } from 'lucide-react';
 
 // ── Campaign module labels ────────────────────────────────────────────────────
 const campaignLabels: Record<string, string> = {
@@ -215,6 +216,7 @@ export function PreviewCanvas({
   emailModules, selectedEmailId,
   onEmailSelect, onEmailDelete, onEmailDuplicate, onEmailReorder,
 }: Props) {
+  const [specOpen, setSpecOpen] = React.useState(false);
   const { pageBackgroundColor, pageBackgroundImage } = useGlobalSettings();
   const emailSettings = useEmailSettings();
 
@@ -278,27 +280,38 @@ export function PreviewCanvas({
         </span>
         {/* Device toggle — campaign only */}
         {!isEmail && (
-          <div className="flex items-center gap-0.5 bg-slate-800 rounded-lg p-0.5 border border-slate-700">
+          <div className="flex items-center gap-2">
             <button
-              onClick={() => onDeviceChange('desktop')}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                !isMobile ? 'bg-slate-600 text-slate-100' : 'text-slate-500 hover:text-slate-300'
-              }`}
+              type="button"
+              onClick={() => setSpecOpen(true)}
+              className="flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-slate-500 hover:text-slate-100"
             >
-              <Monitor size={13} />
-              <span>桌機</span>
+              <Ruler size={13} />
+              <span>尺寸規格</span>
             </button>
-            <button
-              onClick={() => onDeviceChange('mobile')}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                isMobile ? 'bg-slate-600 text-slate-100' : 'text-slate-500 hover:text-slate-300'
-              }`}
-            >
-              <Smartphone size={13} />
-              <span>手機</span>
-            </button>
+            <div className="flex items-center gap-0.5 bg-slate-800 rounded-lg p-0.5 border border-slate-700">
+              <button
+                onClick={() => onDeviceChange('desktop')}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  !isMobile ? 'bg-slate-600 text-slate-100' : 'text-slate-500 hover:text-slate-300'
+                }`}
+              >
+                <Monitor size={13} />
+                <span>桌機</span>
+              </button>
+              <button
+                onClick={() => onDeviceChange('mobile')}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  isMobile ? 'bg-slate-600 text-slate-100' : 'text-slate-500 hover:text-slate-300'
+                }`}
+              >
+                <Smartphone size={13} />
+                <span>手機</span>
+              </button>
+            </div>
           </div>
         )}
+        {specOpen && <SizeSpecGuide onClose={() => setSpecOpen(false)} />}
       </div>
 
       {/* ── Email canvas ──────────────────────────────────────────────────── */}
