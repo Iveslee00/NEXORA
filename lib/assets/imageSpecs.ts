@@ -5,12 +5,16 @@ export interface ImageSpec {
 
 export const IMAGE_SPECS = {
   hero: { width: 800, height: 500 },
+  heroMobile: { width: 750, height: 900 },
   split: { width: 600, height: 450 },
   product: { width: 400, height: 400 },
   bannerProducts: { width: 500, height: 600 },
+  bannerProductsMobile: { width: 750, height: 900 },
   productBanner: { width: 700, height: 600 },
+  productBannerMobile: { width: 750, height: 900 },
   article: { width: 800, height: 500 },
   kv: { width: 1200, height: 600 },
+  kvMobile: { width: 750, height: 1000 },
   logo: { width: 160, height: 60 },
   bankLogo: { width: 160, height: 60 },
 } as const;

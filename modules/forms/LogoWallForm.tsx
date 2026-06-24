@@ -14,7 +14,7 @@ export function LogoWallForm({ data, onChange }: Props) {
   };
 
   const addLogo = () => {
-    const newLogo: LogoItem = { id: generateId(), image: 'https://placehold.co/160x60/f0f0f8/6366f1?text=Brand', alt: 'Brand Name', link: '#' };
+    const newLogo: LogoItem = { id: generateId(), image: 'https://placehold.co/160x60/f0f0f8/6366f1?text=品牌', alt: '品牌名稱', link: '#' };
     onChange({ ...data, logos: [...data.logos, newLogo] });
   };
 
@@ -26,9 +26,9 @@ export function LogoWallForm({ data, onChange }: Props) {
     <div className="space-y-4">
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Logos ({data.logos.length})</span>
+          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Logo（{data.logos.length}）</span>
           <button onClick={addLogo} className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
-            <Plus size={13} /> Add
+            <Plus size={13} /> 新增
           </button>
         </div>
         {data.logos.map((logo, idx) => (
@@ -37,16 +37,16 @@ export function LogoWallForm({ data, onChange }: Props) {
               <span className="text-xs text-slate-400">Logo {idx + 1}</span>
               <button onClick={() => removeLogo(logo.id)} className="text-slate-500 hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
             </div>
-            <FormField label="Alt Text" value={logo.alt} onChange={(v) => updateLogo(logo.id, 'alt', v)} placeholder="Brand name" />
-            <FormField label="Link" value={logo.link} onChange={(v) => updateLogo(logo.id, 'link', v)} type="url" placeholder="https://" />
+            <FormField label="替代文字" value={logo.alt} onChange={(v) => updateLogo(logo.id, 'alt', v)} placeholder="品牌名稱" />
+            <FormField label="連結" value={logo.link} onChange={(v) => updateLogo(logo.id, 'link', v)} type="url" placeholder="https://" />
             <ImageField label="Logo 圖片" value={logo.image} onChange={(v) => updateLogo(logo.id, 'image', v)} spec={IMAGE_SPECS.logo} />
           </div>
         ))}
       </div>
       <div className="h-px bg-slate-700/60" />
-      <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Colors</p>
-      <ColorField label="Background" value={data.backgroundColor} onChange={(v) => onChange({ ...data, backgroundColor: v })} />
-      <ColorField label="Title Color" value={data.titleColor} onChange={(v) => onChange({ ...data, titleColor: v })} />
+      <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">顏色設定</p>
+      <ColorField label="背景色" value={data.backgroundColor} onChange={(v) => onChange({ ...data, backgroundColor: v })} />
+      <ColorField label="標題色" value={data.titleColor} onChange={(v) => onChange({ ...data, titleColor: v })} />
     </div>
   );
 }

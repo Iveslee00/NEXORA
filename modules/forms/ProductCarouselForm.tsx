@@ -19,10 +19,10 @@ export function ProductCarouselForm({ data, onChange }: Props) {
   const addProduct = () => {
     const newProduct: Product = {
       id: generateId(),
-      image: 'https://placehold.co/400x400/f0f0f8/6366f1?text=New',
-      brand: 'Brand Name', name: 'New Product',
+      image: 'https://placehold.co/400x400/f0f0f8/6366f1?text=新商品',
+      brand: '品牌名稱', name: '新商品',
       originalPrice: '$0.00', salePrice: '',
-      link: '#', showBadge: false, badgeText: 'NEW',
+      link: '#', showBadge: false, badgeText: '新品',
       showSpecialTag: false, specialTag: '',
     };
     onChange({ ...data, products: [...data.products, newProduct] });
@@ -38,9 +38,9 @@ export function ProductCarouselForm({ data, onChange }: Props) {
     <div className="space-y-4">
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Products ({data.products.length})</span>
+          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">商品（{data.products.length}）</span>
           <button onClick={addProduct} className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
-            <Plus size={13} /> Add
+            <Plus size={13} /> 新增
           </button>
         </div>
         {data.products.map((product, idx) => (
@@ -54,7 +54,7 @@ export function ProductCarouselForm({ data, onChange }: Props) {
                   <img src={product.image} alt="" className="w-7 h-7 rounded object-cover flex-shrink-0 border border-slate-700"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                 )}
-                <span className="text-sm text-slate-300 truncate">{product.name || `Product ${idx + 1}`}</span>
+                <span className="text-sm text-slate-300 truncate">{product.name || `商品 ${idx + 1}`}</span>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0 ml-2">
                 <button onClick={(e) => { e.stopPropagation(); removeProduct(product.id); }} className="text-slate-500 hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
@@ -64,17 +64,17 @@ export function ProductCarouselForm({ data, onChange }: Props) {
             {expanded === product.id && (
               <div className="px-3 pb-3 border-t border-slate-700/60">
                 <div className="pt-3 space-y-3">
-                  <FormField label="品牌 Brand" value={product.brand} onChange={(v) => updateProduct(product.id, 'brand', v)} placeholder="Brand Name" />
-                  <FormField label="品名 Name" value={product.name} onChange={(v) => updateProduct(product.id, 'name', v)} placeholder="Product name" />
+                  <FormField label="品牌" value={product.brand} onChange={(v) => updateProduct(product.id, 'brand', v)} placeholder="品牌名稱" />
+                  <FormField label="品名" value={product.name} onChange={(v) => updateProduct(product.id, 'name', v)} placeholder="商品名稱" />
                   <div className="grid grid-cols-2 gap-2">
                     <FormField label="原價" value={product.originalPrice} onChange={(v) => updateProduct(product.id, 'originalPrice', v)} placeholder="$0.00" />
                     <FormField label="特價" value={product.salePrice} onChange={(v) => updateProduct(product.id, 'salePrice', v)} placeholder="$0.00" />
                   </div>
-                  <FormField label="Link" value={product.link} onChange={(v) => updateProduct(product.id, 'link', v)} type="url" placeholder="https://" />
+                  <FormField label="連結" value={product.link} onChange={(v) => updateProduct(product.id, 'link', v)} type="url" placeholder="https://" />
                   <ImageField label="商品圖片" value={product.image} onChange={(v) => updateProduct(product.id, 'image', v)} spec={IMAGE_SPECS.product} />
-                  <ToggleField label="顯示 Badge" value={product.showBadge} onChange={(v) => updateProduct(product.id, 'showBadge', v)} />
+                  <ToggleField label="顯示標籤" value={product.showBadge} onChange={(v) => updateProduct(product.id, 'showBadge', v)} />
                   {product.showBadge && (
-                    <FormField label="Badge Text" value={product.badgeText} onChange={(v) => updateProduct(product.id, 'badgeText', v)} placeholder="特賣 / NEW / HOT" />
+                    <FormField label="標籤文字" value={product.badgeText} onChange={(v) => updateProduct(product.id, 'badgeText', v)} placeholder="特賣 / 新品 / 熱銷" />
                   )}
                   <ToggleField label="顯示特標" value={product.showSpecialTag} onChange={(v) => updateProduct(product.id, 'showSpecialTag', v)} />
                   {product.showSpecialTag && (

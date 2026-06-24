@@ -45,9 +45,9 @@ export function BankPromoForm({ data, onChange }: Props) {
       {/* Items */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Cards ({data.items.length})</span>
+          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">卡片（{data.items.length}）</span>
           <button onClick={addItem} className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
-            <Plus size={13} /> Add
+            <Plus size={13} /> 新增
           </button>
         </div>
         {data.items.map((item, idx) => (

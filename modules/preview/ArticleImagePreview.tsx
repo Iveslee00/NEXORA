@@ -3,7 +3,7 @@
 import { ArticleImageData } from '@/types/modules';
 import { useDevice } from '@/contexts/DeviceContext';
 
-const PLACEHOLDER = 'https://placehold.co/800x500/e8e8f8/6366f1?text=Article+Image';
+const PLACEHOLDER = 'https://placehold.co/800x500/e8e8f8/6366f1?text=文章圖片';
 
 export function ArticleImagePreview({ data }: { data: ArticleImageData }) {
   const { isMobile } = useDevice();

@@ -130,13 +130,13 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
                 onClick={() => setDeviceMode('desktop')}
                 className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${!isMobile ? 'bg-slate-600 text-slate-100' : 'text-slate-500 hover:text-slate-300'}`}
               >
-                <Monitor size={13} /><span>Desktop</span>
+                <Monitor size={13} /><span>桌機</span>
               </button>
               <button
                 onClick={() => setDeviceMode('mobile')}
                 className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${isMobile ? 'bg-slate-600 text-slate-100' : 'text-slate-500 hover:text-slate-300'}`}
               >
-                <Smartphone size={13} /><span>Mobile</span>
+                <Smartphone size={13} /><span>手機</span>
               </button>
             </div>
           )}

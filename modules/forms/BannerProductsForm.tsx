@@ -19,10 +19,10 @@ export function BannerProductsForm({ data, onChange }: Props) {
   const addProduct = () => {
     const newProduct: Product = {
       id: generateId(),
-      image: 'https://placehold.co/400x400/f0f0f8/6366f1?text=New',
-      brand: 'Brand Name', name: 'New Product',
+      image: 'https://placehold.co/400x400/f0f0f8/6366f1?text=新商品',
+      brand: '品牌名稱', name: '新商品',
       originalPrice: '$0.00', salePrice: '',
-      link: '#', showBadge: false, badgeText: 'NEW',
+      link: '#', showBadge: false, badgeText: '新品',
       showSpecialTag: false, specialTag: '',
     };
     onChange({ ...data, products: [...data.products, newProduct] });
@@ -37,17 +37,21 @@ export function BannerProductsForm({ data, onChange }: Props) {
   return (
     <div className="space-y-4">
       {/* Banner fields */}
-      <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Banner</p>
+      <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">活動 Banner</p>
       <FormField label="模組標示" value={data.layoutLabel} onChange={(v) => onChange({ ...data, layoutLabel: v })} placeholder={`Banner + ${data.products.length || 1} 品`} />
-      <FormField label="Banner Title" value={data.bannerTitle} onChange={(v) => onChange({ ...data, bannerTitle: v })} placeholder="Campaign Title" />
-      <FormField label="Banner Subtitle" value={data.bannerSubtitle} onChange={(v) => onChange({ ...data, bannerSubtitle: v })} placeholder="Limited time offer" />
-      <FormField label="Banner Link" value={data.bannerLink} onChange={(v) => onChange({ ...data, bannerLink: v })} type="url" placeholder="https://" />
-      <ImageField label="活動 Banner 圖片" value={data.bannerImage} onChange={(v) => onChange({ ...data, bannerImage: v })} spec={IMAGE_SPECS.bannerProducts} />
-      <ColorField label="Banner Title Color" value={data.bannerTitleColor} onChange={(v) => onChange({ ...data, bannerTitleColor: v })} />
+      <FormField label="Banner 標題" value={data.bannerTitle} onChange={(v) => onChange({ ...data, bannerTitle: v })} placeholder="活動主標" />
+      <FormField label="Banner 副標" value={data.bannerSubtitle} onChange={(v) => onChange({ ...data, bannerSubtitle: v })} placeholder="限時優惠" />
+      <FormField label="Banner 連結" value={data.bannerLink} onChange={(v) => onChange({ ...data, bannerLink: v })} type="url" placeholder="https://" />
+      <ImageField label="活動 Banner 圖片（PC）" value={data.bannerImage} onChange={(v) => onChange({ ...data, bannerImage: v })} spec={IMAGE_SPECS.bannerProducts} />
+      <button type="button" onClick={() => onChange({ ...data, mobileBannerImage: data.bannerImage })} className="text-xs font-semibold text-indigo-400 transition-colors hover:text-indigo-300">
+        同 PC 視覺
+      </button>
+      <ImageField label="活動 Banner 圖片（M）" value={data.mobileBannerImage ?? ''} onChange={(v) => onChange({ ...data, mobileBannerImage: v })} spec={IMAGE_SPECS.bannerProductsMobile} />
+      <ColorField label="Banner 標題色" value={data.bannerTitleColor} onChange={(v) => onChange({ ...data, bannerTitleColor: v })} />
       <SegmentedField
-        label="Background"
+        label="背景樣式"
         value={data.backgroundStyle}
-        options={[{ value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' }, { value: 'gradient', label: 'Gradient' }]}
+        options={[{ value: 'light', label: '淺色' }, { value: 'dark', label: '深色' }, { value: 'gradient', label: '漸層' }]}
         onChange={(v) => onChange({ ...data, backgroundStyle: v as BannerProductsData['backgroundStyle'] })}
       />
 
@@ -56,9 +60,9 @@ export function BannerProductsForm({ data, onChange }: Props) {
       {/* Product list */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Products ({data.products.length})</span>
+          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">商品（{data.products.length}）</span>
           <button onClick={addProduct} className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
-            <Plus size={13} /> Add
+            <Plus size={13} /> 新增
           </button>
         </div>
         {data.products.map((product, idx) => (
@@ -75,7 +79,7 @@ export function BannerProductsForm({ data, onChange }: Props) {
                     <img src={product.image} alt="" className="w-7 h-7 rounded object-cover flex-shrink-0 border border-slate-700"
                       onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                   )}
-                  <span className="text-sm text-slate-300 truncate">{product.name || `Product ${idx + 1}`}</span>
+                  <span className="text-sm text-slate-300 truncate">{product.name || `商品 ${idx + 1}`}</span>
                 </span>
               </button>
               <div className="flex items-center gap-2 flex-shrink-0 ml-2">
@@ -84,7 +88,7 @@ export function BannerProductsForm({ data, onChange }: Props) {
                   onClick={() => removeProduct(product.id)}
                   disabled={data.products.length <= 1}
                   className="text-slate-500 hover:text-red-400 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:text-slate-500 transition-colors"
-                  aria-label={`刪除 ${product.name || `Product ${idx + 1}`}`}
+                  aria-label={`刪除 ${product.name || `商品 ${idx + 1}`}`}
                   title={data.products.length <= 1 ? '至少保留 1 個商品' : '刪除商品'}
                 >
                   <Trash2 size={13} />
@@ -95,17 +99,17 @@ export function BannerProductsForm({ data, onChange }: Props) {
             {expanded === product.id && (
               <div className="px-3 pb-3 border-t border-slate-700/60">
                 <div className="pt-3 space-y-3">
-                  <FormField label="品牌 Brand" value={product.brand} onChange={(v) => updateProduct(product.id, 'brand', v)} placeholder="Brand Name" />
-                  <FormField label="品名 Name" value={product.name} onChange={(v) => updateProduct(product.id, 'name', v)} placeholder="Product name" />
+                  <FormField label="品牌" value={product.brand} onChange={(v) => updateProduct(product.id, 'brand', v)} placeholder="品牌名稱" />
+                  <FormField label="品名" value={product.name} onChange={(v) => updateProduct(product.id, 'name', v)} placeholder="商品名稱" />
                   <div className="grid grid-cols-2 gap-2">
                     <FormField label="原價" value={product.originalPrice} onChange={(v) => updateProduct(product.id, 'originalPrice', v)} placeholder="$0.00" />
                     <FormField label="特價" value={product.salePrice} onChange={(v) => updateProduct(product.id, 'salePrice', v)} placeholder="$0.00" />
                   </div>
-                  <FormField label="Link" value={product.link} onChange={(v) => updateProduct(product.id, 'link', v)} type="url" placeholder="https://" />
+                  <FormField label="連結" value={product.link} onChange={(v) => updateProduct(product.id, 'link', v)} type="url" placeholder="https://" />
                   <ImageField label="商品圖片" value={product.image} onChange={(v) => updateProduct(product.id, 'image', v)} spec={IMAGE_SPECS.product} />
-                  <ToggleField label="顯示 Badge" value={product.showBadge} onChange={(v) => updateProduct(product.id, 'showBadge', v)} />
+                  <ToggleField label="顯示標籤" value={product.showBadge} onChange={(v) => updateProduct(product.id, 'showBadge', v)} />
                   {product.showBadge && (
-                    <FormField label="Badge Text" value={product.badgeText} onChange={(v) => updateProduct(product.id, 'badgeText', v)} placeholder="特賣 / NEW" />
+                    <FormField label="標籤文字" value={product.badgeText} onChange={(v) => updateProduct(product.id, 'badgeText', v)} placeholder="特賣 / 新品" />
                   )}
                   <ToggleField label="顯示特標" value={product.showSpecialTag} onChange={(v) => updateProduct(product.id, 'showSpecialTag', v)} />
                   {product.showSpecialTag && (

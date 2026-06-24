@@ -16,9 +16,9 @@ export function ArticleTextForm({ data, onChange }: Props) {
       <FormField label="作者" value={data.author} onChange={(v) => onChange({ ...data, author: v })} placeholder="作者姓名" />
       <FormField label="日期" value={data.date} onChange={(v) => onChange({ ...data, date: v })} placeholder="2024-01-01" />
       <SegmentedField
-        label="Alignment"
+        label="對齊"
         value={data.alignment}
-        options={[{ value: 'left', label: 'Left' }, { value: 'center', label: 'Center' }]}
+        options={[{ value: 'left', label: '左' }, { value: 'center', label: '中' }]}
         onChange={(v) => onChange({ ...data, alignment: v as ArticleTextData['alignment'] })}
       />
       <div className="h-px bg-slate-700/60" />

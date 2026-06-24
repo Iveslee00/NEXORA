@@ -16,7 +16,7 @@ export function FaqForm({ data, onChange }: Props) {
   };
 
   const addItem = () => {
-    const newItem: FaqItem = { id: generateId(), question: 'New Question', answer: 'Answer goes here.' };
+    const newItem: FaqItem = { id: generateId(), question: '新的常見問題', answer: '請在這裡填寫回答內容。' };
     onChange({ ...data, items: [...data.items, newItem] });
     setExpanded(newItem.id);
   };
@@ -32,7 +32,7 @@ export function FaqForm({ data, onChange }: Props) {
         <div className="flex items-center justify-between">
           <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Questions ({data.items.length})</span>
           <button onClick={addItem} className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
-            <Plus size={13} /> Add
+            <Plus size={13} /> 新增
           </button>
         </div>
         {data.items.map((item, idx) => (
@@ -41,7 +41,7 @@ export function FaqForm({ data, onChange }: Props) {
               onClick={() => setExpanded(expanded === item.id ? null : item.id)}
               className="w-full flex items-center justify-between px-3 py-2.5 text-left hover:bg-slate-800/50 transition-colors"
             >
-              <span className="text-sm text-slate-300 truncate">{item.question || `Question ${idx + 1}`}</span>
+              <span className="text-sm text-slate-300 truncate">{item.question || `問題 ${idx + 1}`}</span>
               <div className="flex items-center gap-2 flex-shrink-0 ml-2">
                 <button onClick={(e) => { e.stopPropagation(); removeItem(item.id); }} className="text-slate-500 hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
                 {expanded === item.id ? <ChevronUp size={13} className="text-slate-500" /> : <ChevronDown size={13} className="text-slate-500" />}
@@ -50,8 +50,8 @@ export function FaqForm({ data, onChange }: Props) {
             {expanded === item.id && (
               <div className="px-3 pb-3 border-t border-slate-700/60">
                 <div className="pt-3 space-y-3">
-                  <FormField label="Question" value={item.question} onChange={(v) => updateItem(item.id, 'question', v)} type="textarea" rows={2} />
-                  <FormField label="Answer" value={item.answer} onChange={(v) => updateItem(item.id, 'answer', v)} type="textarea" rows={4} />
+                  <FormField label="問題" value={item.question} onChange={(v) => updateItem(item.id, 'question', v)} type="textarea" rows={2} />
+                  <FormField label="回答" value={item.answer} onChange={(v) => updateItem(item.id, 'answer', v)} type="textarea" rows={4} />
                 </div>
               </div>
             )}

@@ -136,7 +136,7 @@ export default function Page() {
   return (
     <GlobalSettingsContext.Provider value={{ buttonColor, setButtonColor, pageBackgroundColor, setPageBackgroundColor, pageBackgroundImage, setPageBackgroundImage }}>
       <EmailSettingsContext.Provider value={{ ...emailSettings, update: updateEmailSettings }}>
-        <div className="flex flex-col h-screen overflow-hidden bg-slate-950">
+        <div className="flex h-screen min-h-screen flex-col overflow-hidden bg-slate-950">
           {/* Top bar */}
           <header className="flex-shrink-0 flex items-center justify-between px-5 py-3 bg-slate-900 border-b border-slate-800 z-20">
             <div className="flex items-center gap-3">
@@ -166,7 +166,7 @@ export default function Page() {
           </header>
 
           {/* Three-column layout */}
-          <div className="flex flex-1 overflow-hidden">
+          <div className="flex min-h-0 flex-1 overflow-hidden">
             <ModuleLibrary
               pageMode={pageMode}
               onAdd={addModule}

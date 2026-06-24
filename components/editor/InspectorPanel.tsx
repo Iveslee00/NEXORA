@@ -62,13 +62,13 @@ export function InspectorPanel({ pageMode, module, onChange, emailModule, onEmai
 
   if (!activeModule) {
     return (
-      <aside className="w-72 flex-shrink-0 bg-slate-900 border-l border-slate-800 flex items-center justify-center">
+      <aside className="flex h-full min-h-0 w-72 flex-shrink-0 items-center justify-center border-l border-slate-800 bg-slate-900">
         <div className="text-center px-6 space-y-3">
           <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center mx-auto">
             <MousePointerClick size={18} className="text-slate-500" />
           </div>
           <div>
-            <p className="text-slate-400 text-sm font-medium">Nothing selected</p>
+            <p className="text-slate-400 text-sm font-medium">尚未選取模組</p>
             <p className="text-slate-600 text-xs mt-1 leading-relaxed">點擊模組來編輯內容<br/>全站設定請見左下角</p>
           </div>
         </div>
@@ -82,14 +82,14 @@ export function InspectorPanel({ pageMode, module, onChange, emailModule, onEmai
   const colorClass = moduleColors[activeModule.type] ?? 'bg-slate-700 text-slate-300 border-slate-600';
 
   return (
-    <aside className="w-72 flex-shrink-0 bg-slate-900 border-l border-slate-800 flex flex-col overflow-hidden">
+    <aside className="flex h-full min-h-0 w-72 flex-shrink-0 flex-col overflow-hidden border-l border-slate-800 bg-slate-900">
       <div className="px-4 py-4 border-b border-slate-800 flex items-center gap-3">
         <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold border ${colorClass}`}>
           {label}
         </span>
-        <span className="text-xs text-slate-500">Properties</span>
+        <span className="text-xs text-slate-500">設定</span>
       </div>
-      <div className="flex-1 overflow-y-auto px-4 py-4">
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
         {isEmail
           ? <EmailFormRenderer module={emailModule!} onChange={onEmailChange} />
           : <FormRenderer module={module!} onChange={onChange} />

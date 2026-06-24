@@ -19,7 +19,7 @@ export function TitlePreview({ data }: { data: TitleData }) {
           {data.titleCn || '主要標題'}
         </span>
         <span style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#1a1a2e', opacity: 0.4, marginTop: '6px', ...titleStyle }}>
-          {data.titleEn || 'Section Heading'}
+          {data.titleEn || '活動副標'}
         </span>
       </div>
     </div>

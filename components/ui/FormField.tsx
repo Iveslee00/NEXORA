@@ -124,7 +124,7 @@ interface ColorFieldProps {
   placeholder?: string;
 }
 
-export function ColorField({ label, value, onChange, placeholder = 'Auto' }: ColorFieldProps) {
+export function ColorField({ label, value, onChange, placeholder = '自動' }: ColorFieldProps) {
   const displayColor = value || '#ffffff';
 
   return (
@@ -166,7 +166,7 @@ export function ColorField({ label, value, onChange, placeholder = 'Auto' }: Col
             type="button"
             onClick={() => onChange('')}
             className="flex-shrink-0 text-xs text-slate-500 hover:text-slate-300 transition-colors px-1"
-            title="Reset to auto"
+            title="重設為自動"
           >
             ✕
           </button>
@@ -189,12 +189,12 @@ interface ColorSectionProps {
 export function ColorSection({ titleColor, textColor, onTitleColorChange, onTextColorChange, backgroundColor, onBackgroundColorChange }: ColorSectionProps) {
   return (
     <div className="space-y-3">
-      <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Colors</p>
+      <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">顏色設定</p>
       {onBackgroundColorChange !== undefined && (
-        <ColorField label="Background" value={backgroundColor ?? ''} onChange={onBackgroundColorChange} />
+        <ColorField label="背景色" value={backgroundColor ?? ''} onChange={onBackgroundColorChange} />
       )}
-      <ColorField label="Title Color" value={titleColor} onChange={onTitleColorChange} />
-      <ColorField label="Body / Text Color" value={textColor} onChange={onTextColorChange} />
+      <ColorField label="標題色" value={titleColor} onChange={onTitleColorChange} />
+      <ColorField label="內文字色" value={textColor} onChange={onTextColorChange} />
     </div>
   );
 }

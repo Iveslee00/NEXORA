@@ -103,10 +103,10 @@ function SortableModule({ module, isSelected, onSelect, onDelete, onDuplicate }:
         <div className={`absolute top-2 right-2 z-10 flex gap-1 transition-opacity ${
           isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
         }`}>
-          <button onClick={(e) => { e.stopPropagation(); onDuplicate(); }} className="p-1.5 rounded bg-slate-800/90 text-slate-400 hover:text-slate-200 hover:bg-slate-700 transition-colors" title="Duplicate">
+          <button onClick={(e) => { e.stopPropagation(); onDuplicate(); }} className="p-1.5 rounded bg-slate-800/90 text-slate-400 hover:text-slate-200 hover:bg-slate-700 transition-colors" title="複製">
             <Copy size={13} />
           </button>
-          <button onClick={(e) => { e.stopPropagation(); onDelete(); }} className="p-1.5 rounded bg-slate-800/90 text-slate-400 hover:text-red-400 hover:bg-slate-700 transition-colors" title="Delete">
+          <button onClick={(e) => { e.stopPropagation(); onDelete(); }} className="p-1.5 rounded bg-slate-800/90 text-slate-400 hover:text-red-400 hover:bg-slate-700 transition-colors" title="刪除">
             <Trash2 size={13} />
           </button>
         </div>
@@ -171,10 +171,10 @@ function SortableEmailModule({ module, isSelected, onSelect, onDelete, onDuplica
         <div className={`absolute top-2 right-2 z-10 flex gap-1 transition-opacity ${
           isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
         }`}>
-          <button onClick={(e) => { e.stopPropagation(); onDuplicate(); }} className="p-1.5 rounded bg-slate-800/90 text-slate-400 hover:text-slate-200 hover:bg-slate-700 transition-colors" title="Duplicate">
+          <button onClick={(e) => { e.stopPropagation(); onDuplicate(); }} className="p-1.5 rounded bg-slate-800/90 text-slate-400 hover:text-slate-200 hover:bg-slate-700 transition-colors" title="複製">
             <Copy size={13} />
           </button>
-          <button onClick={(e) => { e.stopPropagation(); onDelete(); }} className="p-1.5 rounded bg-slate-800/90 text-slate-400 hover:text-red-400 hover:bg-slate-700 transition-colors" title="Delete">
+          <button onClick={(e) => { e.stopPropagation(); onDelete(); }} className="p-1.5 rounded bg-slate-800/90 text-slate-400 hover:text-red-400 hover:bg-slate-700 transition-colors" title="刪除">
             <Trash2 size={13} />
           </button>
         </div>
@@ -237,7 +237,7 @@ export function PreviewCanvas({
   const isMobile = deviceMode === 'mobile';
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden bg-slate-950">
+    <div className="min-h-0 flex-1 flex flex-col overflow-hidden bg-slate-950">
       {/* Mode tabs */}
       <div className="flex-shrink-0 flex items-center gap-1 px-4 pt-3 pb-0 bg-slate-900 border-b border-slate-800">
         <button
@@ -268,8 +268,8 @@ export function PreviewCanvas({
       <div className="flex-shrink-0 flex items-center justify-between px-4 py-2.5 border-b border-slate-800 bg-slate-900/60">
         <span className="text-xs text-slate-500">
           {isEmail
-            ? emailModules.length > 0 ? `${emailModules.length} 個模組` : 'Email Canvas'
-            : modules.length > 0 ? `${modules.length} module${modules.length !== 1 ? 's' : ''}` : 'Canvas'
+            ? emailModules.length > 0 ? `${emailModules.length} 個模組` : '電子報畫布'
+            : modules.length > 0 ? `${modules.length} 個模組` : '活動頁畫布'
           }
         </span>
         {/* Device toggle — campaign only */}
@@ -282,7 +282,7 @@ export function PreviewCanvas({
               }`}
             >
               <Monitor size={13} />
-              <span>Desktop</span>
+              <span>桌機</span>
             </button>
             <button
               onClick={() => onDeviceChange('mobile')}
@@ -291,7 +291,7 @@ export function PreviewCanvas({
               }`}
             >
               <Smartphone size={13} />
-              <span>Mobile</span>
+              <span>手機</span>
             </button>
           </div>
         )}
@@ -323,7 +323,7 @@ export function PreviewCanvas({
                     <div className="w-2.5 h-2.5 rounded-full bg-slate-600" />
                     <div className="w-2.5 h-2.5 rounded-full bg-slate-600" />
                   </div>
-                  <span className="text-xs text-slate-500 ml-2">Email Preview — 600px</span>
+                  <span className="text-xs text-slate-500 ml-2">電子報預覽 — 600px</span>
                 </div>
 
                 {/* Email content */}
@@ -361,17 +361,17 @@ export function PreviewCanvas({
                 <LayoutTemplate size={28} className="text-slate-500" />
               </div>
               <div>
-                <h3 className="text-slate-300 font-semibold text-base">Start building your page</h3>
-                <p className="text-slate-500 text-sm mt-1.5 leading-relaxed">Click a module from the left panel to add it to your campaign page.</p>
+                <h3 className="text-slate-300 font-semibold text-base">開始建立活動頁</h3>
+                <p className="text-slate-500 text-sm mt-1.5 leading-relaxed">從左側新增模組，開始排版你的活動頁。</p>
               </div>
             </div>
           </div>
         ) : (
           <DeviceContext.Provider value={{ isMobile }}>
-            <div className={`flex-1 overflow-y-auto ${isMobile ? 'bg-slate-800' : 'bg-slate-950'}`}>
-              <div className={isMobile ? 'flex justify-center py-6 px-4' : ''}>
+            <div className={`min-h-0 flex-1 overflow-y-auto ${isMobile ? 'bg-slate-800' : 'bg-slate-100'}`}>
+              <div className={isMobile ? 'flex justify-center py-6 px-4' : 'min-h-full'}>
                 <div
-                  className={isMobile ? 'w-full shadow-2xl rounded-2xl overflow-hidden border border-slate-600' : ''}
+                  className={isMobile ? 'w-full shadow-2xl rounded-2xl overflow-hidden border border-slate-600' : 'min-h-full'}
                   style={isMobile ? { maxWidth: '390px' } : {}}
                 >
                   {isMobile && (
@@ -388,7 +388,7 @@ export function PreviewCanvas({
                   <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                     <SortableContext items={modules.map((m) => m.id)} strategy={verticalListSortingStrategy}>
                       <div
-                        className="divide-y divide-slate-800/50"
+                        className="min-h-full divide-y divide-slate-800/50"
                         style={{
                           ...(pageBackgroundColor ? { backgroundColor: pageBackgroundColor } : {}),
                           ...(pageBackgroundImage ? { backgroundImage: `url("${pageBackgroundImage}")`, backgroundRepeat: 'repeat-y', backgroundSize: '100% auto' } : {}),

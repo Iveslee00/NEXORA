@@ -21,9 +21,10 @@ export function HeroCarouselForm({ data, onChange }: Props) {
       id: generateId(),
       showText: true,
       image: '',
-      title: 'Slide Title',
-      subtitle: 'Slide subtitle text here.',
-      buttonText: 'Learn More',
+      mobileImage: '',
+      title: '活動主視覺標題',
+      subtitle: '用一句話說明活動利益點。',
+      buttonText: '立即看優惠',
       buttonLink: '#',
       titleColor: '#ffffff',
       textColor: 'rgba(255,255,255,0.85)',
@@ -58,9 +59,9 @@ export function HeroCarouselForm({ data, onChange }: Props) {
       {/* Slides */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Slides ({data.slides.length})</span>
+          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">輪播項目（{data.slides.length}）</span>
           <button onClick={addSlide} className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
-            <Plus size={13} /> Add
+            <Plus size={13} /> 新增
           </button>
         </div>
         {data.slides.map((slide, idx) => (
@@ -69,7 +70,7 @@ export function HeroCarouselForm({ data, onChange }: Props) {
               onClick={() => setExpanded(expanded === slide.id ? null : slide.id)}
               className="w-full flex items-center justify-between px-3 py-2.5 text-left hover:bg-slate-800/50 transition-colors"
             >
-              <span className="text-sm text-slate-300 truncate">{slide.title || `Slide ${idx + 1}`}</span>
+              <span className="text-sm text-slate-300 truncate">{slide.title || `第 ${idx + 1} 張`}</span>
               <div className="flex items-center gap-2 flex-shrink-0 ml-2">
                 <button onClick={(e) => { e.stopPropagation(); removeSlide(slide.id); }} className="text-slate-500 hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
                 {expanded === slide.id ? <ChevronUp size={13} className="text-slate-500" /> : <ChevronDown size={13} className="text-slate-500" />}
@@ -78,13 +79,17 @@ export function HeroCarouselForm({ data, onChange }: Props) {
             {expanded === slide.id && (
               <div className="px-3 pb-3 border-t border-slate-700/60">
                 <div className="pt-3 space-y-3">
-                  <ImageField label="KV 圖片" value={slide.image} onChange={(v) => updateSlide(slide.id, 'image', v)} spec={IMAGE_SPECS.kv} />
+                  <ImageField label="KV 圖片（PC）" value={slide.image} onChange={(v) => updateSlide(slide.id, 'image', v)} spec={IMAGE_SPECS.kv} />
+                  <button type="button" onClick={() => updateSlide(slide.id, 'mobileImage', slide.image)} className="text-xs font-semibold text-indigo-400 transition-colors hover:text-indigo-300">
+                    同 PC 視覺
+                  </button>
+                  <ImageField label="KV 圖片（M）" value={slide.mobileImage ?? ''} onChange={(v) => updateSlide(slide.id, 'mobileImage', v)} spec={IMAGE_SPECS.kvMobile} />
                   <ToggleField label="顯示文字區" description="關閉後會成為純 Banner" value={slide.showText ?? true} onChange={(v) => updateSlide(slide.id, 'showText', v)} />
                   {slide.showText !== false && (
                     <>
-                      <FormField label="標題" value={slide.title} onChange={(v) => updateSlide(slide.id, 'title', v)} placeholder="Slide Title" />
-                      <FormField label="副標題" value={slide.subtitle} onChange={(v) => updateSlide(slide.id, 'subtitle', v)} type="textarea" rows={2} placeholder="Subtitle text…" />
-                      <FormField label="按鈕文字" value={slide.buttonText} onChange={(v) => updateSlide(slide.id, 'buttonText', v)} placeholder="Learn More" />
+                      <FormField label="標題" value={slide.title} onChange={(v) => updateSlide(slide.id, 'title', v)} placeholder="活動主視覺標題" />
+                      <FormField label="副標題" value={slide.subtitle} onChange={(v) => updateSlide(slide.id, 'subtitle', v)} type="textarea" rows={2} placeholder="用一句話說明活動利益點" />
+                      <FormField label="按鈕文字" value={slide.buttonText} onChange={(v) => updateSlide(slide.id, 'buttonText', v)} placeholder="立即看優惠" />
                       <FormField label="按鈕連結" value={slide.buttonLink} onChange={(v) => updateSlide(slide.id, 'buttonLink', v)} type="url" placeholder="#" />
                       <SegmentedField
                         label="對齊"

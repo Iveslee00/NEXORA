@@ -41,7 +41,7 @@ export function CtaPreview({ data }: { data: CtaData }) {
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', ...align }}>
           <h2 style={{ fontSize: isMobile ? '1.75rem' : '2.5rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.03em', margin: 0, ...titleStyle }}>
-            {data.title || 'CTA Title'}
+            {data.title || '行動呼籲標題'}
           </h2>
           {data.subtitle && <p style={{ fontSize: '1.05rem', lineHeight: 1.65, opacity: 0.8, maxWidth: '560px', margin: 0, ...textStyle }}>{data.subtitle}</p>}
           {data.buttonText && <span style={btnStyle}>{data.buttonText}</span>}

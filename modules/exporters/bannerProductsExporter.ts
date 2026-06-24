@@ -34,12 +34,15 @@ export function generateBannerProductsHTML(data: BannerProductsData): string {
     .join('\n');
 
   const bgOverride = data.backgroundColor ? ` style="background-color: ${escapeHtml(data.backgroundColor)}"` : '';
+  const bannerImg = data.bannerImage
+    ? `<picture class="cb-banner-products__picture">${data.mobileBannerImage ? `\n          <source media="(max-width: 767px)" srcset="${escapeHtml(data.mobileBannerImage)}">` : ''}\n          <img src="${escapeHtml(data.bannerImage)}" alt="${escapeHtml(data.bannerTitle)}" class="cb-banner-products__banner-img">\n        </picture>`
+    : '';
 
   return `<section class="cb-banner-products cb-section${bgClass ? ' ' + bgClass : ''}"${bgOverride}>
   <div class="cb-container">
     <div class="cb-banner-products__inner cb-banner-products__inner${countClass}">
       <a href="${escapeHtml(data.bannerLink || '#')}" class="cb-banner-products__banner">
-        ${data.bannerImage ? `<img src="${escapeHtml(data.bannerImage)}" alt="${escapeHtml(data.bannerTitle)}" class="cb-banner-products__banner-img">` : ''}
+        ${bannerImg}
         <div class="cb-banner-products__banner-overlay">
           ${layoutLabel ? `<span class="cb-banner-products__layout-label">${escapeHtml(layoutLabel)}</span>` : ''}
           ${data.bannerTitle ? `<p class="cb-banner-products__banner-title"${bannerTitleStyle}>${escapeHtml(data.bannerTitle)}</p>` : ''}

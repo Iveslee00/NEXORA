@@ -36,7 +36,7 @@ const iconMap: Record<string, React.ReactNode> = {
   star: <Star size={18} />,
 };
 
-const campaignCategories = ['版面區塊', '活動商品', '內容說明', '品牌素材', '轉換行動'];
+const campaignCategories = ['版面區塊', '活動商品', '內容說明', '品牌素材'];
 const emailCategories = ['標題', '圖片', 'KV', '商品', '圖片帶商品', '活動', '銀行資訊', '文章', '折價券'];
 
 // ── Color picker ─────────────────────────────────────────────────────────────
@@ -96,14 +96,14 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
   const isEmail = pageMode === 'email';
 
   return (
-    <aside className="w-64 flex-shrink-0 bg-slate-900 border-r border-slate-800 flex flex-col overflow-hidden">
+    <aside className="flex h-full min-h-0 w-64 flex-shrink-0 flex-col overflow-hidden border-r border-slate-800 bg-slate-900">
       <div className="px-4 py-4 border-b border-slate-800">
         <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
           {isEmail ? '電子報模組' : '頁面模組'}
         </h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-3 py-3 space-y-5">
+      <div className="min-h-0 flex-1 overflow-y-auto px-3 py-3 space-y-5">
         {isEmail ? (
           emailCategories.map((cat) => {
             const items = emailModuleSchemas.filter((s) => s.category === cat);

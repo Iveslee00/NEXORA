@@ -5,7 +5,7 @@ import { ProductCarouselData } from '@/types/modules';
 import { useDevice } from '@/contexts/DeviceContext';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const PLACEHOLDER = 'https://placehold.co/400x400/e0e0f0/9090c0?text=Product';
+const PLACEHOLDER = 'https://placehold.co/400x400/e0e0f0/9090c0?text=商品';
 
 export function ProductCarouselPreview({ data }: { data: ProductCarouselData }) {
   const { isMobile } = useDevice();

@@ -80,6 +80,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-hero__subtitle { font-size: 1.125rem; line-height: 1.7; opacity: 0.8; margin-bottom: 36px; max-width: 560px; }
 .cb-hero--centered .cb-hero__subtitle { text-align: center; margin-left: auto; margin-right: auto; }
 .cb-hero__media { border-radius: 16px; overflow: hidden; }
+.cb-hero__picture { display: block; }
 .cb-hero__media img { width: 100%; height: auto; display: block; }
 .cb-hero__media--centered { margin-top: 48px; border-radius: 16px; overflow: hidden; }
 
@@ -144,6 +145,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   position: relative; border-radius: 12px; overflow: hidden;
   background-color: #1a1a2e; min-height: 280px; display: flex;
 }
+.cb-banner-products__picture { position: absolute; inset: 0; display: block; }
 .cb-banner-products__banner-img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
 .cb-banner-products__banner-overlay {
   position: relative; z-index: 1; padding: 28px 24px;
@@ -206,6 +208,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-product-banner__sale-price { font-size: 1.75rem; font-weight: 800; color: #ff6b6b; letter-spacing: -0.02em; }
 .cb-product-banner--light .cb-product-banner__sale-price { color: #e53e3e; }
 .cb-product-banner__media { position: relative; border-radius: 16px; overflow: hidden; }
+.cb-product-banner__picture { display: block; }
 .cb-product-banner__media img { width: 100%; height: auto; display: block; }
 .cb-product-banner__badge { position: absolute; top: 16px; right: 16px; padding: 6px 12px; background-color: #e53e3e; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; border-radius: 6px; z-index: 1; }
 
@@ -372,6 +375,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-kv__text--center { align-items: center; text-align: center; }
 .cb-kv__text--right  { align-items: flex-end; text-align: right; }
 .cb-kv__img { position: relative; overflow: hidden; }
+.cb-kv__picture { position: absolute; inset: 0; display: block; }
 .cb-kv__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .cb-kv__overlay { position: absolute; inset: 0; }
 .cb-kv__title { font-size: clamp(1.1rem, 2vw, 1.65rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #ffffff; margin: 0 0 8px; }

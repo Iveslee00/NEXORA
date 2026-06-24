@@ -3,7 +3,7 @@
 import { LogoWallData } from '@/types/modules';
 import { useDevice } from '@/contexts/DeviceContext';
 
-const PLACEHOLDER = 'https://placehold.co/160x60/e0e0f0/9090c0?text=Brand';
+const PLACEHOLDER = 'https://placehold.co/160x60/e0e0f0/9090c0?text=品牌';
 
 export function LogoWallPreview({ data }: { data: LogoWallData }) {
   const { isMobile } = useDevice();

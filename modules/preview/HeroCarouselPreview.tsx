@@ -82,9 +82,10 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
             : align === 'right' ? { textAlign: 'right', alignItems: 'flex-end' }
             : { textAlign: 'left', alignItems: 'flex-start' };
 
+          const imageSrc = isMobile ? (s.mobileImage || s.image || PLACEHOLDER) : (s.image || PLACEHOLDER);
           const imageEl = (
             <img
-              src={s.image || PLACEHOLDER}
+              src={imageSrc}
               alt={s.title}
               style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }}

@@ -4,7 +4,7 @@ import { ProductBannerData } from '@/types/modules';
 import { useDevice } from '@/contexts/DeviceContext';
 import { useGlobalSettings } from '@/contexts/GlobalSettingsContext';
 
-const PLACEHOLDER = 'https://placehold.co/700x600/e0e0f0/9090c0?text=Product';
+const PLACEHOLDER = 'https://placehold.co/700x600/e0e0f0/9090c0?text=商品';
 
 const bgMap: Record<string, React.CSSProperties> = {
   light: { background: 'transparent', color: '#1a1a2e' },
@@ -22,6 +22,7 @@ export function ProductBannerPreview({ data }: { data: ProductBannerData }) {
 
   const titleStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
   const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
+  const imageSrc = isMobile ? (data.mobileImage || data.image || PLACEHOLDER) : (data.image || PLACEHOLDER);
 
   const btnStyle: React.CSSProperties = {
     display: 'inline-flex', alignItems: 'center',
@@ -77,7 +78,7 @@ export function ProductBannerPreview({ data }: { data: ProductBannerData }) {
   const media = (
     <div style={{ position: 'relative', borderRadius: '14px', overflow: 'hidden' }}>
       <img
-        src={data.image || PLACEHOLDER}
+        src={imageSrc}
         alt={data.productName || ''}
         style={{ width: '100%', display: 'block' }}
         onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }}

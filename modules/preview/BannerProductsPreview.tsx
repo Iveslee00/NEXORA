@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { BannerProductsData } from '@/types/modules';
 import { useDevice } from '@/contexts/DeviceContext';
 
-const PLACEHOLDER_PRODUCT = 'https://placehold.co/400x400/e0e0f0/9090c0?text=Product';
+const PLACEHOLDER_PRODUCT = 'https://placehold.co/400x400/e0e0f0/9090c0?text=商品';
 const PLACEHOLDER_BANNER = 'https://placehold.co/500x600/1a1a2e/6366f1?text=Banner';
 
 export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
@@ -13,6 +13,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
   const [isCompact, setIsCompact] = useState(false);
   const count = data.products.length;
   const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
+  const bannerSrc = isMobile ? (data.mobileBannerImage || data.bannerImage || PLACEHOLDER_BANNER) : (data.bannerImage || PLACEHOLDER_BANNER);
 
   useEffect(() => {
     const node = containerRef.current;
@@ -59,7 +60,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
           {/* Banner */}
           <div style={{ ...(isMobile || isCompact || count <= 0 ? { gridColumn: '1 / -1' } : {}), position: 'relative', borderRadius: '12px', overflow: 'hidden', background: '#1a1a2e', minHeight: isMobile ? '180px' : '280px', display: 'flex' }}>
             <img
-              src={data.bannerImage || PLACEHOLDER_BANNER}
+              src={bannerSrc}
               alt={data.bannerTitle}
               style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }}
               onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_BANNER; }}

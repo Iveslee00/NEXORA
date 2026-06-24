@@ -3,7 +3,7 @@
 import { ProductGridData } from '@/types/modules';
 import { useDevice } from '@/contexts/DeviceContext';
 
-const PLACEHOLDER = 'https://placehold.co/400x400/e0e0f0/9090c0?text=Product';
+const PLACEHOLDER = 'https://placehold.co/400x400/e0e0f0/9090c0?text=商品';
 
 export function ProductGridPreview({ data }: { data: ProductGridData }) {
   const { isMobile } = useDevice();
@@ -36,7 +36,7 @@ export function ProductGridPreview({ data }: { data: ProductGridData }) {
                   </p>
                 )}
                 <p style={{ fontSize: '13px', fontWeight: 600, color: data.textColor || '#1a1a2e', margin: 0, lineHeight: 1.35 }}>
-                  {product.name || 'Product Name'}
+                  {product.name || '商品名稱'}
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '3px', flexWrap: 'wrap' }}>
                   {product.originalPrice && (

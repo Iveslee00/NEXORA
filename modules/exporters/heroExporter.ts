@@ -21,10 +21,13 @@ export function generateHeroHTML(data: HeroData): string {
     : '';
 
   const bgOverride = data.backgroundColor ? ` style="background-color: ${escapeHtml(data.backgroundColor)}"` : '';
+  const mediaPicture = data.image
+    ? `<picture class="cb-hero__picture">${data.mobileImage ? `\n            <source media="(max-width: 767px)" srcset="${escapeHtml(data.mobileImage)}">` : ''}\n            <img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.title)}">\n          </picture>`
+    : '';
 
   if (data.layout === 'centered') {
-    const media = data.image
-      ? `\n        <div class="cb-hero__media cb-hero__media--centered">\n          <img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.title)}">\n        </div>`
+    const media = mediaPicture
+      ? `\n        <div class="cb-hero__media cb-hero__media--centered">\n          ${mediaPicture}\n        </div>`
       : '';
 
     return `<section class="cb-hero cb-section ${bgClass} ${layoutClass}"${bgOverride}>
@@ -34,8 +37,8 @@ export function generateHeroHTML(data: HeroData): string {
 </section>`;
   }
 
-  const media = data.image
-    ? `<div class="cb-hero__media">\n          <img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.title)}">\n        </div>`
+  const media = mediaPicture
+    ? `<div class="cb-hero__media">\n          ${mediaPicture}\n        </div>`
     : '';
 
   return `<section class="cb-hero cb-section ${bgClass} ${layoutClass}"${bgOverride}>

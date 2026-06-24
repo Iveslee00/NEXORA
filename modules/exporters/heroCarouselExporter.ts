@@ -13,6 +13,9 @@ export function generateHeroCarouselHTML(data: HeroCarouselData): string {
       const textStyle = s.textColor ? ` style="color: ${escapeHtml(s.textColor)}"` : '';
       const textBgStyle = s.textBgColor ? ` style="background-color: ${escapeHtml(s.textBgColor)}"` : '';
       const align = s.alignment ?? 'left';
+      const imgEl = s.image
+        ? `\n        <picture class="cb-kv__picture">${s.mobileImage ? `\n          <source media="(max-width: 767px)" srcset="${escapeHtml(s.mobileImage)}">` : ''}\n          <img src="${escapeHtml(s.image)}" alt="${escapeHtml(s.title || '')}" class="cb-kv__bg">\n        </picture>`
+        : '';
 
       const title = showText && s.title ? `          <h2 class="cb-kv__title"${titleStyle}>${escapeHtml(s.title)}</h2>` : '';
       const subtitle = showText && s.subtitle ? `          <p class="cb-kv__subtitle"${textStyle}>${escapeHtml(s.subtitle)}</p>` : '';
@@ -20,7 +23,6 @@ export function generateHeroCarouselHTML(data: HeroCarouselData): string {
         ? `          <a href="${escapeHtml(s.buttonLink || '#')}" class="cb-btn cb-kv__btn">${escapeHtml(s.buttonText)}</a>`
         : '';
       const overlayEl = overlay ? `\n        <div class="cb-kv__overlay" style="background: ${overlay}"></div>` : '';
-      const imgEl = s.image ? `\n        <img src="${escapeHtml(s.image)}" alt="${escapeHtml(s.title || '')}" class="cb-kv__bg">` : '';
 
       return `    <div class="cb-kv__slide${showText ? '' : ' cb-kv__slide--image-only'}">
 ${showText ? `      <div class="cb-kv__text cb-kv__text--${align}"${textBgStyle}>

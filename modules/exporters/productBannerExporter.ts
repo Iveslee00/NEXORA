@@ -34,6 +34,9 @@ export function generateProductBannerHTML(data: ProductBannerData): string {
 
   const isDark = data.backgroundStyle === 'dark' || data.backgroundStyle === 'gradient';
   const bgOverride = data.backgroundColor ? ` style="background-color: ${escapeHtml(data.backgroundColor)}"` : '';
+  const productImage = data.image
+    ? `<picture class="cb-product-banner__picture">${data.mobileImage ? `\n          <source media="(max-width: 767px)" srcset="${escapeHtml(data.mobileImage)}">` : ''}\n          <img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.productName)}">\n        </picture>`
+    : '';
 
   return `<section class="cb-product-banner cb-section ${bgClass}"${bgOverride}>
   <div class="cb-container">
@@ -47,7 +50,7 @@ export function generateProductBannerHTML(data: ProductBannerData): string {
         </div>${button}
       </div>
       <div class="cb-product-banner__media">
-        <img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.productName)}">${badge}
+        ${productImage}${badge}
       </div>
     </div>
   </div>

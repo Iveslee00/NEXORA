@@ -62,6 +62,7 @@ export interface HeroData {
   buttonText: string;
   buttonLink: string;
   image: string;
+  mobileImage: string;
   layout: HeroLayout;
   backgroundStyle: HeroBackground;
   backgroundColor: string;
@@ -109,6 +110,7 @@ export interface ProductGridModule extends BaseModule {
 export interface BannerProductsData {
   layoutLabel: string;
   bannerImage: string;
+  mobileBannerImage: string;
   bannerTitle: string;
   bannerSubtitle: string;
   bannerLink: string;
@@ -139,6 +141,7 @@ export interface ProductBannerData {
   buttonText: string;
   buttonLink: string;
   image: string;
+  mobileImage: string;
   backgroundStyle: HeroBackground;
   backgroundColor: string;
   reverse: boolean;
@@ -287,6 +290,7 @@ export interface KvSlide {
   id: string;
   showText: boolean;
   image: string;
+  mobileImage: string;
   title: string;
   subtitle: string;
   buttonText: string;

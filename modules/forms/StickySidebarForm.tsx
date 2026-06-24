@@ -31,7 +31,7 @@ export function StickySidebarForm({ data, onChange }: Props) {
       <SegmentedField
         label="Position"
         value={data.position}
-        options={[{ value: 'right', label: 'Right' }, { value: 'left', label: 'Left' }]}
+        options={[{ value: 'right', label: '右' }, { value: 'left', label: '左' }]}
         onChange={(v) => onChange({ ...data, position: v as 'right' | 'left' })}
       />
       <div className="h-px bg-slate-700/60" />
@@ -39,7 +39,7 @@ export function StickySidebarForm({ data, onChange }: Props) {
         <div className="flex items-center justify-between">
           <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Buttons ({data.items.length})</span>
           <button onClick={addItem} className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
-            <Plus size={13} /> Add
+            <Plus size={13} /> 新增
           </button>
         </div>
         {data.items.map((item, idx) => (
@@ -50,7 +50,7 @@ export function StickySidebarForm({ data, onChange }: Props) {
             >
               <div className="flex items-center gap-2">
                 <span className="text-base">{item.icon}</span>
-                <span className="text-sm text-slate-300 truncate">{item.label || `Button ${idx + 1}`}</span>
+                <span className="text-sm text-slate-300 truncate">{item.label || `按鈕 ${idx + 1}`}</span>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0 ml-2">
                 <button onClick={(e) => { e.stopPropagation(); removeItem(item.id); }} className="text-slate-500 hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
@@ -62,8 +62,8 @@ export function StickySidebarForm({ data, onChange }: Props) {
                 <div className="pt-3 space-y-3">
                   <FormField label="Label" value={item.label} onChange={(v) => updateItem(item.id, 'label', v)} placeholder="立即購買" />
                   <FormField label="Icon (Emoji)" value={item.icon} onChange={(v) => updateItem(item.id, 'icon', v)} placeholder="🛒" />
-                  <FormField label="Link" value={item.link} onChange={(v) => updateItem(item.id, 'link', v)} type="url" placeholder="https://" />
-                  <ColorField label="Button Color" value={item.bgColor} onChange={(v) => updateItem(item.id, 'bgColor', v)} />
+                  <FormField label="連結" value={item.link} onChange={(v) => updateItem(item.id, 'link', v)} type="url" placeholder="https://" />
+                  <ColorField label="按鈕色" value={item.bgColor} onChange={(v) => updateItem(item.id, 'bgColor', v)} />
                 </div>
               </div>
             )}
