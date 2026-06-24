@@ -48,7 +48,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
   return (
     <section style={{ ...bgStyle, padding: isMobile ? '32px 16px' : '48px 24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
       <div ref={containerRef} style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: isMobile ? '12px' : '20px', alignItems: lockDesktopHeight ? 'stretch' : 'start', height: lockDesktopHeight ? '350px' : undefined }}>
+        <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: isMobile ? '12px' : '20px', alignItems: lockDesktopHeight ? 'stretch' : 'start' }}>
           {/* Banner */}
           <div style={{ position: 'relative', borderRadius: '12px', overflow: 'hidden', background: '#1a1a2e', aspectRatio: lockDesktopHeight ? undefined : bannerAspectRatio, height: lockDesktopHeight ? '100%' : undefined, display: 'flex' }}>
             <PreviewImage src={bannerSrc} alt={data.bannerTitle} label={isMobile ? '活動 Banner M' : '活動 Banner PC'} spec={bannerSpec} tone="dark" />
@@ -66,10 +66,10 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: productGridCols, gap: isMobile ? '12px' : '20px', alignItems: lockDesktopHeight ? 'stretch' : 'start', height: lockDesktopHeight ? '100%' : undefined, minHeight: 0 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: productGridCols, gap: isMobile ? '12px' : '20px', alignItems: 'start', minHeight: 0 }}>
             {/* Product cards */}
             {data.products.map((product) => (
-              <div key={product.id} style={{ width: lockDesktopHeight ? `${productCardWidth}px` : undefined, minWidth: 0, minHeight: 0, height: lockDesktopHeight ? '100%' : undefined, background: '#ffffff', borderRadius: '10px', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05)' }}>
+              <div key={product.id} style={{ width: lockDesktopHeight ? `${productCardWidth}px` : undefined, minWidth: 0, minHeight: 0, background: '#ffffff', borderRadius: '10px', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05)' }}>
                 <div style={{ position: 'relative', ...productMediaStyle, flexShrink: 0, overflow: 'hidden', background: '#f5f5f5' }}>
                   <PreviewImage src={product.image} alt={product.name} label="商品圖" spec={IMAGE_SPECS.product} />
                   {product.showBadge && product.badgeText && (
