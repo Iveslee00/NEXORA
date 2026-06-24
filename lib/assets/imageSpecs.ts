@@ -21,24 +21,42 @@ export const IMAGE_SPECS = {
 
 export const KV_IMAGE_SPECS = {
   small: {
-    desktop: { width: 1200, height: 400 },
-    mobile: { width: 750, height: 900 },
+    full: {
+      desktop: { width: 1200, height: 400 },
+      mobile: { width: 750, height: 900 },
+    },
+    split: {
+      desktop: { width: 780, height: 400 },
+      mobile: { width: 750, height: 400 },
+    },
   },
   medium: {
-    desktop: { width: 1200, height: 600 },
-    mobile: { width: 750, height: 1000 },
+    full: {
+      desktop: { width: 1200, height: 600 },
+      mobile: { width: 750, height: 1000 },
+    },
+    split: {
+      desktop: { width: 780, height: 600 },
+      mobile: { width: 750, height: 500 },
+    },
   },
   large: {
-    desktop: { width: 1200, height: 800 },
-    mobile: { width: 750, height: 1200 },
+    full: {
+      desktop: { width: 1200, height: 800 },
+      mobile: { width: 750, height: 1200 },
+    },
+    split: {
+      desktop: { width: 780, height: 800 },
+      mobile: { width: 750, height: 600 },
+    },
   },
 } as const;
 
 type KvSpecHeight = keyof typeof KV_IMAGE_SPECS;
 
-export const getKvImageSpecs = (height: string | undefined) => {
+export const getKvImageSpecs = (height: string | undefined, showText = true) => {
   const key: KvSpecHeight = height === 'small' || height === 'large' ? height : 'medium';
-  return KV_IMAGE_SPECS[key];
+  return showText ? KV_IMAGE_SPECS[key].split : KV_IMAGE_SPECS[key].full;
 };
 
 export const formatImageSpec = (spec: ImageSpec) => `${spec.width} x ${spec.height}`;

@@ -11,7 +11,6 @@ interface Props { data: HeroCarouselData; onChange: (data: HeroCarouselData) => 
 
 export function HeroCarouselForm({ data, onChange }: Props) {
   const [expanded, setExpanded] = useState<string | null>(data.slides[0]?.id ?? null);
-  const imageSpecs = getKvImageSpecs(data.height);
 
   const updateSlide = (id: string, field: keyof KvSlide, value: string | number | boolean) => {
     onChange({ ...data, slides: data.slides.map((s) => s.id === id ? { ...s, [field]: value } : s) });
@@ -66,6 +65,11 @@ export function HeroCarouselForm({ data, onChange }: Props) {
           </button>
         </div>
         {data.slides.map((slide, idx) => (
+          (() => {
+            const showText = slide.showText !== false;
+            const imageSpecs = getKvImageSpecs(data.height, showText);
+
+            return (
           <div key={slide.id} className="border border-slate-700 rounded-lg overflow-hidden">
             <button
               onClick={() => setExpanded(expanded === slide.id ? null : slide.id)}
@@ -80,13 +84,13 @@ export function HeroCarouselForm({ data, onChange }: Props) {
             {expanded === slide.id && (
               <div className="px-3 pb-3 border-t border-slate-700/60">
                 <div className="pt-3 space-y-3">
-                  <ImageField label="KV 圖片（PC）" value={slide.image} onChange={(v) => updateSlide(slide.id, 'image', v)} spec={imageSpecs.desktop} />
+                  <ImageField label={showText ? 'KV 圖片（PC 右側）' : 'KV 圖片（PC 整張）'} value={slide.image} onChange={(v) => updateSlide(slide.id, 'image', v)} spec={imageSpecs.desktop} />
                   <button type="button" onClick={() => updateSlide(slide.id, 'mobileImage', slide.image)} className="text-xs font-semibold text-indigo-400 transition-colors hover:text-indigo-300">
                     同 PC 視覺
                   </button>
-                  <ImageField label="KV 圖片（M）" value={slide.mobileImage ?? ''} onChange={(v) => updateSlide(slide.id, 'mobileImage', v)} spec={imageSpecs.mobile} />
+                  <ImageField label={showText ? 'KV 圖片（M 上方）' : 'KV 圖片（M 整張）'} value={slide.mobileImage ?? ''} onChange={(v) => updateSlide(slide.id, 'mobileImage', v)} spec={imageSpecs.mobile} />
                   <ToggleField label="顯示文字區" description="關閉後會成為純 Banner" value={slide.showText ?? true} onChange={(v) => updateSlide(slide.id, 'showText', v)} />
-                  {slide.showText !== false && (
+                  {showText && (
                     <>
                       <FormField label="標題" value={slide.title} onChange={(v) => updateSlide(slide.id, 'title', v)} placeholder="活動主視覺標題" />
                       <FormField label="副標題" value={slide.subtitle} onChange={(v) => updateSlide(slide.id, 'subtitle', v)} type="textarea" rows={2} placeholder="用一句話說明活動利益點" />
@@ -99,7 +103,7 @@ export function HeroCarouselForm({ data, onChange }: Props) {
                       />
                     </>
                   )}
-                  <FormField label={slide.showText === false ? '整張 Banner 連結' : '按鈕 / Banner 連結'} value={slide.buttonLink} onChange={(v) => updateSlide(slide.id, 'buttonLink', v)} type="url" placeholder="https://" />
+                  <FormField label={showText ? '按鈕 / Banner 連結' : '整張 Banner 連結'} value={slide.buttonLink} onChange={(v) => updateSlide(slide.id, 'buttonLink', v)} type="url" placeholder="https://" />
                   <FormField
                     label="遮罩透明度 (%)"
                     value={String(slide.overlayOpacity ?? 40)}
@@ -116,6 +120,8 @@ export function HeroCarouselForm({ data, onChange }: Props) {
               </div>
             )}
           </div>
+            );
+          })()
         ))}
       </div>
 
