@@ -19,4 +19,26 @@ export const IMAGE_SPECS = {
   bankLogo: { width: 160, height: 60 },
 } as const;
 
+export const KV_IMAGE_SPECS = {
+  small: {
+    desktop: { width: 1200, height: 400 },
+    mobile: { width: 750, height: 900 },
+  },
+  medium: {
+    desktop: { width: 1200, height: 600 },
+    mobile: { width: 750, height: 1000 },
+  },
+  large: {
+    desktop: { width: 1200, height: 800 },
+    mobile: { width: 750, height: 1200 },
+  },
+} as const;
+
+type KvSpecHeight = keyof typeof KV_IMAGE_SPECS;
+
+export const getKvImageSpecs = (height: string | undefined) => {
+  const key: KvSpecHeight = height === 'small' || height === 'large' ? height : 'medium';
+  return KV_IMAGE_SPECS[key];
+};
+
 export const formatImageSpec = (spec: ImageSpec) => `${spec.width} x ${spec.height}`;

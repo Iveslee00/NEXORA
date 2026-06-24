@@ -2,7 +2,7 @@
 
 import { HeroCarouselData, KvSlide } from '@/types/modules';
 import { FormField, ColorField, ToggleField, SegmentedField, ImageField } from '@/components/ui/FormField';
-import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
+import { getKvImageSpecs } from '@/lib/assets/imageSpecs';
 import { generateId } from '@/lib/utils';
 import { Plus, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
@@ -11,6 +11,7 @@ interface Props { data: HeroCarouselData; onChange: (data: HeroCarouselData) => 
 
 export function HeroCarouselForm({ data, onChange }: Props) {
   const [expanded, setExpanded] = useState<string | null>(data.slides[0]?.id ?? null);
+  const imageSpecs = getKvImageSpecs(data.height);
 
   const updateSlide = (id: string, field: keyof KvSlide, value: string | number | boolean) => {
     onChange({ ...data, slides: data.slides.map((s) => s.id === id ? { ...s, [field]: value } : s) });
@@ -79,11 +80,11 @@ export function HeroCarouselForm({ data, onChange }: Props) {
             {expanded === slide.id && (
               <div className="px-3 pb-3 border-t border-slate-700/60">
                 <div className="pt-3 space-y-3">
-                  <ImageField label="KV 圖片（PC）" value={slide.image} onChange={(v) => updateSlide(slide.id, 'image', v)} spec={IMAGE_SPECS.kv} />
+                  <ImageField label="KV 圖片（PC）" value={slide.image} onChange={(v) => updateSlide(slide.id, 'image', v)} spec={imageSpecs.desktop} />
                   <button type="button" onClick={() => updateSlide(slide.id, 'mobileImage', slide.image)} className="text-xs font-semibold text-indigo-400 transition-colors hover:text-indigo-300">
                     同 PC 視覺
                   </button>
-                  <ImageField label="KV 圖片（M）" value={slide.mobileImage ?? ''} onChange={(v) => updateSlide(slide.id, 'mobileImage', v)} spec={IMAGE_SPECS.kvMobile} />
+                  <ImageField label="KV 圖片（M）" value={slide.mobileImage ?? ''} onChange={(v) => updateSlide(slide.id, 'mobileImage', v)} spec={imageSpecs.mobile} />
                   <ToggleField label="顯示文字區" description="關閉後會成為純 Banner" value={slide.showText ?? true} onChange={(v) => updateSlide(slide.id, 'showText', v)} />
                   {slide.showText !== false && (
                     <>

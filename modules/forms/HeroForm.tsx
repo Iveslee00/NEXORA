@@ -2,7 +2,7 @@
 
 import { HeroData } from '@/types/modules';
 import { FormField, SegmentedField, ToggleField, ColorSection, ImageField } from '@/components/ui/FormField';
-import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
+import { getKvImageSpecs } from '@/lib/assets/imageSpecs';
 
 interface Props { data: HeroData; onChange: (data: HeroData) => void }
 
@@ -14,6 +14,7 @@ const heightOptions = [
 
 export function HeroForm({ data, onChange }: Props) {
   const set = <K extends keyof HeroData>(key: K, val: HeroData[K]) => onChange({ ...data, [key]: val });
+  const imageSpecs = getKvImageSpecs(data.height);
 
   return (
     <div className="space-y-4">
@@ -31,11 +32,11 @@ export function HeroForm({ data, onChange }: Props) {
       )}
       <FormField label={data.showText === false ? '整張 Banner 連結' : '按鈕 / Banner 連結'} value={data.buttonLink} onChange={(v) => set('buttonLink', v)} type="url" placeholder="https://" />
       <div className="h-px bg-slate-700/60" />
-      <ImageField label="KV 圖片（PC）" value={data.image} onChange={(v) => set('image', v)} spec={IMAGE_SPECS.kv} />
+      <ImageField label="KV 圖片（PC）" value={data.image} onChange={(v) => set('image', v)} spec={imageSpecs.desktop} />
       <button type="button" onClick={() => set('mobileImage', data.image)} className="text-xs font-semibold text-indigo-400 transition-colors hover:text-indigo-300">
         同 PC 視覺
       </button>
-      <ImageField label="KV 圖片（M）" value={data.mobileImage ?? ''} onChange={(v) => set('mobileImage', v)} spec={IMAGE_SPECS.kvMobile} />
+      <ImageField label="KV 圖片（M）" value={data.mobileImage ?? ''} onChange={(v) => set('mobileImage', v)} spec={imageSpecs.mobile} />
       <div className="h-px bg-slate-700/60" />
       <ColorSection
         backgroundColor={data.backgroundColor}
