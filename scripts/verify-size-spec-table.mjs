@@ -7,7 +7,7 @@ const hasRow = (cells) => allRows.some((row) => cells.every((cell, index) => row
 assert.equal(SIZE_SPEC_SECTIONS[0].title, '一、KV Banner');
 assert.ok(hasRow(['KV', '有文字區', 'S', '780 x 300', '750 x 750']));
 assert.ok(hasRow(['KV', '純 Banner', 'L', '1200 x 520', '750 x 950']));
-assert.ok(hasRow(['活動 Banner + 4 商品', 'Banner 左、4 商品右側 2x2 格', '500 x 600', 'Banner 上、4 商品下方 2x2 格', '750 x 750']));
+assert.ok(hasRow(['活動 Banner + 4 商品', 'Banner 左、4 商品右側 2x2 格', '500 x 350', 'Banner 上、4 商品下方 2x2 格', '750 x 520']));
 assert.ok(hasRow(['單品主打', 'M', '700 x 600', '750 x 850']));
 assert.ok(hasRow(['圖文區塊 S/M/L', '600 x 450', '750 x 562', '寬度統一 750px，高度維持 4:3 比例']));
 assert.ok(hasRow(['文章搭配圖片（上方大圖）', '1200 x 420', '750 x 420', '高度固定，PC 全幅']));

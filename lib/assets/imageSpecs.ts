@@ -9,8 +9,8 @@ export const IMAGE_SPECS = {
   split: { width: 600, height: 450 },
   splitMobile: { width: 750, height: 562 },
   product: { width: 400, height: 400 },
-  bannerProducts: { width: 500, height: 600 },
-  bannerProductsMobile: { width: 750, height: 750 },
+  bannerProducts: { width: 500, height: 350 },
+  bannerProductsMobile: { width: 750, height: 520 },
   productBanner: { width: 700, height: 600 },
   productBannerMobile: { width: 750, height: 900 },
   article: { width: 1200, height: 420 },
@@ -62,7 +62,7 @@ export const getKvImageSpecs = (height: string | undefined, showText = true) => 
 };
 
 export const getBannerProductsImageSpecs = (_count: number) => ({
-  desktop: { width: 500, height: 600 },
+  desktop: IMAGE_SPECS.bannerProducts,
   mobile: IMAGE_SPECS.bannerProductsMobile,
 });
 

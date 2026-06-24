@@ -46,7 +46,9 @@ export function generateBannerProductsHTML(data: BannerProductsData): string {
           ${data.bannerSubtitle ? `<p class="cb-banner-products__banner-subtitle">${escapeHtml(data.bannerSubtitle)}</p>` : ''}
         </div>
       </a>
+      <div class="cb-banner-products__products cb-banner-products__products${countClass}">
 ${productCards}
+      </div>
     </div>
   </div>
 </section>`;

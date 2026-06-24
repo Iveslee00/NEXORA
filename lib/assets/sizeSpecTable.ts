@@ -46,9 +46,9 @@ export const SIZE_SPEC_SECTIONS: SizeSpecSection[] = [
       {
         headers: ['模組', 'PC 版型', 'PC Banner 尺寸', 'M 端版型', 'M 端尺寸'],
         rows: [
-          { cells: ['活動 Banner + 2 商品', 'Banner 左、2 商品右側橫排', '500 x 600', 'Banner 上、2 商品下方橫排', '750 x 750'] },
-          { cells: ['活動 Banner + 3 商品', 'Banner 左、3 商品右側橫排', '500 x 600', 'Banner 上、3 商品下方橫排', '750 x 750'] },
-          { cells: ['活動 Banner + 4 商品', 'Banner 左、4 商品右側 2x2 格', '500 x 600', 'Banner 上、4 商品下方 2x2 格', '750 x 750'] },
+          { cells: ['活動 Banner + 2 商品', 'Banner 左、2 商品右側橫排', '500 x 350', 'Banner 上、2 商品下方橫排', '750 x 520'] },
+          { cells: ['活動 Banner + 3 商品', 'Banner 左、3 商品右側橫排', '500 x 350', 'Banner 上、3 商品下方橫排', '750 x 520'] },
+          { cells: ['活動 Banner + 4 商品', 'Banner 左、4 商品右側 2x2 格', '500 x 350', 'Banner 上、4 商品下方 2x2 格', '750 x 520'] },
         ],
       },
     ],

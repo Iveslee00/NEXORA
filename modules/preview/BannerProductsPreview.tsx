@@ -16,7 +16,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
   const bannerSrc = isMobile ? (data.mobileBannerImage || data.bannerImage) : data.bannerImage;
   const bannerSpecs = getBannerProductsImageSpecs(count);
   const bannerSpec = isMobile ? bannerSpecs.mobile : bannerSpecs.desktop;
-  const bannerAspectRatio = isMobile ? '750 / 750' : '500 / 600';
+  const bannerAspectRatio = isMobile ? '750 / 520' : '500 / 350';
 
   useEffect(() => {
     const node = containerRef.current;
@@ -32,30 +32,22 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
 
   const bgStyle: React.CSSProperties = data.backgroundColor ? { background: data.backgroundColor } : {};
 
-  const gridCols = isMobile
-    ? count <= 1 ? '1fr' : '1fr 1fr'
+  const isStacked = isMobile || isCompact || count <= 0;
+  const gridCols = isStacked ? '1fr' : 'minmax(0, 500px) minmax(0, 1fr)';
+  const productGridCols = isMobile
+    ? count <= 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))'
     : isCompact
-    ? count <= 0
-      ? '1fr'
-      : count === 1
-      ? '1fr'
-      : 'repeat(2, minmax(0, 1fr))'
-    : count <= 0
-    ? '1fr'
-    : count === 1
-    ? 'minmax(0, 2fr) minmax(180px, 1fr)'
+    ? count <= 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))'
     : count >= 4
-    ? 'minmax(0, 2fr) repeat(4, minmax(140px, 1fr))'
-    : count >= 3
-    ? 'minmax(0, 2fr) repeat(3, minmax(150px, 1fr))'
-    : 'minmax(0, 2fr) repeat(2, minmax(160px, 1fr))';
+    ? 'repeat(2, minmax(0, 1fr))'
+    : `repeat(${Math.max(1, count)}, minmax(0, 1fr))`;
 
   return (
     <section style={{ ...bgStyle, padding: isMobile ? '32px 16px' : '48px 24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
       <div ref={containerRef} style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: isMobile ? '12px' : '20px', alignItems: 'stretch' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: isMobile ? '12px' : '20px', alignItems: 'start' }}>
           {/* Banner */}
-          <div style={{ ...(isMobile || isCompact || count <= 0 ? { gridColumn: '1 / -1' } : {}), position: 'relative', borderRadius: '12px', overflow: 'hidden', background: '#1a1a2e', aspectRatio: bannerAspectRatio, display: 'flex' }}>
+          <div style={{ position: 'relative', borderRadius: '12px', overflow: 'hidden', background: '#1a1a2e', aspectRatio: bannerAspectRatio, display: 'flex' }}>
             <PreviewImage src={bannerSrc} alt={data.bannerTitle} label={isMobile ? '活動 Banner M' : '活動 Banner PC'} spec={bannerSpec} tone="dark" />
             <div style={{ position: 'relative', zIndex: 1, padding: '24px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', width: '100%', background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)' }}>
               {data.bannerTitle && (
@@ -71,42 +63,44 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
             </div>
           </div>
 
-          {/* Product cards */}
-          {data.products.map((product) => (
-            <div key={product.id} style={{ minWidth: 0, background: '#ffffff', borderRadius: '10px', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05)' }}>
-              <div style={{ position: 'relative', aspectRatio: '1/1', overflow: 'hidden', background: '#f5f5f5' }}>
-                <PreviewImage src={product.image} alt={product.name} label="商品圖" spec={IMAGE_SPECS.product} />
-                {product.showBadge && product.badgeText && (
-                  <span style={{ position: 'absolute', top: '8px', left: '8px', background: '#e53e3e', color: '#fff', fontSize: '10px', fontWeight: 700, padding: '2px 6px', borderRadius: '3px' }}>
-                    {product.badgeText}
-                  </span>
-                )}
-              </div>
-              <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                {product.brand && (
-                  <p style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: data.titleColor || '#9090b0', margin: 0, ...brandStyle }}>
-                    {product.brand}
-                  </p>
-                )}
-                <p style={{ fontSize: '12px', fontWeight: 600, color: data.textColor || '#1a1a2e', margin: 0, lineHeight: 1.3, overflowWrap: 'anywhere', ...nameStyle }}>
-                  {product.name}
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
-                  {product.originalPrice && (
-                    <span style={{ fontSize: '10px', color: '#9090b0', textDecoration: 'line-through' }}>{product.originalPrice}</span>
-                  )}
-                  {product.salePrice && (
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#e53e3e' }}>{product.salePrice}</span>
+          <div style={{ display: 'grid', gridTemplateColumns: productGridCols, gap: isMobile ? '12px' : '20px', alignItems: 'start' }}>
+            {/* Product cards */}
+            {data.products.map((product) => (
+              <div key={product.id} style={{ minWidth: 0, background: '#ffffff', borderRadius: '10px', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05)' }}>
+                <div style={{ position: 'relative', aspectRatio: '1/1', overflow: 'hidden', background: '#f5f5f5' }}>
+                  <PreviewImage src={product.image} alt={product.name} label="商品圖" spec={IMAGE_SPECS.product} />
+                  {product.showBadge && product.badgeText && (
+                    <span style={{ position: 'absolute', top: '8px', left: '8px', background: '#e53e3e', color: '#fff', fontSize: '10px', fontWeight: 700, padding: '2px 6px', borderRadius: '3px' }}>
+                      {product.badgeText}
+                    </span>
                   )}
                 </div>
-                {product.showSpecialTag && product.specialTag && (
-                  <span style={{ display: 'inline-block', maxWidth: '100%', marginTop: '3px', padding: '1px 6px', background: '#fff3cd', color: '#b45309', border: '1px solid #fcd34d', fontSize: '10px', fontWeight: 600, borderRadius: '3px', alignSelf: 'flex-start', overflowWrap: 'anywhere' }}>
-                    {product.specialTag}
-                  </span>
-                )}
+                <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                  {product.brand && (
+                    <p style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: data.titleColor || '#9090b0', margin: 0, ...brandStyle }}>
+                      {product.brand}
+                    </p>
+                  )}
+                  <p style={{ fontSize: '12px', fontWeight: 600, color: data.textColor || '#1a1a2e', margin: 0, lineHeight: 1.3, overflowWrap: 'anywhere', ...nameStyle }}>
+                    {product.name}
+                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
+                    {product.originalPrice && (
+                      <span style={{ fontSize: '10px', color: '#9090b0', textDecoration: 'line-through' }}>{product.originalPrice}</span>
+                    )}
+                    {product.salePrice && (
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#e53e3e' }}>{product.salePrice}</span>
+                    )}
+                  </div>
+                  {product.showSpecialTag && product.specialTag && (
+                    <span style={{ display: 'inline-block', maxWidth: '100%', marginTop: '3px', padding: '1px 6px', background: '#fff3cd', color: '#b45309', border: '1px solid #fcd34d', fontSize: '10px', fontWeight: 600, borderRadius: '3px', alignSelf: 'flex-start', overflowWrap: 'anywhere' }}>
+                      {product.specialTag}
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
