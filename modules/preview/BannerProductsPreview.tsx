@@ -16,7 +16,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
   const bannerSrc = isMobile ? (data.mobileBannerImage || data.bannerImage) : data.bannerImage;
   const bannerSpecs = getBannerProductsImageSpecs(count);
   const bannerSpec = isMobile ? bannerSpecs.mobile : bannerSpecs.desktop;
-  const bannerAspectRatio = isMobile ? '750 / 520' : '500 / 350';
+  const bannerAspectRatio = isMobile ? '750 / 520' : `${bannerSpec.width} / ${bannerSpec.height}`;
 
   useEffect(() => {
     const node = containerRef.current;
@@ -33,18 +33,16 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
   const bgStyle: React.CSSProperties = data.backgroundColor ? { background: data.backgroundColor } : {};
 
   const isStacked = isMobile || isCompact || count <= 0;
-  const gridCols = isStacked ? '1fr' : 'minmax(0, 500px) minmax(0, 1fr)';
+  const productCardWidth = 190;
+  const gridCols = isStacked ? '1fr' : `${bannerSpec.width}px max-content`;
   const productGridCols = isMobile
     ? count <= 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))'
     : isCompact
     ? count <= 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))'
-    : count >= 4
-    ? 'repeat(2, minmax(0, 1fr))'
-    : `repeat(${Math.max(1, count)}, minmax(0, 1fr))`;
+    : `repeat(${Math.max(1, count)}, ${productCardWidth}px)`;
   const lockDesktopHeight = !isStacked;
-  const productGridRows = lockDesktopHeight && count >= 4 ? 'repeat(2, minmax(0, 1fr))' : undefined;
   const productMediaStyle: React.CSSProperties = lockDesktopHeight
-    ? { height: count >= 4 ? '56%' : '64%' }
+    ? { height: `${productCardWidth}px` }
     : { aspectRatio: '1/1' };
 
   return (
@@ -68,10 +66,10 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: productGridCols, gridTemplateRows: productGridRows, gap: isMobile ? '12px' : lockDesktopHeight && count >= 4 ? '12px 20px' : '20px', alignItems: lockDesktopHeight ? 'stretch' : 'start', height: lockDesktopHeight ? '100%' : undefined, minHeight: 0 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: productGridCols, gap: isMobile ? '12px' : '20px', alignItems: lockDesktopHeight ? 'stretch' : 'start', height: lockDesktopHeight ? '100%' : undefined, minHeight: 0 }}>
             {/* Product cards */}
             {data.products.map((product) => (
-              <div key={product.id} style={{ minWidth: 0, minHeight: 0, height: lockDesktopHeight ? '100%' : undefined, background: '#ffffff', borderRadius: '10px', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05)' }}>
+              <div key={product.id} style={{ width: lockDesktopHeight ? `${productCardWidth}px` : undefined, minWidth: 0, minHeight: 0, height: lockDesktopHeight ? '100%' : undefined, background: '#ffffff', borderRadius: '10px', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05)' }}>
                 <div style={{ position: 'relative', ...productMediaStyle, flexShrink: 0, overflow: 'hidden', background: '#f5f5f5' }}>
                   <PreviewImage src={product.image} alt={product.name} label="商品圖" spec={IMAGE_SPECS.product} />
                   {product.showBadge && product.badgeText && (
@@ -80,7 +78,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
                     </span>
                   )}
                 </div>
-                <div style={{ padding: lockDesktopHeight && count >= 4 ? '6px 10px' : '10px 12px', display: 'flex', flexDirection: 'column', gap: lockDesktopHeight && count >= 4 ? '2px' : '3px', minHeight: 0 }}>
+                <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '3px', minHeight: 0 }}>
                   {product.brand && (
                     <p style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: data.titleColor || '#9090b0', margin: 0, ...brandStyle }}>
                       {product.brand}

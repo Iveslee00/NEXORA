@@ -9,7 +9,7 @@ export const IMAGE_SPECS = {
   split: { width: 600, height: 450 },
   splitMobile: { width: 750, height: 562 },
   product: { width: 400, height: 400 },
-  bannerProducts: { width: 500, height: 350 },
+  bannerProducts: { width: 570, height: 350 },
   bannerProductsMobile: { width: 750, height: 520 },
   productBanner: { width: 700, height: 600 },
   productBannerMobile: { width: 750, height: 900 },
@@ -61,8 +61,12 @@ export const getKvImageSpecs = (height: string | undefined, showText = true) => 
   return showText ? KV_IMAGE_SPECS[key].split : KV_IMAGE_SPECS[key].full;
 };
 
-export const getBannerProductsImageSpecs = (_count: number) => ({
-  desktop: IMAGE_SPECS.bannerProducts,
+export const getBannerProductsImageSpecs = (count: number) => ({
+  desktop: count >= 4
+    ? { width: 360, height: 350 }
+    : count >= 3
+    ? { width: 570, height: 350 }
+    : { width: 780, height: 350 },
   mobile: IMAGE_SPECS.bannerProductsMobile,
 });
 

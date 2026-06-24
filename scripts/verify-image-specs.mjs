@@ -16,9 +16,9 @@ for (const [height, showText, desktop, mobile] of kvExpectations) {
   assert.deepEqual(getKvImageSpecs(height, showText), { desktop, mobile });
 }
 
-assert.deepEqual(getBannerProductsImageSpecs(2), { desktop: spec(500, 350), mobile: spec(750, 520) });
-assert.deepEqual(getBannerProductsImageSpecs(3), { desktop: spec(500, 350), mobile: spec(750, 520) });
-assert.deepEqual(getBannerProductsImageSpecs(4), { desktop: spec(500, 350), mobile: spec(750, 520) });
+assert.deepEqual(getBannerProductsImageSpecs(2), { desktop: spec(780, 350), mobile: spec(750, 520) });
+assert.deepEqual(getBannerProductsImageSpecs(3), { desktop: spec(570, 350), mobile: spec(750, 520) });
+assert.deepEqual(getBannerProductsImageSpecs(4), { desktop: spec(360, 350), mobile: spec(750, 520) });
 
 assert.deepEqual(getProductBannerImageSpecs('small'), { desktop: spec(700, 460), mobile: spec(750, 750) });
 assert.deepEqual(getProductBannerImageSpecs('medium'), { desktop: spec(700, 600), mobile: spec(750, 850) });
@@ -36,4 +36,4 @@ assert.deepEqual(IMAGE_SPECS.heroMobile, spec(750, 850));
 assert.deepEqual(IMAGE_SPECS.kv, spec(1200, 400));
 assert.deepEqual(IMAGE_SPECS.kvMobile, spec(750, 850));
 
-console.log('image specs v1.3 verified');
+console.log('image specs v1.4 verified');

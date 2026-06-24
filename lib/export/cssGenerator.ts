@@ -138,23 +138,25 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 /* ------------------------------------------------------------
    8. BANNER + PRODUCTS MODULE
    ------------------------------------------------------------ */
-.cb-banner-products__inner { display: grid; grid-template-columns: minmax(0, 500px) minmax(0, 1fr); gap: 20px; align-items: stretch; height: 350px; }
+.cb-banner-products__inner { display: grid; gap: 20px; align-items: stretch; height: 350px; }
 .cb-banner-products__inner--0 { grid-template-columns: 1fr; }
+.cb-banner-products__inner--1 { grid-template-columns: minmax(0, 990px) max-content; }
+.cb-banner-products__inner--2 { grid-template-columns: minmax(0, 780px) max-content; }
+.cb-banner-products__inner--3 { grid-template-columns: minmax(0, 570px) max-content; }
+.cb-banner-products__inner--4 { grid-template-columns: minmax(0, 360px) max-content; }
 .cb-banner-products__banner {
   position: relative; border-radius: 12px; overflow: hidden;
   background-color: #1a1a2e; height: 100%; display: flex;
 }
 .cb-banner-products__products { display: grid; gap: 20px; align-items: stretch; height: 100%; min-height: 0; }
 .cb-banner-products__products--0 { display: none; }
-.cb-banner-products__products--1 { grid-template-columns: minmax(0, 240px); }
-.cb-banner-products__products--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.cb-banner-products__products--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.cb-banner-products__products--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 12px 20px; }
-.cb-banner-products .cb-product-card { height: 100%; min-height: 0; }
-.cb-banner-products .cb-product-card__media { aspect-ratio: auto; height: 64%; flex: 0 0 auto; }
+.cb-banner-products__products--1 { grid-template-columns: repeat(1, 190px); }
+.cb-banner-products__products--2 { grid-template-columns: repeat(2, 190px); }
+.cb-banner-products__products--3 { grid-template-columns: repeat(3, 190px); }
+.cb-banner-products__products--4 { grid-template-columns: repeat(4, 190px); }
+.cb-banner-products .cb-product-card { width: 190px; height: 100%; min-height: 0; }
+.cb-banner-products .cb-product-card__media { aspect-ratio: auto; height: 190px; flex: 0 0 auto; }
 .cb-banner-products .cb-product-card__body { min-height: 0; padding: 10px 12px; gap: 3px; }
-.cb-banner-products__products--4 .cb-product-card__media { height: 56%; }
-.cb-banner-products__products--4 .cb-product-card__body { padding: 6px 10px; gap: 2px; }
 .cb-banner-products__picture { position: absolute; inset: 0; display: block; }
 .cb-banner-products__banner-img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
 .cb-banner-products__banner-overlay {
@@ -290,12 +292,18 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-product-banner__inner { gap: 40px; }
   .cb-banner-products__inner { grid-template-columns: 1fr; height: auto; align-items: start; }
   .cb-banner-products__banner { aspect-ratio: 500 / 350; height: auto; }
+  .cb-banner-products__inner--1 .cb-banner-products__banner { aspect-ratio: 990 / 350; }
+  .cb-banner-products__inner--2 .cb-banner-products__banner { aspect-ratio: 780 / 350; }
+  .cb-banner-products__inner--3 .cb-banner-products__banner { aspect-ratio: 570 / 350; }
+  .cb-banner-products__inner--4 .cb-banner-products__banner { aspect-ratio: 360 / 350; }
   .cb-banner-products__products { height: auto; }
-  .cb-banner-products .cb-product-card { height: auto; }
+  .cb-banner-products .cb-product-card { width: auto; height: auto; }
   .cb-banner-products .cb-product-card__media { aspect-ratio: 1 / 1; height: auto; }
+  .cb-banner-products__products--1 { grid-template-columns: 1fr; }
+  .cb-banner-products__products--2,
   .cb-banner-products__products--3,
   .cb-banner-products__products--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .cb-banner-products__products--4 { grid-template-rows: auto; gap: 20px; }
+  .cb-banner-products__products--4 { gap: 20px; }
 }
 
 @media (max-width: 768px) {
@@ -324,6 +332,9 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-banner-products__inner--3,
   .cb-banner-products__inner--4 { grid-template-columns: 1fr; }
   .cb-banner-products__banner,
+  .cb-banner-products__inner--1 .cb-banner-products__banner,
+  .cb-banner-products__inner--2 .cb-banner-products__banner,
+  .cb-banner-products__inner--3 .cb-banner-products__banner,
   .cb-banner-products__inner--4 .cb-banner-products__banner { grid-column: 1 / -1; aspect-ratio: 750 / 520; }
   .cb-banner-products__products { grid-column: 1 / -1; }
   .cb-banner-products__products--1 { grid-template-columns: 1fr; }
@@ -343,12 +354,8 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 
 @media (max-width: 480px) {
   .cb-container { padding-left: 16px; padding-right: 16px; }
-  .cb-products__grid,
-  .cb-banner-products__inner--0,
-  .cb-banner-products__inner--1,
-  .cb-banner-products__inner--2,
-  .cb-banner-products__inner--3,
-  .cb-banner-products__inner--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .cb-products__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .cb-banner-products__products { gap: 12px; }
   .cb-product-card__body { padding: 10px 12px; }
   .cb-btn { padding: 12px 24px; font-size: 15px; }
 }

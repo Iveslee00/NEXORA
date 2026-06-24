@@ -14,7 +14,7 @@ export function SizeSpecGuide({ onClose }: Props) {
         <div className="flex flex-shrink-0 items-center justify-between border-b border-slate-800 px-5 py-4">
           <div>
             <h2 className="text-base font-semibold text-slate-100">圖片尺寸規格</h2>
-            <p className="mt-1 text-xs text-slate-500">商品模組圖片尺寸規格 v1.3</p>
+            <p className="mt-1 text-xs text-slate-500">商品模組圖片尺寸規格 v1.4</p>
           </div>
           <button
             type="button"

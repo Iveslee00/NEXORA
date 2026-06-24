@@ -39,16 +39,16 @@ export const SIZE_SPEC_SECTIONS: SizeSpecSection[] = [
   {
     title: '二、活動 Banner + 商品卡',
     description: [
-      'PC：Banner 圖片固定在左側，500px 為 Banner 圖片寬度，模組總寬由頁面容器決定。',
+      'PC：商品卡維持同尺寸並固定一排顯示，Banner 圖片依商品數調整寬度，模組總寬為 1200px。',
       'M 端：Banner 圖片在上，商品卡在下，750px 為整體模組寬度。',
     ],
     tables: [
       {
         headers: ['模組', 'PC 版型', 'PC Banner 尺寸', 'M 端版型', 'M 端尺寸'],
         rows: [
-          { cells: ['活動 Banner + 2 商品', 'Banner 左、2 商品右側橫排', '500 x 350', 'Banner 上、2 商品下方橫排', '750 x 520'] },
-          { cells: ['活動 Banner + 3 商品', 'Banner 左、3 商品右側橫排', '500 x 350', 'Banner 上、3 商品下方橫排', '750 x 520'] },
-          { cells: ['活動 Banner + 4 商品', 'Banner 左、4 商品右側 2x2 格', '500 x 350', 'Banner 上、4 商品下方 2x2 格', '750 x 520'] },
+          { cells: ['活動 Banner + 2 商品', 'Banner 左、2 商品右側橫排', '780 x 350', 'Banner 上、2 商品下方橫排', '750 x 520'] },
+          { cells: ['活動 Banner + 3 商品', 'Banner 左、3 商品右側橫排', '570 x 350', 'Banner 上、3 商品下方橫排', '750 x 520'] },
+          { cells: ['活動 Banner + 4 商品', 'Banner 左、4 商品右側橫排', '360 x 350', 'Banner 上、4 商品下方橫排', '750 x 520'] },
         ],
       },
     ],
