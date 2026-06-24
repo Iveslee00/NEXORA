@@ -87,7 +87,7 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
             <img
               src={imageSrc}
               alt={s.title}
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
               onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }}
             />
           );

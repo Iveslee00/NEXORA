@@ -79,7 +79,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-hero__media--full { flex: 1 1 auto; }
 .cb-hero__link { position: absolute; inset: 0; display: block; }
 .cb-hero__picture { position: absolute; inset: 0; display: block; }
-.cb-hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.cb-hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
 
 /* ------------------------------------------------------------
    5. SPLIT CONTENT MODULE
@@ -147,7 +147,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   background-color: #1a1a2e; min-height: 280px; display: flex;
 }
 .cb-banner-products__picture { position: absolute; inset: 0; display: block; }
-.cb-banner-products__banner-img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.cb-banner-products__banner-img { width: 100%; height: 100%; object-fit: contain; position: absolute; inset: 0; }
 .cb-banner-products__banner-overlay {
   position: relative; z-index: 1; padding: 28px 24px;
   display: flex; flex-direction: column; justify-content: flex-end;
@@ -344,7 +344,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 /* ------------------------------------------------------------
    17. ARTICLE IMAGE MODULE
    ------------------------------------------------------------ */
-.cb-article-img__img { width: 100%; height: auto; display: block; object-fit: cover; }
+.cb-article-img__img { width: 100%; height: auto; display: block; object-fit: contain; }
 .cb-article-img--top .cb-article-img__media--top { border-radius: 12px; overflow: hidden; margin-bottom: 36px; }
 .cb-article-img--top .cb-article-img__media--top img { max-height: 480px; width: 100%; }
 .cb-article-img__layout { display: grid; gap: 48px; align-items: flex-start; }
@@ -380,7 +380,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-kv__img { position: relative; overflow: hidden; }
 .cb-kv__link { position: absolute; inset: 0; display: block; color: inherit; }
 .cb-kv__picture { position: absolute; inset: 0; display: block; }
-.cb-kv__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.cb-kv__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
 .cb-kv__overlay { position: absolute; inset: 0; }
 .cb-kv__title { font-size: clamp(1.1rem, 2vw, 1.65rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #ffffff; margin: 0 0 8px; }
 .cb-kv__subtitle { font-size: clamp(0.8rem, 1vw, 0.9rem); line-height: 1.6; color: rgba(255,255,255,0.85); margin: 0 0 16px; max-width: 320px; }

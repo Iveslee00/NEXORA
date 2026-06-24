@@ -25,7 +25,7 @@ export function ArticleImagePreview({ data }: { data: ArticleImageData }) {
       <img
         src={data.image || PLACEHOLDER}
         alt={data.title || 'Article image'}
-        style={{ width: '100%', height: pos === 'top' ? (isMobile ? '220px' : '420px') : '100%', objectFit: 'cover', display: 'block', minHeight: isHorizontal ? '320px' : undefined }}
+        style={{ width: '100%', height: pos === 'top' ? (isMobile ? '220px' : '420px') : '100%', objectFit: 'contain', display: 'block', minHeight: isHorizontal ? '320px' : undefined }}
         onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }}
       />
     </div>
@@ -82,7 +82,7 @@ export function ArticleImagePreview({ data }: { data: ArticleImageData }) {
                   <img
                     src={data.image || PLACEHOLDER}
                     alt={data.title || 'Article image'}
-                    style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block' }}
+                    style={{ width: '100%', height: '220px', objectFit: 'contain', display: 'block' }}
                     onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }}
                   />
                 </div>

@@ -57,7 +57,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
             <img
               src={bannerSrc}
               alt={data.bannerTitle}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }}
+              style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'absolute', inset: 0 }}
               onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_BANNER; }}
             />
             <div style={{ position: 'relative', zIndex: 1, padding: '24px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', width: '100%', background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)' }}>

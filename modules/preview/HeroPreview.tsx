@@ -24,7 +24,7 @@ export function HeroPreview({ data }: { data: HeroData }) {
   const textBg = data.backgroundColor || '#1a1a2e';
   const hasBannerLink = Boolean(data.buttonLink && data.buttonLink !== '#');
   const heroImage = (
-    <img src={imageSrc} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }} />
+    <img src={imageSrc} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }} />
   );
 
   const btnStyle: React.CSSProperties = {
@@ -47,7 +47,7 @@ export function HeroPreview({ data }: { data: HeroData }) {
         <>
           {isMobile && (
             <div style={{ height: h.mobileImg, flexShrink: 0, position: 'relative', overflow: 'hidden' }}>
-              <img src={imageSrc} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }} />
+              <img src={imageSrc} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }} />
             </div>
           )}
           <div style={{ flex: isMobile ? '1 0 0' : '0 0 35%', background: textBg, color: '#ffffff', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: isMobile ? '20px 18px' : '0 36px 0 44px', overflow: 'hidden' }}>
@@ -58,7 +58,7 @@ export function HeroPreview({ data }: { data: HeroData }) {
           </div>
           {!isMobile && (
             <div style={{ flex: '0 0 65%', position: 'relative', overflow: 'hidden' }}>
-              <img src={imageSrc} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }} />
+              <img src={imageSrc} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER; }} />
             </div>
           )}
         </>
