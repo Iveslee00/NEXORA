@@ -36,11 +36,13 @@ export const moduleSchemas: ModuleSchemaItem[] = [
   {
     type: 'hero',
     key: 'hero',
-    label: '主視覺',
-    description: '大圖搭配標題與按鈕',
+    label: 'KV',
+    description: '單張 KV，可純圖',
     icon: 'layout',
     category: '版面區塊',
     defaultData: {
+      showText: true,
+      height: 'medium',
       kicker: '活動主打',
       title: '夏日限定優惠開跑',
       subtitle: '用一句清楚的文案說明活動利益點，讓使用者快速理解這個頁面的主打內容。',
@@ -65,6 +67,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     icon: 'columns',
     category: '內容說明',
     defaultData: {
+      height: 'medium',
       title: '活動亮點標題',
       description: '在這裡說明活動重點、商品特色或品牌故事，適合搭配一張情境圖片。',
       image: 'https://placehold.co/600x450/e8e8f8/6366f1?text=Feature',
@@ -222,6 +225,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     icon: 'package',
     category: '活動商品',
     defaultData: {
+      height: 'medium',
       kicker: '限時優惠',
       headline: '主打商品活動標題',
       tagline: '用簡短文字說明商品賣點、優惠內容與適合購買的理由。',
@@ -313,7 +317,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     type: 'hero-carousel',
     key: 'hero-carousel',
     label: 'KV 輪播',
-    description: '多張主視覺輪播，可純圖',
+    description: '多張 KV 輪播，可純圖',
     icon: 'gallery-horizontal-end',
     category: '版面區塊',
     defaultData: {

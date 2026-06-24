@@ -12,7 +12,8 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isCompact, setIsCompact] = useState(false);
   const count = data.products.length;
-  const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
+  const brandStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
+  const nameStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
   const bannerSrc = isMobile ? (data.mobileBannerImage || data.bannerImage || PLACEHOLDER_BANNER) : (data.bannerImage || PLACEHOLDER_BANNER);
 
   useEffect(() => {
@@ -27,13 +28,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
     return () => observer.disconnect();
   }, []);
 
-  const bgStyle: React.CSSProperties = data.backgroundColor
-    ? { background: data.backgroundColor }
-    : data.backgroundStyle === 'dark'
-    ? { background: '#1a1a2e' }
-    : data.backgroundStyle === 'gradient'
-    ? { background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }
-    : {};
+  const bgStyle: React.CSSProperties = data.backgroundColor ? { background: data.backgroundColor } : {};
 
   const gridCols = isMobile
     ? count <= 1 ? '1fr' : '1fr 1fr'
@@ -66,11 +61,6 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
               onError={(e) => { (e.target as HTMLImageElement).src = PLACEHOLDER_BANNER; }}
             />
             <div style={{ position: 'relative', zIndex: 1, padding: '24px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', width: '100%', background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)' }}>
-              {data.layoutLabel && (
-                <span style={{ alignSelf: 'flex-start', marginBottom: '8px', padding: '3px 8px', borderRadius: '999px', background: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.86)', fontSize: '10px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-                  {data.layoutLabel}
-                </span>
-              )}
               {data.bannerTitle && (
                 <p style={{ fontSize: isMobile ? '1rem' : '1.1rem', fontWeight: 700, color: data.bannerTitleColor || '#ffffff', lineHeight: 1.2, margin: 0, overflowWrap: 'anywhere' }}>
                   {data.bannerTitle}
@@ -100,13 +90,13 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
                   </span>
                 )}
               </div>
-              <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '3px', ...textStyle }}>
+              <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
                 {product.brand && (
-                  <p style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: data.textColor || '#9090b0', margin: 0 }}>
+                  <p style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: data.titleColor || '#9090b0', margin: 0, ...brandStyle }}>
                     {product.brand}
                   </p>
                 )}
-                <p style={{ fontSize: '12px', fontWeight: 600, color: data.textColor || '#1a1a2e', margin: 0, lineHeight: 1.3, overflowWrap: 'anywhere' }}>
+                <p style={{ fontSize: '12px', fontWeight: 600, color: data.textColor || '#1a1a2e', margin: 0, lineHeight: 1.3, overflowWrap: 'anywhere', ...nameStyle }}>
                   {product.name}
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>

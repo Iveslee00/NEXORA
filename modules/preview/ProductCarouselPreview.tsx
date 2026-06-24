@@ -14,7 +14,8 @@ export function ProductCarouselPreview({ data }: { data: ProductCarouselData }) 
   const visible = isMobile ? 2 : 4;
   const gap = isMobile ? 12 : 20;
   const max = Math.max(0, data.products.length - visible);
-  const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
+  const brandStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
+  const nameStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
 
   const viewportRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -94,13 +95,13 @@ export function ProductCarouselPreview({ data }: { data: ProductCarouselData }) 
                       </span>
                     )}
                   </div>
-                  <div style={{ padding: isMobile ? '10px 12px' : '14px 16px', display: 'flex', flexDirection: 'column', gap: '3px', ...textStyle }}>
+                  <div style={{ padding: isMobile ? '10px 12px' : '14px 16px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
                     {product.brand && (
-                      <p style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: data.textColor || '#9090b0', margin: 0 }}>
+                      <p style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: data.titleColor || '#9090b0', margin: 0, ...brandStyle }}>
                         {product.brand}
                       </p>
                     )}
-                    <p style={{ fontSize: '13px', fontWeight: 600, color: data.textColor || '#1a1a2e', margin: 0, lineHeight: 1.35 }}>
+                    <p style={{ fontSize: '13px', fontWeight: 600, color: data.textColor || '#1a1a2e', margin: 0, lineHeight: 1.35, ...nameStyle }}>
                       {product.name}
                     </p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>

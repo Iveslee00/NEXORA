@@ -2,7 +2,8 @@ import { ProductCarouselData } from '@/types/modules';
 import { escapeHtml } from '@/lib/utils';
 
 export function generateProductCarouselHTML(data: ProductCarouselData): string {
-  const bodyStyle = data.textColor ? ` style="color: ${escapeHtml(data.textColor)}"` : '';
+  const brandStyle = data.titleColor ? ` style="color: ${escapeHtml(data.titleColor)}"` : '';
+  const nameStyle = data.textColor ? ` style="color: ${escapeHtml(data.textColor)}"` : '';
 
   const items = data.products
     .map((p) => {
@@ -18,9 +19,9 @@ export function generateProductCarouselHTML(data: ProductCarouselData): string {
             <div class="cb-product-card__media">${badge}
               <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}">
             </div>
-            <div class="cb-product-card__body"${bodyStyle}>
-              ${p.brand ? `<p class="cb-product-card__brand">${escapeHtml(p.brand)}</p>` : ''}
-              <p class="cb-product-card__name">${escapeHtml(p.name)}</p>
+            <div class="cb-product-card__body">
+              ${p.brand ? `<p class="cb-product-card__brand"${brandStyle}>${escapeHtml(p.brand)}</p>` : ''}
+              <p class="cb-product-card__name"${nameStyle}>${escapeHtml(p.name)}</p>
               ${p.originalPrice || p.salePrice ? `<div class="cb-product-card__prices">${p.originalPrice ? `<span class="cb-product-card__original-price">${escapeHtml(p.originalPrice)}</span>` : ''}${p.salePrice ? `<span class="cb-product-card__sale-price">${escapeHtml(p.salePrice)}</span>` : ''}</div>` : ''}${specialTag}
             </div>
           </a>

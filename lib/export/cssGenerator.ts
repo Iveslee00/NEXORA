@@ -67,27 +67,26 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 /* ------------------------------------------------------------
    4. HERO MODULE
    ------------------------------------------------------------ */
-.cb-hero { position: relative; overflow: hidden; }
-.cb-hero--light { background-color: #f8f8fc; color: #1a1a2e; }
-.cb-hero--dark { background-color: #1a1a2e; color: #ffffff; }
-.cb-hero--gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; }
-.cb-hero--centered { padding-top: 100px; padding-bottom: 100px; text-align: center; }
-.cb-hero--centered .cb-container { display: flex; flex-direction: column; align-items: center; }
-.cb-hero--split { padding-top: 80px; padding-bottom: 80px; }
-.cb-hero__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.cb-hero { position: relative; overflow: hidden; display: flex; background: #1a1a2e; color: #ffffff; }
+.cb-hero--small { height: 300px; }
+.cb-hero--medium { height: 400px; }
+.cb-hero--large { height: 520px; }
+.cb-hero__content { flex: 0 0 35%; display: flex; flex-direction: column; justify-content: center; padding: 0 36px 0 44px; background: #1a1a2e; overflow: hidden; }
 .cb-hero__kicker { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.65; margin-bottom: 16px; }
-.cb-hero__title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 20px; }
-.cb-hero__subtitle { font-size: 1.125rem; line-height: 1.7; opacity: 0.8; margin-bottom: 36px; max-width: 560px; }
-.cb-hero--centered .cb-hero__subtitle { text-align: center; margin-left: auto; margin-right: auto; }
-.cb-hero__media { border-radius: 16px; overflow: hidden; }
-.cb-hero__picture { display: block; }
-.cb-hero__media img { width: 100%; height: auto; display: block; }
-.cb-hero__media--centered { margin-top: 48px; border-radius: 16px; overflow: hidden; }
+.cb-hero__title { font-size: clamp(1.25rem, 2.4vw, 2rem); font-weight: 800; line-height: 1.15; margin-bottom: 10px; color: #ffffff; }
+.cb-hero__subtitle { font-size: 0.95rem; line-height: 1.6; opacity: 0.85; margin-bottom: 16px; max-width: 560px; }
+.cb-hero__media { flex: 0 0 65%; position: relative; overflow: hidden; }
+.cb-hero__media--full { flex: 1 1 auto; }
+.cb-hero__picture { position: absolute; inset: 0; display: block; }
+.cb-hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* ------------------------------------------------------------
    5. SPLIT CONTENT MODULE
    ------------------------------------------------------------ */
 .cb-split {}
+.cb-split--small { padding-top: 32px; padding-bottom: 32px; }
+.cb-split--medium { padding-top: 48px; padding-bottom: 48px; }
+.cb-split--large { padding-top: 72px; padding-bottom: 72px; }
 .cb-split__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 .cb-split__inner--reverse .cb-split__media { order: -1; }
 .cb-split__content { display: flex; flex-direction: column; gap: 20px; }
@@ -95,6 +94,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-split__description { font-size: 1.05rem; line-height: 1.75; color: #4a4a6a; }
 .cb-split__media { border-radius: 16px; overflow: hidden; }
 .cb-split__media img { width: 100%; height: auto; display: block; }
+.cb-split__btn { align-self: flex-start; padding-left: 18px; padding-right: 18px; }
 
 /* ------------------------------------------------------------
    6. PRODUCT CARD (shared by grid, carousel, banner+products)
@@ -153,12 +153,6 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
   width: 100%;
 }
-.cb-banner-products__layout-label {
-  align-self: flex-start; margin-bottom: 8px; padding: 3px 8px;
-  border-radius: 999px; background: rgba(255,255,255,0.18);
-  color: rgba(255,255,255,0.86); font-size: 10px; font-weight: 700;
-  letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.4;
-}
 .cb-banner-products__banner-title { font-size: 1.25rem; font-weight: 700; color: #ffffff; line-height: 1.2; margin-bottom: 6px; overflow-wrap: anywhere; }
 .cb-banner-products__banner-subtitle { font-size: 0.875rem; color: rgba(255,255,255,0.8); margin-bottom: 16px; overflow-wrap: anywhere; }
 
@@ -190,9 +184,10 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    10. PRODUCT BANNER MODULE
    ------------------------------------------------------------ */
 .cb-product-banner { position: relative; overflow: hidden; }
-.cb-product-banner--light { background-color: #f8f8fc; color: #1a1a2e; }
-.cb-product-banner--dark { background-color: #1a1a2e; color: #ffffff; }
-.cb-product-banner--gradient { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4e 100%); color: #ffffff; }
+.cb-product-banner { color: #ffffff; }
+.cb-product-banner--small { padding-top: 36px; padding-bottom: 36px; }
+.cb-product-banner--medium { padding-top: 56px; padding-bottom: 56px; }
+.cb-product-banner--large { padding-top: 76px; padding-bottom: 76px; }
 .cb-product-banner__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .cb-product-banner__inner--reverse .cb-product-banner__media { order: -1; }
 .cb-product-banner__content { display: flex; flex-direction: column; gap: 16px; }
@@ -277,7 +272,6 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 @media (max-width: 1024px) {
   .cb-container { padding-left: 20px; padding-right: 20px; }
   .cb-section { padding-top: 64px; padding-bottom: 64px; }
-  .cb-hero__inner { gap: 40px; }
   .cb-split__inner { gap: 40px; }
   .cb-products__grid { grid-template-columns: repeat(3, 1fr); }
   .cb-carousel__item { flex: 0 0 calc(33.333% - 14px); }
@@ -290,9 +284,16 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 
 @media (max-width: 768px) {
   .cb-section { padding-top: 48px; padding-bottom: 48px; }
-  .cb-hero--centered { padding-top: 64px; padding-bottom: 64px; }
-  .cb-hero__inner { grid-template-columns: 1fr; gap: 36px; }
-  .cb-hero__title { font-size: 2rem; }
+  .cb-hero { flex-direction: column; }
+  .cb-hero--small { height: 370px; }
+  .cb-hero--medium { height: 460px; }
+  .cb-hero--large { height: 550px; }
+  .cb-hero__content { flex: 1 0 0; padding: 20px 18px; }
+  .cb-hero__media { flex: 0 0 260px; order: -1; }
+  .cb-hero--small .cb-hero__media { flex-basis: 210px; }
+  .cb-hero--large .cb-hero__media { flex-basis: 310px; }
+  .cb-hero--image-only .cb-hero__media { flex: 1 1 auto; order: 0; }
+  .cb-hero__title { font-size: 1.5rem; }
   .cb-split__inner { grid-template-columns: 1fr; gap: 32px; }
   .cb-split__inner--reverse .cb-split__media { order: 0; }
   .cb-products__grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }

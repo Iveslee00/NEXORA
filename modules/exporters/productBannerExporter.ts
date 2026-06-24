@@ -2,7 +2,7 @@ import { ProductBannerData } from '@/types/modules';
 import { escapeHtml } from '@/lib/utils';
 
 export function generateProductBannerHTML(data: ProductBannerData): string {
-  const bgClass = `cb-product-banner--${data.backgroundStyle}`;
+  const heightClass = `cb-product-banner--${data.height ?? 'medium'}`;
   const reverseClass = data.reverse ? ' cb-product-banner__inner--reverse' : '';
 
   const titleStyle = data.titleColor ? ` style="color: ${escapeHtml(data.titleColor)}"` : '';
@@ -32,13 +32,12 @@ export function generateProductBannerHTML(data: ProductBannerData): string {
     ? `\n        <a href="${escapeHtml(data.buttonLink || '#')}" class="cb-btn">${escapeHtml(data.buttonText)}</a>`
     : '';
 
-  const isDark = data.backgroundStyle === 'dark' || data.backgroundStyle === 'gradient';
-  const bgOverride = data.backgroundColor ? ` style="background-color: ${escapeHtml(data.backgroundColor)}"` : '';
+  const bgOverride = ` style="background-color: ${escapeHtml(data.backgroundColor || '#1a1a2e')}"`;
   const productImage = data.image
     ? `<picture class="cb-product-banner__picture">${data.mobileImage ? `\n          <source media="(max-width: 767px)" srcset="${escapeHtml(data.mobileImage)}">` : ''}\n          <img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.productName)}">\n        </picture>`
     : '';
 
-  return `<section class="cb-product-banner cb-section ${bgClass}"${bgOverride}>
+  return `<section class="cb-product-banner cb-section ${heightClass}"${bgOverride}>
   <div class="cb-container">
     <div class="cb-product-banner__inner${reverseClass}">
       <div class="cb-product-banner__content">

@@ -6,10 +6,10 @@ import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 
 interface Props { data: ProductBannerData; onChange: (data: ProductBannerData) => void }
 
-const bgOptions = [
-  { value: 'light', label: '淺色' },
-  { value: 'dark', label: '深色' },
-  { value: 'gradient', label: '漸層' },
+const heightOptions = [
+  { value: 'small', label: 'S' },
+  { value: 'medium', label: 'M' },
+  { value: 'large', label: 'L' },
 ];
 
 export function ProductBannerForm({ data, onChange }: Props) {
@@ -17,7 +17,7 @@ export function ProductBannerForm({ data, onChange }: Props) {
 
   return (
     <div className="space-y-4">
-      <SegmentedField label="背景樣式" value={data.backgroundStyle} onChange={(v) => set('backgroundStyle', v as ProductBannerData['backgroundStyle'])} options={bgOptions} />
+      <SegmentedField label="高度" value={data.height ?? 'medium'} onChange={(v) => set('height', v as ProductBannerData['height'])} options={heightOptions} />
       <ToggleField label="左右對調" description="開啟後圖片在左、文字在右" value={data.reverse} onChange={(v) => set('reverse', v)} />
 
       <div className="h-px bg-slate-700/60" />

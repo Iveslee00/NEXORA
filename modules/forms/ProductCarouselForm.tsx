@@ -1,7 +1,7 @@
 'use client';
 
 import { ProductCarouselData, Product } from '@/types/modules';
-import { FormField, ToggleField, ColorSection, ImageField } from '@/components/ui/FormField';
+import { FormField, ToggleField, ColorField, ImageField } from '@/components/ui/FormField';
 import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 import { generateId } from '@/lib/utils';
 import { Plus, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
@@ -87,14 +87,12 @@ export function ProductCarouselForm({ data, onChange }: Props) {
         ))}
       </div>
       <div className="h-px bg-slate-700/60" />
-      <ColorSection
-        backgroundColor={data.backgroundColor}
-        onBackgroundColorChange={(v) => onChange({ ...data, backgroundColor: v })}
-        titleColor={data.titleColor}
-        textColor={data.textColor}
-        onTitleColorChange={(v) => onChange({ ...data, titleColor: v })}
-        onTextColorChange={(v) => onChange({ ...data, textColor: v })}
-      />
+      <div className="space-y-3">
+        <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">顏色設定</p>
+        <ColorField label="背景色" value={data.backgroundColor} onChange={(v) => onChange({ ...data, backgroundColor: v })} />
+        <ColorField label="品牌名稱色" value={data.titleColor} onChange={(v) => onChange({ ...data, titleColor: v })} />
+        <ColorField label="品名色" value={data.textColor} onChange={(v) => onChange({ ...data, textColor: v })} />
+      </div>
     </div>
   );
 }

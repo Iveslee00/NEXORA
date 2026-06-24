@@ -6,19 +6,17 @@ import { useGlobalSettings } from '@/contexts/GlobalSettingsContext';
 
 const PLACEHOLDER = 'https://placehold.co/700x600/e0e0f0/9090c0?text=Product';
 
-const bgMap: Record<string, React.CSSProperties> = {
-  light: { background: 'transparent', color: '#1a1a2e' },
-  dark: { background: '#1a1a2e', color: '#ffffff' },
-  gradient: { background: 'linear-gradient(135deg, #1a1a2e 0%, #2d2d4e 100%)', color: '#ffffff' },
+const heightPadding = {
+  small: { desktop: '36px 24px', mobile: '28px 16px' },
+  medium: { desktop: '56px 24px', mobile: '40px 16px' },
+  large: { desktop: '76px 24px', mobile: '56px 16px' },
 };
 
 export function ProductBannerPreview({ data }: { data: ProductBannerData }) {
   const { isMobile } = useDevice();
   const { buttonColor } = useGlobalSettings();
-  const bg = data.backgroundColor
-    ? { background: data.backgroundColor, color: '#1a1a2e' }
-    : (bgMap[data.backgroundStyle] ?? bgMap.dark);
-  const isDark = !data.backgroundColor && data.backgroundStyle !== 'light';
+  const bg = { background: data.backgroundColor || '#1a1a2e', color: '#ffffff' };
+  const padding = heightPadding[data.height ?? 'medium'];
 
   const titleStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
   const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
@@ -27,14 +25,14 @@ export function ProductBannerPreview({ data }: { data: ProductBannerData }) {
   const btnStyle: React.CSSProperties = {
     display: 'inline-flex', alignItems: 'center',
     padding: '13px 28px',
-    background: isDark ? '#ffffff' : buttonColor,
-    color: isDark ? '#1a1a2e' : '#ffffff',
+    background: buttonColor,
+    color: '#ffffff',
     borderRadius: '8px', fontWeight: 600, fontSize: '15px',
     lineHeight: 1, cursor: 'default', whiteSpace: 'nowrap',
   };
 
-  const dividerColor = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)';
-  const salePriceColor = isDark ? '#ff6b6b' : '#e53e3e';
+  const dividerColor = 'rgba(255,255,255,0.12)';
+  const salePriceColor = '#ff6b6b';
 
   const content = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -92,7 +90,7 @@ export function ProductBannerPreview({ data }: { data: ProductBannerData }) {
   );
 
   return (
-    <section style={{ ...bg, padding: isMobile ? '40px 16px' : '56px 24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+    <section style={{ ...bg, padding: isMobile ? padding.mobile : padding.desktop, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '32px' : '56px', alignItems: 'center' }}>
           {data.reverse ? <>{media}{content}</> : <>{content}{media}</>}

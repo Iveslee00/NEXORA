@@ -8,7 +8,8 @@ const PLACEHOLDER = 'https://placehold.co/400x400/e0e0f0/9090c0?text=Product';
 export function ProductGridPreview({ data }: { data: ProductGridData }) {
   const { isMobile } = useDevice();
   const cols = isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)';
-  const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
+  const brandStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
+  const nameStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
 
   return (
     <section style={{ background: data.backgroundColor || 'transparent', padding: isMobile ? '32px 16px' : '48px 24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
@@ -29,13 +30,13 @@ export function ProductGridPreview({ data }: { data: ProductGridData }) {
                   </span>
                 )}
               </div>
-              <div style={{ padding: isMobile ? '10px 12px' : '14px 16px', display: 'flex', flexDirection: 'column', gap: '3px', ...textStyle }}>
+              <div style={{ padding: isMobile ? '10px 12px' : '14px 16px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
                 {product.brand && (
-                  <p style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: data.textColor || '#9090b0', margin: 0 }}>
+                  <p style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: data.titleColor || '#9090b0', margin: 0, ...brandStyle }}>
                     {product.brand}
                   </p>
                 )}
-                <p style={{ fontSize: '13px', fontWeight: 600, color: data.textColor || '#1a1a2e', margin: 0, lineHeight: 1.35 }}>
+                <p style={{ fontSize: '13px', fontWeight: 600, color: data.textColor || '#1a1a2e', margin: 0, lineHeight: 1.35, ...nameStyle }}>
                   {product.name || '商品名稱'}
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '3px', flexWrap: 'wrap' }}>

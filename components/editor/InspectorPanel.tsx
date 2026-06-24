@@ -9,7 +9,7 @@ import { PageMode } from '@/app/page';
 import { getBannerProductsLayoutLabel } from '@/lib/modules/bannerProducts';
 
 const moduleLabels: Record<string, string> = {
-  'title': '標題區塊', 'hero': '主視覺', 'split-section': '圖文區塊',
+  'title': '標題區塊', 'hero': 'KV', 'split-section': '圖文區塊',
   'product-grid': '商品列表', 'banner-products': '活動 Banner + 商品',
   'product-banner': '單品主打', 'product-carousel': '商品輪播',
   'logo-wall': '品牌 Logo 牆', 'cta': '行動呼籲', 'faq': 'FAQ',

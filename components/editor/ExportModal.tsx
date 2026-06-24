@@ -64,7 +64,7 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
             </div>
             <div>
               <h2 className="text-slate-100 font-semibold text-base">匯出</h2>
-              <p className="text-slate-500 text-xs mt-0.5">選擇貼碼、ZIP 或電子報 HTML</p>
+              <p className="text-slate-500 text-xs mt-0.5">以貼碼使用為主，ZIP 為整包交付備用</p>
             </div>
           </div>
           <button
@@ -144,14 +144,14 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
                 </button>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-xs text-slate-500">{campaignLineCount} lines</span>
+                <span className="text-xs text-slate-500">{campaignLineCount} 行</span>
                 <button
                   onClick={() => handleCopy(campaignTab, campaignCode)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                     copied === campaignTab ? 'bg-emerald-600 text-white' : 'bg-indigo-600 hover:bg-indigo-500 text-white'
                   }`}
                 >
-                  {copied === campaignTab ? <><Check size={13} />Copied!</> : <><Copy size={13} />Copy {campaignTab.toUpperCase()}</>}
+                  {copied === campaignTab ? <><Check size={13} />已複製</> : <><Copy size={13} />複製 {campaignTab.toUpperCase()}</>}
                 </button>
               </div>
             </div>
@@ -240,14 +240,14 @@ images/`}</pre>
                 <span className="text-sm font-medium text-slate-300">email.html</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-xs text-slate-500">{emailLineCount} lines</span>
+                <span className="text-xs text-slate-500">{emailLineCount} 行</span>
                 <button
                   onClick={() => handleCopy('email', emailHTML)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                     copied === 'email' ? 'bg-emerald-600 text-white' : 'bg-amber-600 hover:bg-amber-500 text-white'
                   }`}
                 >
-                  {copied === 'email' ? <><Check size={13} />Copied!</> : <><Copy size={13} />Copy HTML</>}
+                  {copied === 'email' ? <><Check size={13} />已複製</> : <><Copy size={13} />複製 HTML</>}
                 </button>
               </div>
             </div>

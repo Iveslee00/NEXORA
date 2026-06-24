@@ -5,16 +5,22 @@ import { useDevice } from '@/contexts/DeviceContext';
 import { useGlobalSettings } from '@/contexts/GlobalSettingsContext';
 
 const PLACEHOLDER = 'https://placehold.co/600x450/e0e0f0/9090c0?text=Image';
+const heightPadding = {
+  small: { desktop: '32px 24px', mobile: '24px 16px' },
+  medium: { desktop: '48px 24px', mobile: '32px 16px' },
+  large: { desktop: '72px 24px', mobile: '48px 16px' },
+};
 
 export function SplitSectionPreview({ data }: { data: SplitSectionData }) {
   const { isMobile } = useDevice();
   const { buttonColor } = useGlobalSettings();
   const titleStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
   const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
+  const padding = heightPadding[data.height ?? 'medium'];
 
   const btnStyle: React.CSSProperties = {
     display: 'inline-flex', alignItems: 'center',
-    padding: '12px 28px', background: buttonColor, color: '#fff',
+    padding: '10px 18px', background: buttonColor, color: '#fff',
     borderRadius: '8px', fontWeight: 600, fontSize: '15px', lineHeight: 1, cursor: 'default',
   };
 
@@ -35,7 +41,7 @@ export function SplitSectionPreview({ data }: { data: SplitSectionData }) {
   );
 
   return (
-    <section style={{ background: data.backgroundColor || 'transparent', padding: isMobile ? '32px 16px' : '48px 24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+    <section style={{ background: data.backgroundColor || 'transparent', padding: isMobile ? padding.mobile : padding.desktop, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '28px' : '60px', alignItems: 'center' }}>
         {data.reverse ? <>{media}{content}</> : <>{content}{media}</>}
       </div>

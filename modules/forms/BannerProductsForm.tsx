@@ -1,10 +1,9 @@
 'use client';
 
 import { BannerProductsData, Product } from '@/types/modules';
-import { FormField, ToggleField, ColorField, SegmentedField, ColorSection, ImageField } from '@/components/ui/FormField';
+import { FormField, ToggleField, ColorField, ColorSection, ImageField } from '@/components/ui/FormField';
 import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
-import { generateId } from '@/lib/utils';
-import { Plus, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 
 interface Props { data: BannerProductsData; onChange: (data: BannerProductsData) => void }
@@ -16,29 +15,10 @@ export function BannerProductsForm({ data, onChange }: Props) {
     onChange({ ...data, products: data.products.map((p) => p.id === id ? { ...p, [field]: value } : p) });
   };
 
-  const addProduct = () => {
-    const newProduct: Product = {
-      id: generateId(),
-      image: 'https://placehold.co/400x400/f0f0f8/6366f1?text=New',
-      brand: '品牌名稱', name: '新商品',
-      originalPrice: '$0.00', salePrice: '',
-      link: '#', showBadge: false, badgeText: '新品',
-      showSpecialTag: false, specialTag: '',
-    };
-    onChange({ ...data, products: [...data.products, newProduct] });
-    setExpanded(newProduct.id);
-  };
-
-  const removeProduct = (id: string) => {
-    onChange({ ...data, products: data.products.filter((p) => p.id !== id) });
-    if (expanded === id) setExpanded(null);
-  };
-
   return (
     <div className="space-y-4">
       {/* Banner fields */}
       <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">活動 Banner</p>
-      <FormField label="模組標示" value={data.layoutLabel} onChange={(v) => onChange({ ...data, layoutLabel: v })} placeholder={`Banner + ${data.products.length || 1} 品`} />
       <FormField label="Banner 標題" value={data.bannerTitle} onChange={(v) => onChange({ ...data, bannerTitle: v })} placeholder="活動主標" />
       <FormField label="Banner 副標" value={data.bannerSubtitle} onChange={(v) => onChange({ ...data, bannerSubtitle: v })} placeholder="限時優惠" />
       <FormField label="Banner 連結" value={data.bannerLink} onChange={(v) => onChange({ ...data, bannerLink: v })} type="url" placeholder="https://" />
@@ -48,22 +28,13 @@ export function BannerProductsForm({ data, onChange }: Props) {
       </button>
       <ImageField label="活動 Banner 圖片（M）" value={data.mobileBannerImage ?? ''} onChange={(v) => onChange({ ...data, mobileBannerImage: v })} spec={IMAGE_SPECS.bannerProductsMobile} />
       <ColorField label="Banner 標題色" value={data.bannerTitleColor} onChange={(v) => onChange({ ...data, bannerTitleColor: v })} />
-      <SegmentedField
-        label="背景樣式"
-        value={data.backgroundStyle}
-        options={[{ value: 'light', label: '淺色' }, { value: 'dark', label: '深色' }, { value: 'gradient', label: '漸層' }]}
-        onChange={(v) => onChange({ ...data, backgroundStyle: v as BannerProductsData['backgroundStyle'] })}
-      />
 
       <div className="h-px bg-slate-700/60" />
 
       {/* Product list */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">商品（{data.products.length}）</span>
-          <button onClick={addProduct} className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
-            <Plus size={13} /> 新增
-          </button>
+          <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">固定商品（{data.products.length}）</span>
         </div>
         {data.products.map((product, idx) => (
           <div key={product.id} className="border border-slate-700 rounded-lg overflow-hidden">
@@ -83,16 +54,6 @@ export function BannerProductsForm({ data, onChange }: Props) {
                 </span>
               </button>
               <div className="flex items-center gap-2 flex-shrink-0 ml-2">
-                <button
-                  type="button"
-                  onClick={() => removeProduct(product.id)}
-                  disabled={data.products.length <= 1}
-                  className="text-slate-500 hover:text-red-400 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:text-slate-500 transition-colors"
-                  aria-label={`刪除 ${product.name || `商品 ${idx + 1}`}`}
-                  title={data.products.length <= 1 ? '至少保留 1 個商品' : '刪除商品'}
-                >
-                  <Trash2 size={13} />
-                </button>
                 {expanded === product.id ? <ChevronUp size={13} className="text-slate-500" /> : <ChevronDown size={13} className="text-slate-500" />}
               </div>
             </div>

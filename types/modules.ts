@@ -54,8 +54,11 @@ export interface TitleModule extends BaseModule {
 // ── Hero ─────────────────────────────────────────────────────────────────────
 export type HeroLayout = 'left-text-right-image' | 'centered';
 export type HeroBackground = 'light' | 'dark' | 'gradient';
+export type ModuleHeight = 'small' | 'medium' | 'large';
 
 export interface HeroData {
+  showText: boolean;
+  height: ModuleHeight;
   kicker: string;
   title: string;
   subtitle: string;
@@ -77,6 +80,7 @@ export interface HeroModule extends BaseModule {
 
 // ── Split Section ─────────────────────────────────────────────────────────────
 export interface SplitSectionData {
+  height: ModuleHeight;
   title: string;
   description: string;
   image: string;
@@ -129,6 +133,7 @@ export interface BannerProductsModule extends BaseModule {
 
 // ── Product Banner ────────────────────────────────────────────────────────────
 export interface ProductBannerData {
+  height: ModuleHeight;
   kicker: string;
   headline: string;
   tagline: string;
@@ -302,7 +307,7 @@ export interface KvSlide {
   alignment: 'left' | 'center' | 'right';
 }
 
-export type KvHeight = 'small' | 'medium' | 'large';
+export type KvHeight = ModuleHeight;
 
 export interface HeroCarouselData {
   slides: KvSlide[];
