@@ -105,8 +105,8 @@ export function HeroCarouselForm({ data, onChange }: Props) {
                   )}
                   <FormField label={showText ? '按鈕 / Banner 連結' : '整張 Banner 連結'} value={slide.buttonLink} onChange={(v) => updateSlide(slide.id, 'buttonLink', v)} type="url" placeholder="https://" />
                   <div className="grid grid-cols-2 gap-3">
-                    <ColorField label="標題色" value={slide.titleColor} onChange={(v) => updateSlide(slide.id, 'titleColor', v)} placeholder="使用預設 #ffffff" defaultPreviewColor="#ffffff" />
-                    <ColorField label="文字色" value={slide.textColor} onChange={(v) => updateSlide(slide.id, 'textColor', v)} placeholder="使用預設 #ffffff" defaultPreviewColor="#ffffff" />
+                    <ColorField label="標題文字色" value={slide.titleColor} onChange={(v) => updateSlide(slide.id, 'titleColor', v)} placeholder="使用預設 #ffffff" defaultPreviewColor="#ffffff" />
+                    <ColorField label="內文文字色" value={slide.textColor} onChange={(v) => updateSlide(slide.id, 'textColor', v)} placeholder="使用預設 #ffffff" defaultPreviewColor="#ffffff" />
                   </div>
                 </div>
               </div>
@@ -118,7 +118,7 @@ export function HeroCarouselForm({ data, onChange }: Props) {
       </div>
 
       <div className="h-px bg-slate-700/60" />
-      <ColorField label="背景色" value={data.backgroundColor} onChange={(v) => onChange({ ...data, backgroundColor: v })} />
+      <ColorField label="M 端文字底色" value={data.backgroundColor} onChange={(v) => onChange({ ...data, backgroundColor: v })} defaultPreviewColor="#1a1a2e" placeholder="使用預設 #1a1a2e" />
     </div>
   );
 }

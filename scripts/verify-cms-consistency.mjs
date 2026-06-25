@@ -33,6 +33,9 @@ assert(heroExporter.includes("const titleStyle = ` style=\"color: ${escapeHtml(d
 assert(heroExporter.includes("const textStyle = ` style=\"color: ${escapeHtml(data.textColor || '#ffffff')}\"`;"), 'KV export body should default to white');
 assert(heroForm.includes('titleDefaultColor="#ffffff"'), 'KV form should show white as the title default');
 assert(heroForm.includes('textDefaultColor="#ffffff"'), 'KV form should show white as the body default');
+assert(heroForm.includes('backgroundLabel="M 端文字底色"'), 'KV form should clarify that background color controls the mobile text panel');
+assert(heroForm.includes('titleLabel="標題文字色"'), 'KV form should expose a clear title text color control');
+assert(heroForm.includes('textLabel="內文 / 小標文字色"'), 'KV form should expose a clear body text color control');
 assert(kvPreview.includes("const defaultTextColor = '#ffffff';"), 'KV carousel preview should default text to white');
 assert(kvPreview.includes("color: s.titleColor || defaultTextColor"), 'KV carousel preview title should default to white');
 assert(kvPreview.includes("color: s.textColor || defaultTextColor"), 'KV carousel preview body should default to white');
@@ -40,6 +43,9 @@ assert(kvExporter.includes("const titleStyle = ` style=\"color: ${escapeHtml(s.t
 assert(kvExporter.includes("const textStyle = ` style=\"color: ${escapeHtml(s.textColor || '#ffffff')}\"`;"), 'KV carousel export body should default to white');
 assert(kvForm.includes("titleColor: '',"), 'New KV carousel slides should not force dark title colors');
 assert(kvForm.includes("textColor: '',"), 'New KV carousel slides should not force dark body colors');
+assert(kvForm.includes('label="標題文字色"'), 'KV carousel form should expose a clear title text color control');
+assert(kvForm.includes('label="內文文字色"'), 'KV carousel form should expose a clear body text color control');
+assert(kvForm.includes('label="M 端文字底色"'), 'KV carousel form should clarify that background color controls the mobile text panel');
 assert(kvForm.includes('defaultPreviewColor="#ffffff"'), 'KV carousel form should show white as the text color default');
 assert(css.includes('.cb-hero__title { max-width: 430px; font-size: clamp(1.25rem, 2.4vw, 2rem); font-weight: 800; line-height: 1.15; margin-bottom: 10px; color: #ffffff; }'), 'KV CSS title default should be white');
 assert(css.includes('.cb-kv__title { font-size: clamp(1.1rem, 2vw, 1.65rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #ffffff; margin: 0 0 8px; }'), 'KV carousel CSS title default should be white');

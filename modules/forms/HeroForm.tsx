@@ -50,6 +50,9 @@ export function HeroForm({ data, onChange }: Props) {
         textDefaultColor="#ffffff"
         titlePlaceholder="使用預設 #ffffff"
         textPlaceholder="使用預設 #ffffff"
+        backgroundLabel="M 端文字底色"
+        titleLabel="標題文字色"
+        textLabel="內文 / 小標文字色"
       />
     </div>
   );
