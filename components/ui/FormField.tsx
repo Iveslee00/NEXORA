@@ -1,9 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { ImagePlus, Link2, X } from 'lucide-react';
+import { ImagePlus, Link2, Palette, X } from 'lucide-react';
 import { formatImageSpec, ImageSpec } from '@/lib/assets/imageSpecs';
-import { GRADIENT_PRESETS, colorSwatchStyle, isGradientValue } from '@/lib/styles/colorStyles';
+import {
+  GRADIENT_DIRECTIONS,
+  GRADIENT_PRESETS,
+  colorSwatchStyle,
+  createLinearGradient,
+  isGradientValue,
+} from '@/lib/styles/colorStyles';
 
 interface Option { value: string; label: string }
 
@@ -125,6 +131,117 @@ interface ColorFieldProps {
   placeholder?: string;
 }
 
+export function GradientPickerPopover({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const [fromColor, setFromColor] = useState('#2563eb');
+  const [toColor, setToColor] = useState('#7c3aed');
+  const [direction, setDirection] = useState('135deg');
+
+  const applyCustomGradient = () => {
+    onChange(createLinearGradient(fromColor, toColor, direction));
+    setOpen(false);
+  };
+
+  return (
+    <div className="relative flex-shrink-0">
+      <button
+        type="button"
+        onClick={() => setOpen((current) => !current)}
+        className={`inline-flex h-8 items-center gap-1.5 rounded-md border px-2 text-xs font-semibold transition-colors ${
+          isGradientValue(value)
+            ? 'border-indigo-400 bg-indigo-500/15 text-indigo-100'
+            : 'border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-600 hover:text-white'
+        }`}
+        title="選擇漸層"
+      >
+        <Palette size={13} />
+        漸層
+      </button>
+      {open && (
+        <div className="absolute right-0 top-9 z-50 w-72 rounded-lg border border-slate-700 bg-slate-900 p-3 shadow-2xl shadow-black/40">
+          <div className="mb-3 flex items-center justify-between">
+            <p className="text-xs font-semibold text-slate-300">選擇漸層</p>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="text-xs text-slate-500 transition-colors hover:text-slate-200"
+            >
+              關閉
+            </button>
+          </div>
+          <div className="grid grid-cols-3 gap-1.5">
+            {GRADIENT_PRESETS.map((preset) => (
+              <button
+                key={preset.label}
+                type="button"
+                onClick={() => {
+                  onChange(preset.value);
+                  setOpen(false);
+                }}
+                className={`h-8 rounded-md border px-1 text-[10px] font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5 ${
+                  value === preset.value ? 'border-white ring-1 ring-indigo-300' : 'border-slate-700'
+                }`}
+                style={{ background: preset.value }}
+                title={preset.value}
+              >
+                {preset.label}
+              </button>
+            ))}
+          </div>
+          <div className="mt-3 border-t border-slate-800 pt-3">
+            <p className="mb-2 text-xs font-semibold text-slate-400">自訂漸層</p>
+            <div className="grid grid-cols-2 gap-2">
+              <label className="flex flex-col gap-1 text-[11px] text-slate-500">
+                起始色
+                <input
+                  type="color"
+                  value={fromColor}
+                  onChange={(e) => setFromColor(e.target.value)}
+                  className="h-8 w-full cursor-pointer rounded-md border border-slate-700 bg-slate-800"
+                />
+              </label>
+              <label className="flex flex-col gap-1 text-[11px] text-slate-500">
+                結束色
+                <input
+                  type="color"
+                  value={toColor}
+                  onChange={(e) => setToColor(e.target.value)}
+                  className="h-8 w-full cursor-pointer rounded-md border border-slate-700 bg-slate-800"
+                />
+              </label>
+            </div>
+            <label className="mt-2 flex flex-col gap-1 text-[11px] text-slate-500">
+              方向
+              <select
+                value={direction}
+                onChange={(e) => setDirection(e.target.value)}
+                className="rounded-md border border-slate-700 bg-slate-800 px-2 py-1.5 text-xs text-slate-200 outline-none focus:border-indigo-500"
+              >
+                {GRADIENT_DIRECTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </label>
+            <div className="mt-3 flex items-center gap-2">
+              <div
+                className="h-8 flex-1 rounded-md border border-slate-700"
+                style={{ background: createLinearGradient(fromColor, toColor, direction) }}
+              />
+              <button
+                type="button"
+                onClick={applyCustomGradient}
+                className="h-8 rounded-md bg-indigo-600 px-3 text-xs font-semibold text-white transition-colors hover:bg-indigo-500"
+              >
+                套用自訂漸層
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ColorField({ label, value, onChange, placeholder = '自動' }: ColorFieldProps) {
   const isHex = /^#[0-9a-fA-F]{6}$/.test(value);
   const displayColor = isHex ? value : '#ffffff';
@@ -166,6 +283,8 @@ export function ColorField({ label, value, onChange, placeholder = '自動' }: C
           className="flex-1 bg-slate-800 border border-slate-700 text-slate-100 rounded-md px-2.5 py-1.5 text-sm outline-none focus:border-indigo-500 transition-colors placeholder-slate-500 font-mono"
         />
 
+        <GradientPickerPopover value={value} onChange={onChange} />
+
         {/* Reset to auto */}
         {value && (
           <button
@@ -177,22 +296,6 @@ export function ColorField({ label, value, onChange, placeholder = '自動' }: C
             ✕
           </button>
         )}
-      </div>
-      <div className="grid grid-cols-3 gap-1">
-        {GRADIENT_PRESETS.map((preset) => (
-          <button
-            key={preset.label}
-            type="button"
-            onClick={() => onChange(preset.value)}
-            className={`h-7 rounded-md border text-[10px] font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5 ${
-              value === preset.value ? 'border-indigo-300 ring-1 ring-indigo-400' : 'border-slate-700'
-            }`}
-            style={{ background: preset.value }}
-            title={preset.value}
-          >
-            {preset.label}
-          </button>
-        ))}
       </div>
     </div>
   );

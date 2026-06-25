@@ -14,7 +14,8 @@ import {
 } from 'lucide-react';
 import { useGlobalSettings } from '@/contexts/GlobalSettingsContext';
 import { useEmailSettings } from '@/contexts/EmailSettingsContext';
-import { GRADIENT_PRESETS, colorSwatchStyle, isGradientValue } from '@/lib/styles/colorStyles';
+import { GradientPickerPopover } from '@/components/ui/FormField';
+import { colorSwatchStyle, isGradientValue } from '@/lib/styles/colorStyles';
 
 const iconMap: Record<string, React.ReactNode> = {
   layout: <Layout size={18} />,
@@ -64,23 +65,9 @@ function ColorPicker({ label, value, onChange, allowEmpty, onReset }: {
           </div>
         </div>
         <input type="text" value={value} onChange={(e) => onChange(e.target.value)} placeholder={allowEmpty ? '無底色' : '#000000'} className="flex-1 bg-slate-800 border border-slate-700 rounded-md px-2 py-1 text-xs text-slate-300 font-mono focus:outline-none focus:border-indigo-500 placeholder-slate-600" />
+        <GradientPickerPopover value={value} onChange={onChange} />
         {allowEmpty && value && <button onClick={() => onChange('')} className="text-xs text-slate-500 hover:text-slate-300 px-1" title="Clear">✕</button>}
         {!allowEmpty && onReset && <button onClick={onReset} className="text-xs text-slate-500 hover:text-slate-300 px-1" title="Reset">↺</button>}
-      </div>
-      <div className="grid grid-cols-3 gap-1">
-        {GRADIENT_PRESETS.map((preset) => (
-          <button
-            key={preset.label}
-            type="button"
-            onClick={() => onChange(preset.value)}
-            className={`h-6 rounded border text-[10px] font-semibold text-white transition-transform hover:-translate-y-0.5 ${
-              value === preset.value ? 'border-indigo-300 ring-1 ring-indigo-400' : 'border-slate-700'
-            }`}
-            style={{ background: preset.value }}
-          >
-            {preset.label}
-          </button>
-        ))}
       </div>
     </div>
   );
