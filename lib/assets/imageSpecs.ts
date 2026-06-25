@@ -4,18 +4,18 @@ export interface ImageSpec {
 }
 
 export const IMAGE_SPECS = {
-  hero: { width: 1200, height: 400 },
+  hero: { width: 1920, height: 640 },
   heroMobile: { width: 750, height: 850 },
   split: { width: 600, height: 450 },
   splitMobile: { width: 750, height: 562 },
   product: { width: 400, height: 400 },
-  bannerProducts: { width: 570, height: 350 },
+  bannerProducts: { width: 520, height: 350 },
   bannerProductsMobile: { width: 750, height: 520 },
   productBanner: { width: 700, height: 600 },
   productBannerMobile: { width: 750, height: 900 },
   article: { width: 1200, height: 420 },
   articleMobile: { width: 750, height: 420 },
-  kv: { width: 1200, height: 400 },
+  kv: { width: 1920, height: 640 },
   kvMobile: { width: 750, height: 850 },
   logo: { width: 160, height: 60 },
   bankLogo: { width: 160, height: 60 },
@@ -24,31 +24,31 @@ export const IMAGE_SPECS = {
 export const KV_IMAGE_SPECS = {
   small: {
     full: {
-      desktop: { width: 1200, height: 300 },
+      desktop: { width: 1920, height: 480 },
       mobile: { width: 750, height: 750 },
     },
     split: {
-      desktop: { width: 780, height: 300 },
+      desktop: { width: 1920, height: 480 },
       mobile: { width: 750, height: 750 },
     },
   },
   medium: {
     full: {
-      desktop: { width: 1200, height: 400 },
+      desktop: { width: 1920, height: 640 },
       mobile: { width: 750, height: 850 },
     },
     split: {
-      desktop: { width: 780, height: 400 },
+      desktop: { width: 1920, height: 640 },
       mobile: { width: 750, height: 850 },
     },
   },
   large: {
     full: {
-      desktop: { width: 1200, height: 520 },
+      desktop: { width: 1920, height: 800 },
       mobile: { width: 750, height: 950 },
     },
     split: {
-      desktop: { width: 780, height: 520 },
+      desktop: { width: 1920, height: 800 },
       mobile: { width: 750, height: 950 },
     },
   },
@@ -63,10 +63,10 @@ export const getKvImageSpecs = (height: string | undefined, showText = true) => 
 
 export const getBannerProductsImageSpecs = (count: number) => ({
   desktop: count >= 4
-    ? { width: 360, height: 350 }
+    ? { width: 328, height: 350 }
     : count >= 3
-    ? { width: 570, height: 350 }
-    : { width: 780, height: 350 },
+    ? { width: 520, height: 350 }
+    : { width: 700, height: 350 },
   mobile: IMAGE_SPECS.bannerProductsMobile,
 });
 

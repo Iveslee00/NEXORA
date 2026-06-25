@@ -38,7 +38,7 @@ export function CtaPreview({ data }: { data: CtaData }) {
 
   return (
     <section style={{ ...bg, padding: isMobile ? '44px 16px' : '60px 24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', ...align }}>
           <h2 style={{ fontSize: isMobile ? '1.75rem' : '2.5rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.03em', margin: 0, ...titleStyle }}>
             {data.title || '行動呼籲標題'}

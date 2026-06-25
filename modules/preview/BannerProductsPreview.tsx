@@ -39,7 +39,8 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
   const bgStyle: React.CSSProperties = data.backgroundColor ? { background: data.backgroundColor } : {};
 
   const isStacked = isMobile || isCompact || count <= 0;
-  const productCardWidth = 190;
+  const productCardWidth = 168;
+  const desktopGap = 16;
   const gridCols = isStacked ? '1fr' : `${bannerSpec.width}px max-content`;
   const productGridCols = isMobile
     ? count <= 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))'
@@ -53,8 +54,8 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
 
   return (
     <section style={{ ...bgStyle, padding: isMobile ? '32px 16px' : '48px 0', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-      <div ref={containerRef} style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: isMobile ? '12px' : '20px', alignItems: lockDesktopHeight ? 'stretch' : 'start' }}>
+      <div ref={containerRef} style={{ maxWidth: '1080px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: isMobile ? '12px' : `${desktopGap}px`, alignItems: lockDesktopHeight ? 'stretch' : 'start' }}>
           {/* Banner */}
           <div style={{ position: 'relative', borderRadius: '12px', overflow: 'hidden', background: '#1a1a2e', aspectRatio: lockDesktopHeight ? undefined : bannerAspectRatio, height: lockDesktopHeight ? '100%' : undefined, display: 'flex' }}>
             <PreviewImage src={bannerSrc} alt={data.bannerTitle} label={isMobile ? '活動 Banner M' : '活動 Banner PC'} spec={bannerSpec} tone="dark" />
@@ -72,7 +73,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: productGridCols, gap: isMobile ? '12px' : '20px', alignItems: 'start', minHeight: 0 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: productGridCols, gap: isMobile ? '12px' : `${desktopGap}px`, alignItems: 'start', minHeight: 0 }}>
             {/* Product cards */}
             {data.products.map((product) => (
               <div key={product.id} style={{ width: lockDesktopHeight ? `${productCardWidth}px` : undefined, minWidth: 0, minHeight: 0, background: '#ffffff', borderRadius: '10px', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 1px 4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05)' }}>

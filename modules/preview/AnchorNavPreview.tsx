@@ -18,7 +18,7 @@ export function AnchorNavPreview({ data, moduleId, modules }: Props) {
 
   return (
     <nav style={{ background: data.backgroundColor || 'transparent', padding: isMobile ? '14px 16px' : '18px 24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', gap: isMobile ? '8px' : '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto', display: 'flex', gap: isMobile ? '8px' : '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
         {targets.length === 0 ? (
           <span style={{ fontSize: '13px', color: '#9090b0' }}>請先設定錨點名稱</span>
         ) : targets.map((target) => (

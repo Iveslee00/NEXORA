@@ -9,9 +9,9 @@ import { getKvImageSpecs } from '@/lib/assets/imageSpecs';
 import { PreviewImage } from './PreviewImage';
 
 const heightMap = {
-  small:  { desktopRatio: '1200 / 300', mobileFullRatio: '750 / 750', mobileImgRatio: '750 / 750' },
-  medium: { desktopRatio: '1200 / 400', mobileFullRatio: '750 / 850', mobileImgRatio: '750 / 850' },
-  large:  { desktopRatio: '1200 / 520', mobileFullRatio: '750 / 950', mobileImgRatio: '750 / 950' },
+  small:  { desktopRatio: '1920 / 480', mobileFullRatio: '750 / 750', mobileImgRatio: '750 / 750' },
+  medium: { desktopRatio: '1920 / 640', mobileFullRatio: '750 / 850', mobileImgRatio: '750 / 850' },
+  large:  { desktopRatio: '1920 / 800', mobileFullRatio: '750 / 950', mobileImgRatio: '750 / 950' },
 };
 
 export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
@@ -61,10 +61,9 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
     cursor: 'pointer', zIndex: 3, color: '#fff',
   };
 
-  // Nav & dots live in the image area (image starts at 35% on desktop)
   const imgCenterTop = isMobile && currentSlideHasText ? `calc(50vw / (${h.mobileImgRatio}))` : '50%';
   const imgRight = '14px';
-  const imgLeft = isMobile || !currentSlideHasText ? '8px' : 'calc(35% + 12px)';
+  const imgLeft = '8px';
 
   return (
     <section
@@ -77,6 +76,9 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
         {slides.map((s) => {
           const showText = s.showText !== false;
           const textBg = s.textBgColor || '#1a1a2e';
+          const desktopOverlayBg = textBg.includes('gradient(')
+            ? textBg
+            : `linear-gradient(90deg, ${textBg} 0%, rgba(26,26,46,0.72) 38%, rgba(26,26,46,0) 72%)`;
           const overlay = s.overlayOpacity ? `rgba(0,0,0,${s.overlayOpacity / 100})` : undefined;
           const align = s.alignment ?? 'left';
           const alignStyle: React.CSSProperties =
@@ -106,6 +108,7 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
                 display: 'flex',
                 flexDirection: isMobile ? 'column' : 'row',
                 height: isMobile && showText ? 'auto' : '100%',
+                position: 'relative',
               }}
             >
               {!showText && (
@@ -126,43 +129,49 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
                 </div>
               )}
 
-              {/* Text panel — left on desktop, bottom on mobile */}
+              {showText && !isMobile && (
+                <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
+                  {imageEl}
+                  {overlay && <div style={{ position: 'absolute', inset: 0, background: overlay }} />}
+                </div>
+              )}
+
+              {/* Text panel — over desktop image, bottom on mobile */}
               {showText && (
                 <div
                   style={{
-                    background: textBg,
-                    flex: isMobile ? '0 0 auto' : '0 0 35%',
+                    position: isMobile ? 'relative' : 'absolute',
+                    inset: isMobile ? undefined : 0,
+                    zIndex: 1,
+                    background: isMobile ? textBg : desktopOverlayBg,
+                    flex: isMobile ? '0 0 auto' : undefined,
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    padding: isMobile ? '20px 18px' : '0 36px 0 44px',
+                    padding: isMobile ? '20px 18px' : '0',
                     overflow: 'hidden',
                     ...alignStyle,
                   }}
                 >
-                  {s.title && (
-                    <h1 style={{ fontSize: isMobile ? '1.15rem' : '1.6rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.02em', color: s.titleColor || '#ffffff', marginBottom: '8px' }}>
-                      {s.title}
-                    </h1>
-                  )}
-                  {s.subtitle && (
-                    <p style={{ fontSize: isMobile ? '0.8rem' : '0.85rem', lineHeight: 1.6, color: s.textColor || 'rgba(255,255,255,0.85)', marginBottom: '16px', maxWidth: '320px' }}>
-                      {s.subtitle}
-                    </p>
-                  )}
-                  {s.buttonText && (
-                    <span style={{ display: 'inline-flex', alignItems: 'center', padding: isMobile ? '8px 18px' : '10px 22px', background: buttonColor, color: '#fff', borderRadius: '7px', fontWeight: 700, fontSize: isMobile ? '12px' : '13px', cursor: 'default' }}>
-                      {s.buttonText}
-                    </span>
-                  )}
-                </div>
-              )}
-
-              {/* Desktop: image on the right */}
-              {showText && !isMobile && (
-                <div style={{ flex: '0 0 65%', position: 'relative', overflow: 'hidden' }}>
-                  {imageEl}
-                  {overlay && <div style={{ position: 'absolute', inset: 0, background: overlay }} />}
+                  <div style={{ width: '100%', maxWidth: isMobile ? undefined : '1080px', margin: isMobile ? undefined : '0 auto', padding: isMobile ? 0 : '0 40px', display: 'flex', flexDirection: 'column', ...alignStyle }}>
+                    <div style={{ maxWidth: isMobile ? 'none' : '430px' }}>
+                      {s.title && (
+                        <h1 style={{ fontSize: isMobile ? '1.15rem' : '1.75rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.02em', color: s.titleColor || '#ffffff', marginBottom: '8px' }}>
+                          {s.title}
+                        </h1>
+                      )}
+                      {s.subtitle && (
+                        <p style={{ fontSize: isMobile ? '0.8rem' : '0.95rem', lineHeight: 1.6, color: s.textColor || 'rgba(255,255,255,0.85)', marginBottom: '16px', maxWidth: '320px' }}>
+                          {s.subtitle}
+                        </p>
+                      )}
+                      {s.buttonText && (
+                        <span style={{ display: 'inline-flex', alignItems: 'center', padding: isMobile ? '8px 18px' : '10px 22px', background: buttonColor, color: '#fff', borderRadius: '7px', fontWeight: 700, fontSize: isMobile ? '12px' : '13px', cursor: 'default' }}>
+                          {s.buttonText}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -188,7 +197,7 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
           position: 'absolute',
           bottom: isMobile && currentSlideHasText ? 'auto' : '16px',
           top: isMobile && currentSlideHasText ? `calc((100vw - 32px) / (${h.mobileImgRatio}) - 22px)` : undefined,
-          left: isMobile || !currentSlideHasText ? '50%' : 'calc(35% + 32.5%)',
+          left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex', gap: '7px', zIndex: 3,
         }}>

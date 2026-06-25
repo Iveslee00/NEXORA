@@ -88,7 +88,7 @@ export function ProductBannerPreview({ data }: { data: ProductBannerData }) {
 
   return (
     <section style={{ ...bg, padding: isMobile ? padding.mobile : padding.desktop, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '32px' : '56px', alignItems: 'center' }}>
           {data.reverse ? <>{media}{content}</> : <>{content}{media}</>}
         </div>

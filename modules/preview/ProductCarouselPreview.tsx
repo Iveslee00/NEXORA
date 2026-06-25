@@ -55,7 +55,7 @@ export function ProductCarouselPreview({ data }: { data: ProductCarouselData }) 
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: isMobile ? '0' : '0 24px', position: 'relative' }}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto', padding: isMobile ? '0' : '0 24px', position: 'relative' }}>
         {/* Prev button */}
         <button
           onClick={prev}

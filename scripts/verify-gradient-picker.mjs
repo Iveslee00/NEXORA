@@ -18,7 +18,8 @@ assert(moduleLibrary.includes('GradientPickerPopover'), 'global color picker sho
 assert(formField.includes('className="fixed z-50'), 'gradient choices should use viewport-fixed positioning');
 assert(formField.includes('const panelHeight = Math.min(460'), 'gradient popover should reserve a bounded height');
 assert(formField.includes('rect.top - panelHeight - 8'), 'gradient popover should open upward near the viewport bottom');
-assert(formField.includes('aria-label="選擇漸層"'), 'gradient trigger should use an icon button instead of wide text');
+assert(formField.includes('aria-label="選擇顏色"'), 'color trigger should use an icon button instead of wide text');
+assert(formField.includes("useState<'solid' | 'gradient'>"), 'color popover should offer solid and gradient tabs');
 assert(formField.includes('inline-flex h-8 w-8'), 'gradient trigger should have a fixed compact width');
 assert(formField.includes('className="min-w-0 flex-1'), 'color input should shrink inside narrow panels');
 assert(moduleLibrary.includes('className="min-w-0 flex-1'), 'global color input should shrink inside narrow panels');

@@ -6,7 +6,10 @@ export function generateHeroHTML(data: HeroData): string {
   const imageOnlyClass = data.showText === false ? ' cb-hero--image-only' : '';
   const titleStyle = data.titleColor ? ` style="color: ${escapeHtml(data.titleColor)}"` : '';
   const textStyle = data.textColor ? ` style="color: ${escapeHtml(data.textColor)}"` : '';
-  const textBgStyle = data.backgroundColor ? ` style="background: ${escapeHtml(data.backgroundColor)}"` : '';
+  const textBg = data.backgroundColor || '';
+  const textBgStyle = textBg
+    ? ` style="background: ${escapeHtml(textBg.includes('gradient(') ? textBg : `linear-gradient(90deg, ${textBg} 0%, rgba(26,26,46,0.72) 38%, rgba(26,26,46,0) 72%)`)}"`
+    : '';
 
   const kicker = data.kicker
     ? `\n        <span class="cb-hero__kicker">${escapeHtml(data.kicker)}</span>`

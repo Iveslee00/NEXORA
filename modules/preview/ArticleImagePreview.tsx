@@ -69,7 +69,7 @@ export function ArticleImagePreview({ data }: { data: ArticleImageData }) {
       padding: isMobile ? '32px 16px' : '48px 24px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
     }}>
-      <div style={{ maxWidth: pos === 'top' ? '1200px' : '1100px', margin: '0 auto' }}>
+      <div style={{ maxWidth: pos === 'top' ? '1080px' : '1080px', margin: '0 auto' }}>
         {pos === 'top' ? (
           <>
             {imageEl}

@@ -20,7 +20,7 @@ export function BankPromoPreview({ data }: { data: BankPromoData }) {
 
   return (
     <section style={{ background: data.backgroundColor || 'transparent', padding: isMobile ? '32px 16px' : '48px 24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
 
         {/* Header */}
         {(data.title || data.subtitle) && (

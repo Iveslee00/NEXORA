@@ -29,7 +29,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    2. LAYOUT & UTILITIES
    ------------------------------------------------------------ */
 .cb-container {
-  width: 100%; max-width: 1200px;
+  width: 100%; max-width: 1080px;
   margin-left: auto; margin-right: auto;
   padding-left: 24px; padding-right: 24px;
 }
@@ -96,15 +96,21 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 /* ------------------------------------------------------------
    4. HERO MODULE
    ------------------------------------------------------------ */
-.cb-hero { position: relative; overflow: hidden; display: flex; background: #1a1a2e; color: #ffffff; }
-.cb-hero--small { aspect-ratio: 1200 / 300; }
-.cb-hero--medium { aspect-ratio: 1200 / 400; }
-.cb-hero--large { aspect-ratio: 1200 / 520; }
-.cb-hero__content { flex: 0 0 35%; display: flex; flex-direction: column; justify-content: center; padding: 0 36px 0 44px; background: #1a1a2e; overflow: hidden; }
+.cb-hero { position: relative; overflow: hidden; display: flex; align-items: center; background: #1a1a2e; color: #ffffff; }
+.cb-hero--small { aspect-ratio: 1920 / 480; }
+.cb-hero--medium { aspect-ratio: 1920 / 640; }
+.cb-hero--large { aspect-ratio: 1920 / 800; }
+.cb-hero__content {
+  position: relative; z-index: 1; width: 100%; max-width: 1080px;
+  margin-left: auto; margin-right: auto; padding: 0 40px;
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  background: linear-gradient(90deg, #1a1a2e 0%, rgba(26,26,46,0.72) 38%, rgba(26,26,46,0) 72%);
+  overflow: hidden;
+}
 .cb-hero__kicker { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.65; margin-bottom: 16px; }
-.cb-hero__title { font-size: clamp(1.25rem, 2.4vw, 2rem); font-weight: 800; line-height: 1.15; margin-bottom: 10px; color: #ffffff; }
-.cb-hero__subtitle { font-size: 0.95rem; line-height: 1.6; opacity: 0.85; margin-bottom: 16px; max-width: 560px; }
-.cb-hero__media { flex: 0 0 65%; position: relative; overflow: hidden; }
+.cb-hero__title { max-width: 430px; font-size: clamp(1.25rem, 2.4vw, 2rem); font-weight: 800; line-height: 1.15; margin-bottom: 10px; color: #ffffff; }
+.cb-hero__subtitle { max-width: 430px; font-size: 0.95rem; line-height: 1.6; opacity: 0.85; margin-bottom: 16px; }
+.cb-hero__media { position: absolute; inset: 0; overflow: hidden; }
 .cb-hero__media--full { flex: 1 1 auto; }
 .cb-hero__link { position: absolute; inset: 0; display: block; }
 .cb-hero__picture { position: absolute; inset: 0; display: block; }
@@ -168,25 +174,25 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 /* ------------------------------------------------------------
    8. BANNER + PRODUCTS MODULE
    ------------------------------------------------------------ */
-.cb-banner-products__inner { display: grid; gap: 20px; align-items: stretch; }
+.cb-banner-products__inner { display: grid; gap: 16px; align-items: stretch; }
 .cb-banner-products .cb-container { padding-left: 0; padding-right: 0; }
 .cb-banner-products__inner--0 { grid-template-columns: 1fr; }
-.cb-banner-products__inner--1 { grid-template-columns: minmax(0, 990px) max-content; }
-.cb-banner-products__inner--2 { grid-template-columns: minmax(0, 780px) max-content; }
-.cb-banner-products__inner--3 { grid-template-columns: minmax(0, 570px) max-content; }
-.cb-banner-products__inner--4 { grid-template-columns: minmax(0, 360px) max-content; }
+.cb-banner-products__inner--1 { grid-template-columns: minmax(0, 880px) max-content; }
+.cb-banner-products__inner--2 { grid-template-columns: minmax(0, 700px) max-content; }
+.cb-banner-products__inner--3 { grid-template-columns: minmax(0, 520px) max-content; }
+.cb-banner-products__inner--4 { grid-template-columns: minmax(0, 328px) max-content; }
 .cb-banner-products__banner {
   position: relative; border-radius: 12px; overflow: hidden;
   background-color: #1a1a2e; height: 100%; display: flex;
 }
-.cb-banner-products__products { display: grid; gap: 20px; align-items: start; min-height: 0; }
+.cb-banner-products__products { display: grid; gap: 16px; align-items: start; min-height: 0; }
 .cb-banner-products__products--0 { display: none; }
-.cb-banner-products__products--1 { grid-template-columns: repeat(1, 190px); }
-.cb-banner-products__products--2 { grid-template-columns: repeat(2, 190px); }
-.cb-banner-products__products--3 { grid-template-columns: repeat(3, 190px); }
-.cb-banner-products__products--4 { grid-template-columns: repeat(4, 190px); }
-.cb-banner-products .cb-product-card { width: 190px; min-height: 0; }
-.cb-banner-products .cb-product-card__media { aspect-ratio: auto; height: 190px; flex: 0 0 auto; }
+.cb-banner-products__products--1 { grid-template-columns: repeat(1, 168px); }
+.cb-banner-products__products--2 { grid-template-columns: repeat(2, 168px); }
+.cb-banner-products__products--3 { grid-template-columns: repeat(3, 168px); }
+.cb-banner-products__products--4 { grid-template-columns: repeat(4, 168px); }
+.cb-banner-products .cb-product-card { width: 168px; min-height: 0; }
+.cb-banner-products .cb-product-card__media { aspect-ratio: auto; height: 168px; flex: 0 0 auto; }
 .cb-banner-products .cb-product-card__body { min-height: 0; padding: 10px 12px; gap: 3px; }
 .cb-banner-products__picture { position: absolute; inset: 0; display: block; }
 .cb-banner-products__banner-img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
@@ -323,10 +329,10 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-product-banner__inner { gap: 40px; }
   .cb-banner-products__inner { grid-template-columns: 1fr; height: auto; align-items: start; }
   .cb-banner-products__banner { aspect-ratio: 500 / 350; height: auto; }
-  .cb-banner-products__inner--1 .cb-banner-products__banner { aspect-ratio: 990 / 350; }
-  .cb-banner-products__inner--2 .cb-banner-products__banner { aspect-ratio: 780 / 350; }
-  .cb-banner-products__inner--3 .cb-banner-products__banner { aspect-ratio: 570 / 350; }
-  .cb-banner-products__inner--4 .cb-banner-products__banner { aspect-ratio: 360 / 350; }
+  .cb-banner-products__inner--1 .cb-banner-products__banner { aspect-ratio: 880 / 350; }
+  .cb-banner-products__inner--2 .cb-banner-products__banner { aspect-ratio: 700 / 350; }
+  .cb-banner-products__inner--3 .cb-banner-products__banner { aspect-ratio: 520 / 350; }
+  .cb-banner-products__inner--4 .cb-banner-products__banner { aspect-ratio: 328 / 350; }
   .cb-banner-products__products { height: auto; }
   .cb-banner-products .cb-product-card { width: auto; height: auto; }
   .cb-banner-products .cb-product-card__media { aspect-ratio: 1 / 1; height: auto; }
@@ -340,15 +346,15 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 @media (max-width: 768px) {
   .cb-section { padding-top: 48px; padding-bottom: 48px; }
   .cb-title-block { padding-top: 20px; }
-  .cb-hero { flex-direction: column; }
+  .cb-hero { flex-direction: column; align-items: stretch; }
   .cb-hero--small,
   .cb-hero--medium,
   .cb-hero--large { aspect-ratio: auto; }
   .cb-hero--image-only.cb-hero--small { aspect-ratio: 750 / 750; }
   .cb-hero--image-only.cb-hero--medium { aspect-ratio: 750 / 850; }
   .cb-hero--image-only.cb-hero--large { aspect-ratio: 750 / 950; }
-  .cb-hero__content { flex: 0 0 auto; padding: 20px 18px; }
-  .cb-hero__media { flex: 0 0 auto; order: -1; aspect-ratio: 750 / 850; }
+  .cb-hero__content { position: relative; flex: 0 0 auto; width: 100%; max-width: none; padding: 20px 18px; background: #1a1a2e; }
+  .cb-hero__media { position: relative; inset: auto; flex: 0 0 auto; order: -1; aspect-ratio: 750 / 850; }
   .cb-hero--small .cb-hero__media { aspect-ratio: 750 / 750; }
   .cb-hero--large .cb-hero__media { aspect-ratio: 750 / 950; }
   .cb-hero--image-only .cb-hero__media { flex: 1 1 auto; order: 0; }
@@ -436,20 +442,25 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 }
 
 /* ------------------------------------------------------------
-   18. HERO CAROUSEL (KV) MODULE — split layout (text left, image right)
+   18. HERO CAROUSEL (KV) MODULE — full-bleed desktop, stacked mobile
    ------------------------------------------------------------ */
 .cb-kv { position: relative; overflow: hidden; }
-.cb-kv--small  { aspect-ratio: 1200 / 300; }
-.cb-kv--medium { aspect-ratio: 1200 / 400; }
-.cb-kv--large  { aspect-ratio: 1200 / 520; }
+.cb-kv--small  { aspect-ratio: 1920 / 480; }
+.cb-kv--medium { aspect-ratio: 1920 / 640; }
+.cb-kv--large  { aspect-ratio: 1920 / 800; }
 .cb-kv__track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
-.cb-kv__slide { flex: 0 0 100%; display: grid; grid-template-columns: 35% 65%; height: 100%; }
-.cb-kv__slide--image-only { grid-template-columns: 1fr; }
-.cb-kv__text { display: flex; flex-direction: column; justify-content: center; padding: 0 36px 0 44px; overflow: hidden; background: #1a1a2e; }
+.cb-kv__slide { flex: 0 0 100%; position: relative; height: 100%; overflow: hidden; }
+.cb-kv__slide--image-only { }
+.cb-kv__text {
+  position: relative; z-index: 1; width: 100%; max-width: 1080px; height: 100%;
+  margin-left: auto; margin-right: auto; padding: 0 40px;
+  display: flex; flex-direction: column; justify-content: center; overflow: hidden;
+  background: linear-gradient(90deg, #1a1a2e 0%, rgba(26,26,46,0.72) 38%, rgba(26,26,46,0) 72%);
+}
 .cb-kv__text--left   { align-items: flex-start; text-align: left; }
 .cb-kv__text--center { align-items: center; text-align: center; }
 .cb-kv__text--right  { align-items: flex-end; text-align: right; }
-.cb-kv__img { position: relative; overflow: hidden; }
+.cb-kv__img { position: absolute; inset: 0; overflow: hidden; }
 .cb-kv__link { position: absolute; inset: 0; display: block; color: inherit; }
 .cb-kv__picture { position: absolute; inset: 0; display: block; }
 .cb-kv__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -458,9 +469,9 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-kv__subtitle { font-size: clamp(0.8rem, 1vw, 0.9rem); line-height: 1.6; color: rgba(255,255,255,0.85); margin: 0 0 16px; max-width: 320px; }
 .cb-kv__btn { }
 .cb-kv__nav { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 3; color: #fff; font-size: 16px; }
-.cb-kv__nav--prev { left: calc(35% + 12px); }
+.cb-kv__nav--prev { left: 8px; }
 .cb-kv__nav--next { right: 14px; }
-.cb-kv__dots { position: absolute; bottom: 16px; left: 67.5%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
+.cb-kv__dots { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 3; }
 .cb-kv__dot { width: 7px; height: 7px; border-radius: 4px; background: rgba(255,255,255,0.5); border: none; cursor: pointer; padding: 0; transition: width 0.3s, background 0.3s; }
 .cb-kv__dot--active { width: 22px; background: #ffffff; }
 
@@ -469,8 +480,8 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-kv--medium,
   .cb-kv--large { aspect-ratio: auto; }
   .cb-kv__track { height: auto; }
-  .cb-kv__slide { grid-template-columns: 1fr; grid-template-rows: auto auto; height: auto; }
-  .cb-kv__img { aspect-ratio: 750 / 850; }
+  .cb-kv__slide { display: grid; grid-template-columns: 1fr; grid-template-rows: auto auto; height: auto; }
+  .cb-kv__img { position: relative; inset: auto; aspect-ratio: 750 / 850; }
   .cb-kv--small .cb-kv__img { aspect-ratio: 750 / 750; }
   .cb-kv--large .cb-kv__img { aspect-ratio: 750 / 950; }
   .cb-kv__slide--image-only { grid-template-rows: 1fr; }
@@ -479,7 +490,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-kv--medium .cb-kv__slide--image-only { aspect-ratio: 750 / 850; }
   .cb-kv--large .cb-kv__slide--image-only { aspect-ratio: 750 / 950; }
   .cb-kv__img { grid-row: 1; grid-column: 1; }
-  .cb-kv__text { grid-row: 2; grid-column: 1; padding: 20px 18px; }
+  .cb-kv__text { grid-row: 2; grid-column: 1; width: 100%; max-width: none; height: auto; padding: 20px 18px; background: #1a1a2e; }
   .cb-kv__text--center, .cb-kv__text--right { align-items: flex-start; text-align: left; }
   .cb-kv__nav--prev { left: 8px; top: calc((100vw - 32px) / (750 / 850) / 2); }
   .cb-kv__nav--next { right: 8px; top: calc((100vw - 32px) / (750 / 850) / 2); }

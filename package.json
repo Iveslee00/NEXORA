@@ -13,6 +13,7 @@
     "verify:gradient-picker": "node --no-warnings scripts/verify-gradient-picker.mjs",
     "verify:desktop-canvas": "node --no-warnings scripts/verify-desktop-canvas.mjs",
     "verify:image-upload": "node --no-warnings scripts/verify-image-upload.mjs",
+    "verify:pc-layout": "node --no-warnings scripts/verify-pc-layout.mjs",
     "verify:preview-placeholders": "node --no-warnings scripts/verify-preview-placeholders.mjs",
     "start": "next start",
     "lint": "next lint"
