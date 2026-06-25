@@ -11,13 +11,15 @@ function assert(condition, message) {
 assert(previewCanvas.includes('DESKTOP_CANVAS_WIDTH = 1200'), 'desktop preview should use a fixed 1200px canvas');
 assert(previewCanvas.includes('setDesktopScale(Math.min(1'), 'desktop preview should scale down to fit laptop viewports');
 assert(previewCanvas.includes('React.useLayoutEffect'), 'desktop preview scale should be calculated before paint');
-assert(previewCanvas.includes('}, [isEmail, isMobile, modules.length]);'), 'desktop preview should recalculate scale after adding the first module');
+assert(previewCanvas.includes('}, [isEmail, isMobile, modules]);'), 'desktop preview should recalculate scale after module data changes');
 assert(previewCanvas.includes('transform: `scale(${desktopScale})`'), 'desktop preview should visually scale instead of narrowing layout width');
 assert(previewCanvas.includes('width: DESKTOP_CANVAS_WIDTH * desktopScale'), 'desktop preview frame should occupy scaled width');
 assert(!previewCanvas.includes('zoom: desktopScale'), 'desktop preview should not use CSS zoom because it creates overflow in the editor');
 assert(previewCanvas.includes('width: DESKTOP_CANVAS_WIDTH'), 'desktop preview inner canvas should keep desktop width');
 assert(previewModal.includes('DESKTOP_CANVAS_WIDTH = 1200'), 'desktop modal preview should use a fixed 1200px canvas');
 assert(previewModal.includes('React.useLayoutEffect'), 'desktop modal scale should be calculated before paint');
+assert(previewModal.includes("el.style.transform = 'none'"), 'desktop screenshots should capture unscaled 1200px content');
+assert(previewModal.includes('el.style.transform = originalTransform'), 'desktop screenshots should restore transform after capture');
 assert(previewModal.includes('transform: `scale(${desktopScale})`'), 'desktop modal preview should visually scale instead of narrowing layout width');
 assert(previewModal.includes('width: DESKTOP_CANVAS_WIDTH * desktopScale'), 'desktop modal frame should occupy scaled width');
 assert(!previewModal.includes('zoom: desktopScale'), 'desktop modal preview should not use CSS zoom because it creates overflow');

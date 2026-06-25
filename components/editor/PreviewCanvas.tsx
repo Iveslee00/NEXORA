@@ -276,7 +276,7 @@ export function PreviewCanvas({
     const observer = new ResizeObserver(updateScale);
     observer.observe(node);
     return () => observer.disconnect();
-  }, [isEmail, isMobile, modules.length]);
+  }, [isEmail, isMobile, modules]);
 
   React.useLayoutEffect(() => {
     if (isEmail || isMobile) return;
@@ -291,7 +291,7 @@ export function PreviewCanvas({
     const observer = new ResizeObserver(updateHeight);
     observer.observe(node);
     return () => observer.disconnect();
-  }, [desktopScale, isEmail, isMobile, modules.length]);
+  }, [desktopScale, isEmail, isMobile, modules]);
 
   return (
     <div className="min-h-0 flex-1 flex flex-col overflow-hidden bg-slate-950">

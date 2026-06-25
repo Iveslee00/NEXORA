@@ -93,7 +93,7 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
     const observer = new ResizeObserver(updateScale);
     observer.observe(node);
     return () => observer.disconnect();
-  }, [isEmail, isMobile, modules.length]);
+  }, [isEmail, isMobile, modules]);
 
   React.useLayoutEffect(() => {
     if (isEmail || isMobile) return;
@@ -108,7 +108,7 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
     const observer = new ResizeObserver(updateHeight);
     observer.observe(node);
     return () => observer.disconnect();
-  }, [desktopScale, isEmail, isMobile, modules.length]);
+  }, [desktopScale, isEmail, isMobile, modules]);
 
   const handleScreenshot = useCallback(async () => {
     if (!contentRef.current || capturing) return;
@@ -129,6 +129,13 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
       const prevScroll = scrollRef.current?.scrollTop ?? 0;
       if (scrollRef.current) scrollRef.current.scrollTop = 0;
       await new Promise<void>((r) => requestAnimationFrame(() => r()));
+
+      const originalTransform = el.style.transform;
+      const originalTransformOrigin = el.style.transformOrigin;
+      if (!isEmail && !isMobile) {
+        el.style.transform = 'none';
+        el.style.transformOrigin = 'top left';
+      }
 
       // Fix aspect-ratio elements (not supported by html2canvas 1.x)
       const restoreAR = await fixAspectRatio(el);
@@ -157,6 +164,8 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
 
       // Restore aspect-ratio
       restoreAR();
+      el.style.transform = originalTransform;
+      el.style.transformOrigin = originalTransformOrigin;
       if (scrollRef.current) scrollRef.current.scrollTop = prevScroll;
 
       const link = document.createElement('a');
