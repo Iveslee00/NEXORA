@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ImagePlus, Link2, Palette, X } from 'lucide-react';
 import { formatImageSpec, ImageSpec } from '@/lib/assets/imageSpecs';
 import {
@@ -136,6 +136,30 @@ export function GradientPickerPopover({ value, onChange }: { value: string; onCh
   const [fromColor, setFromColor] = useState('#2563eb');
   const [toColor, setToColor] = useState('#7c3aed');
   const [direction, setDirection] = useState('135deg');
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [popoverPosition, setPopoverPosition] = useState({ top: 0, left: 12, width: 280 });
+
+  useEffect(() => {
+    if (!open) return;
+
+    const updatePosition = () => {
+      const rect = buttonRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const margin = 12;
+      const width = Math.min(280, window.innerWidth - margin * 2);
+      const left = Math.min(Math.max(margin, rect.right - width), window.innerWidth - width - margin);
+      const top = Math.min(rect.bottom + 8, window.innerHeight - margin);
+      setPopoverPosition({ top, left, width });
+    };
+
+    updatePosition();
+    window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', updatePosition, true);
+    return () => {
+      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('scroll', updatePosition, true);
+    };
+  }, [open]);
 
   const applyCustomGradient = () => {
     onChange(createLinearGradient(fromColor, toColor, direction));
@@ -145,6 +169,7 @@ export function GradientPickerPopover({ value, onChange }: { value: string; onCh
   return (
     <div className="relative flex-shrink-0">
       <button
+        ref={buttonRef}
         type="button"
         onClick={() => setOpen((current) => !current)}
         className={`inline-flex h-8 items-center gap-1.5 rounded-md border px-2 text-xs font-semibold transition-colors ${
@@ -158,7 +183,10 @@ export function GradientPickerPopover({ value, onChange }: { value: string; onCh
         漸層
       </button>
       {open && (
-        <div className="absolute right-0 top-9 z-50 w-72 rounded-lg border border-slate-700 bg-slate-900 p-3 shadow-2xl shadow-black/40">
+        <div
+          className="fixed z-50 max-h-[min(560px,calc(100vh-24px))] overflow-y-auto rounded-lg border border-slate-700 bg-slate-900 p-3 shadow-2xl shadow-black/40"
+          style={popoverPosition}
+        >
           <div className="mb-3 flex items-center justify-between">
             <p className="text-xs font-semibold text-slate-300">選擇漸層</p>
             <button
@@ -222,15 +250,15 @@ export function GradientPickerPopover({ value, onChange }: { value: string; onCh
                 ))}
               </select>
             </label>
-            <div className="mt-3 flex items-center gap-2">
+            <div className="mt-3 flex flex-col gap-2">
               <div
-                className="h-8 flex-1 rounded-md border border-slate-700"
+                className="h-8 w-full rounded-md border border-slate-700"
                 style={{ background: createLinearGradient(fromColor, toColor, direction) }}
               />
               <button
                 type="button"
                 onClick={applyCustomGradient}
-                className="h-8 rounded-md bg-indigo-600 px-3 text-xs font-semibold text-white transition-colors hover:bg-indigo-500"
+                className="h-8 w-full rounded-md bg-indigo-600 px-3 text-xs font-semibold text-white transition-colors hover:bg-indigo-500"
               >
                 套用自訂漸層
               </button>
