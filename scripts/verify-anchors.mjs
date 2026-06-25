@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { getAnchorTargets, getModuleAnchorHref, getModuleAnchorId } from '../lib/modules/anchors.ts';
 
 const modules = [
@@ -52,5 +53,16 @@ assert.equal(getModuleAnchorHref('grid-a'), '#cb-anchor-grid-a');
 const targets = getAnchorTargets(modules, 'nav-a');
 assert.deepEqual(targets.map((target) => target.label), ['活動首頁', '熱銷商品']);
 assert.deepEqual(targets.map((target) => target.href), ['#cb-anchor-title-a', '#cb-anchor-grid-a']);
+
+const targetIds = new Set(targets.map((target) => getModuleAnchorId(target.id)));
+for (const target of targets) {
+  assert.ok(targetIds.has(target.href.slice(1)), `${target.href} should point to an existing target id`);
+}
+
+const css = readFileSync(new URL('../lib/export/cssGenerator.ts', import.meta.url), 'utf8');
+assert.match(css, /grid-template-columns: repeat\(auto-fit, 168px\)/);
+assert.match(css, /\.cb-anchor-nav__link:hover/);
+assert.match(css, /transform: translateY\(-2px\)/);
+assert.match(css, /grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
 
 console.log('anchors verified');

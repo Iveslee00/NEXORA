@@ -52,12 +52,29 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    3. ANCHOR NAV MODULE
    ------------------------------------------------------------ */
 .cb-anchor-nav { padding: 18px 0; }
-.cb-anchor-nav__inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.cb-anchor-nav__inner {
+  display: grid; grid-template-columns: repeat(auto-fit, 168px);
+  justify-content: center; gap: 10px;
+}
 .cb-anchor-nav__link {
   display: inline-flex; align-items: center; justify-content: center;
-  min-height: 36px; padding: 8px 16px; border-radius: 999px;
-  border: 1px solid #dfe3f0; background: #ffffff; color: #1a1a2e;
+  width: 100%; min-height: 38px; padding: 8px 12px; border-radius: 999px;
+  border: 1px solid rgba(99,102,241,0.28);
+  background: linear-gradient(180deg, #1f2440 0%, #15192d 100%);
+  color: #ffffff; box-shadow: 0 8px 20px rgba(15,23,42,0.12), inset 0 1px 0 rgba(255,255,255,0.08);
   font-size: 14px; font-weight: 700; line-height: 1.2; text-decoration: none;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+.cb-anchor-nav__link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(99,102,241,0.52);
+  background: linear-gradient(180deg, #343a6b 0%, #20264d 100%);
+  box-shadow: 0 12px 26px rgba(15,23,42,0.18), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+.cb-anchor-nav__link:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(15,23,42,0.16), inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 /* ------------------------------------------------------------
@@ -351,6 +368,9 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-banner-products__products--2,
   .cb-banner-products__products--3,
   .cb-banner-products__products--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cb-anchor-nav { padding: 14px 0; }
+  .cb-anchor-nav__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .cb-anchor-nav__link { min-height: 34px; font-size: 13px; }
   .cb-product-banner__inner { grid-template-columns: 1fr; gap: 32px; }
   .cb-product-banner__inner--reverse .cb-product-banner__media { order: 0; }
   .cb-product-banner__media { aspect-ratio: 750 / 850; }
