@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ExportedCode } from '@/types/modules';
 import { copyToClipboard } from '@/lib/utils';
 import { generateCampaignPackage } from '@/lib/export/packageGenerator';
+import { stripDataImageUrlsForPaste } from '@/lib/export/pasteCodeSanitizer';
 import { X, Copy, Check, Code2, Palette, FileCode2, Mail, Package, Download } from 'lucide-react';
 
 type TopTab = 'campaign' | 'package' | 'email';
@@ -43,8 +44,11 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
     setPackageInfo({ fileCount: result.fileCount, remoteImages: result.remoteImages });
   };
 
-  const campaignParts = splitCampaignCode(code.html);
-  const cssCode = `<style>\n${code.css}\n</style>`;
+  const pasteHtml = stripDataImageUrlsForPaste(code.html);
+  const pasteCss = stripDataImageUrlsForPaste(code.css);
+  const hasUploadedImagesInPaste = pasteHtml !== code.html || pasteCss !== code.css;
+  const campaignParts = splitCampaignCode(pasteHtml);
+  const cssCode = `<style>\n${pasteCss}\n</style>`;
   const jsCode = `<script>\n${campaignParts.js || '// 目前沒有需要 JS 的模組'}\n</script>`;
   const embedCode = `${campaignParts.html}\n\n${cssCode}\n\n${jsCode}`;
   const campaignCodeMap: Record<CampaignTab, string> = {
@@ -130,6 +134,11 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
             <div className="px-6 py-3 bg-indigo-950/40 border-b border-slate-800">
               <p className="text-xs text-indigo-300/80 leading-relaxed">
                 <strong className="text-indigo-300">貼碼使用：</strong>複製整包貼碼可直接貼進支援 HTML 的 CMS；若系統分欄，請分別複製 HTML、CSS、JS。CSS 目前保留完整 <code className="bg-indigo-900/50 px-1 rounded">cb-</code> 樣式，避免模組組合漏樣式。
+                {hasUploadedImagesInPaste && (
+                  <span className="mt-1 block text-amber-300">
+                    已偵測到上傳圖片：貼碼模式已移除圖片本體，請改用圖片連結；若要使用上傳圖片，請下載 ZIP。
+                  </span>
+                )}
               </p>
             </div>
 
