@@ -27,7 +27,7 @@ export function generateBannerProductsHTML(data: BannerProductsData): string {
     })
     .join('\n');
 
-  const bgOverride = data.backgroundColor ? ` style="background-color: ${escapeHtml(data.backgroundColor)}"` : '';
+  const bgOverride = data.backgroundColor ? ` style="background: ${escapeHtml(data.backgroundColor)}"` : '';
   const bannerImg = data.bannerImage
     ? `<picture class="cb-banner-products__picture">${data.mobileBannerImage ? `\n          <source media="(max-width: 767px)" srcset="${escapeHtml(data.mobileBannerImage)}">` : ''}\n          <img src="${escapeHtml(data.bannerImage)}" alt="${escapeHtml(data.bannerTitle)}" class="cb-banner-products__banner-img">\n        </picture>`
     : '';

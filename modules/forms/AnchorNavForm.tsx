@@ -56,6 +56,7 @@ export function AnchorNavForm({ data, moduleId, modules, onChange }: Props) {
       <div className="space-y-3">
         <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">顏色設定</p>
         <ColorField label="背景色" value={data.backgroundColor} onChange={(v) => onChange({ ...data, backgroundColor: v })} />
+        <ColorField label="按鈕色" value={data.buttonColor ?? ''} onChange={(v) => onChange({ ...data, buttonColor: v })} />
         <ColorField label="文字色" value={data.textColor} onChange={(v) => onChange({ ...data, textColor: v })} />
       </div>
     </div>

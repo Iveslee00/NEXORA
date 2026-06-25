@@ -241,7 +241,7 @@ export function PreviewCanvas({
   const isEmail = pageMode === 'email';
   const isMobile = deviceMode === 'mobile';
   const campaignBackgroundStyle: React.CSSProperties = {
-    backgroundColor: pageBackgroundColor || '#ffffff',
+    background: pageBackgroundColor || '#ffffff',
     ...(pageBackgroundImage ? { backgroundImage: `url("${pageBackgroundImage}")`, backgroundRepeat: 'repeat-y', backgroundSize: '100% auto' } : {}),
   };
 

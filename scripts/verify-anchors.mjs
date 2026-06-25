@@ -60,9 +60,9 @@ for (const target of targets) {
 }
 
 const css = readFileSync(new URL('../lib/export/cssGenerator.ts', import.meta.url), 'utf8');
-assert.match(css, /grid-template-columns: repeat\(auto-fit, 168px\)/);
+assert.match(css, /flex: 0 0 168px/);
 assert.match(css, /\.cb-anchor-nav__link:hover/);
 assert.match(css, /transform: translateY\(-2px\)/);
-assert.match(css, /grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+assert.match(css, /flex-basis: calc\(50% - 4px\)/);
 
 console.log('anchors verified');

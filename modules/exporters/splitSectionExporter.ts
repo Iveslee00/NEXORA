@@ -10,7 +10,7 @@ export function generateSplitSectionHTML(data: SplitSectionData): string {
     ? `\n          <a href="${escapeHtml(data.buttonLink || '#')}" class="cb-btn cb-split__btn">${escapeHtml(data.buttonText)}</a>`
     : '';
 
-  const bgOverride = data.backgroundColor ? ` style="background-color: ${escapeHtml(data.backgroundColor)}"` : '';
+  const bgOverride = data.backgroundColor ? ` style="background: ${escapeHtml(data.backgroundColor)}"` : '';
   const imageEl = data.image
     ? `<picture class="cb-split__picture">${data.mobileImage ? `\n          <source media="(max-width: 767px)" srcset="${escapeHtml(data.mobileImage)}">` : ''}\n          <img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.title)}">\n        </picture>`
     : '';

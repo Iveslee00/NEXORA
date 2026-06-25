@@ -20,7 +20,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-page {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 16px; line-height: 1.6; color: #1a1a2e;
-  -webkit-font-smoothing: antialiased;${pageBg ? `\n  background-color: ${pageBg};` : ''}${pageBgImg ? `\n  background-image: url("${pageBgImg}");\n  background-repeat: repeat-y;\n  background-size: 100% auto;` : ''}
+  -webkit-font-smoothing: antialiased;${pageBg ? `\n  background: ${pageBg};` : ''}${pageBgImg ? `\n  background-image: url("${pageBgImg}");\n  background-repeat: repeat-y;\n  background-size: 100% auto;` : ''}
 }
 .cb-page img { max-width: 100%; height: auto; display: block; }
 .cb-page a { color: inherit; text-decoration: none; }
@@ -39,12 +39,12 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 /* Buttons */
 .cb-btn {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 14px 32px; background-color: ${btnColor}; color: #ffffff;
+  padding: 14px 32px; background: ${btnColor}; color: #ffffff;
   border-radius: 8px; font-size: 16px; font-weight: 600; line-height: 1;
   text-decoration: none; transition: background-color 0.2s ease, transform 0.1s ease;
   cursor: pointer; border: none; white-space: nowrap;
 }
-.cb-btn:hover { background-color: ${btnHover}; transform: translateY(-1px); }
+.cb-btn:hover { background: ${btnHover}; transform: translateY(-1px); }
 .cb-btn--white { background-color: #ffffff; color: #1a1a2e; }
 .cb-btn--white:hover { background-color: rgba(255,255,255,0.9); transform: translateY(-1px); }
 
@@ -53,12 +53,11 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    ------------------------------------------------------------ */
 .cb-anchor-nav { padding: 18px 0; }
 .cb-anchor-nav__inner {
-  display: grid; grid-template-columns: repeat(auto-fit, 168px);
-  justify-content: center; gap: 10px;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
 }
 .cb-anchor-nav__link {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 100%; min-height: 38px; padding: 8px 12px; border-radius: 999px;
+  flex: 0 0 168px; width: 168px; min-height: 38px; padding: 8px 12px; border-radius: 999px;
   border: 1px solid rgba(99,102,241,0.28);
   background: linear-gradient(180deg, #1f2440 0%, #15192d 100%);
   color: #ffffff; box-shadow: 0 8px 20px rgba(15,23,42,0.12), inset 0 1px 0 rgba(255,255,255,0.08);
@@ -373,7 +372,8 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-banner-products__products--3,
   .cb-banner-products__products--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cb-anchor-nav { padding: 14px 0; }
-  .cb-anchor-nav__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .cb-anchor-nav__inner { gap: 8px; }
+  .cb-anchor-nav__link { flex-basis: calc(50% - 4px); width: calc(50% - 4px); }
   .cb-anchor-nav__link { min-height: 34px; font-size: 13px; }
   .cb-product-banner__inner { grid-template-columns: 1fr; gap: 32px; }
   .cb-product-banner__inner--reverse .cb-product-banner__media { order: 0; }
@@ -533,8 +533,10 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 
 // Simple color darkening for button hover (works with hex colors)
 function darken(hex: string): string {
+  if (hex.includes('gradient(')) return hex;
   try {
     const n = parseInt(hex.replace('#', ''), 16);
+    if (Number.isNaN(n)) return '#4f46e5';
     const r = Math.max(0, (n >> 16) - 30);
     const g = Math.max(0, ((n >> 8) & 0xff) - 30);
     const b = Math.max(0, (n & 0xff) - 30);

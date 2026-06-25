@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ImagePlus, Link2, X } from 'lucide-react';
 import { formatImageSpec, ImageSpec } from '@/lib/assets/imageSpecs';
+import { GRADIENT_PRESETS, colorSwatchStyle, isGradientValue } from '@/lib/styles/colorStyles';
 
 interface Option { value: string; label: string }
 
@@ -125,23 +126,28 @@ interface ColorFieldProps {
 }
 
 export function ColorField({ label, value, onChange, placeholder = '自動' }: ColorFieldProps) {
-  const displayColor = value || '#ffffff';
+  const isHex = /^#[0-9a-fA-F]{6}$/.test(value);
+  const displayColor = isHex ? value : '#ffffff';
+  const isGradient = isGradientValue(value);
+  const canUseNativePicker = !isGradient && isHex;
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <label className="text-xs font-medium text-slate-400 uppercase tracking-wide">{label}</label>
       <div className="flex items-center gap-2">
         {/* Color swatch — clicking opens native color picker */}
         <div className="relative flex-shrink-0">
-          <input
-            type="color"
-            value={displayColor}
-            onChange={(e) => onChange(e.target.value)}
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer rounded-md"
-          />
+          {canUseNativePicker && (
+            <input
+              type="color"
+              value={displayColor}
+              onChange={(e) => onChange(e.target.value)}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer rounded-md"
+            />
+          )}
           <div
             className="w-8 h-8 rounded-md border border-slate-600 flex items-center justify-center overflow-hidden"
-            style={{ background: value || 'transparent' }}
+            style={colorSwatchStyle(value)}
           >
             {!value && (
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-slate-500">
@@ -171,6 +177,22 @@ export function ColorField({ label, value, onChange, placeholder = '自動' }: C
             ✕
           </button>
         )}
+      </div>
+      <div className="grid grid-cols-3 gap-1">
+        {GRADIENT_PRESETS.map((preset) => (
+          <button
+            key={preset.label}
+            type="button"
+            onClick={() => onChange(preset.value)}
+            className={`h-7 rounded-md border text-[10px] font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5 ${
+              value === preset.value ? 'border-indigo-300 ring-1 ring-indigo-400' : 'border-slate-700'
+            }`}
+            style={{ background: preset.value }}
+            title={preset.value}
+          >
+            {preset.label}
+          </button>
+        ))}
       </div>
     </div>
   );

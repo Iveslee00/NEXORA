@@ -360,6 +360,7 @@ export interface BankPromoModule extends BaseModule {
 export interface AnchorNavData {
   hiddenTargetIds: string[];
   backgroundColor: string;
+  buttonColor: string;
   textColor: string;
 }
 

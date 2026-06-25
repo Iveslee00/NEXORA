@@ -22,7 +22,7 @@ export function generateProductGridHTML(data: ProductGridData): string {
     })
     .join('\n');
 
-  const bgOverride = data.backgroundColor ? ` style="background-color: ${escapeHtml(data.backgroundColor)}"` : '';
+  const bgOverride = data.backgroundColor ? ` style="background: ${escapeHtml(data.backgroundColor)}"` : '';
 
   return `<section class="cb-products cb-section"${bgOverride}>
   <div class="cb-container">

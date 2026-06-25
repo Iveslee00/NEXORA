@@ -195,7 +195,7 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
                     ref={contentRef}
                     style={{
                       width: '390px',
-                      ...(pageBackgroundColor ? { backgroundColor: pageBackgroundColor } : {}),
+                      ...(pageBackgroundColor ? { background: pageBackgroundColor } : {}),
                       ...(pageBackgroundImage ? { backgroundImage: `url("${pageBackgroundImage}")`, backgroundRepeat: 'repeat-y', backgroundSize: '100% auto' } : {}),
                     }}
                   >
@@ -211,7 +211,7 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
               <div
                 ref={contentRef}
                 style={{
-                  ...(pageBackgroundColor ? { backgroundColor: pageBackgroundColor } : {}),
+                  ...(pageBackgroundColor ? { background: pageBackgroundColor } : {}),
                   ...(pageBackgroundImage ? { backgroundImage: `url("${pageBackgroundImage}")`, backgroundRepeat: 'repeat-y', backgroundSize: '100% auto' } : {}),
                 }}
               >

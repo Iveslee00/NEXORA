@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { useGlobalSettings } from '@/contexts/GlobalSettingsContext';
 import { useEmailSettings } from '@/contexts/EmailSettingsContext';
+import { GRADIENT_PRESETS, colorSwatchStyle, isGradientValue } from '@/lib/styles/colorStyles';
 
 const iconMap: Record<string, React.ReactNode> = {
   layout: <Layout size={18} />,
@@ -44,13 +45,17 @@ function ColorPicker({ label, value, onChange, allowEmpty, onReset }: {
   label: string; value: string; onChange: (v: string) => void;
   allowEmpty?: boolean; onReset?: () => void;
 }) {
+  const isHex = /^#[0-9a-fA-F]{6}$/.test(value);
+  const isGradient = isGradientValue(value);
   return (
     <div className="space-y-1">
       <p className="text-xs text-slate-500">{label}</p>
       <div className="flex items-center gap-2">
         <div className="relative flex-shrink-0">
-          <input type="color" value={value || '#ffffff'} onChange={(e) => onChange(e.target.value)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-          <div className="w-7 h-7 rounded-md border border-slate-600 overflow-hidden" style={{ background: value || 'transparent' }}>
+          {isHex && !isGradient && (
+            <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+          )}
+          <div className="w-7 h-7 rounded-md border border-slate-600 overflow-hidden" style={colorSwatchStyle(value)}>
             {!value && allowEmpty && (
               <svg width="28" height="28" viewBox="0 0 28 28" className="text-slate-600">
                 <line x1="0" y1="0" x2="28" y2="28" stroke="currentColor" strokeWidth="1.5" />
@@ -61,6 +66,21 @@ function ColorPicker({ label, value, onChange, allowEmpty, onReset }: {
         <input type="text" value={value} onChange={(e) => onChange(e.target.value)} placeholder={allowEmpty ? '無底色' : '#000000'} className="flex-1 bg-slate-800 border border-slate-700 rounded-md px-2 py-1 text-xs text-slate-300 font-mono focus:outline-none focus:border-indigo-500 placeholder-slate-600" />
         {allowEmpty && value && <button onClick={() => onChange('')} className="text-xs text-slate-500 hover:text-slate-300 px-1" title="Clear">✕</button>}
         {!allowEmpty && onReset && <button onClick={onReset} className="text-xs text-slate-500 hover:text-slate-300 px-1" title="Reset">↺</button>}
+      </div>
+      <div className="grid grid-cols-3 gap-1">
+        {GRADIENT_PRESETS.map((preset) => (
+          <button
+            key={preset.label}
+            type="button"
+            onClick={() => onChange(preset.value)}
+            className={`h-6 rounded border text-[10px] font-semibold text-white transition-transform hover:-translate-y-0.5 ${
+              value === preset.value ? 'border-indigo-300 ring-1 ring-indigo-400' : 'border-slate-700'
+            }`}
+            style={{ background: preset.value }}
+          >
+            {preset.label}
+          </button>
+        ))}
       </div>
     </div>
   );

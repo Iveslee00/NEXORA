@@ -2,7 +2,7 @@ import { BankPromoData } from '@/types/modules';
 import { escapeHtml } from '@/lib/utils';
 
 export function generateBankPromoHTML(data: BankPromoData): string {
-  const bgOverride = data.backgroundColor ? ` style="background-color: ${escapeHtml(data.backgroundColor)}"` : '';
+  const bgOverride = data.backgroundColor ? ` style="background: ${escapeHtml(data.backgroundColor)}"` : '';
   const titleStyle = data.titleColor ? ` style="color: ${escapeHtml(data.titleColor)}"` : '';
   const textStyle = data.textColor ? ` style="color: ${escapeHtml(data.textColor)}"` : '';
 

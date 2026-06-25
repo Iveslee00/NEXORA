@@ -43,6 +43,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     defaultData: {
       hiddenTargetIds: [],
       backgroundColor: '',
+      buttonColor: '',
       textColor: '',
     },
   },

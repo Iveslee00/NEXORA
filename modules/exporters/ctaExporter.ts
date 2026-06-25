@@ -18,7 +18,7 @@ export function generateCtaHTML(data: CtaData): string {
     ? `\n        <a href="${escapeHtml(data.buttonLink || '#')}" class="${btnClass}">${escapeHtml(data.buttonText)}</a>`
     : '';
 
-  const bgOverride = data.backgroundColor ? ` style="background-color: ${escapeHtml(data.backgroundColor)}"` : '';
+  const bgOverride = data.backgroundColor ? ` style="background: ${escapeHtml(data.backgroundColor)}"` : '';
 
   return `<section class="cb-cta cb-section ${bgClass}"${bgOverride}>
   <div class="cb-container">
