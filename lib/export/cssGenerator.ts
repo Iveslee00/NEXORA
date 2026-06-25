@@ -34,7 +34,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   margin-left: auto; margin-right: auto;
   padding-left: 24px; padding-right: 24px;
 }
-.cb-section { padding-top: 80px; padding-bottom: 80px; }
+.cb-section { padding-top: 36px; padding-bottom: 44px; }
 .cb-module-anchor { scroll-margin-top: 16px; }
 
 /* Buttons */
@@ -178,6 +178,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    8. BANNER + PRODUCTS MODULE
    ------------------------------------------------------------ */
 .cb-banner-products__inner { display: grid; gap: 16px; align-items: stretch; }
+.cb-banner-products.cb-section { padding-top: 32px; padding-bottom: 40px; }
 .cb-banner-products .cb-container { padding-left: 0; padding-right: 0; }
 .cb-banner-products__inner--0 { grid-template-columns: 1fr; }
 .cb-banner-products__inner--1 { grid-template-columns: minmax(0, 880px) max-content; }
@@ -237,9 +238,9 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    ------------------------------------------------------------ */
 .cb-product-banner { position: relative; overflow: hidden; }
 .cb-product-banner { color: #1a1a2e; }
-.cb-product-banner--small { padding-top: 36px; padding-bottom: 36px; }
-.cb-product-banner--medium { padding-top: 56px; padding-bottom: 56px; }
-.cb-product-banner--large { padding-top: 76px; padding-bottom: 76px; }
+.cb-product-banner--small { padding-top: 28px; padding-bottom: 36px; }
+.cb-product-banner--medium { padding-top: 40px; padding-bottom: 48px; }
+.cb-product-banner--large { padding-top: 52px; padding-bottom: 60px; }
 .cb-product-banner__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .cb-product-banner__inner--reverse .cb-product-banner__media { order: -1; }
 .cb-product-banner__content { display: flex; flex-direction: column; gap: 16px; }
@@ -325,7 +326,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    ------------------------------------------------------------ */
 @media (max-width: 1024px) {
   .cb-container { padding-left: 20px; padding-right: 20px; }
-  .cb-section { padding-top: 64px; padding-bottom: 64px; }
+  .cb-section { padding-top: 32px; padding-bottom: 40px; }
   .cb-split__inner { gap: 40px; }
   .cb-products__grid { grid-template-columns: repeat(3, 1fr); }
   .cb-carousel__item { flex: 0 0 calc(33.333% - 14px); }
@@ -347,7 +348,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 }
 
 @media (max-width: 768px) {
-  .cb-section { padding-top: 48px; padding-bottom: 48px; }
+  .cb-section { padding-top: 24px; padding-bottom: 32px; }
   .cb-title-block { padding-top: 10px; padding-bottom: 4px; }
   .cb-hero { flex-direction: column; align-items: stretch; }
   .cb-hero--small,
@@ -372,6 +373,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-banner-products__inner--2,
   .cb-banner-products__inner--3,
   .cb-banner-products__inner--4 { grid-template-columns: 1fr; }
+  .cb-banner-products.cb-section { padding-top: 24px; padding-bottom: 32px; }
   .cb-banner-products .cb-container { padding-left: 16px; padding-right: 16px; }
   .cb-banner-products__banner,
   .cb-banner-products__inner--1 .cb-banner-products__banner,

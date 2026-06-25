@@ -7,9 +7,9 @@ import { getProductBannerImageSpecs } from '@/lib/assets/imageSpecs';
 import { PreviewImage } from './PreviewImage';
 
 const heightPadding = {
-  small: { desktop: '36px 24px', mobile: '28px 16px' },
-  medium: { desktop: '56px 24px', mobile: '40px 16px' },
-  large: { desktop: '76px 24px', mobile: '56px 16px' },
+  small: { desktop: '28px 24px 36px', mobile: '24px 16px 32px' },
+  medium: { desktop: '40px 24px 48px', mobile: '32px 16px 40px' },
+  large: { desktop: '52px 24px 60px', mobile: '40px 16px 48px' },
 };
 
 export function ProductBannerPreview({ data }: { data: ProductBannerData }) {

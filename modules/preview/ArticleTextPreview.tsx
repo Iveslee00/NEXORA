@@ -12,7 +12,7 @@ export function ArticleTextPreview({ data }: { data: ArticleTextData }) {
   return (
     <section style={{
       background: data.backgroundColor || 'transparent',
-      padding: isMobile ? '32px 16px' : '48px 24px',
+      padding: isMobile ? '24px 16px 32px' : '36px 24px 44px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
     }}>
       <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: align }}>

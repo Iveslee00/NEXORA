@@ -67,7 +67,7 @@ export function ArticleImagePreview({ data }: { data: ArticleImageData }) {
   return (
     <section style={{
       background: data.backgroundColor || 'transparent',
-      padding: isMobile ? '32px 16px' : '48px 24px',
+      padding: isMobile ? '24px 16px 32px' : '36px 24px 44px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
     }}>
       <div style={{ maxWidth: pos === 'top' ? '1080px' : '1080px', margin: '0 auto' }}>
