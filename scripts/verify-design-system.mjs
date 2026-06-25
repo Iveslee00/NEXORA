@@ -8,6 +8,8 @@ const css = readFileSync('lib/export/cssGenerator.ts', 'utf8');
 const titlePreview = readFileSync('modules/preview/TitlePreview.tsx', 'utf8');
 const anchorPreview = readFileSync('modules/preview/AnchorNavPreview.tsx', 'utf8');
 const anchorForm = readFileSync('modules/forms/AnchorNavForm.tsx', 'utf8');
+const productGridPreview = readFileSync('modules/preview/ProductGridPreview.tsx', 'utf8');
+const productCarouselPreview = readFileSync('modules/preview/ProductCarouselPreview.tsx', 'utf8');
 
 assert(css.includes('.cb-page a.cb-btn { color: ${btnTextColor}; }'), 'Export buttons should override global link colors with button text color');
 assert(css.includes('.cb-btn {'), 'Export CSS should include shared button styles');
@@ -22,6 +24,10 @@ assert(css.includes('.cb-article__subtitle { font-size: 1rem;'), 'Article subtit
 
 assert(css.includes('.cb-title-block { padding: 12px 0 4px; }'), 'Export title block spacing should be compact');
 assert(titlePreview.includes("padding: '12px 24px 4px'"), 'Editor title block spacing should match compact export spacing');
+assert(css.includes('.cb-products.cb-section, .cb-carousel.cb-section { padding-top: 28px; padding-bottom: 44px; }'), 'Product modules should not add oversized vertical space after title blocks');
+assert(css.includes('.cb-products.cb-section, .cb-carousel.cb-section { padding-top: 24px; padding-bottom: 32px; }'), 'Mobile product modules should use compact vertical spacing');
+assert(productGridPreview.includes("padding: isMobile ? '24px 16px 32px' : '28px 24px 44px'"), 'Product grid preview should match compact product spacing');
+assert(productCarouselPreview.includes("padding: isMobile ? '24px 16px 32px' : '28px 0 44px'"), 'Product carousel preview should match compact product spacing');
 
 assert(css.includes('.cb-anchor-nav { padding: 14px 0; }'), 'Anchor nav export spacing should be compact');
 assert(css.includes('flex: 0 0 188px; width: 188px; min-height: 44px; padding: 10px 16px;'), 'Anchor buttons should be larger and equal width on desktop');

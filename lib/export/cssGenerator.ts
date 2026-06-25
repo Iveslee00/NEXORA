@@ -172,6 +172,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    7. PRODUCT GRID MODULE
    ------------------------------------------------------------ */
 .cb-products__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.cb-products.cb-section, .cb-carousel.cb-section { padding-top: 28px; padding-bottom: 44px; }
 
 /* ------------------------------------------------------------
    8. BANNER + PRODUCTS MODULE
@@ -365,6 +366,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-split__inner--reverse .cb-split__media { order: 0; }
   .cb-products__grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .cb-carousel__item { flex: 0 0 calc(50% - 10px); }
+  .cb-products.cb-section, .cb-carousel.cb-section { padding-top: 24px; padding-bottom: 32px; }
   .cb-banner-products__inner--0,
   .cb-banner-products__inner--1,
   .cb-banner-products__inner--2,

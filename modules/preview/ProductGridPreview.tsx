@@ -13,7 +13,7 @@ export function ProductGridPreview({ data }: { data: ProductGridData }) {
   const nameStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
 
   return (
-    <section style={{ background: data.backgroundColor || 'transparent', padding: isMobile ? '32px 16px' : '48px 24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+    <section style={{ background: data.backgroundColor || 'transparent', padding: isMobile ? '24px 16px 32px' : '28px 24px 44px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
       <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: cols, gap: isMobile ? '12px' : '20px' }}>
           {data.products.map((product) => (
