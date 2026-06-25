@@ -13,6 +13,8 @@ import { getModuleAnchorId } from '@/lib/modules/anchors';
 import { X, Camera, Monitor, Smartphone } from 'lucide-react';
 
 type DeviceMode = 'desktop' | 'mobile';
+const DESKTOP_CANVAS_WIDTH = 1200;
+const DESKTOP_CANVAS_PADDING = 32;
 
 interface Props {
   pageMode: PageMode;
@@ -53,12 +55,39 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
   const [capturing, setCapturing] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const desktopViewportRef = useRef<HTMLDivElement>(null);
+  const [desktopScale, setDesktopScale] = useState(1);
 
   const isEmail = pageMode === 'email';
   const isMobile = deviceMode === 'mobile';
+  const campaignBackgroundStyle: React.CSSProperties = {
+    ...(pageBackgroundColor ? { background: pageBackgroundColor } : { background: '#ffffff' }),
+    ...(pageBackgroundImage ? { backgroundImage: `url("${pageBackgroundImage}")`, backgroundRepeat: 'repeat-y', backgroundSize: '100% auto' } : {}),
+  };
+  const desktopPreviewStyle: React.CSSProperties = {
+    ...campaignBackgroundStyle,
+    width: DESKTOP_CANVAS_WIDTH,
+    zoom: desktopScale,
+  };
   const getPreviewAnchorId = (module: PageModule) => (
     'anchorName' in module.data && module.data.anchorName ? getModuleAnchorId(module.id) : undefined
   );
+
+  React.useEffect(() => {
+    if (isEmail || isMobile) return;
+    const node = desktopViewportRef.current;
+    if (!node) return;
+
+    const updateScale = () => {
+      const availableWidth = node.clientWidth - DESKTOP_CANVAS_PADDING;
+      setDesktopScale(Math.min(1, Math.max(0.35, availableWidth / DESKTOP_CANVAS_WIDTH)));
+    };
+
+    updateScale();
+    const observer = new ResizeObserver(updateScale);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [isEmail, isMobile]);
 
   const handleScreenshot = useCallback(async () => {
     if (!contentRef.current || capturing) return;
@@ -193,11 +222,7 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
                   </div>
                   <div
                     ref={contentRef}
-                    style={{
-                      width: '390px',
-                      ...(pageBackgroundColor ? { background: pageBackgroundColor } : {}),
-                      ...(pageBackgroundImage ? { backgroundImage: `url("${pageBackgroundImage}")`, backgroundRepeat: 'repeat-y', backgroundSize: '100% auto' } : {}),
-                    }}
+                    style={{ width: '390px', ...campaignBackgroundStyle }}
                   >
                     {modules.map((module) => (
                       <div key={module.id} id={getPreviewAnchorId(module)}>
@@ -208,18 +233,14 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
                 </div>
               </div>
             ) : (
-              <div
-                ref={contentRef}
-                style={{
-                  ...(pageBackgroundColor ? { background: pageBackgroundColor } : {}),
-                  ...(pageBackgroundImage ? { backgroundImage: `url("${pageBackgroundImage}")`, backgroundRepeat: 'repeat-y', backgroundSize: '100% auto' } : {}),
-                }}
-              >
-                {modules.map((module) => (
-                  <div key={module.id} id={getPreviewAnchorId(module)}>
-                    <ModulePreviewRenderer module={module} modules={modules} />
-                  </div>
-                ))}
+              <div ref={desktopViewportRef} className="flex min-h-full justify-center py-6 px-4">
+                <div ref={contentRef} style={desktopPreviewStyle}>
+                  {modules.map((module) => (
+                    <div key={module.id} id={getPreviewAnchorId(module)}>
+                      <ModulePreviewRenderer module={module} modules={modules} />
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </DeviceContext.Provider>

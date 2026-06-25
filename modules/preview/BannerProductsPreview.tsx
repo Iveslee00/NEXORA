@@ -20,6 +20,11 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
   const bannerAspectRatio = isMobile ? '750 / 520' : `${bannerSpec.width} / ${bannerSpec.height}`;
 
   useEffect(() => {
+    if (!isMobile) {
+      setIsCompact(false);
+      return;
+    }
+
     const node = containerRef.current;
     if (!node) return;
 
@@ -29,7 +34,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
     const observer = new ResizeObserver(update);
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [isMobile]);
 
   const bgStyle: React.CSSProperties = data.backgroundColor ? { background: data.backgroundColor } : {};
 
