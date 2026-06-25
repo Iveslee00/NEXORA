@@ -46,6 +46,10 @@ export function HeroForm({ data, onChange }: Props) {
         textColor={data.textColor}
         onTitleColorChange={(v) => set('titleColor', v)}
         onTextColorChange={(v) => set('textColor', v)}
+        titleDefaultColor="#ffffff"
+        textDefaultColor="#ffffff"
+        titlePlaceholder="使用預設 #ffffff"
+        textPlaceholder="使用預設 #ffffff"
       />
     </div>
   );

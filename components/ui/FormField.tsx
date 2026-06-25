@@ -387,17 +387,32 @@ interface ColorSectionProps {
   onTextColorChange: (v: string) => void;
   backgroundColor?: string;
   onBackgroundColorChange?: (v: string) => void;
+  titleDefaultColor?: string;
+  textDefaultColor?: string;
+  titlePlaceholder?: string;
+  textPlaceholder?: string;
 }
 
-export function ColorSection({ titleColor, textColor, onTitleColorChange, onTextColorChange, backgroundColor, onBackgroundColorChange }: ColorSectionProps) {
+export function ColorSection({
+  titleColor,
+  textColor,
+  onTitleColorChange,
+  onTextColorChange,
+  backgroundColor,
+  onBackgroundColorChange,
+  titleDefaultColor = '#1a1a2e',
+  textDefaultColor = '#4a4a6a',
+  titlePlaceholder = '使用預設 #1a1a2e',
+  textPlaceholder = '使用預設 #4a4a6a',
+}: ColorSectionProps) {
   return (
     <div className="space-y-3">
       <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">顏色設定</p>
       {onBackgroundColorChange !== undefined && (
         <ColorField label="背景色" value={backgroundColor ?? ''} onChange={onBackgroundColorChange} defaultPreviewColor="#ffffff" placeholder="使用預設 #ffffff" />
       )}
-      <ColorField label="標題色" value={titleColor} onChange={onTitleColorChange} defaultPreviewColor="#1a1a2e" placeholder="使用預設 #1a1a2e" />
-      <ColorField label="內文字色" value={textColor} onChange={onTextColorChange} defaultPreviewColor="#4a4a6a" placeholder="使用預設 #4a4a6a" />
+      <ColorField label="標題色" value={titleColor} onChange={onTitleColorChange} defaultPreviewColor={titleDefaultColor} placeholder={titlePlaceholder} />
+      <ColorField label="內文字色" value={textColor} onChange={onTextColorChange} defaultPreviewColor={textDefaultColor} placeholder={textPlaceholder} />
     </div>
   );
 }

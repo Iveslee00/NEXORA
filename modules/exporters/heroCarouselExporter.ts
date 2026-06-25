@@ -8,8 +8,8 @@ export function generateHeroCarouselHTML(data: HeroCarouselData): string {
   const slides = data.slides
     .map((s) => {
       const showText = s.showText !== false;
-      const titleStyle = s.titleColor ? ` style="color: ${escapeHtml(s.titleColor)}"` : '';
-      const textStyle = s.textColor ? ` style="color: ${escapeHtml(s.textColor)}"` : '';
+      const titleStyle = ` style="color: ${escapeHtml(s.titleColor || '#ffffff')}"`;
+      const textStyle = ` style="color: ${escapeHtml(s.textColor || '#ffffff')}"`;
       const textBgStyle = '';
       const align = s.alignment ?? 'left';
       const imgEl = s.image

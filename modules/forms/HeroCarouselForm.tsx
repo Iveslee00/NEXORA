@@ -26,8 +26,8 @@ export function HeroCarouselForm({ data, onChange }: Props) {
       subtitle: '用一句話說明活動利益點。',
       buttonText: '立即看優惠',
       buttonLink: '#',
-      titleColor: '#1a1a2e',
-      textColor: '#4a4a6a',
+      titleColor: '',
+      textColor: '',
       textBgColor: '',
       overlayOpacity: 0,
       alignment: 'left',
@@ -105,8 +105,8 @@ export function HeroCarouselForm({ data, onChange }: Props) {
                   )}
                   <FormField label={showText ? '按鈕 / Banner 連結' : '整張 Banner 連結'} value={slide.buttonLink} onChange={(v) => updateSlide(slide.id, 'buttonLink', v)} type="url" placeholder="https://" />
                   <div className="grid grid-cols-2 gap-3">
-                    <ColorField label="標題色" value={slide.titleColor} onChange={(v) => updateSlide(slide.id, 'titleColor', v)} placeholder="#1a1a2e" />
-                    <ColorField label="文字色" value={slide.textColor} onChange={(v) => updateSlide(slide.id, 'textColor', v)} placeholder="#4a4a6a" />
+                    <ColorField label="標題色" value={slide.titleColor} onChange={(v) => updateSlide(slide.id, 'titleColor', v)} placeholder="使用預設 #ffffff" defaultPreviewColor="#ffffff" />
+                    <ColorField label="文字色" value={slide.textColor} onChange={(v) => updateSlide(slide.id, 'textColor', v)} placeholder="使用預設 #ffffff" defaultPreviewColor="#ffffff" />
                   </div>
                 </div>
               </div>

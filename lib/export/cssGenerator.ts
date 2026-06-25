@@ -109,7 +109,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   overflow: hidden;
 }
 .cb-hero__kicker { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.65; margin-bottom: 16px; }
-.cb-hero__title { max-width: 430px; font-size: clamp(1.25rem, 2.4vw, 2rem); font-weight: 800; line-height: 1.15; margin-bottom: 10px; color: #1a1a2e; }
+.cb-hero__title { max-width: 430px; font-size: clamp(1.25rem, 2.4vw, 2rem); font-weight: 800; line-height: 1.15; margin-bottom: 10px; color: #ffffff; }
 .cb-hero__subtitle { max-width: 430px; font-size: 0.95rem; line-height: 1.6; opacity: 0.85; margin-bottom: 16px; }
 .cb-hero__media { position: absolute; inset: 0; overflow: hidden; }
 .cb-hero__media--full { flex: 1 1 auto; }
@@ -466,8 +466,8 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-kv__picture { position: absolute; inset: 0; display: block; }
 .cb-kv__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .cb-kv__overlay { position: absolute; inset: 0; }
-.cb-kv__title { font-size: clamp(1.1rem, 2vw, 1.65rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #1a1a2e; margin: 0 0 8px; }
-.cb-kv__subtitle { font-size: clamp(0.8rem, 1vw, 0.9rem); line-height: 1.6; color: #4a4a6a; margin: 0 0 16px; max-width: 320px; }
+.cb-kv__title { font-size: clamp(1.1rem, 2vw, 1.65rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #ffffff; margin: 0 0 8px; }
+.cb-kv__subtitle { font-size: clamp(0.8rem, 1vw, 0.9rem); line-height: 1.6; color: #ffffff; margin: 0 0 16px; max-width: 320px; }
 .cb-kv__btn { }
 .cb-kv__nav { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 3; color: #fff; font-size: 16px; }
 .cb-kv__nav--prev { left: 8px; }

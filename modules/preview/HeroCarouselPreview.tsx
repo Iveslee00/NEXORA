@@ -17,6 +17,7 @@ const heightMap = {
 export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
   const { isMobile } = useDevice();
   const { buttonColor, buttonTextColor } = useGlobalSettings();
+  const defaultTextColor = '#ffffff';
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
   const slides = data.slides;
@@ -148,12 +149,12 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
                   <div style={{ width: '100%', maxWidth: isMobile ? undefined : '1080px', margin: isMobile ? undefined : '0 auto', padding: isMobile ? 0 : '0 40px', display: 'flex', flexDirection: 'column', ...alignStyle }}>
                     <div style={{ maxWidth: isMobile ? 'none' : '430px' }}>
                       {s.title && (
-                        <h1 style={{ fontSize: isMobile ? '1.15rem' : '1.75rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.02em', color: s.titleColor || '#1a1a2e', marginBottom: '8px' }}>
+                        <h1 style={{ fontSize: isMobile ? '1.15rem' : '1.75rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.02em', color: s.titleColor || defaultTextColor, marginBottom: '8px' }}>
                           {s.title}
                         </h1>
                       )}
                       {s.subtitle && (
-                        <p style={{ fontSize: isMobile ? '0.8rem' : '0.95rem', lineHeight: 1.6, color: s.textColor || '#4a4a6a', marginBottom: '16px', maxWidth: '320px' }}>
+                        <p style={{ fontSize: isMobile ? '0.8rem' : '0.95rem', lineHeight: 1.6, color: s.textColor || defaultTextColor, marginBottom: '16px', maxWidth: '320px' }}>
                           {s.subtitle}
                         </p>
                       )}

@@ -15,8 +15,9 @@ const heightMap = {
 export function HeroPreview({ data }: { data: HeroData }) {
   const { isMobile } = useDevice();
   const { buttonColor, buttonTextColor } = useGlobalSettings();
-  const titleStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
-  const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
+  const defaultTextColor = '#ffffff';
+  const titleStyle: React.CSSProperties = { color: data.titleColor || defaultTextColor };
+  const textStyle: React.CSSProperties = { color: data.textColor || defaultTextColor };
   const h = heightMap[data.height ?? 'medium'];
   const showText = data.showText !== false;
   const imageSpecs = getKvImageSpecs(data.height, showText);
@@ -68,11 +69,11 @@ export function HeroPreview({ data }: { data: HeroData }) {
               {heroImage}
             </div>
           )}
-          <div style={{ position: isMobile ? 'relative' : 'absolute', inset: isMobile ? undefined : 0, zIndex: 1, display: 'flex', alignItems: 'center', background: isMobile ? textBg : 'transparent', color: '#1a1a2e' }}>
+          <div style={{ position: isMobile ? 'relative' : 'absolute', inset: isMobile ? undefined : 0, zIndex: 1, display: 'flex', alignItems: 'center', background: isMobile ? textBg : 'transparent', color: defaultTextColor }}>
             <div style={{ width: '100%', maxWidth: '1080px', margin: '0 auto', padding: isMobile ? '20px 18px' : '0 40px' }}>
               <div style={{ maxWidth: isMobile ? 'none' : '430px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                 {data.kicker && <span style={{ display: 'block', fontSize: '12px', fontWeight: 600, letterSpacing: '0.12em', opacity: 0.65, marginBottom: '14px', ...textStyle }}>{data.kicker}</span>}
-                <h1 style={{ fontSize: isMobile ? '1.5rem' : '2.25rem', fontWeight: 800, lineHeight: 1.15, margin: '0 0 10px', color: '#1a1a2e', ...titleStyle }}>{data.title || 'KV 標題'}</h1>
+                <h1 style={{ fontSize: isMobile ? '1.5rem' : '2.25rem', fontWeight: 800, lineHeight: 1.15, margin: '0 0 10px', ...titleStyle }}>{data.title || 'KV 標題'}</h1>
                 {data.subtitle && <p style={{ fontSize: isMobile ? '0.85rem' : '1rem', lineHeight: 1.6, opacity: 0.85, margin: '0 0 16px', ...textStyle }}>{data.subtitle}</p>}
                 {data.buttonText && <span style={btnStyle}>{data.buttonText}</span>}
               </div>

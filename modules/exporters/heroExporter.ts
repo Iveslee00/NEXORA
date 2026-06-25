@@ -4,8 +4,8 @@ import { escapeHtml } from '@/lib/utils';
 export function generateHeroHTML(data: HeroData): string {
   const heightClass = `cb-hero--${data.height ?? 'medium'}`;
   const imageOnlyClass = data.showText === false ? ' cb-hero--image-only' : '';
-  const titleStyle = data.titleColor ? ` style="color: ${escapeHtml(data.titleColor)}"` : '';
-  const textStyle = data.textColor ? ` style="color: ${escapeHtml(data.textColor)}"` : '';
+  const titleStyle = ` style="color: ${escapeHtml(data.titleColor || '#ffffff')}"`;
+  const textStyle = ` style="color: ${escapeHtml(data.textColor || '#ffffff')}"`;
   const textBgStyle = data.backgroundColor ? ` style="background: ${escapeHtml(data.backgroundColor)}"` : '';
 
   const kicker = data.kicker
