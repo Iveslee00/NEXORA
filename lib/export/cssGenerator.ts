@@ -72,6 +72,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   background: linear-gradient(180deg, #343a6b 0%, #20264d 100%);
   box-shadow: 0 12px 26px rgba(15,23,42,0.18), inset 0 1px 0 rgba(255,255,255,0.12);
 }
+.cb-anchor-nav__link span { color: #ffffff; }
 .cb-anchor-nav__link:active {
   transform: translateY(0);
   box-shadow: 0 6px 16px rgba(15,23,42,0.16), inset 0 1px 0 rgba(255,255,255,0.08);
@@ -354,7 +355,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-hero--image-only.cb-hero--small { aspect-ratio: 750 / 750; }
   .cb-hero--image-only.cb-hero--medium { aspect-ratio: 750 / 850; }
   .cb-hero--image-only.cb-hero--large { aspect-ratio: 750 / 950; }
-  .cb-hero__content { position: relative; flex: 0 0 auto; width: 100%; max-width: none; padding: 20px 18px; background: #1a1a2e; }
+  .cb-hero__content { position: relative; flex: 0 0 auto; width: 100%; max-width: none; padding: 20px 18px; background: var(--cb-hero-mobile-bg, #1a1a2e); }
   .cb-hero__media { position: relative; inset: auto; flex: 0 0 auto; order: -1; aspect-ratio: 750 / 850; }
   .cb-hero--small .cb-hero__media { aspect-ratio: 750 / 750; }
   .cb-hero--large .cb-hero__media { aspect-ratio: 750 / 950; }

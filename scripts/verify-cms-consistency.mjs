@@ -31,6 +31,9 @@ assert(heroPreview.includes("const titleStyle: React.CSSProperties = { color: da
 assert(heroPreview.includes("const textStyle: React.CSSProperties = { color: data.textColor || defaultTextColor };"), 'KV preview body should default to white');
 assert(heroExporter.includes("const titleStyle = ` style=\"color: ${escapeHtml(data.titleColor || '#ffffff')}\"`;"), 'KV export title should default to white');
 assert(heroExporter.includes("const textStyle = ` style=\"color: ${escapeHtml(data.textColor || '#ffffff')}\"`;"), 'KV export body should default to white');
+assert(!heroExporter.includes('const textBgStyle = data.backgroundColor ? ` style="background:'), 'KV export should not inline mobile text background on desktop');
+assert(heroExporter.includes('const sectionStyle = data.backgroundColor'), 'KV export should place mobile text background on the section as a CSS variable');
+assert(heroExporter.includes('style="--cb-hero-mobile-bg:'), 'KV export should expose mobile text background through a CSS variable');
 assert(heroForm.includes('titleDefaultColor="#ffffff"'), 'KV form should show white as the title default');
 assert(heroForm.includes('textDefaultColor="#ffffff"'), 'KV form should show white as the body default');
 assert(heroForm.includes('backgroundLabel="M 端文字底色"'), 'KV form should clarify that background color controls the mobile text panel');
@@ -48,6 +51,7 @@ assert(kvForm.includes('label="內文文字色"'), 'KV carousel form should expo
 assert(kvForm.includes('label="M 端文字底色"'), 'KV carousel form should clarify that background color controls the mobile text panel');
 assert(kvForm.includes('defaultPreviewColor="#ffffff"'), 'KV carousel form should show white as the text color default');
 assert(css.includes('.cb-hero__title { max-width: 430px; font-size: clamp(1.25rem, 2.4vw, 2rem); font-weight: 800; line-height: 1.15; margin-bottom: 10px; color: #ffffff; }'), 'KV CSS title default should be white');
+assert(css.includes('background: var(--cb-hero-mobile-bg, #1a1a2e);'), 'Mobile KV content should use the mobile text background variable only at mobile breakpoint');
 assert(css.includes('.cb-kv__title { font-size: clamp(1.1rem, 2vw, 1.65rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #ffffff; margin: 0 0 8px; }'), 'KV carousel CSS title default should be white');
 assert(css.includes('.cb-kv__subtitle { font-size: clamp(0.8rem, 1vw, 0.9rem); line-height: 1.6; color: #ffffff;'), 'KV carousel CSS body default should be white');
 
@@ -68,5 +72,6 @@ assert(!css.includes('grayscale(100%)'), 'Logo export should not apply grayscale
 
 assert(globalSettings.includes('buttonTextColor'), 'Global settings should expose button text color');
 assert(css.includes('color: ${btnTextColor};'), 'Exported buttons should use configured button text color');
+assert(css.includes('.cb-anchor-nav__link span { color: #ffffff; }'), 'Anchor nav exported text should default to white');
 
 console.log('cms consistency verified');
