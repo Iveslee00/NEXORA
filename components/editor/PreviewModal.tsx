@@ -57,6 +57,7 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
   const scrollRef = useRef<HTMLDivElement>(null);
   const desktopViewportRef = useRef<HTMLDivElement>(null);
   const [desktopScale, setDesktopScale] = useState(1);
+  const [desktopPreviewHeight, setDesktopPreviewHeight] = useState(0);
 
   const isEmail = pageMode === 'email';
   const isMobile = deviceMode === 'mobile';
@@ -67,7 +68,12 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
   const desktopPreviewStyle: React.CSSProperties = {
     ...campaignBackgroundStyle,
     width: DESKTOP_CANVAS_WIDTH,
-    zoom: desktopScale,
+    transform: `scale(${desktopScale})`,
+    transformOrigin: 'top left',
+  };
+  const desktopFrameStyle: React.CSSProperties = {
+    width: DESKTOP_CANVAS_WIDTH * desktopScale,
+    height: desktopPreviewHeight || undefined,
   };
   const getPreviewAnchorId = (module: PageModule) => (
     'anchorName' in module.data && module.data.anchorName ? getModuleAnchorId(module.id) : undefined
@@ -88,6 +94,21 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
     observer.observe(node);
     return () => observer.disconnect();
   }, [isEmail, isMobile]);
+
+  React.useEffect(() => {
+    if (isEmail || isMobile) return;
+    const node = contentRef.current;
+    if (!node) return;
+
+    const updateHeight = () => {
+      setDesktopPreviewHeight(node.scrollHeight * desktopScale);
+    };
+
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [desktopScale, isEmail, isMobile, modules.length]);
 
   const handleScreenshot = useCallback(async () => {
     if (!contentRef.current || capturing) return;
@@ -234,12 +255,14 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
               </div>
             ) : (
               <div ref={desktopViewportRef} className="flex min-h-full justify-center py-6 px-4">
-                <div ref={contentRef} style={desktopPreviewStyle}>
-                  {modules.map((module) => (
-                    <div key={module.id} id={getPreviewAnchorId(module)}>
-                      <ModulePreviewRenderer module={module} modules={modules} />
-                    </div>
-                  ))}
+                <div style={desktopFrameStyle}>
+                  <div ref={contentRef} style={desktopPreviewStyle}>
+                    {modules.map((module) => (
+                      <div key={module.id} id={getPreviewAnchorId(module)}>
+                        <ModulePreviewRenderer module={module} modules={modules} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}

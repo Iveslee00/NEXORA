@@ -224,7 +224,9 @@ export function PreviewCanvas({
 }: Props) {
   const [specOpen, setSpecOpen] = React.useState(false);
   const desktopViewportRef = React.useRef<HTMLDivElement>(null);
+  const desktopCanvasRef = React.useRef<HTMLDivElement>(null);
   const [desktopScale, setDesktopScale] = React.useState(1);
+  const [desktopCanvasHeight, setDesktopCanvasHeight] = React.useState(0);
   const { pageBackgroundColor, pageBackgroundImage } = useGlobalSettings();
   const emailSettings = useEmailSettings();
 
@@ -252,7 +254,12 @@ export function PreviewCanvas({
   const desktopCanvasStyle: React.CSSProperties = {
     ...campaignBackgroundStyle,
     width: DESKTOP_CANVAS_WIDTH,
-    zoom: desktopScale,
+    transform: `scale(${desktopScale})`,
+    transformOrigin: 'top left',
+  };
+  const desktopFrameStyle: React.CSSProperties = {
+    width: DESKTOP_CANVAS_WIDTH * desktopScale,
+    height: desktopCanvasHeight || undefined,
   };
 
   React.useEffect(() => {
@@ -270,6 +277,21 @@ export function PreviewCanvas({
     observer.observe(node);
     return () => observer.disconnect();
   }, [isEmail, isMobile]);
+
+  React.useEffect(() => {
+    if (isEmail || isMobile) return;
+    const node = desktopCanvasRef.current;
+    if (!node) return;
+
+    const updateHeight = () => {
+      setDesktopCanvasHeight(node.scrollHeight * desktopScale);
+    };
+
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [desktopScale, isEmail, isMobile, modules.length]);
 
   return (
     <div className="min-h-0 flex-1 flex flex-col overflow-hidden bg-slate-950">
@@ -420,10 +442,8 @@ export function PreviewCanvas({
               style={isMobile ? undefined : campaignBackgroundStyle}
             >
               <div className={isMobile ? 'flex justify-center py-6 px-4' : 'flex min-h-full justify-center py-6 px-4'} style={isMobile ? undefined : campaignBackgroundStyle}>
-                <div
-                  className={isMobile ? 'w-full shadow-2xl rounded-2xl overflow-hidden border border-slate-600' : 'min-h-full flex-shrink-0'}
-                  style={isMobile ? { maxWidth: '390px' } : desktopCanvasStyle}
-                >
+                <div className={isMobile ? 'w-full shadow-2xl rounded-2xl overflow-hidden border border-slate-600' : 'flex-shrink-0'} style={isMobile ? { maxWidth: '390px' } : desktopFrameStyle}>
+                  <div ref={isMobile ? undefined : desktopCanvasRef} style={isMobile ? undefined : desktopCanvasStyle}>
                   {isMobile && (
                     <div className="flex items-center justify-between px-5 py-2 bg-slate-900 text-slate-400 text-xs border-b border-slate-700">
                       <span className="font-medium">9:41</span>
@@ -455,6 +475,7 @@ export function PreviewCanvas({
                       </div>
                     </SortableContext>
                   </DndContext>
+                  </div>
                 </div>
               </div>
             </div>

@@ -10,10 +10,14 @@ function assert(condition, message) {
 
 assert(previewCanvas.includes('DESKTOP_CANVAS_WIDTH = 1200'), 'desktop preview should use a fixed 1200px canvas');
 assert(previewCanvas.includes('setDesktopScale(Math.min(1'), 'desktop preview should scale down to fit laptop viewports');
-assert(previewCanvas.includes('zoom: desktopScale'), 'desktop preview should visually zoom instead of narrowing layout width');
+assert(previewCanvas.includes('transform: `scale(${desktopScale})`'), 'desktop preview should visually scale instead of narrowing layout width');
+assert(previewCanvas.includes('width: DESKTOP_CANVAS_WIDTH * desktopScale'), 'desktop preview frame should occupy scaled width');
+assert(!previewCanvas.includes('zoom: desktopScale'), 'desktop preview should not use CSS zoom because it creates overflow in the editor');
 assert(previewCanvas.includes('width: DESKTOP_CANVAS_WIDTH'), 'desktop preview inner canvas should keep desktop width');
 assert(previewModal.includes('DESKTOP_CANVAS_WIDTH = 1200'), 'desktop modal preview should use a fixed 1200px canvas');
-assert(previewModal.includes('zoom: desktopScale'), 'desktop modal preview should visually zoom instead of narrowing layout width');
+assert(previewModal.includes('transform: `scale(${desktopScale})`'), 'desktop modal preview should visually scale instead of narrowing layout width');
+assert(previewModal.includes('width: DESKTOP_CANVAS_WIDTH * desktopScale'), 'desktop modal frame should occupy scaled width');
+assert(!previewModal.includes('zoom: desktopScale'), 'desktop modal preview should not use CSS zoom because it creates overflow');
 assert(previewModal.includes('width: DESKTOP_CANVAS_WIDTH'), 'desktop modal inner canvas should keep desktop width');
 assert(bannerProducts.includes('if (!isMobile)'), 'banner products should not switch to compact layout in desktop preview');
 assert(bannerProducts.includes('setIsCompact(false)'), 'desktop banner products should stay in desktop layout');
