@@ -325,7 +325,7 @@ export function ColorField({ label, value, onChange, placeholder = '使用預設
   const isHex = /^#[0-9a-fA-F]{6}$/.test(value);
   const displayColor = isHex ? value : defaultPreviewColor;
   const isGradient = isGradientValue(value);
-  const canUseNativePicker = !isGradient && isHex;
+  const canUseNativePicker = !isGradient;
   const swatchValue = value || defaultPreviewColor;
 
   return (
