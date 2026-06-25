@@ -379,24 +379,45 @@ const readImageSize = (src: string) => new Promise<{ width: number; height: numb
   image.src = src;
 });
 
+const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
+
 export function ImageField({ label, value, onChange, placeholder = 'https://…', spec }: ImageFieldProps) {
   const isUploaded = value.startsWith('data:image/');
   const [error, setError] = useState('');
+  const [uploading, setUploading] = useState(false);
   const specLabel = spec ? formatImageSpec(spec) : '';
 
   const handleUpload = async (file: File | undefined) => {
     if (!file) return;
-    const dataUrl = await readFileAsDataUrl(file);
-    if (spec) {
-      const size = await readImageSize(dataUrl);
-      if (size.width !== spec.width || size.height !== spec.height) {
-        setError(`請上傳 ${specLabel} 圖檔`);
-        return;
-      }
+    if (!file.type.startsWith('image/')) {
+      setError('請上傳圖片檔');
+      return;
     }
-    setError('');
-    onChange(dataUrl);
+    if (file.size > MAX_UPLOAD_BYTES) {
+      setError('圖片檔案過大，請壓縮至 8MB 以下');
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const dataUrl = await readFileAsDataUrl(file);
+      if (spec) {
+        const size = await readImageSize(dataUrl);
+        if (size.width !== spec.width || size.height !== spec.height) {
+          setError(`請上傳 ${specLabel} 圖檔`);
+          return;
+        }
+      }
+      setError('');
+      onChange(dataUrl);
+    } catch {
+      setError('圖片讀取失敗，請重新上傳');
+    } finally {
+      setUploading(false);
+    }
   };
+
+  const uploadLabel = uploading ? '讀取中' : '上傳';
 
   return (
     <div className="flex flex-col gap-2">
@@ -405,13 +426,14 @@ export function ImageField({ label, value, onChange, placeholder = 'https://…'
         {spec && <span className="flex-shrink-0 text-xs text-slate-500">{specLabel}</span>}
       </div>
       <div className="flex gap-2">
-        <label className="inline-flex flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-indigo-500">
+        <label className={`inline-flex flex-shrink-0 items-center gap-1.5 rounded-md px-3 py-2 text-xs font-semibold text-white transition-colors ${uploading ? 'cursor-wait bg-slate-700' : 'cursor-pointer bg-indigo-600 hover:bg-indigo-500'}`}>
           <ImagePlus size={13} />
-          上傳
+          {uploadLabel}
           <input
             type="file"
             accept="image/*"
             className="sr-only"
+            disabled={uploading}
             onChange={(e) => {
               void handleUpload(e.target.files?.[0]);
               e.currentTarget.value = '';

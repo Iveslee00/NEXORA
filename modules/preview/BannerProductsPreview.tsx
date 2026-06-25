@@ -52,7 +52,7 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
     : { aspectRatio: '1/1' };
 
   return (
-    <section style={{ ...bgStyle, padding: isMobile ? '32px 16px' : '48px 24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+    <section style={{ ...bgStyle, padding: isMobile ? '32px 16px' : '48px 0', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
       <div ref={containerRef} style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: isMobile ? '12px' : '20px', alignItems: lockDesktopHeight ? 'stretch' : 'start' }}>
           {/* Banner */}

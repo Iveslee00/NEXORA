@@ -169,6 +169,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    8. BANNER + PRODUCTS MODULE
    ------------------------------------------------------------ */
 .cb-banner-products__inner { display: grid; gap: 20px; align-items: stretch; }
+.cb-banner-products .cb-container { padding-left: 0; padding-right: 0; }
 .cb-banner-products__inner--0 { grid-template-columns: 1fr; }
 .cb-banner-products__inner--1 { grid-template-columns: minmax(0, 990px) max-content; }
 .cb-banner-products__inner--2 { grid-template-columns: minmax(0, 780px) max-content; }
@@ -361,6 +362,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-banner-products__inner--2,
   .cb-banner-products__inner--3,
   .cb-banner-products__inner--4 { grid-template-columns: 1fr; }
+  .cb-banner-products .cb-container { padding-left: 16px; padding-right: 16px; }
   .cb-banner-products__banner,
   .cb-banner-products__inner--1 .cb-banner-products__banner,
   .cb-banner-products__inner--2 .cb-banner-products__banner,

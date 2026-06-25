@@ -24,5 +24,7 @@ assert(!previewModal.includes('zoom: desktopScale'), 'desktop modal preview shou
 assert(previewModal.includes('width: DESKTOP_CANVAS_WIDTH'), 'desktop modal inner canvas should keep desktop width');
 assert(bannerProducts.includes('if (!isMobile)'), 'banner products should not switch to compact layout in desktop preview');
 assert(bannerProducts.includes('setIsCompact(false)'), 'desktop banner products should stay in desktop layout');
+assert(bannerProducts.includes("padding: isMobile ? '32px 16px' : '48px 0'"), 'desktop banner products preview should not add horizontal padding outside the 1200px layout');
+assert(readFileSync('lib/export/cssGenerator.ts', 'utf8').includes('.cb-banner-products .cb-container { padding-left: 0; padding-right: 0; }'), 'exported banner products should not add horizontal container padding on desktop');
 
 console.log('desktop canvas verified');
