@@ -19,6 +19,7 @@
     "verify:export-modal": "node --no-warnings scripts/verify-export-modal.mjs",
     "verify:preview-placeholders": "node --no-warnings scripts/verify-preview-placeholders.mjs",
     "verify:design-system": "node --no-warnings scripts/verify-design-system.mjs",
+    "verify:project-memory": "node --no-warnings scripts/verify-project-memory.mjs",
     "start": "next start",
     "lint": "next lint"
   },
