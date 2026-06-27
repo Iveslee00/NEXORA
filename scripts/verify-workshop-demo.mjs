@@ -9,7 +9,8 @@ function assert(condition, message) {
 }
 
 assert(app.includes('受邀測試版本'), 'Demo should explain this is an invited beta experience');
-assert(app.includes('登入 NEXORA'), 'Login should use the NEXORA platform name');
+assert(app.includes('alt="NEXORA"'), 'Login should use the NEXORA logo as the primary brand mark');
+assert(app.includes('brightness-0 invert'), 'Login should render the NEXORA logo in white on the dark panel');
 assert(app.includes('進入 NEXORA Workspace'), 'Login action should feel like entering the branded workspace');
 assert(app.includes('NEXORA Workspace'), 'Demo should include the branded product workspace shell');
 assert(app.includes('NEXORA Builder'), 'Campaign Builder should be presented as NEXORA Builder');
@@ -19,7 +20,8 @@ assert(app.includes('回到 Workspace'), 'Editor should provide a way back to th
 assert(app.includes('handleLogin'), 'Demo should include a login transition handler');
 assert(app.includes('handleLogout'), 'Demo should include a logout transition handler');
 assert(app.includes('NEXORA Builder'), 'Sidebar should use the branded builder label');
-assert(app.includes('NEXORA Assets'), 'Workshop sidebar should include a clear branded assets entry');
+assert(app.includes('素材'), 'Workshop sidebar should include a compact assets entry');
+assert(app.includes('設定'), 'Workshop sidebar should include a compact settings entry');
 assert(app.includes('準備中'), 'Unavailable future tools should be labeled as preparing');
 assert(app.includes('getProjectHeroPreview'), 'Project cards should derive a hero preview from project modules');
 assert(app.includes('尚未設定主視覺'), 'Project cards should show an empty hero state when no KV exists');

@@ -518,29 +518,12 @@ export default function Page() {
       <main className="min-h-screen bg-slate-100 text-slate-950 animate-[fadeIn_0.45s_ease-out]">
         <div className="grid min-h-screen lg:grid-cols-[0.95fr_1.05fr]">
           <section className="flex flex-col justify-between bg-[#172033] px-8 py-8 text-white lg:px-12">
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-sm">
-                <img src="/brand/nexora-icon.svg" alt="" className="h-full w-full object-contain" />
-              </div>
-              <div>
-                <p className="text-base font-bold">NEXORA</p>
-                <p className="text-xs font-semibold text-indigo-100">受邀測試版本</p>
-              </div>
-            </div>
+            <div aria-hidden="true" />
 
             <div className="my-12 max-w-xl">
-              <div className="mb-7 inline-flex rounded-2xl bg-white px-5 py-3 shadow-2xl shadow-slate-950/20">
-                <img src="/brand/nexora-logo.svg" alt="NEXORA" className="h-12 w-auto max-w-[240px]" />
+              <div className="inline-flex">
+                <img src="/brand/nexora-logo.svg" alt="NEXORA" className="h-auto w-[280px] max-w-full brightness-0 invert lg:w-[360px]" />
               </div>
-              <p className="mb-4 inline-flex rounded-full border border-indigo-300/30 bg-indigo-400/10 px-3 py-1 text-xs font-bold text-indigo-100">
-                Build the Next Era.
-              </p>
-              <h1 className="text-4xl font-black leading-tight tracking-tight text-white lg:text-6xl">
-                登入 NEXORA
-              </h1>
-              <p className="mt-5 text-base leading-8 text-slate-200">
-                從同一個工作平台建立活動頁、管理行銷工具與匯出可用素材。現在先開放 NEXORA Builder，後續將加入更多 AI、行銷與營運工具。
-              </p>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.08] p-5 text-sm leading-7 text-slate-200">
@@ -620,13 +603,9 @@ export default function Page() {
       <div className="flex h-screen min-h-screen overflow-hidden bg-slate-100 text-slate-950 animate-[fadeIn_0.45s_ease-out]">
         <aside className="flex w-64 flex-shrink-0 flex-col justify-between bg-[#172033] px-4 py-5 text-slate-300">
           <div>
-            <div className="mb-7 flex items-center gap-3 px-2">
+            <div className="mb-7 flex items-center px-2">
               <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white">
                 <img src="/brand/nexora-icon.svg" alt="" className="h-full w-full object-contain" />
-              </div>
-              <div className="min-w-0">
-                <p className="truncate text-sm font-black text-white">NEXORA</p>
-                <p className="text-xs font-semibold text-slate-500">Beta Access</p>
               </div>
             </div>
             <nav className="space-y-2">
@@ -641,14 +620,14 @@ export default function Page() {
               <button className="flex w-full items-center justify-between gap-3 rounded-xl px-3 py-3 text-left text-sm font-bold text-slate-500 transition-all duration-200 hover:bg-white/5">
                 <span className="flex items-center gap-3">
                   <FolderOpen size={18} />
-                  NEXORA Assets
+                  素材
                 </span>
                 <span className="rounded-full bg-white/[0.08] px-2 py-0.5 text-[10px] font-black text-slate-400">準備中</span>
               </button>
               <button className="flex w-full items-center justify-between gap-3 rounded-xl px-3 py-3 text-left text-sm font-bold text-slate-500 transition-all duration-200 hover:bg-white/5">
                 <span className="flex items-center gap-3">
                   <Settings size={18} />
-                  NEXORA Settings
+                  設定
                 </span>
                 <span className="rounded-full bg-white/[0.08] px-2 py-0.5 text-[10px] font-black text-slate-400">準備中</span>
               </button>
