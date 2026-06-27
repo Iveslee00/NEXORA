@@ -11,6 +11,7 @@ import { generatePageCSS } from '@/lib/export/cssGenerator';
 import { generateEmailHTML } from '@/lib/export/emailGenerator';
 import {
   createEmptyProject,
+  createImportedProject,
   createProjectSnapshot,
   createProjectWorkspace,
   defaultEmailSettings,
@@ -19,8 +20,12 @@ import {
   duplicateProject,
   getActiveProject,
   loadProjectWorkspace,
+  parseProjectFile,
   projectSummaries,
+  PROJECT_FILE_EXTENSION,
+  PROJECT_FILE_MIME_TYPE,
   saveProjectWorkspace,
+  serializeProjectFile,
   upsertProject,
 } from '@/lib/projects/localProjectStorage';
 import type { CampaignBuilderProject, ProjectSummary, ProjectWorkspace } from '@/types/project';
@@ -40,6 +45,8 @@ import {
   Copy,
   Download,
   Eye,
+  FileDown,
+  FileUp,
   FolderOpen,
   Home,
   Layers,
@@ -55,14 +62,18 @@ export type PageMode = 'campaign' | 'email';
 type DeviceMode = 'desktop' | 'mobile';
 type AppView = 'login' | 'workshop' | 'editor';
 
+interface LoggedInUser {
+  id: string;
+  username: string;
+  displayName: string;
+}
+
 interface ProjectHeroPreview {
   title: string;
   subtitle: string;
   image: string;
   hasHero: boolean;
 }
-
-const DEMO_SESSION_STORAGE_KEY = 'campaign-builder-demo-session-v1';
 
 const formatProjectDate = (value: string) => {
   if (!value) return '尚未編輯';
@@ -76,6 +87,11 @@ const formatProjectDate = (value: string) => {
   } catch {
     return '尚未編輯';
   }
+};
+
+const sanitizeProjectFileName = (name: string) => {
+  const safeName = name.trim().replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, '-');
+  return safeName || 'campaign-project';
 };
 
 const getProjectHeroPreview = (project: CampaignBuilderProject): ProjectHeroPreview => {
@@ -110,9 +126,15 @@ const getProjectHeroPreview = (project: CampaignBuilderProject): ProjectHeroPrev
 
 export default function Page() {
   const workspaceRef = useRef<ProjectWorkspace | null>(null);
+  const projectImportInputRef = useRef<HTMLInputElement | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [appView, setAppView] = useState<AppView>('login');
-  const [demoEmail, setDemoEmail] = useState('demo@campaign.local');
+  const [authUser, setAuthUser] = useState<LoggedInUser | null>(null);
+  const [loginUsername, setLoginUsername] = useState('client01');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [rememberLogin, setRememberLogin] = useState(true);
+  const [loginError, setLoginError] = useState('');
+  const [loginLoading, setLoginLoading] = useState(false);
   const [projectId, setProjectId] = useState('');
   const [projectName, setProjectName] = useState('未命名專案');
   const [projectList, setProjectList] = useState<ProjectSummary[]>([]);
@@ -155,15 +177,33 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
+    let alive = true;
+
     const workspace = loadProjectWorkspace(window.localStorage);
     const activeProject = getActiveProject(workspace);
     workspaceRef.current = workspace;
     setProjectList(projectSummaries(workspace));
     applyProject(activeProject);
-    if (window.localStorage.getItem(DEMO_SESSION_STORAGE_KEY) === 'active') {
-      setAppView('workshop');
-    }
-    setHydrated(true);
+
+    fetch('/api/auth/me')
+      .then((response) => response.json())
+      .then((data: { user: LoggedInUser | null }) => {
+        if (!alive) return;
+        if (data.user) {
+          setAuthUser(data.user);
+          setAppView('workshop');
+        }
+      })
+      .catch(() => {
+        if (alive) setAppView('login');
+      })
+      .finally(() => {
+        if (alive) setHydrated(true);
+      });
+
+    return () => {
+      alive = false;
+    };
   }, [applyProject]);
 
   useEffect(() => {
@@ -364,6 +404,43 @@ export default function Page() {
     setAppView('editor');
   }, [applyProject]);
 
+  const handleExportProjectFile = useCallback((id: string) => {
+    const workspace = workspaceRef.current;
+    const project = workspace?.projects.find((item) => item.id === id);
+    if (!project) return;
+
+    const blob = new Blob([serializeProjectFile(project)], { type: PROJECT_FILE_MIME_TYPE });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${sanitizeProjectFileName(project.name)}.${PROJECT_FILE_EXTENSION}`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }, []);
+
+  const handleImportProjectFile = useCallback(async (file: File | null) => {
+    if (!file) return;
+
+    try {
+      const raw = await file.text();
+      const importedProject = createImportedProject(parseProjectFile(raw));
+      const nextWorkspace = upsertProject(workspaceRef.current ?? createProjectWorkspace(importedProject), importedProject);
+      workspaceRef.current = nextWorkspace;
+      saveProjectWorkspace(window.localStorage, nextWorkspace);
+      setProjectList(projectSummaries(nextWorkspace));
+      applyProject(importedProject);
+      setAppView('editor');
+    } catch {
+      window.alert('專案檔讀取失敗，請確認檔案格式為 .cmb');
+    } finally {
+      if (projectImportInputRef.current) {
+        projectImportInputRef.current.value = '';
+      }
+    }
+  }, [applyProject]);
+
   const handleDeleteProject = useCallback((id: string) => {
     const workspace = workspaceRef.current;
     if (!workspace) return;
@@ -391,14 +468,41 @@ export default function Page() {
     return project.campaign.modules.length + project.email.modules.length;
   }, []);
 
-  const handleDemoLogin = useCallback((event: FormEvent<HTMLFormElement>) => {
+  const handleLogin = useCallback(async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    window.localStorage.setItem(DEMO_SESSION_STORAGE_KEY, 'active');
-    setAppView('workshop');
-  }, []);
+    setLoginLoading(true);
+    setLoginError('');
 
-  const handleDemoLogout = useCallback(() => {
-    window.localStorage.removeItem(DEMO_SESSION_STORAGE_KEY);
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: loginUsername,
+          password: loginPassword,
+          remember: rememberLogin,
+        }),
+      });
+      const data = await response.json() as { user?: LoggedInUser; message?: string };
+
+      if (!response.ok || !data.user) {
+        setLoginError(data.message || '登入失敗，請再試一次');
+        return;
+      }
+
+      setAuthUser(data.user);
+      setAppView('workshop');
+      setLoginPassword('');
+    } catch {
+      setLoginError('暫時無法登入，請稍後再試');
+    } finally {
+      setLoginLoading(false);
+    }
+  }, [loginPassword, loginUsername, rememberLogin]);
+
+  const handleLogout = useCallback(async () => {
+    await fetch('/api/auth/logout', { method: 'POST' }).catch(() => null);
+    setAuthUser(null);
     setAppView('login');
   }, []);
 
@@ -445,7 +549,7 @@ export default function Page() {
 
           <section className="flex items-center justify-center px-6 py-12">
             <form
-              onSubmit={handleDemoLogin}
+              onSubmit={handleLogin}
               className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/80 animate-[panelFloatIn_0.5s_ease-out]"
             >
               <div className="mb-6">
@@ -456,33 +560,51 @@ export default function Page() {
               <label className="mb-4 block">
                 <span className="mb-2 block text-xs font-bold text-slate-500">帳號</span>
                 <input
-                  value={demoEmail}
-                  onChange={(event) => setDemoEmail(event.target.value)}
+                  value={loginUsername}
+                  onChange={(event) => setLoginUsername(event.target.value)}
                   className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm font-semibold text-slate-950 outline-none transition-colors focus:border-indigo-400 focus:bg-white"
-                  placeholder="demo@campaign.local"
+                  placeholder="client01"
                 />
               </label>
 
-              <label className="mb-6 block">
+              <label className="mb-4 block">
                 <span className="mb-2 block text-xs font-bold text-slate-500">密碼</span>
                 <input
                   type="password"
-                  defaultValue="demo1234"
+                  value={loginPassword}
+                  onChange={(event) => setLoginPassword(event.target.value)}
                   className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm font-semibold text-slate-950 outline-none transition-colors focus:border-indigo-400 focus:bg-white"
-                  placeholder="demo1234"
+                  placeholder="請輸入密碼"
                 />
               </label>
 
+              <label className="mb-5 flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                <span className="text-sm font-bold text-slate-600">記住我 30 天</span>
+                <input
+                  type="checkbox"
+                  checked={rememberLogin}
+                  onChange={(event) => setRememberLogin(event.target.checked)}
+                  className="h-4 w-4 accent-indigo-600"
+                />
+              </label>
+
+              {loginError && (
+                <p className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-600">
+                  {loginError}
+                </p>
+              )}
+
               <button
                 type="submit"
+                disabled={loginLoading}
                 className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 text-sm font-black text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-500 hover:shadow-lg hover:shadow-indigo-200"
               >
-                進入工作區
+                {loginLoading ? '登入中...' : '進入工作區'}
                 <Sparkles size={16} />
               </button>
 
               <p className="mt-4 text-center text-xs leading-5 text-slate-500">
-                第一版僅示意產品流程，之後可改為真正帳號與資料庫。
+                目前為受邀測試版本，專案會儲存在此瀏覽器，也可匯出 .cmb 專案檔自行備份。
               </p>
             </form>
           </section>
@@ -532,11 +654,11 @@ export default function Page() {
           </div>
           <div className="space-y-3">
             <div className="rounded-2xl border border-white/[0.08] bg-white/[0.06] p-4">
-              <p className="truncate text-sm font-bold text-slate-200">{demoEmail || '測試帳號'}</p>
+              <p className="truncate text-sm font-bold text-slate-200">{authUser?.displayName || authUser?.username || '測試帳號'}</p>
               <p className="mt-1 text-xs leading-5 text-slate-500">專案暫存於此瀏覽器</p>
             </div>
             <button
-              onClick={handleDemoLogout}
+              onClick={handleLogout}
               className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-bold text-slate-500 transition-all duration-200 hover:bg-white/[0.08] hover:text-white"
             >
               <LogOut size={18} />
@@ -551,13 +673,31 @@ export default function Page() {
               <p className="text-sm font-bold text-indigo-600">Campaign Builder</p>
               <h1 className="mt-1 text-2xl font-black text-slate-950">活動頁專案</h1>
             </div>
-            <button
-              onClick={handleCreateAndOpenProject}
-              className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-sm font-black text-white transition-colors hover:bg-indigo-500"
-            >
-              <Plus size={17} />
-              新增活動頁
-            </button>
+            <div className="flex items-center gap-2">
+              <input
+                ref={projectImportInputRef}
+                type="file"
+                accept={`.${PROJECT_FILE_EXTENSION},application/json`}
+                className="hidden"
+                onChange={(event) => {
+                  void handleImportProjectFile(event.target.files?.[0] ?? null);
+                }}
+              />
+              <button
+                onClick={() => projectImportInputRef.current?.click()}
+                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-700 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
+              >
+                <FileUp size={17} />
+                匯入專案檔
+              </button>
+              <button
+                onClick={handleCreateAndOpenProject}
+                className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-sm font-black text-white transition-colors hover:bg-indigo-500"
+              >
+                <Plus size={17} />
+                新增活動頁
+              </button>
+            </div>
           </header>
 
           <section className="px-8 py-8">
@@ -566,13 +706,13 @@ export default function Page() {
                 <p className="text-sm font-bold text-indigo-600">目前工具</p>
                 <h2 className="mt-2 text-2xl font-black text-slate-950">Campaign Builder</h2>
                 <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
-                  建立 CMS 可用的活動頁模組，並匯出貼碼或 ZIP。
+                  建立 CMS 可用的活動頁模組，並匯出貼碼、ZIP 或 .cmb 本地專案檔。
                 </p>
               </div>
               <div className="rounded-2xl border border-slate-200 bg-white p-5">
                 <p className="text-sm font-bold text-slate-500">本機專案</p>
                 <p className="mt-2 text-3xl font-black text-slate-950">{currentProjectCount}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-500">儲存在此瀏覽器。</p>
+                <p className="mt-2 text-sm leading-6 text-slate-500">儲存在此瀏覽器，也可匯出 .cmb 專案檔自行備份。</p>
               </div>
             </div>
 
@@ -650,6 +790,13 @@ export default function Page() {
                       title="建立副本"
                     >
                       <Copy size={16} />
+                    </button>
+                    <button
+                      onClick={() => handleExportProjectFile(project.id)}
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition-colors hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600"
+                      title="匯出專案檔"
+                    >
+                      <FileDown size={16} />
                     </button>
                     <button
                       onClick={() => handleDeleteProject(project.id)}

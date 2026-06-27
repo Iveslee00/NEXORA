@@ -15,8 +15,8 @@ assert(app.includes('工作區'), 'Demo should include the product workspace she
 assert(app.includes('Campaign Builder'), 'Demo should keep Campaign Builder as one workshop tool');
 assert(app.includes('活動頁專案'), 'Campaign Builder project list should use a clearer product title');
 assert(app.includes('回到工作坊'), 'Editor should provide a way back to the project canvas list');
-assert(app.includes('handleDemoLogin'), 'Demo should include a login transition handler');
-assert(app.includes('handleDemoLogout'), 'Demo should include a logout transition handler');
+assert(app.includes('handleLogin'), 'Demo should include a login transition handler');
+assert(app.includes('handleLogout'), 'Demo should include a logout transition handler');
 assert(app.includes('活動頁'), 'Sidebar should use the clearer campaign page label');
 assert(app.includes('素材庫'), 'Workshop sidebar should include a clear assets entry');
 assert(app.includes('準備中'), 'Unavailable future tools should be labeled as preparing');
