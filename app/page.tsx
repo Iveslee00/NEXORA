@@ -517,18 +517,11 @@ export default function Page() {
     return (
       <main className="min-h-screen bg-slate-100 text-slate-950 animate-[fadeIn_0.45s_ease-out]">
         <div className="grid min-h-screen lg:grid-cols-[0.95fr_1.05fr]">
-          <section className="flex flex-col justify-between bg-[#172033] px-8 py-8 text-white lg:px-12">
-            <div aria-hidden="true" />
-
-            <div className="my-12 max-w-xl">
+          <section className="flex items-center justify-center bg-[#172033] px-8 py-12 text-white lg:px-12">
+            <div className="flex w-full items-center justify-center">
               <div className="inline-flex">
-                <img src="/brand/nexora-logo.svg" alt="NEXORA" className="h-auto w-[280px] max-w-full brightness-0 invert lg:w-[360px]" />
+                <img src="/brand/nexora-logo.svg" alt="NEXORA" className="h-auto w-[340px] max-w-full brightness-0 invert lg:w-[440px]" />
               </div>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 bg-white/[0.08] p-5 text-sm leading-7 text-slate-200">
-              <p className="font-bold text-white">受邀測試版本</p>
-              <p className="mt-1">目前專案會儲存在此瀏覽器，不會影響正式 CMS 貼碼與 ZIP 匯出功能。</p>
             </div>
           </section>
 
@@ -588,9 +581,6 @@ export default function Page() {
                 <Sparkles size={16} />
               </button>
 
-              <p className="mt-4 text-center text-xs leading-5 text-slate-500">
-                目前為受邀測試版本，專案會儲存在此瀏覽器，也可匯出 .cmb 專案檔自行備份。
-              </p>
             </form>
           </section>
         </div>

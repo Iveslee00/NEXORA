@@ -8,9 +8,11 @@ function assert(condition, message) {
   }
 }
 
-assert(app.includes('受邀測試版本'), 'Demo should explain this is an invited beta experience');
 assert(app.includes('alt="NEXORA"'), 'Login should use the NEXORA logo as the primary brand mark');
 assert(app.includes('brightness-0 invert'), 'Login should render the NEXORA logo in white on the dark panel');
+assert(app.includes('lg:w-[440px]'), 'Login should render a larger NEXORA logo on desktop');
+assert(!app.includes('受邀測試版本'), 'Login should not show invited beta wording');
+assert(!app.includes('目前專案會儲存在此瀏覽器，不會影響正式 CMS 貼碼與 ZIP 匯出功能。'), 'Login should not show the old invited beta explanation card');
 assert(app.includes('進入 NEXORA Workspace'), 'Login action should feel like entering the branded workspace');
 assert(app.includes('NEXORA Workspace'), 'Demo should include the branded product workspace shell');
 assert(app.includes('NEXORA Builder'), 'Campaign Builder should be presented as NEXORA Builder');
