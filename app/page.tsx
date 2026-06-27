@@ -49,7 +49,6 @@ import {
   FileUp,
   FolderOpen,
   Home,
-  Layers,
   LogOut,
   Plus,
   Settings,
@@ -520,8 +519,8 @@ export default function Page() {
         <div className="grid min-h-screen lg:grid-cols-[0.95fr_1.05fr]">
           <section className="flex flex-col justify-between bg-[#172033] px-8 py-8 text-white lg:px-12">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500 text-sm font-black tracking-tight">
-                NX
+              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-sm">
+                <img src="/brand/nexora-icon.svg" alt="" className="h-full w-full object-contain" />
               </div>
               <div>
                 <p className="text-base font-bold">NEXORA</p>
@@ -530,6 +529,9 @@ export default function Page() {
             </div>
 
             <div className="my-12 max-w-xl">
+              <div className="mb-7 inline-flex rounded-2xl bg-white px-5 py-3 shadow-2xl shadow-slate-950/20">
+                <img src="/brand/nexora-logo.svg" alt="NEXORA" className="h-12 w-auto max-w-[240px]" />
+              </div>
               <p className="mb-4 inline-flex rounded-full border border-indigo-300/30 bg-indigo-400/10 px-3 py-1 text-xs font-bold text-indigo-100">
                 Build the Next Era.
               </p>
@@ -619,8 +621,8 @@ export default function Page() {
         <aside className="flex w-64 flex-shrink-0 flex-col justify-between bg-[#172033] px-4 py-5 text-slate-300">
           <div>
             <div className="mb-7 flex items-center gap-3 px-2">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-600 text-sm font-black tracking-tight text-white">
-                NX
+              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white">
+                <img src="/brand/nexora-icon.svg" alt="" className="h-full w-full object-contain" />
               </div>
               <div className="min-w-0">
                 <p className="truncate text-sm font-black text-white">NEXORA</p>
@@ -831,8 +833,8 @@ export default function Page() {
                 <ArrowLeft size={14} />
                 回到 Workspace
               </button>
-              <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center">
-                <Layers size={14} className="text-white" />
+              <div className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-lg bg-white">
+                <img src="/brand/nexora-icon.svg" alt="" className="h-full w-full object-contain" />
               </div>
               <span className="hidden text-sm font-semibold tracking-tight text-slate-100 sm:inline">NEXORA Builder</span>
               <div className="ml-2 hidden min-w-0 items-center gap-2 lg:flex">

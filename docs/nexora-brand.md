@@ -169,11 +169,17 @@ NEXORA 的語氣應該是：
 
 ## Visual Identity Placeholder
 
-Logo、色彩、字體與介面視覺待補。
+Logo 已加入專案公開資源：
+
+| Asset | Path | Usage |
+|---|---|---|
+| Long-form logo | `public/brand/nexora-logo.svg` | 登入頁品牌主視覺 |
+| Square icon | `public/brand/nexora-icon.svg` | 左側欄、編輯器上方 icon |
+
+色彩、字體與完整介面視覺待補。
 
 之後收到 logo 後，建議補上：
 
-- Logo 檔案與使用規範
 - 主色與輔色
 - 深色模式與淺色模式
 - 字體規範
