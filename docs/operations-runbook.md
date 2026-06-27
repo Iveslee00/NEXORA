@@ -8,8 +8,8 @@
 
 | 項目 | 狀態 |
 |---|---|
-| GitHub repo | `Iveslee00/Campaign-Module-Builder` |
-| Git remote | SSH：`git@github.com:Iveslee00/Campaign-Module-Builder.git` |
+| GitHub repo | `Iveslee00/NEXORA` |
+| Git remote | SSH：`git@github.com:Iveslee00/NEXORA.git` |
 | 部署平台 | Vercel |
 | 資料庫 | Neon Postgres |
 | 登入 | 自建帳號密碼登入 |
@@ -19,7 +19,7 @@
 
 目前 Neon 只儲存帳號與 session，不儲存 NEXORA Builder 專案內容，也不儲存上傳圖片。
 
-正式品牌名稱為 NEXORA，目前工具名稱為 NEXORA Builder。GitHub repo 與 Vercel project 名稱暫時保留原名稱，待確認正式站穩定後再另行改名。
+正式品牌名稱為 NEXORA，目前工具名稱為 NEXORA Builder。GitHub repo 已改為 `Iveslee00/NEXORA`；Vercel project 若尚未改名，需在 Vercel 後台另行調整。
 
 ## 帳號管理
 
