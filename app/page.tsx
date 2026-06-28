@@ -61,7 +61,7 @@ import {
 export type PageMode = 'campaign' | 'email';
 type DeviceMode = 'desktop' | 'mobile';
 type AppView = 'login' | 'workshop' | 'editor';
-type WorkspaceSection = 'home' | 'assets' | 'settings';
+type WorkspaceSection = 'home' | 'builder' | 'assets' | 'settings';
 type WorkspaceLanguage = 'zh' | 'en' | 'ja';
 
 interface LoggedInUser {
@@ -708,11 +708,11 @@ export default function Page() {
                 首頁
               </button>
               <button
-                onClick={() => setWorkspaceSection('home')}
-                className="relative flex w-full items-center gap-3 overflow-hidden rounded-xl px-3 py-3 text-left text-sm font-bold text-slate-300 transition-all duration-200 hover:bg-white/[0.08] hover:text-white"
+                onClick={() => setWorkspaceSection('builder')}
+                className={`relative flex w-full items-center gap-3 overflow-hidden rounded-xl px-3 py-3 text-left text-sm font-bold transition-all duration-200 hover:bg-white/[0.08] hover:text-white ${workspaceSection === 'builder' ? 'bg-indigo-500/[0.18] text-white before:absolute before:left-0 before:top-2 before:h-[calc(100%-16px)] before:w-1 before:rounded-r-full before:bg-indigo-300' : 'text-slate-300'}`}
               >
                 <Wrench size={18} />
-                Campaign Builder
+                NEXORA Builder
               </button>
               <button
                 onClick={() => setWorkspaceSection('assets')}
@@ -758,9 +758,12 @@ export default function Page() {
                   ? currentWorkspaceCopy.assetsTitle
                   : workspaceSection === 'settings'
                     ? currentWorkspaceCopy.settingsTitle
-                    : 'NEXORA Builder 專案'}
+                    : workspaceSection === 'builder'
+                      ? 'NEXORA Builder 專案'
+                      : 'NEXORA Workspace'}
               </h1>
             </div>
+            {workspaceSection === 'builder' && (
             <div className="flex items-center gap-2">
               <input
                 ref={projectImportInputRef}
@@ -786,6 +789,7 @@ export default function Page() {
                 新增活動頁
               </button>
             </div>
+            )}
           </header>
 
           <section className="px-8 py-8">
@@ -892,6 +896,54 @@ export default function Page() {
             )}
 
             {workspaceSection === 'home' && (
+              <div className="space-y-5">
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <p className="text-sm font-black text-indigo-600">{currentWorkspaceCopy.homeEyebrow}</p>
+                  <h2 className="mt-3 text-3xl font-black text-slate-950">{currentWorkspaceCopy.homeTitle}</h2>
+                  <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-500">{currentWorkspaceCopy.homeBody}</p>
+                </div>
+
+                <div className="grid gap-5 lg:grid-cols-3">
+                  <button
+                    onClick={() => setWorkspaceSection('builder')}
+                    className="group rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-lg"
+                  >
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-600 text-white">
+                      <Wrench size={22} />
+                    </span>
+                    <h3 className="mt-5 text-xl font-black text-slate-950">NEXORA Builder</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-500">進入活動頁與商品頁專案列表，建立 CMS 可用的模組頁面。</p>
+                    <p className="mt-4 text-sm font-black text-indigo-600">開啟專案 →</p>
+                  </button>
+
+                  <button
+                    onClick={() => setWorkspaceSection('assets')}
+                    className="group rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-200 hover:shadow-lg"
+                  >
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-600 text-white">
+                      <FolderOpen size={22} />
+                    </span>
+                    <h3 className="mt-5 text-xl font-black text-slate-950">Demo Assets</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-500">查看清潔用品商品頁素材規格，包含商品圖、Banner 與詳情圖。</p>
+                    <p className="mt-4 text-sm font-black text-cyan-600">查看素材 →</p>
+                  </button>
+
+                  <button
+                    onClick={() => setWorkspaceSection('settings')}
+                    className="group rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-lg"
+                  >
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
+                      <Settings size={22} />
+                    </span>
+                    <h3 className="mt-5 text-xl font-black text-slate-950">設定</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-500">管理語言、查看本機專案模式、圖片暫存與 .cmb 專案包說明。</p>
+                    <p className="mt-4 text-sm font-black text-slate-700">查看設定 →</p>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {workspaceSection === 'builder' && (
               <>
             <div className="mb-6 grid gap-4 lg:grid-cols-[1fr_240px]">
               <div className="rounded-2xl border border-slate-200 bg-white p-5">

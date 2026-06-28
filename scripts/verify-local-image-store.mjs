@@ -36,6 +36,10 @@ if (!preview.includes('resolveLocalImageUrl')) {
   throw new Error('PreviewImage should resolve local-image references for display.');
 }
 
+if (!preview.includes('const canRenderImage =') || !preview.includes('!isLocal')) {
+  throw new Error('PreviewImage should not render raw local-image references before resolution.');
+}
+
 if (!pack.includes('rewriteLocalImages') || !pack.includes('getLocalImage')) {
   throw new Error('ZIP package generator should rewrite local images into images/.');
 }

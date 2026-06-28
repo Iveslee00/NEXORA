@@ -59,6 +59,8 @@ export function PreviewImage({ src, alt = '', label, spec, tone = 'light', state
   const [failed, setFailed] = useState(false);
   const [resolvedSrc, setResolvedSrc] = useState(src ?? '');
   const hasImage = Boolean(src?.trim());
+  const isLocal = isLocalImageRef(src);
+  const canRenderImage = hasImage && !failed && (!isLocal || Boolean(resolvedSrc?.startsWith('blob:')));
 
   useEffect(() => {
     let alive = true;
@@ -70,10 +72,17 @@ export function PreviewImage({ src, alt = '', label, spec, tone = 'light', state
       return () => undefined;
     }
 
+    setResolvedSrc('');
     resolveLocalImageUrl(src)
       .then((value) => {
         objectUrl = value;
-        if (alive) setResolvedSrc(value);
+        if (alive) {
+          if (value) {
+            setResolvedSrc(value);
+          } else {
+            setFailed(true);
+          }
+        }
       })
       .catch(() => {
         if (alive) setFailed(true);
@@ -85,7 +94,7 @@ export function PreviewImage({ src, alt = '', label, spec, tone = 'light', state
     };
   }, [src]);
 
-  if (!hasImage || failed) {
+  if (!canRenderImage) {
     return <ImagePlaceholder label={label} spec={spec} tone={tone} state={failed ? 'error' : state} />;
   }
 

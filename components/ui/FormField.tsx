@@ -439,7 +439,7 @@ const readImageSize = (src: string) => new Promise<{ width: number; height: numb
   image.src = src;
 });
 
-const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
+const MAX_UPLOAD_BYTES = 25 * 1024 * 1024;
 
 export function ImageField({ label, value, onChange, placeholder = 'https://…', spec }: ImageFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -483,26 +483,39 @@ export function ImageField({ label, value, onChange, placeholder = 'https://…'
       return;
     }
     if (file.size > MAX_UPLOAD_BYTES) {
-      setError('圖片檔案過大，請壓縮至 8MB 以下');
+      setError('圖片檔案過大，請壓縮至 25MB 以下');
       return;
     }
 
     setUploading(true);
     const objectUrl = URL.createObjectURL(file);
     try {
+      let size: { width: number; height: number };
+      try {
+        size = await readImageSize(objectUrl);
+      } catch {
+        setError('圖片讀取失敗，請重新上傳');
+        return;
+      }
+
       if (spec) {
-        const size = await readImageSize(objectUrl);
         if (size.width !== spec.width || size.height !== spec.height) {
           setError(`請上傳 ${specLabel} 圖檔`);
           return;
         }
+        size = { width: spec.width, height: spec.height };
       }
-      const size = spec ? { width: spec.width, height: spec.height } : await readImageSize(objectUrl);
-      const localImage = await storeLocalImage(file, size);
+
+      let localImage: Awaited<ReturnType<typeof storeLocalImage>>;
+      try {
+        localImage = await storeLocalImage(file, size);
+      } catch {
+        setError('圖片暫存失敗，請確認瀏覽器允許本機儲存或先清理舊專案圖片');
+        return;
+      }
+
       setError('');
       onChange(localImage.ref);
-    } catch {
-      setError('圖片讀取失敗，請重新上傳');
     } finally {
       URL.revokeObjectURL(objectUrl);
       setUploading(false);
