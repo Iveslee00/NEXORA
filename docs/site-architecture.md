@@ -1,6 +1,6 @@
 # NEXORA 網站架構圖
 
-更新日期：2026-06-27
+更新日期：2026-06-28
 
 這份文件記錄目前 NEXORA 的網站架構、資料流與主要模組。之後新增登入、資料庫、匯出、專案檔、圖片策略或新工具時，必須同步更新本文件。
 
@@ -50,17 +50,21 @@ flowchart TD
   Preview["modules/preview/*"]
   Exporters["modules/exporters/*"]
   ExportLib["lib/export/*"]
+  ProductStarter["lib/productBuilder/*"]
   ProjectStorage["lib/projects/localProjectStorage.ts"]
   AuthLib["lib/auth/*"]
   DbLib["lib/db/neon.ts"]
   Types["types/*"]
 
   App --> Editor
+  App --> ProductStarter
   App --> ProjectStorage
   App --> AuthApi
   Editor --> Forms
   Editor --> Preview
   Editor --> ExportLib
+  ProductStarter --> Types
+  ProductStarter --> Editor
   ExportLib --> Exporters
   AuthApi --> AuthLib
   AuthLib --> DbLib
@@ -87,9 +91,11 @@ flowchart TD
 | `components/editor/PreviewCanvas.tsx` | 中央畫布與排序 |
 | `components/editor/InspectorPanel.tsx` | 右側設定面板 |
 | `components/editor/ExportModal.tsx` | 貼碼、ZIP、電子報匯出 |
+| `components/editor/ProductBuildModal.tsx` | 從商品建立入口，收集產業、商品目的、視覺主題、商品資料 |
 | `modules/forms/*` | 各活動頁模組的設定表單 |
 | `modules/preview/*` | 各活動頁模組的即時預覽 |
 | `modules/exporters/*` | 各活動頁模組的 HTML 匯出 |
+| `lib/productBuilder/*` | 商品頁快速生成邏輯，將商品資料轉成既有 PageModule[] |
 | `lib/export/*` | HTML/CSS/JS/ZIP 組合與輸出 |
 | `types/modules.ts` | 活動頁模組型別 |
 | `types/emailModules.ts` | 電子報模組型別 |
@@ -221,40 +227,48 @@ flowchart TD
   EmailGen --> Email
 ```
 
-## 從商品建立流程
+## 從商品建立 / Product Page Starter 流程
 
-「從商品建立」是 NEXORA Builder 的快速生成入口。它不是另一套編輯器，也不是另一套匯出系統；它會把商品資料轉成既有活動頁模組，回到同一個畫布後仍可拖拉、刪除、編輯與匯出。
+「從商品建立」是 NEXORA Builder 的跨產業商品頁快速生成入口。它不是另一套編輯器，也不是固定模板庫；它會依照產業、商品頁目的、視覺主題與頁面長度，把商品資料轉成既有 PageModule[]。
 
-目前第一版 demo 以清潔用品爆品頁為主，使用「水氧潔淨」視覺方向。
+產生後仍回到同一個畫布，可拖拉、刪除、編輯與匯出。完整產品規格見 `docs/product-page-starter-spec.md`。
 
 ```mermaid
 flowchart TD
   ProductModal["ProductBuildModal 從商品建立"]
-  ProductInput["商品資料 / 圖片 / 賣點 / CTA"]
-  ProductBuilder["createProductLandingModules"]
+  Industry["Industry 產業 / 線別"]
+  Goal["Product Goal 商品頁目的"]
+  Theme["Visual Theme 視覺主題"]
+  Length["Page Length 頁面長度"]
+  ProductInput["商品資料 / 圖片 / 賣點 / CTA / 產業欄位"]
+  RecipeResolver["resolveProductPageRecipe"]
+  ProductBuilder["buildProductPageModules"]
   ExistingModules["既有 PageModule[]"]
   Canvas["PreviewCanvas 畫布"]
-  Export["CMS 貼碼 / ZIP 匯出"]
+  Export["CMS 貼碼 / ZIP / .cmb 匯出"]
 
-  ProductModal --> ProductInput
-  ProductInput --> ProductBuilder
+  ProductModal --> Industry
+  Industry --> Goal
+  Goal --> Theme
+  Theme --> Length
+  Length --> ProductInput
+  ProductInput --> RecipeResolver
+  RecipeResolver --> ProductBuilder
   ProductBuilder --> ExistingModules
   ExistingModules --> Canvas
   Canvas --> Export
 ```
 
-目前會產生的模組：
+Product Page Starter 的四層決策：
 
-- `hero`：商品主視覺
-- `anchor-nav`：錨點導覽
-- `title`：賣點段落標題
-- `product-banner`：單品主打
-- `split-section`：核心賣點
-- `article-text`：商品詳情
-- `faq`：購買 FAQ
-- `product-grid`：推薦搭配商品
+| 層級 | 作用 |
+|---|---|
+| Industry 產業 / 線別 | 決定欄位與內容重點，例如清潔用品、美妝保養、電商綜合 |
+| Product Goal 商品頁目的 | 決定模組結構，例如爆品銷售、新品上市、比較說服、情境導購 |
+| Visual Theme 視覺主題 | 決定視覺語言，例如清爽潔淨、高級精品、強促銷、極簡電商 |
+| Page Length 頁面長度 | 決定模組數量，例如快速版、標準版、完整版 |
 
-左側模組庫將商品頁相關模組收斂到 `Product` 分類，但仍共用既有模組型別，避免新增匯出風險。
+Product Page Starter 只能組合既有模組，不因視覺差異新增重複模組。左側模組庫仍以 `General`、`Campaign`、`Product`、`Brand` 分類管理模組。
 
 ## 圖片策略
 

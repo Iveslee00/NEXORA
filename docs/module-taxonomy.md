@@ -10,6 +10,8 @@ Style = layout, visual treatment, spacing, animation, or presentation variant.
 
 Do not create a new module only because the section looks different. Create a new module only when the editor needs a different content model, different controls, or different export behavior.
 
+Product Page Starter = recipe generator. It chooses existing modules, module styles, and theme defaults from product input. It does not create a parallel module system.
+
 ## Categories
 
 ### General 通用
@@ -114,6 +116,48 @@ Removed duplicate Product wrappers:
 `Brand` is reserved for the next module implementation pass.
 
 New modules should only be exposed after their inspector fields, preview rendering, export HTML, ZIP handling, and responsive behavior are complete.
+
+## Product Page Starter Relationship
+
+Product Page Starter uses the taxonomy above as its output target.
+
+It should never output a one-off template section that cannot be edited through the normal Builder inspector. Every generated section must map back to one of these existing module groups:
+
+- General modules for shared structure: KV, KV carousel, title, FAQ, anchor navigation, article, split content.
+- Campaign modules for event and commerce structures: product list, product carousel, banner + products, single product highlight.
+- Product modules for product-page storytelling: features, showcase, scenes, info, benefits, steps, comparison, proof, purchase.
+- Brand modules later for narrative product pages that require brand story or brand trust sections.
+
+Generator decisions:
+
+| Decision | Affects |
+|---|---|
+| Industry | Required fields, recommended copy groups, default content emphasis |
+| Product Goal | Module order and which module groups are included |
+| Visual Theme | Style variants, colors, spacing, card treatment, CTA treatment |
+| Page Length | Number of modules generated |
+
+Initial industries:
+
+- Cleaning 清潔用品
+- Beauty 美妝保養
+- Ecommerce 電商綜合
+
+Initial product goals:
+
+- Sales 爆品銷售
+- Launch 新品上市
+- Comparison 比較說服
+- Scenario 情境導購
+
+Initial themes:
+
+- Fresh Clean 清爽潔淨
+- Luxury 高級精品
+- Promo 強促銷
+- Minimal Commerce 極簡電商
+
+The generator must keep page variety by combining goal, theme, length, and module style. Industry alone must not determine a fixed template.
 
 ## Global Settings Placement
 
