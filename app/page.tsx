@@ -162,9 +162,9 @@ const workspaceCopy: Record<WorkspaceLanguage, {
   zh: {
     homeEyebrow: 'NEXORA Workspace',
     homeTitle: '建立活動頁、管理專案與備份素材',
-    homeBody: 'Campaign Builder 是目前第一個開放工具，可建立 CMS 可用的活動頁模組，並匯出貼碼、ZIP 或可搬移的 .cmb 專案包。',
+    homeBody: 'NEXORA Builder 是目前第一個開放工具，可建立 CMS 可用的活動頁模組，並匯出貼碼、ZIP 或可搬移的 .cmb 專案包。',
     currentTool: '目前工具',
-    toolDescription: 'Campaign Builder 專注在活動頁、商品銷售頁與 CMS 貼碼工作流。',
+    toolDescription: 'NEXORA Builder 專注在活動頁、商品銷售頁與 CMS 貼碼工作流。',
     projectCountLabel: '本機專案',
     localProjectNote: '儲存在此瀏覽器，也可匯出 project.cmb 專案包自行備份。',
     assetsEyebrow: 'Demo Assets',
@@ -178,9 +178,9 @@ const workspaceCopy: Record<WorkspaceLanguage, {
   en: {
     homeEyebrow: 'NEXORA Workspace',
     homeTitle: 'Build campaigns, manage projects, and package assets',
-    homeBody: 'Campaign Builder is the first active tool. It creates CMS-ready campaign modules and exports paste code, ZIP packages, or portable .cmb project files.',
+    homeBody: 'NEXORA Builder is the first active tool. It creates CMS-ready campaign modules and exports paste code, ZIP packages, or portable .cmb project files.',
     currentTool: 'Current Tool',
-    toolDescription: 'Campaign Builder focuses on campaign pages, product landing pages, and CMS paste-code workflows.',
+    toolDescription: 'NEXORA Builder focuses on campaign pages, product landing pages, and CMS paste-code workflows.',
     projectCountLabel: 'Local Projects',
     localProjectNote: 'Projects are stored in this browser and can be backed up as a project.cmb package.',
     assetsEyebrow: 'Demo Assets',
@@ -194,9 +194,9 @@ const workspaceCopy: Record<WorkspaceLanguage, {
   ja: {
     homeEyebrow: 'NEXORA Workspace',
     homeTitle: 'キャンペーン制作、プロジェクト管理、素材のバックアップ',
-    homeBody: 'Campaign Builder は最初に公開しているツールです。CMS 向けのキャンペーンモジュール、貼り付けコード、ZIP、持ち運び可能な .cmb プロジェクトを作成できます。',
+    homeBody: 'NEXORA Builder は最初に公開しているツールです。CMS 向けのキャンペーンモジュール、貼り付けコード、ZIP、持ち運び可能な .cmb プロジェクトを作成できます。',
     currentTool: '現在のツール',
-    toolDescription: 'Campaign Builder はキャンペーンページ、商品ランディングページ、CMS 貼り付けワークフローに対応します。',
+    toolDescription: 'NEXORA Builder はキャンペーンページ、商品ランディングページ、CMS 貼り付けワークフローに対応します。',
     projectCountLabel: 'ローカルプロジェクト',
     localProjectNote: 'このブラウザに保存され、project.cmb としてバックアップできます。',
     assetsEyebrow: 'Demo Assets',
@@ -867,7 +867,7 @@ export default function Page() {
                   <div className="mt-6 grid gap-4 md:grid-cols-2">
                     {[
                       ['平台', 'NEXORA'],
-                      ['工具', 'Campaign Builder'],
+                      ['工具', 'NEXORA Builder'],
                       ['模式', 'Local Project Mode'],
                       ['專案包', 'project.cmb = project.json + images/'],
                     ].map(([label, value]) => (

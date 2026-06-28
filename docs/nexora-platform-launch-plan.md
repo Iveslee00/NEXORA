@@ -193,7 +193,17 @@ Acceptance：
 
 - Runbook 有部署、redeploy、rollback 步驟。
 
-Status：待做。
+Status：完成於目前工作分支。
+
+2026-06-28 驗證結果：
+
+- 先補 `verify:workspace-content` 紅燈測試，確認舊 `Campaign Builder` 主文案會被擋下。
+- `npm run verify:workspace-content`：通過。
+- `npm run verify:workshop-demo`：通過。
+- `npm run verify:nexora-brand`：通過。
+- `npm run build`：通過。
+- Workspace 首頁、設定與多語系工具主名已統一為 `NEXORA Builder`。
+- Builder 專用的「匯入專案檔 / 新增活動頁」仍只在 `workspaceSection === 'builder'` 顯示。
 
 ## Phase P2. NEXORA Workspace
 

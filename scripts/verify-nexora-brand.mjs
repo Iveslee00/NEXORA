@@ -21,7 +21,7 @@ assert(app.includes('lg:w-[440px]'), 'Login page should render a larger logo on 
 assert(app.includes('/brand/nexora-icon.svg'), 'Workspace and editor shells should render the square NEXORA icon');
 assert(app.includes('NEXORA Workspace'), 'Workspace shell should use the NEXORA Workspace name');
 assert(app.includes('NEXORA Builder'), 'Campaign Builder tool should be renamed to NEXORA Builder in the workspace');
-assert(app.includes('Campaign Builder'), 'Campaign Builder should remain as the current tool descriptor for continuity');
+assert(app.includes('NEXORA Builder 是目前第一個開放工具'), 'Workspace copy should use NEXORA Builder as the current tool descriptor');
 assert(app.includes('素材'), 'Future assets tool should use a compact sidebar label');
 assert(app.includes('設定'), 'Future settings area should use a compact sidebar label');
 assert(!app.includes('Build the Next Era.'), 'Login page should not show the tagline next to the logo');

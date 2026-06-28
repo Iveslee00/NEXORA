@@ -16,7 +16,7 @@ assert(!app.includes('目前專案會儲存在此瀏覽器，不會影響正式 
 assert(app.includes('進入 NEXORA Workspace'), 'Login action should feel like entering the branded workspace');
 assert(app.includes('NEXORA Workspace'), 'Demo should include the branded product workspace shell');
 assert(app.includes('NEXORA Builder'), 'Campaign Builder should be presented as NEXORA Builder');
-assert(app.includes('Campaign Builder 是目前第一個開放工具'), 'Campaign Builder should remain as a continuity descriptor');
+assert(app.includes('NEXORA Builder 是目前第一個開放工具'), 'Workspace copy should use NEXORA Builder as the primary active tool name');
 assert(app.includes('NEXORA Builder 專案'), 'Project list should use the branded tool title');
 assert(app.includes('回到 Workspace'), 'Editor should provide a way back to the project canvas list');
 assert(app.includes('handleLogin'), 'Demo should include a login transition handler');
