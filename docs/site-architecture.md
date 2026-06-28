@@ -4,6 +4,12 @@
 
 這份文件記錄目前 NEXORA 的網站架構、資料流與主要模組。之後新增登入、資料庫、匯出、專案檔、圖片策略或新工具時，必須同步更新本文件。
 
+## 相關文件
+
+- `docs/module-taxonomy.md`：模組分類與重複模組判斷規則。
+- `docs/product-page-starter-spec.md`：從商品建立 / Product Page Starter 正式規格。
+- `docs/product-page-starter-task-inventory.md`：Product Page Starter 後續任務池與驗收規則。
+
 ## 產品定位
 
 NEXORA 是一個給行銷、營運與創作者使用的數位創作平台。目前第一個開放工具是 NEXORA Builder，也就是原本的 Campaign Builder 活動頁模組產生工具。
