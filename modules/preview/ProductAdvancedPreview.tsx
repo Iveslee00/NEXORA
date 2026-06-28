@@ -63,7 +63,7 @@ export function ProductStepsPreview({ data }: { data: ProductStepsData }) {
               <div>
                 {data.style === 'image-cards' && (
                   <div style={{ position: 'relative', aspectRatio: isMobile ? '750 / 900' : '900 / 640', marginBottom: 16, overflow: 'hidden', borderRadius: 16 }}>
-                    <PreviewImage src={isMobile ? (item.mobileImage || item.image) : item.image} alt="" label={isMobile ? '步驟圖 M' : '步驟圖 PC'} spec={isMobile ? IMAGE_SPECS.productSceneMobile : IMAGE_SPECS.productScene} />
+                    <PreviewImage src={isMobile ? (item.mobileImage || item.image) : item.image} alt="" label={isMobile ? '步驟圖 M' : '步驟圖 PC'} spec={isMobile ? IMAGE_SPECS.productSceneMobile : IMAGE_SPECS.productScene} variant="scene" />
                   </div>
                 )}
                 <h3 style={{ margin: '0 0 8px', fontSize: '1.1rem', fontWeight: 850, color: titleColor }}>{item.title}</h3>
@@ -142,7 +142,7 @@ export function ProductPurchasePreview({ data }: { data: ProductPurchaseData }) 
             {data.products.map((product) => (
               <article key={product.id} style={{ overflow: 'hidden', borderRadius: 22, background: '#ffffff', color: '#0f172a', boxShadow: '0 18px 48px rgba(0,0,0,0.18)' }}>
                 <div style={{ position: 'relative', aspectRatio: '1 / 1', background: '#eef2ff' }}>
-                  <PreviewImage src={product.image} alt="" label="商品圖" spec={IMAGE_SPECS.product} objectFit="contain" />
+                  <PreviewImage src={product.image} alt="" label="商品圖" spec={IMAGE_SPECS.product} objectFit="contain" variant="product" />
                 </div>
                 <div style={{ padding: 16 }}>
                   <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 750, color: '#64748b' }}>{product.brand}</p>

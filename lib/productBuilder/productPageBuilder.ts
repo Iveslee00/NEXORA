@@ -86,7 +86,23 @@ export interface ProductBuilderInput {
 export interface ProductPageRecipe {
   modules: ProductModuleType[];
   emphasis: string;
+  visualTags: string[];
 }
+
+export const moduleLabels: Record<ProductModuleType, string> = {
+  hero: '商品 KV',
+  'anchor-nav': '錨點導覽',
+  'product-showcase': '商品展示',
+  'product-benefits': '核心賣點',
+  'product-features': '商品特色',
+  'product-scenes': '商品情境',
+  'product-info': '商品資訊',
+  'product-steps': '使用步驟',
+  'product-comparison': '商品比較',
+  'product-proof': '信任證明',
+  faq: '商品 FAQ',
+  'product-purchase': '購買 CTA',
+};
 
 const themePresets: Record<ProductPageTheme, ProductThemePreset> = {
   freshClean: {
@@ -177,6 +193,13 @@ const themePresets: Record<ProductPageTheme, ProductThemePreset> = {
     proofStyle: 'reviews',
     purchaseStyle: 'related',
   },
+};
+
+export const themeVisuals: Record<ProductPageTheme, string[]> = {
+  freshClean: ['freshGlow', '透明感背景', '清爽商品光暈', '柔和藍白卡片'],
+  luxury: ['luxuryFrame', '精品留白', '玻璃感文字卡', '低飽和質感'],
+  promo: ['promoRibbon', '限時促購標', '高對比 CTA', '強轉換價格感'],
+  minimalCommerce: ['commerceGrid', '白底商品突出', '規格化卡片', '電商清楚比較'],
 };
 
 const industryCopy: Record<ProductIndustry, {
@@ -324,7 +347,7 @@ export function defaultInputForIndustry(industry: ProductIndustry): ProductBuild
 
 const compact = <T>(items: Array<T | false | null | undefined>): T[] => items.filter(Boolean) as T[];
 
-export function resolveProductPageRecipe(input: Pick<ProductBuilderInput, 'goal' | 'pageLength'>): ProductPageRecipe {
+export function resolveProductPageRecipe(input: Pick<ProductBuilderInput, 'goal' | 'pageLength'> & Partial<Pick<ProductBuilderInput, 'theme'>>): ProductPageRecipe {
   const full = recipeMap[input.goal];
   const target = lengthTargets[input.pageLength];
   const priority: ProductModuleType[] = [
@@ -352,6 +375,7 @@ export function resolveProductPageRecipe(input: Pick<ProductBuilderInput, 'goal'
   return {
     modules,
     emphasis: input.goal,
+    visualTags: themeVisuals[input.theme || 'freshClean'],
   };
 }
 

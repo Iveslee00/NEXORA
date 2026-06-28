@@ -2,9 +2,12 @@ import fs from 'node:fs';
 
 const builderPath = 'lib/productBuilder/productPageBuilder.ts';
 const modalPath = 'components/editor/ProductBuildModal.tsx';
+const placeholderPath = 'modules/preview/PreviewImage.tsx';
+const showcasePath = 'modules/preview/ProductShowcasePreview.tsx';
+const featuresPath = 'modules/preview/ProductFeaturesPreview.tsx';
 const docsPath = 'docs/product-page-starter-spec.md';
 
-for (const file of [builderPath, modalPath, docsPath]) {
+for (const file of [builderPath, modalPath, placeholderPath, showcasePath, featuresPath, docsPath]) {
   if (!fs.existsSync(file)) {
     throw new Error(`Missing Product Page Starter file: ${file}`);
   }
@@ -12,6 +15,9 @@ for (const file of [builderPath, modalPath, docsPath]) {
 
 const builder = fs.readFileSync(builderPath, 'utf8');
 const modal = fs.readFileSync(modalPath, 'utf8');
+const placeholder = fs.readFileSync(placeholderPath, 'utf8');
+const showcase = fs.readFileSync(showcasePath, 'utf8');
+const features = fs.readFileSync(featuresPath, 'utf8');
 const spec = fs.readFileSync(docsPath, 'utf8');
 
 [
@@ -65,6 +71,43 @@ const spec = fs.readFileSync(docsPath, 'utf8');
 ].forEach((token) => {
   if (!spec.includes(token)) {
     throw new Error(`Product Page Starter spec missing token: ${token}`);
+  }
+});
+
+[
+  'recipePreview',
+  '即將產生的頁面結構',
+  'modules.map',
+  'moduleLabels',
+  '預估產生',
+].forEach((token) => {
+  if (!modal.includes(token)) {
+    throw new Error(`Product Page Starter modal missing recipe preview token: ${token}`);
+  }
+});
+
+[
+  'themeVisuals',
+  'promoRibbon',
+  'luxuryFrame',
+  'commerceGrid',
+  'freshGlow',
+].forEach((token) => {
+  if (!builder.includes(token) && !showcase.includes(token) && !features.includes(token)) {
+    throw new Error(`Product Page Starter visual differentiation missing token: ${token}`);
+  }
+});
+
+[
+  'variant?:',
+  'product',
+  'scene',
+  'hero',
+  '商品主圖',
+  '設計稿預覽',
+].forEach((token) => {
+  if (!placeholder.includes(token)) {
+    throw new Error(`Product Page Starter placeholder missing token: ${token}`);
   }
 });
 

@@ -10,6 +10,9 @@ import {
   ProductPageTheme,
   defaultInputForIndustry,
   defaultProductBuilderInput,
+  moduleLabels,
+  resolveProductPageRecipe,
+  themeVisuals,
 } from '@/lib/productBuilder/productPageBuilder';
 import { isLocalImageRef, resolveLocalImageUrl, revokeResolvedLocalImageUrl, storeLocalImage } from '@/lib/assets/localImageStore';
 
@@ -177,6 +180,8 @@ export function ProductBuildModal({ onClose, onCreate }: ProductBuildModalProps)
   const selectedGoal = goals.find((item) => item.value === input.goal);
   const selectedTheme = themes.find((item) => item.value === input.theme);
   const selectedLength = lengths.find((item) => item.value === input.pageLength);
+  const recipePreview = resolveProductPageRecipe(input);
+  const visualTags = themeVisuals[input.theme];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 p-4 backdrop-blur-sm">
@@ -265,6 +270,38 @@ export function ProductBuildModal({ onClose, onCreate }: ProductBuildModalProps)
                 <span className="rounded-lg bg-white/10 px-3 py-2">{selectedGoal?.description}</span>
                 <span className="rounded-lg bg-white/10 px-3 py-2">{selectedTheme?.description}</span>
                 <span className="rounded-lg bg-white/10 px-3 py-2">{selectedLength?.description}</span>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+              <div className="mb-4 flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-black text-slate-200">即將產生的頁面結構</p>
+                  <p className="mt-1 text-xs font-semibold text-slate-500">
+                    預估產生 {recipePreview.modules.length} 個模組，建立後可在畫布自由增減。
+                  </p>
+                </div>
+                <span className="rounded-full bg-indigo-500/15 px-3 py-1 text-xs font-black text-indigo-200">
+                  {selectedLength?.label}
+                </span>
+              </div>
+              <div className="space-y-2">
+                {recipePreview.modules.map((moduleType, index) => (
+                  <div key={`${moduleType}-${index}`} className="flex items-center gap-3 rounded-xl border border-white/10 bg-slate-950/35 px-3 py-2.5">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-500/20 text-xs font-black text-indigo-200">
+                      {`${index + 1}`.padStart(2, '0')}
+                    </span>
+                    <span className="text-sm font-bold text-slate-200">{moduleLabels[moduleType]}</span>
+                    <span className="ml-auto text-[11px] font-semibold text-slate-600">{moduleType}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {visualTags.map((tag) => (
+                  <span key={tag} className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-bold text-slate-300">
+                    {tag}
+                  </span>
+                ))}
               </div>
             </section>
 
