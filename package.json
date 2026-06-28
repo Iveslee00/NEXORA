@@ -28,6 +28,7 @@
     "verify:local-image-store": "node --no-warnings scripts/verify-local-image-store.mjs",
     "verify:project-package": "node --no-warnings scripts/verify-project-package.mjs",
     "verify:workspace-content": "node --no-warnings scripts/verify-workspace-content.mjs",
+    "verify:module-taxonomy": "node --no-warnings scripts/verify-module-taxonomy.mjs",
     "start": "next start",
     "lint": "next lint"
   },

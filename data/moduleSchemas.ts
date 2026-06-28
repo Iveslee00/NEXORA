@@ -24,7 +24,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '標題區塊',
     description: '區塊主標與英文副標',
     icon: 'type',
-    category: '版面區塊',
+    category: 'General',
     defaultData: {
       titleCn: '主要標題',
       titleEn: 'Campaign Sale',
@@ -39,7 +39,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '錨點導覽',
     description: '跳轉到指定模組區塊',
     icon: 'pin',
-    category: '版面區塊',
+    category: 'General',
     defaultData: {
       hiddenTargetIds: [],
       backgroundColor: '',
@@ -53,7 +53,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: 'KV',
     description: '單張 KV，可純圖',
     icon: 'layout',
-    category: '版面區塊',
+    category: 'General',
     defaultData: {
       showText: true,
       height: 'medium',
@@ -79,7 +79,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '圖文區塊',
     description: '圖片搭配文字說明',
     icon: 'columns',
-    category: '內容說明',
+    category: 'General',
     defaultData: {
       height: 'medium',
       title: '活動亮點標題',
@@ -100,7 +100,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: 'FAQ',
     description: '常見問題展開列表',
     icon: 'help-circle',
-    category: '內容說明',
+    category: 'General',
     defaultData: {
       backgroundColor: '',
       titleColor: '',
@@ -120,7 +120,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '商品列表',
     description: '多商品格狀排列',
     icon: 'grid',
-    category: '活動商品',
+    category: 'Campaign',
     defaultData: {
       backgroundColor: '',
       titleColor: '',
@@ -139,7 +139,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '商品輪播',
     description: '橫向滑動商品列',
     icon: 'gallery-horizontal',
-    category: '活動商品',
+    category: 'Campaign',
     defaultData: {
       backgroundColor: '',
       titleColor: '',
@@ -160,7 +160,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '活動 Banner + 2 商品',
     description: '活動圖搭配 2 個商品',
     icon: 'layout-panel-left',
-    category: '活動商品',
+    category: 'Campaign',
     defaultData: {
       layoutLabel: '活動 Banner + 2 商品',
       bannerImage: '',
@@ -185,7 +185,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '活動 Banner + 3 商品',
     description: '活動圖搭配 3 個商品',
     icon: 'layout-panel-left',
-    category: '活動商品',
+    category: 'Campaign',
     defaultData: {
       layoutLabel: '活動 Banner + 3 商品',
       bannerImage: '',
@@ -211,7 +211,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '活動 Banner + 4 商品',
     description: '活動圖搭配 4 個商品',
     icon: 'layout-panel-left',
-    category: '活動商品',
+    category: 'Campaign',
     defaultData: {
       layoutLabel: '活動 Banner + 4 商品',
       bannerImage: '',
@@ -238,7 +238,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '單品主打',
     description: '單一商品大型推薦區',
     icon: 'package',
-    category: '活動商品',
+    category: 'Campaign',
     defaultData: {
       height: 'medium',
       kicker: '限時優惠',
@@ -269,7 +269,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '商品 Hero',
     description: '爆品頁首屏商品主打',
     icon: 'star',
-    category: '銷售頁模組',
+    category: 'Product',
     defaultData: {
       height: 'medium',
       kicker: '主打商品',
@@ -298,7 +298,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '核心賣點',
     description: '痛點與商品利益說明',
     icon: 'columns',
-    category: '銷售頁模組',
+    category: 'Product',
     defaultData: {
       height: 'medium',
       title: '三個理由，讓清潔更省力',
@@ -319,7 +319,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '商品詳情',
     description: '規格、使用方式與注意事項',
     icon: 'file-text',
-    category: '銷售頁模組',
+    category: 'Product',
     defaultData: {
       eyebrow: 'Product Detail',
       title: '商品規格與使用說明',
@@ -339,7 +339,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '購買 FAQ',
     description: '降低購買前疑慮',
     icon: 'help-circle',
-    category: '銷售頁模組',
+    category: 'Product',
     defaultData: {
       backgroundColor: '#ffffff',
       titleColor: '#0f2f3f',
@@ -359,7 +359,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '品牌 Logo 牆',
     description: '品牌或合作夥伴 Logo',
     icon: 'image',
-    category: '品牌素材',
+    category: 'General',
     defaultData: {
       backgroundColor: '',
       titleColor: '',
@@ -380,7 +380,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '文章內容',
     description: '純文字文章或活動說明',
     icon: 'file-text',
-    category: '內容說明',
+    category: 'General',
     defaultData: {
       eyebrow: '品牌故事',
       title: '文章標題',
@@ -400,7 +400,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '文章搭配圖片',
     description: '文章內容加主圖',
     icon: 'file-image',
-    category: '內容說明',
+    category: 'General',
     defaultData: {
       eyebrow: '品牌故事',
       title: '文章標題',
@@ -425,7 +425,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: 'KV 輪播',
     description: '多張 KV 輪播，可純圖',
     icon: 'gallery-horizontal-end',
-    category: '版面區塊',
+    category: 'General',
     defaultData: {
       height: 'medium',
       autoPlay: true,
@@ -472,7 +472,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     label: '銀行優惠',
     description: '信用卡或支付優惠說明',
     icon: 'credit-card',
-    category: '內容說明',
+    category: 'General',
     defaultData: {
       title: '信用卡優惠說明',
       subtitle: '活動期間：即日起至 2024/12/31',

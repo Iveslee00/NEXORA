@@ -37,8 +37,8 @@ if (!page.includes('ProductBuildModal') || !page.includes('handleCreateFromProdu
   throw new Error('Editor page does not wire the product builder modal.');
 }
 
-if (!library.includes('銷售頁模組')) {
-  throw new Error('Module library does not include the sales page category.');
+if (!library.includes('Product') || !library.includes('商品頁')) {
+  throw new Error('Module library does not include the product page category.');
 }
 
 console.log('Product builder demo verification passed.');

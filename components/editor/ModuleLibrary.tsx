@@ -10,7 +10,7 @@ import {
   Layout, Columns2, Grid2X2, Image as ImageIcon,
   Megaphone, HelpCircle, Plus, Package, Star,
   Type, GalleryHorizontal, LayoutPanelLeft, Pin, FileText, FileImage,
-  CreditCard, Tag, GalleryHorizontalEnd, ChevronDown,
+  CreditCard, Tag, GalleryHorizontalEnd, ChevronDown, SlidersHorizontal,
 } from 'lucide-react';
 import { useGlobalSettings } from '@/contexts/GlobalSettingsContext';
 import { useEmailSettings } from '@/contexts/EmailSettingsContext';
@@ -38,7 +38,12 @@ const iconMap: Record<string, React.ReactNode> = {
   star: <Star size={18} />,
 };
 
-const campaignCategories = ['版面區塊', '活動商品', '銷售頁模組', '內容說明', '品牌素材'];
+const campaignCategories = [
+  { key: 'General', label: 'General', helper: '通用' },
+  { key: 'Campaign', label: 'Campaign', helper: '活動頁' },
+  { key: 'Product', label: 'Product', helper: '商品頁' },
+  { key: 'Brand', label: 'Brand', helper: '品牌' },
+];
 const emailCategories = ['標題', '圖片', 'KV', '商品', '圖片帶商品', '活動', '銀行資訊', '文章', '折價券'];
 
 // ── Color picker ─────────────────────────────────────────────────────────────
@@ -99,11 +104,12 @@ interface Props {
 export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
   const { buttonColor, buttonTextColor, setButtonColor, setButtonTextColor, pageBackgroundColor, setPageBackgroundColor, pageBackgroundImage, setPageBackgroundImage } = useGlobalSettings();
   const emailSettings = useEmailSettings();
+  const [globalSettingsOpen, setGlobalSettingsOpen] = useState(false);
 
   const isEmail = pageMode === 'email';
 
   return (
-    <aside className="flex h-full min-h-0 w-64 flex-shrink-0 flex-col overflow-hidden border-r border-slate-800 bg-slate-900">
+    <aside className="relative flex h-full min-h-0 w-64 flex-shrink-0 flex-col overflow-hidden border-r border-slate-800 bg-slate-900">
       <div className="px-4 py-4 border-b border-slate-800">
         <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
           {isEmail ? '電子報模組' : '頁面模組'}
@@ -137,11 +143,14 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
           })
         ) : (
           campaignCategories.map((cat) => {
-            const items = moduleSchemas.filter((s) => s.category === cat);
+            const items = moduleSchemas.filter((s) => s.category === cat.key);
             if (!items.length) return null;
             return (
-              <div key={cat}>
-                <p className="text-xs font-medium text-slate-500 uppercase tracking-widest px-1 mb-2">{cat}</p>
+              <div key={cat.key}>
+                <div className="px-1 mb-2 flex items-baseline gap-2">
+                  <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">{cat.label}</p>
+                  <span className="text-[11px] font-medium text-slate-600">{cat.helper}</span>
+                </div>
                 <div className="space-y-1">
                   {items.map((schema) => (
                     <button key={schema.key} onClick={() => onAdd(schema)} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-slate-800 active:bg-slate-700 transition-colors group">
@@ -163,9 +172,9 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
       </div>
 
       {/* Global settings */}
-      <div className="flex-shrink-0 px-4 py-3 border-t border-slate-800 space-y-3 max-h-72 overflow-y-auto">
+      <div className="flex-shrink-0 border-t border-slate-800 bg-slate-900/95 px-3 py-3">
         {isEmail ? (
-          <>
+          <div className="max-h-72 space-y-3 overflow-y-auto px-1">
             <Section title="電子報設定">
               <ColorPicker label="信件背景色" value={emailSettings.backgroundColor} onChange={(v) => emailSettings.update({ backgroundColor: v })} />
               <ColorPicker label="內容底色" value={emailSettings.contentBgColor} onChange={(v) => emailSettings.update({ contentBgColor: v })} />
@@ -196,26 +205,50 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
                 <input type="text" value={emailSettings.previewText} onChange={(e) => emailSettings.update({ previewText: e.target.value })} className="w-full bg-slate-800 border border-slate-700 rounded-md px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-indigo-500" placeholder="本週精選優惠，最高折扣…" />
               </div>
             </Section>
-          </>
+          </div>
         ) : (
           <>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">全站設定</p>
-            <ColorPicker label="底色" value={pageBackgroundColor} onChange={setPageBackgroundColor} allowEmpty />
-            <div className="space-y-1">
-              <p className="text-xs text-slate-500">背景圖（repeat-y）</p>
-              <input
-                type="text"
-                value={pageBackgroundImage}
-                onChange={(e) => setPageBackgroundImage(e.target.value)}
-                placeholder="https://… (圖片網址)"
-                className="w-full bg-slate-800 border border-slate-700 rounded-md px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-indigo-500 placeholder-slate-600"
-              />
-              {pageBackgroundImage && (
-                <button onClick={() => setPageBackgroundImage('')} className="text-xs text-slate-500 hover:text-slate-300">✕ 清除</button>
-              )}
-            </div>
-            <ColorPicker label="按鈕色" value={buttonColor} onChange={setButtonColor} onReset={() => setButtonColor('#6366f1')} />
-            <ColorPicker label="按鈕文字色" value={buttonTextColor} onChange={setButtonTextColor} onReset={() => setButtonTextColor('#ffffff')} />
+            {globalSettingsOpen && (
+              <div className="absolute bottom-16 left-3 right-3 z-30 max-h-[calc(100%-5rem)] overflow-y-auto rounded-xl border border-slate-700 bg-slate-900 p-3 shadow-2xl">
+                <div className="mb-3 flex items-center justify-between">
+                  <p className="text-xs font-semibold text-slate-300 uppercase tracking-widest">全站設定</p>
+                  <button
+                    onClick={() => setGlobalSettingsOpen(false)}
+                    className="rounded-md px-2 py-1 text-xs text-slate-500 hover:bg-slate-800 hover:text-slate-200"
+                  >
+                    關閉
+                  </button>
+                </div>
+                <div className="space-y-3">
+                  <ColorPicker label="底色" value={pageBackgroundColor} onChange={setPageBackgroundColor} allowEmpty />
+                  <div className="space-y-1">
+                    <p className="text-xs text-slate-500">背景圖（repeat-y）</p>
+                    <input
+                      type="text"
+                      value={pageBackgroundImage}
+                      onChange={(e) => setPageBackgroundImage(e.target.value)}
+                      placeholder="https://… (圖片網址)"
+                      className="w-full bg-slate-800 border border-slate-700 rounded-md px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-indigo-500 placeholder-slate-600"
+                    />
+                    {pageBackgroundImage && (
+                      <button onClick={() => setPageBackgroundImage('')} className="text-xs text-slate-500 hover:text-slate-300">✕ 清除</button>
+                    )}
+                  </div>
+                  <ColorPicker label="按鈕色" value={buttonColor} onChange={setButtonColor} onReset={() => setButtonColor('#6366f1')} />
+                  <ColorPicker label="按鈕文字色" value={buttonTextColor} onChange={setButtonTextColor} onReset={() => setButtonTextColor('#ffffff')} />
+                </div>
+              </div>
+            )}
+            <button
+              onClick={() => setGlobalSettingsOpen((v) => !v)}
+              className="flex w-full items-center justify-between rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-left text-sm font-semibold text-slate-200 transition-colors hover:border-indigo-500/60 hover:bg-slate-800/80"
+            >
+              <span className="flex items-center gap-2">
+                <SlidersHorizontal size={16} className="text-indigo-300" />
+                全站設定
+              </span>
+              <ChevronDown size={14} className={`text-slate-500 transition-transform ${globalSettingsOpen ? 'rotate-180' : ''}`} />
+            </button>
           </>
         )}
       </div>
