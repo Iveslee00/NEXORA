@@ -127,7 +127,11 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-split__content { display: flex; flex-direction: column; gap: 20px; }
 .cb-split__title { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: #1a1a2e; }
 .cb-split__description { font-size: 1rem; line-height: 1.75; color: #4a4a6a; }
-.cb-split__media { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 4 / 3; }
+.cb-split__media {
+  position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  box-shadow: 0 18px 52px rgba(15,23,42,0.10), 0 0 0 1px rgba(15,23,42,0.06);
+}
 .cb-split__picture { position: absolute; inset: 0; display: block; }
 .cb-split__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .cb-split__btn { align-self: flex-start; padding-left: 18px; padding-right: 18px; }
@@ -136,13 +140,13 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    6. PRODUCT CARD (shared by grid, carousel, banner+products)
    ------------------------------------------------------------ */
 .cb-product-card {
-  background-color: #ffffff; border-radius: 12px; overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96)); border-radius: 16px; overflow: hidden;
   text-decoration: none; color: inherit; display: flex; flex-direction: column;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 14px 40px rgba(15,23,42,0.08), 0 0 0 1px rgba(15,23,42,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
-.cb-product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05); }
-.cb-product-card__media { position: relative; aspect-ratio: 1/1; overflow: hidden; background-color: #f5f5f5; }
+.cb-product-card:hover { transform: translateY(-4px); box-shadow: 0 22px 58px rgba(15,23,42,0.14), 0 0 0 1px rgba(99,102,241,0.16); }
+.cb-product-card__media { position: relative; aspect-ratio: 1/1; overflow: hidden; background: radial-gradient(circle at 30% 18%, #ffffff, #eef2ff 52%, #e0f2fe); }
 .cb-product-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
 .cb-product-card:hover .cb-product-card__media img { transform: scale(1.05); }
 .cb-product-card__labels {
@@ -186,8 +190,9 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-banner-products__inner--3 { grid-template-columns: minmax(0, 520px) max-content; }
 .cb-banner-products__inner--4 { grid-template-columns: minmax(0, 328px) max-content; }
 .cb-banner-products__banner {
-  position: relative; border-radius: 12px; overflow: hidden;
-  background-color: #1a1a2e; height: 100%; display: flex;
+  position: relative; border-radius: 18px; overflow: hidden;
+  background: radial-gradient(circle at 28% 18%, rgba(99,102,241,0.26), transparent 36%), #111827; height: 100%; display: flex;
+  box-shadow: 0 18px 52px rgba(15,23,42,0.16);
 }
 .cb-banner-products__products { display: grid; gap: 16px; align-items: start; min-height: 0; }
 .cb-banner-products__products--0 { display: none; }
@@ -265,9 +270,15 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 /* ------------------------------------------------------------
    11. LOGO WALL MODULE
    ------------------------------------------------------------ */
-.cb-logo-wall__grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px 56px; }
-.cb-logo-wall__item { display: flex; align-items: center; justify-content: center; opacity: 1; transition: opacity 0.2s ease; }
-.cb-logo-wall__item:hover { opacity: 0.82; }
+.cb-logo-wall__grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 28px 32px; }
+.cb-logo-wall__item {
+  display: flex; align-items: center; justify-content: center; opacity: 1;
+  min-width: 196px; min-height: 92px; padding: 16px 18px; border-radius: 18px;
+  background: rgba(255,255,255,0.76); border: 1px solid rgba(15,23,42,0.06);
+  box-shadow: 0 12px 32px rgba(15,23,42,0.06);
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cb-logo-wall__item:hover { opacity: 1; transform: translateY(-2px); box-shadow: 0 18px 42px rgba(15,23,42,0.10); }
 .cb-logo-wall__item img { width: 160px; height: 60px; object-fit: contain; display: block; }
 
 /* ------------------------------------------------------------
@@ -288,11 +299,15 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    13. FAQ MODULE
    ------------------------------------------------------------ */
 .cb-faq__list { max-width: 800px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; gap: 12px; }
-.cb-faq__item { border: 1px solid #e8e8f4; border-radius: 12px; overflow: hidden; }
+.cb-faq__item {
+  border: 1px solid rgba(15,23,42,0.07); border-radius: 18px; overflow: hidden;
+  background: rgba(255,255,255,0.86);
+  box-shadow: 0 14px 36px rgba(15,23,42,0.06);
+}
 .cb-faq__item summary { list-style: none; }
 .cb-faq__item summary::-webkit-details-marker { display: none; }
 .cb-faq__question { padding: 20px 24px; font-size: 16px; font-weight: 600; color: #1a1a2e; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; transition: background-color 0.15s ease; user-select: none; }
-.cb-faq__question:hover { background-color: #f8f8fc; }
+.cb-faq__question:hover { background-color: rgba(99,102,241,0.06); }
 .cb-faq__toggle { flex-shrink: 0; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 300; color: ${btnColor}; transition: transform 0.2s ease; }
 .cb-faq__item[open] .cb-faq__toggle { transform: rotate(45deg); }
 .cb-faq__answer { padding: 0 24px 20px; font-size: 15px; line-height: 1.75; color: #4a4a6a; }
@@ -621,14 +636,20 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    ------------------------------------------------------------ */
 .cb-article-img__picture { position: absolute; inset: 0; display: block; }
 .cb-article-img__img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
-.cb-article-img--top .cb-article-img__media--top { border-radius: 12px; overflow: hidden; margin-bottom: 36px; }
+.cb-article-img--top .cb-article-img__media--top {
+  border-radius: 22px; overflow: hidden; margin-bottom: 36px;
+  box-shadow: 0 18px 52px rgba(15,23,42,0.10), 0 0 0 1px rgba(15,23,42,0.06);
+}
 .cb-article-img--top .cb-article-img__media--top { position: relative; aspect-ratio: 1200 / 420; }
 .cb-article-img__layout { display: grid; gap: 48px; align-items: flex-start; }
 .cb-article-img__layout--left { grid-template-columns: 45% 1fr; }
 .cb-article-img__layout--right { grid-template-columns: 1fr 45%; }
 .cb-article-img__layout--right .cb-article-img__media { order: 2; }
 .cb-article-img__layout--right .cb-article__inner { order: 1; }
-.cb-article-img__layout .cb-article-img__media { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 600 / 450; }
+.cb-article-img__layout .cb-article-img__media {
+  position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 600 / 450;
+  box-shadow: 0 18px 52px rgba(15,23,42,0.10), 0 0 0 1px rgba(15,23,42,0.06);
+}
 
 @media (max-width: 768px) {
   .cb-article-img__layout--left,
@@ -711,7 +732,11 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-bank__grid--2 { grid-template-columns: repeat(2, 1fr); }
 .cb-bank__grid--3 { grid-template-columns: repeat(3, 1fr); }
 .cb-bank__grid--4 { grid-template-columns: repeat(4, 1fr); }
-.cb-bank-card { background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+.cb-bank-card {
+  background: linear-gradient(180deg, #ffffff, #f8fafc); border-radius: 16px; overflow: hidden;
+  box-shadow: 0 14px 36px rgba(15,23,42,0.08), 0 0 0 1px rgba(15,23,42,0.06);
+  display: flex; flex-direction: column;
+}
 .cb-bank-card__accent { height: 4px; flex-shrink: 0; }
 .cb-bank-card__body { padding: 18px 20px; display: flex; flex-direction: column; gap: 5px; flex: 1; }
 .cb-bank-card__header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }

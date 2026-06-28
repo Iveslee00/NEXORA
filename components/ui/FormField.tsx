@@ -28,7 +28,7 @@ interface FormFieldProps {
 
 export function FormField({ label, value, onChange, type = 'text', options = [], placeholder, rows = 3 }: FormFieldProps) {
   const inputClass =
-    'w-full bg-slate-800 border border-slate-700 text-slate-100 rounded-md px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-colors placeholder-slate-500';
+    'w-full rounded-xl border border-white/10 bg-white/[0.06] px-3 py-2 text-sm text-slate-100 outline-none transition-all placeholder-slate-500 focus:border-indigo-400/70 focus:bg-white/[0.08] focus:ring-4 focus:ring-indigo-500/10';
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -81,13 +81,13 @@ export function ToggleField({ label, description, value, onChange }: ToggleField
       <button
         type="button"
         onClick={() => onChange(!value)}
-        className={`relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus:outline-none ${
-          value ? 'bg-indigo-500' : 'bg-slate-700'
+        className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border transition-colors duration-200 ease-in-out focus:outline-none ${
+          value ? 'border-indigo-300/40 bg-indigo-500' : 'border-white/10 bg-white/[0.08]'
         }`}
       >
         <span
-          className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition duration-200 ease-in-out mt-0.5 ${
-            value ? 'translate-x-4' : 'translate-x-0.5'
+          className={`mt-0.5 inline-block h-5 w-5 transform rounded-full bg-white shadow transition duration-200 ease-in-out ${
+            value ? 'translate-x-5' : 'translate-x-0.5'
           }`}
         />
       </button>
@@ -106,7 +106,7 @@ export function SegmentedField({ label, value, onChange, options }: SegmentedFie
   return (
     <div className="flex flex-col gap-1.5">
       <label className="text-xs font-medium text-slate-400 uppercase tracking-wide">{label}</label>
-      <div className="flex gap-1 bg-slate-800 border border-slate-700 rounded-md p-0.5">
+      <div className="flex gap-1 rounded-xl border border-white/10 bg-white/[0.06] p-0.5">
         {options.map((o) => (
           <button
             key={o.value}
@@ -114,7 +114,7 @@ export function SegmentedField({ label, value, onChange, options }: SegmentedFie
             onClick={() => onChange(o.value)}
             className={`flex-1 py-1.5 px-2 text-xs font-medium rounded transition-colors ${
               value === o.value
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-950/20'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -223,8 +223,8 @@ export function GradientPickerPopover({ value, onChange }: { value: string; onCh
         aria-label="選擇顏色"
         className={`inline-flex h-8 w-8 items-center justify-center rounded-md border text-xs font-semibold transition-colors ${
           isGradientValue(value)
-            ? 'border-indigo-400 bg-indigo-500/15 text-indigo-100'
-            : 'border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-600 hover:text-white'
+            ? 'border-indigo-300/60 bg-indigo-500/20 text-indigo-100'
+            : 'border-white/10 bg-white/[0.06] text-slate-300 hover:border-white/20 hover:text-white'
         }`}
         title="選擇顏色"
       >
@@ -233,14 +233,14 @@ export function GradientPickerPopover({ value, onChange }: { value: string; onCh
       {open && (
         <div
           ref={popoverRef}
-          className="fixed z-50 overflow-y-auto rounded-lg border border-slate-700 bg-slate-900 p-3 shadow-2xl shadow-black/40"
+          className="nexora-glass-dark fixed z-50 overflow-y-auto rounded-2xl p-3"
           style={popoverPosition}
         >
           <div className="mb-3 flex items-center justify-between">
             <p className="text-xs font-semibold text-slate-300">選擇顏色</p>
             <p className="text-[11px] text-slate-600">點旁邊關閉</p>
           </div>
-          <div className="mb-3 grid grid-cols-2 rounded-md border border-slate-700 bg-slate-800 p-0.5">
+          <div className="mb-3 grid grid-cols-2 rounded-xl border border-white/10 bg-white/[0.06] p-0.5">
             {[
               { id: 'solid', label: '純色' },
               { id: 'gradient', label: '漸層' },

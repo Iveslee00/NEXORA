@@ -666,7 +666,7 @@ export default function Page() {
 
   if (!hydrated) {
     return (
-      <div className="flex h-screen items-center justify-center bg-slate-100 text-sm font-semibold text-slate-500">
+      <div className="nexora-liquid-shell flex h-screen items-center justify-center text-sm font-semibold text-slate-500">
         載入 NEXORA...
       </div>
     );
@@ -674,9 +674,9 @@ export default function Page() {
 
   if (appView === 'login') {
     return (
-      <main className="min-h-screen bg-slate-100 text-slate-950 animate-[fadeIn_0.45s_ease-out]">
+      <main className="nexora-liquid-shell min-h-screen text-slate-950 animate-[fadeIn_0.45s_ease-out]">
         <div className="grid min-h-screen lg:grid-cols-[0.95fr_1.05fr]">
-          <section className="flex items-center justify-center bg-[#172033] px-8 py-12 text-white lg:px-12">
+          <section className="nexora-glass-dark m-4 flex items-center justify-center rounded-[2rem] px-8 py-12 text-white lg:m-6 lg:px-12">
             <div className="flex w-full items-center justify-center">
               <div className="inline-flex">
                 <img src="/brand/nexora-logo.svg" alt="NEXORA" className="h-auto w-[340px] max-w-full brightness-0 invert lg:w-[440px]" />
@@ -687,7 +687,7 @@ export default function Page() {
           <section className="flex items-center justify-center px-6 py-12">
             <form
               onSubmit={handleLogin}
-              className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/80 animate-[panelFloatIn_0.5s_ease-out]"
+              className="nexora-glass w-full max-w-md rounded-[1.75rem] p-7 animate-[panelFloatIn_0.5s_ease-out]"
             >
               <div className="mb-6">
                 <p className="text-2xl font-black text-slate-950">歡迎回來</p>
@@ -699,7 +699,7 @@ export default function Page() {
                 <input
                   value={loginUsername}
                   onChange={(event) => setLoginUsername(event.target.value)}
-                  className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm font-semibold text-slate-950 outline-none transition-colors focus:border-indigo-400 focus:bg-white"
+                  className="h-12 w-full rounded-2xl border border-white/70 bg-white/70 px-4 text-sm font-semibold text-slate-950 outline-none transition-all focus:border-indigo-300 focus:bg-white focus:ring-4 focus:ring-indigo-100"
                   placeholder="client01"
                 />
               </label>
@@ -710,12 +710,12 @@ export default function Page() {
                   type="password"
                   value={loginPassword}
                   onChange={(event) => setLoginPassword(event.target.value)}
-                  className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm font-semibold text-slate-950 outline-none transition-colors focus:border-indigo-400 focus:bg-white"
+                  className="h-12 w-full rounded-2xl border border-white/70 bg-white/70 px-4 text-sm font-semibold text-slate-950 outline-none transition-all focus:border-indigo-300 focus:bg-white focus:ring-4 focus:ring-indigo-100"
                   placeholder="請輸入密碼"
                 />
               </label>
 
-              <label className="mb-5 flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+              <label className="mb-5 flex items-center justify-between rounded-2xl border border-white/70 bg-white/60 px-4 py-3">
                 <span className="text-sm font-bold text-slate-600">記住我 30 天</span>
                 <input
                   type="checkbox"
@@ -734,7 +734,7 @@ export default function Page() {
               <button
                 type="submit"
                 disabled={loginLoading}
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 text-sm font-black text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-500 hover:shadow-lg hover:shadow-indigo-200"
+                className="nexora-button flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-sm font-black text-white transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50"
               >
                 {loginLoading ? '登入中...' : '進入 NEXORA Workspace'}
                 <Sparkles size={16} />
@@ -749,8 +749,8 @@ export default function Page() {
 
   if (appView === 'workshop') {
     return (
-      <div className="flex h-screen min-h-screen overflow-hidden bg-slate-100 text-slate-950 animate-[fadeIn_0.45s_ease-out]">
-        <aside className="flex w-64 flex-shrink-0 flex-col justify-between bg-[#172033] px-4 py-5 text-slate-300">
+      <div className="nexora-liquid-shell flex h-screen min-h-screen overflow-hidden text-slate-950 animate-[fadeIn_0.45s_ease-out]">
+        <aside className="nexora-glass-dark m-4 mr-0 flex w-64 flex-shrink-0 flex-col justify-between rounded-[1.75rem] px-4 py-5 text-slate-300">
           <div>
             <div className="mb-7 flex items-center px-2">
               <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white">
@@ -793,7 +793,7 @@ export default function Page() {
             </nav>
           </div>
           <div className="space-y-3">
-            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.06] p-4">
+            <div className="rounded-2xl border border-white/[0.10] bg-white/[0.08] p-4 shadow-inner shadow-white/[0.03]">
               <p className="truncate text-sm font-bold text-slate-200">{authUser?.displayName || authUser?.username || '測試帳號'}</p>
               <p className="mt-1 text-xs leading-5 text-slate-500">專案暫存於此瀏覽器</p>
             </div>
@@ -808,7 +808,7 @@ export default function Page() {
         </aside>
 
         <main className="min-w-0 flex-1 overflow-y-auto animate-[fadeIn_0.45s_ease-out]">
-          <header className="flex items-center justify-between border-b border-slate-200 bg-white px-8 py-5">
+          <header className="sticky top-0 z-10 m-4 mb-0 flex items-center justify-between rounded-[1.5rem] border border-white/70 bg-white/70 px-8 py-5 shadow-sm backdrop-blur-2xl">
             <div>
               <p className="text-sm font-bold text-indigo-600">{currentWorkspaceCopy.homeEyebrow}</p>
               <h1 className="mt-1 text-2xl font-black text-slate-950">
@@ -834,14 +834,14 @@ export default function Page() {
               />
               <button
                 onClick={() => projectImportInputRef.current?.click()}
-                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-700 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
+                className="flex items-center gap-2 rounded-2xl border border-white/70 bg-white/70 px-5 py-3 text-sm font-black text-slate-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
               >
                 <FileUp size={17} />
                 匯入專案檔
               </button>
               <button
                 onClick={handleCreateAndOpenProject}
-                className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-sm font-black text-white transition-colors hover:bg-indigo-500"
+                className="nexora-button flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-black text-white transition-all"
               >
                 <Plus size={17} />
                 新增活動頁
@@ -853,7 +853,7 @@ export default function Page() {
           <section className="px-8 py-8">
             {workspaceSection === 'settings' && (
               <div className="grid gap-5 xl:grid-cols-[1fr_360px]">
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="nexora-glass nexora-card p-6">
                   <p className="text-sm font-black text-indigo-600">{currentWorkspaceCopy.settingsEyebrow}</p>
                   <h2 className="mt-3 text-3xl font-black text-slate-950">{currentWorkspaceCopy.currentSettings}</h2>
                   <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-500">{currentWorkspaceCopy.settingsBody}</p>
@@ -881,7 +881,7 @@ export default function Page() {
                 </div>
 
                 <aside className="space-y-5">
-                  <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <div className="nexora-glass nexora-card p-5">
                     <p className="text-sm font-black text-slate-950">語言 Language</p>
                     <div className="mt-4 grid gap-2">
                       {workspaceLanguageOptions.map((option) => (
@@ -897,7 +897,7 @@ export default function Page() {
                     </div>
                   </div>
 
-                  <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <div className="nexora-glass nexora-card p-5">
                     <p className="text-sm font-black text-slate-950">下一階段</p>
                     <ul className="mt-3 space-y-3 text-sm leading-6 text-slate-500">
                       <li>雲端專案同步準備中</li>
@@ -912,7 +912,7 @@ export default function Page() {
 
             {workspaceSection === 'assets' && (
               <div className="space-y-5">
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="nexora-glass nexora-card p-6">
                   <p className="text-sm font-black text-cyan-600">{currentWorkspaceCopy.assetsEyebrow}</p>
                   <h2 className="mt-3 text-3xl font-black text-slate-950">{currentWorkspaceCopy.assetsTitle}</h2>
                   <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-500">{currentWorkspaceCopy.assetsBody}</p>
@@ -924,7 +924,7 @@ export default function Page() {
                     ['活動 Banner', '1920 x 640 / 750 寬 M 端', '適合清潔用品促銷頁首屏與活動檔期視覺。'],
                     ['商品詳情圖', '1200 寬內容圖', '適合成分、使用步驟、前後差異與特色說明。'],
                   ].map(([title, spec, body]) => (
-                    <article key={title} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                    <article key={title} className="nexora-glass nexora-card overflow-hidden">
                       <div className="flex aspect-[4/3] items-center justify-center bg-[radial-gradient(circle_at_20%_20%,#dffbff_0,#a7e7f2_28%,#f8fafc_70%)] p-6">
                         <div className="rounded-3xl border border-white/70 bg-white/65 px-6 py-5 text-center shadow-xl shadow-cyan-100/70 backdrop-blur">
                           <p className="text-xs font-black tracking-[0.2em] text-cyan-600">{title}</p>
@@ -939,7 +939,7 @@ export default function Page() {
                   ))}
                 </div>
 
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="nexora-glass nexora-card p-6">
                   <p className="text-sm font-black text-slate-950">Demo 素材流程</p>
                   <div className="mt-4 grid gap-3 md:grid-cols-4">
                     {['上傳商品圖', '建立商品頁', '匯出 CMS 貼碼', '備份 project.cmb'].map((item, index) => (
@@ -955,7 +955,7 @@ export default function Page() {
 
             {workspaceSection === 'home' && (
               <div className="space-y-5">
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="nexora-glass nexora-card p-6">
                   <p className="text-sm font-black text-indigo-600">{currentWorkspaceCopy.homeEyebrow}</p>
                   <h2 className="mt-3 text-3xl font-black text-slate-950">{currentWorkspaceCopy.homeTitle}</h2>
                   <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-500">{currentWorkspaceCopy.homeBody}</p>
@@ -964,7 +964,7 @@ export default function Page() {
                 <div className="grid gap-5 lg:grid-cols-3">
                   <button
                     onClick={() => setWorkspaceSection('builder')}
-                    className="group rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-lg"
+                    className="nexora-glass nexora-card group p-5 text-left"
                   >
                     <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-600 text-white">
                       <Wrench size={22} />
@@ -976,7 +976,7 @@ export default function Page() {
 
                   <button
                     onClick={() => setWorkspaceSection('assets')}
-                    className="group rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-200 hover:shadow-lg"
+                    className="nexora-glass nexora-card group p-5 text-left"
                   >
                     <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-600 text-white">
                       <FolderOpen size={22} />
@@ -988,7 +988,7 @@ export default function Page() {
 
                   <button
                     onClick={() => setWorkspaceSection('settings')}
-                    className="group rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-lg"
+                    className="nexora-glass nexora-card group p-5 text-left"
                   >
                     <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-white">
                       <Settings size={22} />
@@ -1004,7 +1004,7 @@ export default function Page() {
             {workspaceSection === 'builder' && (
               <>
             <div className="mb-6 grid gap-4 lg:grid-cols-[1fr_240px]">
-              <div className="rounded-2xl border border-slate-200 bg-white p-5">
+              <div className="nexora-glass nexora-card p-5">
                 <p className="text-sm font-bold text-indigo-600">{currentWorkspaceCopy.currentTool}</p>
                 <h2 className="mt-2 text-2xl font-black text-slate-950">{currentWorkspaceCopy.homeTitle}</h2>
                 <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
@@ -1012,7 +1012,7 @@ export default function Page() {
                 </p>
                 <p className="mt-3 text-xs font-bold text-slate-400">{currentWorkspaceCopy.toolDescription}</p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-5">
+              <div className="nexora-glass nexora-card p-5">
                 <p className="text-sm font-bold text-slate-500">{currentWorkspaceCopy.projectCountLabel}</p>
                 <p className="mt-2 text-3xl font-black text-slate-950">{currentProjectCount}</p>
                 <p className="mt-2 text-sm leading-6 text-slate-500">{currentWorkspaceCopy.localProjectNote}</p>
@@ -1038,7 +1038,7 @@ export default function Page() {
                 return (
                 <article
                   key={project.id}
-                  className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-lg"
+                  className="nexora-glass nexora-card group overflow-hidden"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
                     {heroPreview?.image ? (
@@ -1121,13 +1121,13 @@ export default function Page() {
   return (
     <GlobalSettingsContext.Provider value={{ buttonColor, buttonTextColor, setButtonColor, setButtonTextColor, pageBackgroundColor, setPageBackgroundColor, pageBackgroundImage, setPageBackgroundImage }}>
       <EmailSettingsContext.Provider value={{ ...emailSettings, update: updateEmailSettings }}>
-        <div className="flex h-screen min-h-screen flex-col overflow-hidden bg-slate-950 animate-[fadeIn_0.35s_ease-out]">
+        <div className="nexora-dark-shell flex h-screen min-h-screen flex-col overflow-hidden animate-[fadeIn_0.35s_ease-out]">
           {/* Top bar */}
-          <header className="flex-shrink-0 flex items-center justify-between px-5 py-3 bg-slate-900 border-b border-slate-800 z-20">
+          <header className="nexora-glass-dark z-20 m-3 mb-0 flex flex-shrink-0 items-center justify-between rounded-2xl px-5 py-3">
             <div className="flex min-w-0 items-center gap-3">
               <button
                 onClick={() => setAppView('workshop')}
-                className="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-slate-700 hover:text-white"
+                className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.06] px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/[0.10] hover:text-white"
               >
                 <ArrowLeft size={14} />
                 回到 Workspace
@@ -1137,7 +1137,7 @@ export default function Page() {
               </div>
               <span className="hidden text-sm font-semibold tracking-tight text-slate-100 sm:inline">NEXORA Builder</span>
               <div className="ml-2 hidden min-w-0 items-center gap-2 lg:flex">
-                <span className="max-w-[220px] truncate rounded-lg border border-slate-800 bg-slate-950/50 px-3 py-2 text-sm font-semibold text-slate-200">
+                <span className="max-w-[220px] truncate rounded-xl border border-white/10 bg-white/[0.05] px-3 py-2 text-sm font-semibold text-slate-200">
                   {projectName || '未命名專案'}
                 </span>
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-bold text-emerald-300 transition-opacity duration-200">
@@ -1172,7 +1172,7 @@ export default function Page() {
               <button
                 onClick={() => setExportOpen(true)}
                 disabled={!canExport}
-                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg transition-colors"
+                className="nexora-button flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white transition-all disabled:cursor-not-allowed disabled:opacity-30"
               >
                 <Download size={14} />
                 匯出
@@ -1244,7 +1244,7 @@ export default function Page() {
 
           {projectPanelOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm">
-              <div className="w-full max-w-2xl rounded-2xl border border-slate-700 bg-slate-900 p-6 shadow-2xl">
+              <div className="nexora-glass-dark w-full max-w-2xl rounded-[1.5rem] p-6">
                 <div className="mb-5 flex items-start justify-between gap-4">
                   <div>
                     <p className="text-lg font-bold text-slate-100">專案管理</p>
@@ -1276,7 +1276,7 @@ export default function Page() {
                       />
                     </label>
 
-                    <div className="rounded-xl border border-slate-800 bg-slate-950/60">
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.04]">
                       <div className="border-b border-slate-800 px-4 py-3">
                         <p className="text-xs font-semibold text-slate-500">已儲存專案</p>
                       </div>
@@ -1318,7 +1318,7 @@ export default function Page() {
                         handleCreateProject();
                         setProjectPanelOpen(false);
                       }}
-                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-indigo-500"
+                      className="nexora-button flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white transition-all"
                     >
                       <Plus size={16} />
                       新建空白專案
@@ -1333,7 +1333,7 @@ export default function Page() {
                       <Copy size={16} />
                       複製目前專案
                     </button>
-                    <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-4 text-xs leading-relaxed text-slate-400">
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-xs leading-relaxed text-slate-400">
                       <p className="font-semibold text-slate-300">目前狀態：本機自動儲存</p>
                       <p className="mt-2">同一台電腦、同一個瀏覽器會記住專案。之後可以再升級成雲端同步。</p>
                     </div>

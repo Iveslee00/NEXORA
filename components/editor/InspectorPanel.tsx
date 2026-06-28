@@ -79,9 +79,9 @@ export function InspectorPanel({ pageMode, module, modules, onChange, emailModul
 
   if (!activeModule) {
     return (
-      <aside className="flex h-full min-h-0 w-72 flex-shrink-0 items-center justify-center border-l border-slate-800 bg-slate-900">
+      <aside className="nexora-editor-panel m-3 ml-0 flex h-[calc(100%-1.5rem)] min-h-0 w-72 flex-shrink-0 items-center justify-center rounded-2xl border">
         <div className="text-center px-6 space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center mx-auto">
+          <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06]">
             <MousePointerClick size={18} className="text-slate-500" />
           </div>
           <div>
@@ -99,8 +99,8 @@ export function InspectorPanel({ pageMode, module, modules, onChange, emailModul
   const colorClass = moduleColors[activeModule.type] ?? 'bg-slate-700 text-slate-300 border-slate-600';
 
   return (
-    <aside className="flex h-full min-h-0 w-72 flex-shrink-0 flex-col overflow-hidden border-l border-slate-800 bg-slate-900">
-      <div className="px-4 py-4 border-b border-slate-800 flex items-center gap-3">
+    <aside className="nexora-editor-panel m-3 ml-0 flex h-[calc(100%-1.5rem)] min-h-0 w-72 flex-shrink-0 flex-col overflow-hidden rounded-2xl border">
+      <div className="flex items-center gap-3 border-b border-white/10 px-4 py-4">
         <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold border ${colorClass}`}>
           {label}
         </span>

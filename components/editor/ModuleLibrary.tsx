@@ -114,8 +114,8 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
   const isEmail = pageMode === 'email';
 
   return (
-    <aside className="relative flex h-full min-h-0 w-64 flex-shrink-0 flex-col overflow-hidden border-r border-slate-800 bg-slate-900">
-      <div className="px-4 py-4 border-b border-slate-800">
+    <aside className="nexora-editor-panel relative m-3 mr-0 flex h-[calc(100%-1.5rem)] min-h-0 w-64 flex-shrink-0 flex-col overflow-hidden rounded-2xl border">
+      <div className="border-b border-white/10 px-4 py-4">
         <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
           {isEmail ? '電子報模組' : '頁面模組'}
         </h2>
@@ -131,8 +131,8 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
                 <p className="text-xs font-medium text-slate-500 uppercase tracking-widest px-1 mb-2">{cat}</p>
                 <div className="space-y-1">
                   {items.map((schema) => (
-                    <button key={schema.key} onClick={() => onAddEmail(schema)} className="grid h-16 w-full grid-cols-[2rem_1fr_0.875rem] items-center gap-3 rounded-lg px-3 text-left transition-colors hover:bg-slate-800 active:bg-slate-700 group">
-                      <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-md bg-slate-800 group-hover:bg-amber-600/20 text-slate-400 group-hover:text-amber-400 transition-colors">
+                    <button key={schema.key} onClick={() => onAddEmail(schema)} className="group grid h-16 w-full grid-cols-[2rem_1fr_0.875rem] items-center gap-3 rounded-xl border border-transparent px-3 text-left transition-all hover:border-white/10 hover:bg-white/[0.07] active:bg-white/[0.10]">
+                      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-slate-400 transition-colors group-hover:bg-amber-500/15 group-hover:text-amber-300">
                         {iconMap[schema.icon] ?? <Layout size={18} />}
                       </span>
                       <div className="flex-1 min-w-0">
@@ -158,8 +158,8 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
                 </div>
                 <div className="space-y-1">
                   {items.map((schema) => (
-                    <button key={schema.key} onClick={() => onAdd(schema)} className="grid h-16 w-full grid-cols-[2rem_1fr_0.875rem] items-center gap-3 rounded-lg px-3 text-left transition-colors hover:bg-slate-800 active:bg-slate-700 group">
-                      <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-md bg-slate-800 group-hover:bg-indigo-600/20 text-slate-400 group-hover:text-indigo-400 transition-colors">
+                    <button key={schema.key} onClick={() => onAdd(schema)} className="group grid h-16 w-full grid-cols-[2rem_1fr_0.875rem] items-center gap-3 rounded-xl border border-transparent px-3 text-left transition-all hover:border-white/10 hover:bg-white/[0.07] active:bg-white/[0.10]">
+                      <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-slate-400 transition-colors group-hover:bg-indigo-500/15 group-hover:text-indigo-300">
                         {iconMap[schema.icon] ?? <Layout size={18} />}
                       </span>
                       <div className="flex-1 min-w-0">
@@ -177,7 +177,7 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
       </div>
 
       {/* Global settings */}
-      <div className="flex-shrink-0 border-t border-slate-800 bg-slate-900/95 px-3 py-3">
+      <div className="flex-shrink-0 border-t border-white/10 bg-slate-950/30 px-3 py-3">
         {isEmail ? (
           <div className="max-h-72 space-y-3 overflow-y-auto px-1">
             <Section title="電子報設定">
@@ -214,7 +214,7 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
         ) : (
           <>
             {globalSettingsOpen && (
-              <div className="absolute bottom-16 left-3 right-3 z-30 max-h-[calc(100%-5rem)] overflow-y-auto rounded-xl border border-slate-700 bg-slate-900 p-3 shadow-2xl">
+              <div className="nexora-glass-dark absolute bottom-16 left-3 right-3 z-30 max-h-[calc(100%-5rem)] overflow-y-auto rounded-2xl p-3">
                 <div className="mb-3 flex items-center justify-between">
                   <p className="text-xs font-semibold text-slate-300 uppercase tracking-widest">全站設定</p>
                   <button
@@ -243,7 +243,7 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
             )}
             <button
               onClick={() => setGlobalSettingsOpen((v) => !v)}
-              className="flex w-full items-center justify-between rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-left text-sm font-semibold text-slate-200 transition-colors hover:border-indigo-500/60 hover:bg-slate-800/80"
+              className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/[0.06] px-3 py-2 text-left text-sm font-semibold text-slate-200 transition-colors hover:border-indigo-400/50 hover:bg-white/[0.10]"
             >
               <span className="flex items-center gap-2">
                 <SlidersHorizontal size={16} className="text-indigo-300" />

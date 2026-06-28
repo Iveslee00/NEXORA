@@ -304,14 +304,14 @@ export function PreviewCanvas({
   }, [desktopScale, isEmail, isMobile, modules]);
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col overflow-hidden bg-slate-950">
+    <div className="min-h-0 flex-1 flex flex-col overflow-hidden">
       {/* Mode tabs */}
-      <div className="flex-shrink-0 flex items-center gap-1 px-4 pt-3 pb-0 bg-slate-900 border-b border-slate-800">
+      <div className="mx-3 mt-3 flex flex-shrink-0 items-center gap-1 rounded-t-2xl border border-b-0 border-white/10 bg-white/[0.05] px-4 pt-3 pb-0 backdrop-blur-xl">
         <button
           onClick={() => onModeChange('campaign')}
           className={`flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-t-lg border border-b-0 transition-colors ${
             !isEmail
-              ? 'bg-slate-950 border-slate-700 text-slate-100'
+              ? 'border-white/10 bg-white/[0.10] text-slate-100'
               : 'border-transparent text-slate-500 hover:text-slate-300'
           }`}
         >
@@ -322,7 +322,7 @@ export function PreviewCanvas({
           onClick={() => onModeChange('email')}
           className={`flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-t-lg border border-b-0 transition-colors ${
             isEmail
-              ? 'bg-slate-950 border-slate-700 text-amber-400'
+              ? 'border-white/10 bg-white/[0.10] text-amber-300'
               : 'border-transparent text-slate-500 hover:text-slate-300'
           }`}
         >
@@ -332,7 +332,7 @@ export function PreviewCanvas({
       </div>
 
       {/* Canvas toolbar */}
-      <div className="flex-shrink-0 flex items-center justify-between px-4 py-2.5 border-b border-slate-800 bg-slate-900/60">
+      <div className="mx-3 flex flex-shrink-0 items-center justify-between border-x border-b border-white/10 bg-white/[0.05] px-4 py-2.5 backdrop-blur-xl">
         <span className="text-xs text-slate-500">
           {isEmail
             ? emailModules.length > 0 ? `${emailModules.length} 個模組` : '電子報畫布'
@@ -345,16 +345,16 @@ export function PreviewCanvas({
             <button
               type="button"
               onClick={() => setSpecOpen(true)}
-              className="flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-slate-500 hover:text-slate-100"
+              className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-slate-500 hover:text-slate-100"
             >
               <Ruler size={13} />
               <span>尺寸規格</span>
             </button>
-            <div className="flex items-center gap-0.5 bg-slate-800 rounded-lg p-0.5 border border-slate-700">
+            <div className="flex items-center gap-0.5 rounded-xl border border-white/10 bg-white/[0.06] p-0.5">
               <button
                 onClick={() => onDeviceChange('desktop')}
                 className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                  !isMobile ? 'bg-slate-600 text-slate-100' : 'text-slate-500 hover:text-slate-300'
+                  !isMobile ? 'bg-white/[0.16] text-slate-100 shadow-sm' : 'text-slate-500 hover:text-slate-300'
                 }`}
               >
                 <Monitor size={13} />
@@ -363,7 +363,7 @@ export function PreviewCanvas({
               <button
                 onClick={() => onDeviceChange('mobile')}
                 className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                  isMobile ? 'bg-slate-600 text-slate-100' : 'text-slate-500 hover:text-slate-300'
+                  isMobile ? 'bg-white/[0.16] text-slate-100 shadow-sm' : 'text-slate-500 hover:text-slate-300'
                 }`}
               >
                 <Smartphone size={13} />
@@ -380,7 +380,7 @@ export function PreviewCanvas({
         emailModules.length === 0 ? (
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center space-y-4 max-w-xs px-6">
-              <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center mx-auto">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06]">
                 <Mail size={28} className="text-amber-500/60" />
               </div>
               <div>
@@ -435,7 +435,7 @@ export function PreviewCanvas({
         modules.length === 0 ? (
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center space-y-4 max-w-xs px-6">
-              <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center mx-auto">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06]">
                 <LayoutTemplate size={28} className="text-slate-500" />
               </div>
               <div>
