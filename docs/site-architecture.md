@@ -7,6 +7,7 @@
 ## 相關文件
 
 - `docs/module-taxonomy.md`：模組分類與重複模組判斷規則。
+- `docs/nexora-platform-launch-plan.md`：平台級架構、上線階段與 `NX-*` 任務池。
 - `docs/product-page-starter-spec.md`：從商品建立 / Product Page Starter 正式規格。
 - `docs/product-page-starter-task-inventory.md`：Product Page Starter 後續任務池與驗收規則。
 
