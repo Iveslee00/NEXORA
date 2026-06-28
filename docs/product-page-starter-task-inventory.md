@@ -154,7 +154,13 @@ Acceptance：
 - 四個主題都可從同一個 preset 來源生成。
 - `npm run verify:product-page-starter` 通過。
 
-Status：待做。
+Status：完成於目前工作分支；已將主題 preset 拆到 `lib/productBuilder/productThemes.ts`，Builder 從同一來源取得主題樣式、色彩與視覺標籤。
+
+驗證：
+
+- `npm run verify:product-page-starter` 通過。
+- `npm run build` 通過。
+- `npm run typecheck` 通過。
 
 ### Task PS-005：四主題視覺差異深化
 

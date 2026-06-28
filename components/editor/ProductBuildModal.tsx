@@ -12,8 +12,8 @@ import {
   defaultProductBuilderInput,
   moduleLabels,
   resolveProductPageRecipe,
-  themeVisuals,
 } from '@/lib/productBuilder/productPageBuilder';
+import { themeVisuals } from '@/lib/productBuilder/productThemes';
 import { isLocalImageRef, resolveLocalImageUrl, revokeResolvedLocalImageUrl, storeLocalImage } from '@/lib/assets/localImageStore';
 
 interface ProductBuildModalProps {

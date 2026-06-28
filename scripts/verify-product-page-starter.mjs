@@ -1,19 +1,21 @@
 import fs from 'node:fs';
 
 const builderPath = 'lib/productBuilder/productPageBuilder.ts';
+const themePath = 'lib/productBuilder/productThemes.ts';
 const modalPath = 'components/editor/ProductBuildModal.tsx';
 const placeholderPath = 'modules/preview/PreviewImage.tsx';
 const showcasePath = 'modules/preview/ProductShowcasePreview.tsx';
 const featuresPath = 'modules/preview/ProductFeaturesPreview.tsx';
 const docsPath = 'docs/product-page-starter-spec.md';
 
-for (const file of [builderPath, modalPath, placeholderPath, showcasePath, featuresPath, docsPath]) {
+for (const file of [builderPath, themePath, modalPath, placeholderPath, showcasePath, featuresPath, docsPath]) {
   if (!fs.existsSync(file)) {
     throw new Error(`Missing Product Page Starter file: ${file}`);
   }
 }
 
 const builder = fs.readFileSync(builderPath, 'utf8');
+const themes = fs.readFileSync(themePath, 'utf8');
 const modal = fs.readFileSync(modalPath, 'utf8');
 const placeholder = fs.readFileSync(placeholderPath, 'utf8');
 const showcase = fs.readFileSync(showcasePath, 'utf8');
@@ -42,10 +44,28 @@ const spec = fs.readFileSync(docsPath, 'utf8');
   "'standard'",
   "'complete'",
 ].forEach((token) => {
-  if (!builder.includes(token)) {
+  if (!builder.includes(token) && !themes.includes(token)) {
     throw new Error(`Product Page Starter builder missing token: ${token}`);
   }
 });
+
+[
+  'ProductThemePreset',
+  'productThemePresets',
+  'themeVisuals',
+  'placeholderTone',
+  'cardShadow',
+  'sectionBackground',
+  'ctaBackground',
+].forEach((token) => {
+  if (!themes.includes(token)) {
+    throw new Error(`Product Page Starter theme preset missing token: ${token}`);
+  }
+});
+
+if (builder.includes('const themePresets: Record<ProductPageTheme')) {
+  throw new Error('Product theme presets should live in productThemes.ts, not productPageBuilder.ts.');
+}
 
 [
   '產業 / 線別',
