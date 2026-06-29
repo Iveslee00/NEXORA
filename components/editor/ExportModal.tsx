@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import { ExportedCode } from '@/types/modules';
+import type { ExportPreflightIssue, ExportPreflightSummary } from '@/lib/export/preflight';
 import { copyToClipboard } from '@/lib/utils';
 import { generateCampaignPackage } from '@/lib/export/packageGenerator';
 import { stripDataImageUrlsForPaste } from '@/lib/export/pasteCodeSanitizer';
-import { X, Copy, Check, Code2, Palette, FileCode2, Mail, Package, Download } from 'lucide-react';
+import { X, Copy, Check, Code2, Palette, FileCode2, Mail, Package, Download, AlertTriangle, Info, ShieldCheck } from 'lucide-react';
 
 type TopTab = 'campaign' | 'package' | 'email';
 type CampaignTab = 'embed' | 'html' | 'css' | 'js';
@@ -13,11 +14,16 @@ type CampaignTab = 'embed' | 'html' | 'css' | 'js';
 interface Props {
   code: ExportedCode;
   emailHTML: string;
+  preflight: {
+    cms: ExportPreflightSummary;
+    zip: ExportPreflightSummary;
+    cmb: ExportPreflightSummary;
+  };
   initialTab: TopTab;
   onClose: () => void;
 }
 
-export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
+export function ExportModal({ code, emailHTML, preflight, initialTab, onClose }: Props) {
   const [topTab, setTopTab] = useState<TopTab>(initialTab);
   const [campaignTab, setCampaignTab] = useState<CampaignTab>('embed');
   const [copied, setCopied] = useState<string | null>(null);
@@ -68,6 +74,7 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
   const emailLineCount = emailHTML.split('\n').length;
   const codePanelClass = 'flex-1 min-h-0 overflow-y-auto overflow-x-hidden bg-slate-950 rounded-b-2xl';
   const codePreClass = 'min-w-0 max-w-full p-5 text-xs leading-relaxed text-slate-300 font-mono whitespace-pre-wrap break-all';
+  const activePreflight = topTab === 'package' ? preflight.zip : topTab === 'campaign' ? preflight.cms : null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
@@ -133,6 +140,8 @@ export function ExportModal({ code, emailHTML, initialTab, onClose }: Props) {
             電子報
           </button>
         </div>
+
+        {activePreflight && <PreflightPanel summary={activePreflight} />}
 
         {topTab === 'campaign' ? (
           <>
@@ -308,6 +317,91 @@ images/`}</pre>
       </div>
     </div>
   );
+}
+
+function PreflightPanel({ summary }: { summary: ExportPreflightSummary }) {
+  const visibleIssues = summary.issues.slice(0, 6);
+  const overflowCount = Math.max(summary.issues.length - visibleIssues.length, 0);
+
+  return (
+    <div className="border-b border-slate-800 bg-slate-900/95 px-6 py-3">
+      <div className="flex flex-col gap-3 rounded-xl border border-slate-700/80 bg-slate-950/55 p-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-100">
+              {summary.hasErrors ? (
+                <AlertTriangle size={14} className="text-rose-300" />
+              ) : summary.warnings.length > 0 ? (
+                <Info size={14} className="text-amber-300" />
+              ) : (
+                <ShieldCheck size={14} className="text-emerald-300" />
+              )}
+              檢查結果
+            </span>
+            <PreflightCount label="錯誤" count={summary.errors.length} tone="error" />
+            <PreflightCount label="警告" count={summary.warnings.length} tone="warning" />
+            <PreflightCount label="建議" count={summary.suggestions.length} tone="suggestion" />
+          </div>
+
+          {summary.issues.length === 0 ? (
+            <p className="mt-2 text-xs text-emerald-300">無阻擋問題，可以繼續匯出。</p>
+          ) : (
+            <ul className="mt-2 space-y-1.5">
+              {visibleIssues.map((issue) => (
+                <PreflightIssueRow key={issue.id} issue={issue} />
+              ))}
+            </ul>
+          )}
+
+          {overflowCount > 0 && (
+            <p className="mt-2 text-xs text-slate-500">另有 {overflowCount} 個檢查項目未顯示，建議先處理上方高風險項目。</p>
+          )}
+        </div>
+        <span className="rounded-full border border-slate-700 bg-slate-900 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+          {summary.mode}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function PreflightCount({ label, count, tone }: { label: string; count: number; tone: 'error' | 'warning' | 'suggestion' }) {
+  const toneClass = {
+    error: count > 0 ? 'border-rose-500/40 bg-rose-500/10 text-rose-200' : 'border-slate-700 bg-slate-900 text-slate-500',
+    warning: count > 0 ? 'border-amber-500/40 bg-amber-500/10 text-amber-200' : 'border-slate-700 bg-slate-900 text-slate-500',
+    suggestion: count > 0 ? 'border-sky-500/40 bg-sky-500/10 text-sky-200' : 'border-slate-700 bg-slate-900 text-slate-500',
+  }[tone];
+
+  return (
+    <span className={`rounded-full border px-2 py-0.5 text-[11px] font-semibold ${toneClass}`}>
+      {label} {count}
+    </span>
+  );
+}
+
+function PreflightIssueRow({ issue }: { issue: ExportPreflightIssue }) {
+  const toneClass = {
+    error: 'text-rose-200',
+    warning: 'text-amber-200',
+    suggestion: 'text-sky-200',
+  }[issue.severity];
+
+  return (
+    <li className="grid gap-1 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-2 text-xs sm:grid-cols-[84px_1fr]">
+      <span className={`font-semibold ${toneClass}`}>{severityLabel(issue.severity)}</span>
+      <span className="min-w-0 text-slate-400">
+        <strong className="text-slate-200">{issue.title}</strong>
+        <span className="mx-1 text-slate-600">/</span>
+        {issue.message}
+      </span>
+    </li>
+  );
+}
+
+function severityLabel(severity: ExportPreflightIssue['severity']) {
+  if (severity === 'error') return '錯誤';
+  if (severity === 'warning') return '警告';
+  return '建議';
 }
 
 function splitCampaignCode(html: string): { html: string; js: string } {

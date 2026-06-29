@@ -507,6 +507,8 @@ Acceptance：
 
 - 不再只能匯出後才發現破圖或缺 CTA。
 
+Status：完成第一階段。匯出視窗已接上 `analyzeExportPreflight`，會依目前分頁顯示 CMS 貼碼或 ZIP 匯出的檢查結果，包含錯誤、警告、建議與無阻擋問題狀態。第一階段先提供摘要與前 6 筆問題清單，後續再補「點擊回到模組」與匯出阻擋策略。
+
 ### BQ-007：Quick Builder industry expansion
 
 Goal：補強快速建立品類。

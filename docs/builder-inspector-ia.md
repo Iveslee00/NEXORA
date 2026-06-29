@@ -189,6 +189,21 @@ Check Group 和 Export Preflight 的差異：
 
 - `npm run verify:export-preflight`：通過。
 
+已完成 `BQ-006` 第一階段匯出視窗檢查提示：
+
+- `app/page.tsx` 會依目前活動頁 modules 與全站設定產生 CMS / ZIP / `.cmb` 三份 preflight summary。
+- `ExportModal` 會依目前分頁顯示對應檢查結果：
+  - 貼碼使用：CMS preflight。
+  - ZIP：ZIP preflight。
+  - 電子報：暫不顯示活動頁 preflight。
+- 檢查結果顯示錯誤、警告、建議數量。
+- 無問題時顯示「無阻擋問題」。
+- 有問題時顯示前 6 筆問題清單，後續可接「返回模組修正」。
+
+驗證：
+
+- `npm run verify:export-preflight-ui`：通過。
+
 驗證：
 
 - `npm run verify:image-field-status`：通過。

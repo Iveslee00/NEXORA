@@ -9,6 +9,7 @@ import { generateId } from '@/lib/utils';
 import { generatePageHTML } from '@/lib/export/htmlGenerator';
 import { generatePageCSS } from '@/lib/export/cssGenerator';
 import { generateEmailHTML } from '@/lib/export/emailGenerator';
+import { analyzeExportPreflight } from '@/lib/export/preflight';
 import {
   createEmptyProject,
   createImportedProject,
@@ -620,6 +621,23 @@ export default function Page() {
     html: generatePageHTML(modules),
     css: generatePageCSS({ buttonColor, buttonTextColor, pageBackgroundColor, pageBackgroundImage }),
   };
+  const exportPreflight = {
+    cms: analyzeExportPreflight({
+      modules,
+      settings: { buttonColor, buttonTextColor, pageBackgroundColor, pageBackgroundImage },
+      mode: 'cms',
+    }),
+    zip: analyzeExportPreflight({
+      modules,
+      settings: { buttonColor, buttonTextColor, pageBackgroundColor, pageBackgroundImage },
+      mode: 'zip',
+    }),
+    cmb: analyzeExportPreflight({
+      modules,
+      settings: { buttonColor, buttonTextColor, pageBackgroundColor, pageBackgroundImage },
+      mode: 'cmb',
+    }),
+  };
   const exportedEmail = generateEmailHTML(emailModules, emailSettings);
 
   const canExport = pageMode === 'campaign' ? modules.length > 0 : emailModules.length > 0;
@@ -1227,6 +1245,7 @@ export default function Page() {
             <ExportModal
               code={exportedCode}
               emailHTML={exportedEmail}
+              preflight={exportPreflight}
               initialTab={pageMode === 'email' ? 'email' : 'campaign'}
               onClose={() => setExportOpen(false)}
             />
