@@ -443,6 +443,8 @@ Acceptance：
 
 - 每個模組欄位可歸類到 Content / Images / Style / Action / Advanced / Check。
 
+Status：完成於 `docs/builder-inspector-ia.md`。已定義右側設定分組、全站設定歸屬、General / Campaign / Product 模組欄位 map、`BQ-003` UI shell 建議與 QA checklist。
+
 ### BQ-003：Right inspector grouped UI shell
 
 Goal：讓右側設定先具備清楚分區。
