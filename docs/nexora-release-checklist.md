@@ -115,4 +115,7 @@
 | Production homepage HTTP | Pass | `curl -s -i https://campaignbuilder-coral.vercel.app/` 回 HTTP 200 |
 | Production login API | Pass | `POST /api/auth/login` 回 HTTP 200 |
 | Production session API | Pass | `GET /api/auth/me` 回 HTTP 200，回傳 `client01` |
+| Wrong password handling | Pass | 錯誤密碼回 HTTP 401 |
+| Logout handling | Pass | `POST /api/auth/logout` 回 HTTP 200，登出後 `/api/auth/me` 回 `user: null` |
+| Inactive account handling | Pending | 程式查詢已限制 `is_active = true`；正式資料停用測試需先指定可停用帳號 |
 | Browser manual smoke | Pending | 仍需在正式站用瀏覽器實際登入、進 Workspace、進 NEXORA Builder |

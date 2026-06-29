@@ -539,7 +539,22 @@ npm run verify:auth-foundation
 npm run build
 ```
 
-Status：待做。
+Status：部分完成；正式站登入、remember session、錯誤密碼與登出後 session 清除已完成 API smoke test。停用帳號測試因涉及正式 Neon 使用者狀態變更，本輪只確認登入查詢已限制 `is_active = true`，未直接修改正式資料。
+
+2026-06-29 驗證結果：
+
+- `npm run verify:auth-foundation`：通過。
+- `npm run build`：通過。
+- `POST /api/auth/login` 使用 `client01` 正確帳密與 `remember: true`：HTTP 200。
+- `GET /api/auth/me` 使用登入後 session：HTTP 200，回傳 `client01`。
+- `POST /api/auth/login` 使用錯誤密碼：HTTP 401。
+- `POST /api/auth/logout`：HTTP 200。
+- 登出後 `GET /api/auth/me`：HTTP 200，回傳 `user: null`。
+
+剩餘人工 QA：
+
+- 若要完整驗證 inactive 帳號，需先指定一個可暫時停用的測試帳號，再執行 deactivate / login / activate 流程。
+- 用瀏覽器實際確認「記住 30 天」勾選後重新整理仍維持登入狀態。
 
 ### NX-013：帳號管理 runbook
 
