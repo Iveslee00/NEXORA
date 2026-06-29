@@ -50,6 +50,7 @@ ${data.slides.map((_, i) => `    <button class="cb-kv__dot${i === 0 ? ' cb-kv__d
     : '';
 
   return `<section class="cb-kv ${heightClass}"${bgOverride}>
+  <span class="cb-kv__glass-track"></span>
   <div class="cb-kv__track">
 ${slides}
   </div>

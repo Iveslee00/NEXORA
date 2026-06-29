@@ -12,6 +12,7 @@ export function generateProductGridHTML(data: ProductGridData): string {
       return `      <a href="${escapeHtml(p.link || '#')}" class="cb-product-card">
         <div class="cb-product-card__media">${labels}
           <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}">
+          <span class="cb-product-card__signal"></span>
         </div>
         <div class="cb-product-card__body">
           ${p.brand ? `<p class="cb-product-card__brand"${brandStyle}>${escapeHtml(p.brand)}</p>` : ''}

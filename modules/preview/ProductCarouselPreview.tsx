@@ -18,6 +18,16 @@ export function ProductCarouselPreview({ data }: { data: ProductCarouselData }) 
   const max = Math.max(0, data.products.length - visible);
   const brandStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
   const nameStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
+  const carouselProductSignal: React.CSSProperties = {
+    position: 'absolute',
+    left: 12,
+    right: 12,
+    bottom: 12,
+    height: 4,
+    borderRadius: 999,
+    background: 'linear-gradient(90deg, rgba(99,102,241,0.78), rgba(14,165,198,0.62))',
+    zIndex: 2,
+  };
 
   const viewportRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -87,6 +97,7 @@ export function ProductCarouselPreview({ data }: { data: ProductCarouselData }) 
                   <div style={{ position: 'relative', aspectRatio: '1/1', overflow: 'hidden', background: 'linear-gradient(135deg, #eef2ff, #f8fafc)' }}>
                     <PreviewImage src={product.image} alt={product.name} label="商品圖" spec={IMAGE_SPECS.product} />
                     <ProductCardLabels product={product} compact={isMobile} />
+                    <span style={carouselProductSignal} />
                   </div>
                   <div style={{ padding: isMobile ? '10px 12px' : '14px 16px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
                     {product.brand && (

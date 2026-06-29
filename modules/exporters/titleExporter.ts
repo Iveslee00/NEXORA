@@ -8,6 +8,7 @@ export function generateTitleHTML(data: TitleData): string {
 
   return `<div class="cb-title-block${alignClass}"${bgStyle}>
   <div class="cb-container">
+    <span class="cb-title-block__halo"></span>
     <span class="cb-title-block__cn"${titleStyle}>${escapeHtml(data.titleCn)}</span>
     <span class="cb-title-block__en"${titleStyle}>${escapeHtml(data.titleEn)}</span>
   </div>

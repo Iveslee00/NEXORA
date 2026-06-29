@@ -66,6 +66,19 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
   const imgCenterTop = isMobile && currentSlideHasText ? `calc(50vw / (${h.mobileImgRatio}))` : '50%';
   const imgRight = '14px';
   const imgLeft = '8px';
+  const carouselGlassTrack: React.CSSProperties = {
+    position: 'absolute',
+    left: isMobile ? '12px' : '28px',
+    right: isMobile ? '12px' : '28px',
+    top: isMobile ? '12px' : '28px',
+    bottom: isMobile && currentSlideHasText ? 'auto' : isMobile ? '12px' : '28px',
+    height: isMobile && currentSlideHasText ? `calc((100vw - 32px) / (${h.mobileImgRatio}) - 24px)` : undefined,
+    borderRadius: isMobile ? '20px' : '34px',
+    border: '1px solid rgba(255,255,255,0.18)',
+    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.16), 0 28px 80px rgba(15,23,42,0.18)',
+    pointerEvents: 'none',
+    zIndex: 2,
+  };
 
   return (
     <section
@@ -73,6 +86,7 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
+      <span style={carouselGlassTrack} />
       {/* Slides strip */}
       <div style={{ display: 'flex', transform: `translateX(-${current * 100}%)`, transition: 'transform 0.5s cubic-bezier(0.4,0,0.2,1)', height: '100%' }}>
         {slides.map((s) => {

@@ -17,6 +17,7 @@ export function generateBannerProductsHTML(data: BannerProductsData): string {
       return `      <a href="${escapeHtml(p.link || '#')}" class="cb-product-card">
         <div class="cb-product-card__media">${labels}
           <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}">
+          <span class="cb-product-card__signal"></span>
         </div>
         <div class="cb-product-card__body">
           ${p.brand ? `<p class="cb-product-card__brand"${brandStyle}>${escapeHtml(p.brand)}</p>` : ''}
@@ -36,6 +37,7 @@ export function generateBannerProductsHTML(data: BannerProductsData): string {
   <div class="cb-container">
     <div class="cb-banner-products__inner cb-banner-products__inner${countClass}">
       <a href="${escapeHtml(data.bannerLink || '#')}" class="cb-banner-products__banner">
+        <span class="cb-banner-products__frame"></span>
         ${bannerImg}
         <div class="cb-banner-products__banner-overlay">
           ${data.bannerTitle ? `<p class="cb-banner-products__banner-title"${bannerTitleStyle}>${escapeHtml(data.bannerTitle)}</p>` : ''}

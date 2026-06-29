@@ -41,6 +41,23 @@ export function HeroPreview({ data }: { data: HeroData }) {
   const heroImage = (
     <PreviewImage src={imageSrc} alt="" label={imageLabel} spec={imageSpec} tone="dark" />
   );
+  const heroDepthLayer: React.CSSProperties = {
+    position: 'absolute',
+    inset: 0,
+    pointerEvents: 'none',
+    background: 'radial-gradient(circle at 18% 18%, rgba(255,255,255,0.24), transparent 28%), radial-gradient(circle at 76% 66%, rgba(99,102,241,0.22), transparent 30%)',
+    mixBlendMode: 'screen',
+    zIndex: 1,
+  };
+  const heroGlassShell: React.CSSProperties = {
+    position: 'absolute',
+    inset: isMobile ? '12px' : '28px',
+    pointerEvents: 'none',
+    borderRadius: isMobile ? '20px' : '34px',
+    border: '1px solid rgba(255,255,255,0.18)',
+    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.16), 0 28px 80px rgba(15,23,42,0.18)',
+    zIndex: 1,
+  };
 
   const btnStyle: React.CSSProperties = {
     display: 'inline-flex', alignItems: 'center',
@@ -51,6 +68,8 @@ export function HeroPreview({ data }: { data: HeroData }) {
 
   return (
     <section style={sectionStyle}>
+      <span style={heroDepthLayer} />
+      <span style={heroGlassShell} />
       {!showText ? (
         <div style={{ position: 'relative', flex: '1 1 auto', overflow: 'hidden' }}>
           {hasBannerLink ? (
@@ -71,7 +90,7 @@ export function HeroPreview({ data }: { data: HeroData }) {
               {heroImage}
             </div>
           )}
-          <div style={{ position: isMobile ? 'relative' : 'absolute', inset: isMobile ? undefined : 0, zIndex: 1, display: 'flex', alignItems: 'center', background: isMobile ? textBg : 'linear-gradient(90deg, rgba(15,23,42,0.46), rgba(15,23,42,0.16) 48%, rgba(15,23,42,0.04))', color: defaultTextColor }}>
+          <div style={{ position: isMobile ? 'relative' : 'absolute', inset: isMobile ? undefined : 0, zIndex: 2, display: 'flex', alignItems: 'center', background: isMobile ? textBg : 'linear-gradient(90deg, rgba(15,23,42,0.46), rgba(15,23,42,0.16) 48%, rgba(15,23,42,0.04))', color: defaultTextColor }}>
             <div style={{ width: '100%', maxWidth: '1080px', margin: '0 auto', padding: isMobile ? '20px 18px' : '0 40px' }}>
               <div style={{ maxWidth: isMobile ? 'none' : '430px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                 {data.kicker && <span style={{ display: 'block', fontSize: '12px', fontWeight: 600, letterSpacing: '0.12em', opacity: 0.65, marginBottom: '14px', ...textStyle }}>{data.kicker}</span>}

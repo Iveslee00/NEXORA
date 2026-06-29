@@ -13,6 +13,15 @@ export function FaqPreview({ data }: { data: FaqData }) {
   const { buttonColor } = useGlobalSettings();
   const titleStyle: React.CSSProperties = data.titleColor ? { color: data.titleColor } : {};
   const textStyle: React.CSSProperties = data.textColor ? { color: data.textColor } : {};
+  const faqSignalLine: React.CSSProperties = {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 4,
+    background: isMobile ? 'linear-gradient(180deg, rgba(99,102,241,0.74), rgba(14,165,198,0.52))' : 'linear-gradient(180deg, rgba(99,102,241,0.88), rgba(14,165,198,0.58))',
+    opacity: 0.88,
+  };
 
   return (
     <section style={{ ...moduleSurface(data.backgroundColor), padding: isMobile ? '28px 16px 36px' : '56px 24px 64px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', pointerEvents: 'auto' }}>
@@ -21,7 +30,8 @@ export function FaqPreview({ data }: { data: FaqData }) {
           {data.items.map((item) => {
             const isOpen = openId === item.id;
             return (
-              <div key={item.id} style={{ border: softBorder, borderRadius: '18px', overflow: 'hidden', background: '#ffffff', boxShadow: isOpen ? premiumShadow : '0 10px 28px rgba(15,23,42,0.06)', ...hoverLift }}>
+              <div key={item.id} style={{ position: 'relative', border: softBorder, borderRadius: '18px', overflow: 'hidden', background: '#ffffff', boxShadow: isOpen ? premiumShadow : '0 10px 28px rgba(15,23,42,0.06)', ...hoverLift }}>
+                <span style={faqSignalLine} />
                 <button
                   onClick={() => setOpenId(isOpen ? null : item.id)}
                   style={{

@@ -5,6 +5,7 @@ export function generateLogoWallHTML(data: LogoWallData): string {
   const logoItems = data.logos
     .map(
       (logo) => `      <a href="${escapeHtml(logo.link || '#')}" class="cb-logo-wall__item">
+        <span class="cb-logo-wall__frame"></span>
         <img src="${escapeHtml(logo.image)}" alt="${escapeHtml(logo.alt)}">
       </a>`
     )

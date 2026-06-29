@@ -87,7 +87,15 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 /* ------------------------------------------------------------
    4. TITLE BLOCK MODULE
    ------------------------------------------------------------ */
-.cb-title-block { padding: 22px 0 12px; }
+.cb-title-block { position: relative; overflow: hidden; padding: 22px 0 12px; }
+.cb-title-block .cb-container { position: relative; }
+.cb-title-block__halo {
+  position: absolute; top: 50%; left: 0; width: 180px; height: 180px;
+  transform: translateY(-50%); border-radius: 999px; pointer-events: none;
+  background: radial-gradient(circle, rgba(99,102,241,0.14), transparent 68%);
+}
+.cb-title-block--center .cb-title-block__halo { left: 50%; transform: translate(-50%, -50%); }
+.cb-title-block--right .cb-title-block__halo { left: auto; right: 0; }
 .cb-title-block::after {
   content: ""; display: block; width: 56px; height: 4px; margin-top: 14px;
   border-radius: 999px; background: linear-gradient(135deg, rgba(99,102,241,0.78), rgba(14,165,198,0.72));
@@ -116,11 +124,22 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   background: linear-gradient(90deg, rgba(15,23,42,0.58), rgba(15,23,42,0.18) 48%, rgba(15,23,42,0.04));
 }
 .cb-hero--image-only::after { display: none; }
+.cb-hero__depth-layer {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(circle at 18% 18%, rgba(255,255,255,0.24), transparent 28%), radial-gradient(circle at 76% 66%, rgba(99,102,241,0.22), transparent 30%);
+  mix-blend-mode: screen;
+}
+.cb-hero__glass-shell {
+  position: absolute; inset: 28px; z-index: 3; pointer-events: none;
+  border-radius: 34px; border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), 0 28px 80px rgba(15,23,42,0.18);
+  backdrop-filter: blur(18px) saturate(1.2);
+}
 .cb-hero--small { aspect-ratio: 1920 / 480; }
 .cb-hero--medium { aspect-ratio: 1920 / 640; }
 .cb-hero--large { aspect-ratio: 1920 / 800; }
 .cb-hero__content {
-  position: relative; z-index: 2; width: 100%; max-width: 1080px;
+  position: relative; z-index: 4; width: 100%; max-width: 1080px;
   margin-left: auto; margin-right: auto; padding: 0 40px;
   display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
   background: transparent;
@@ -173,6 +192,12 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-product-card__media { position: relative; aspect-ratio: 1/1; overflow: hidden; background: radial-gradient(circle at 30% 18%, #ffffff, #eef2ff 52%, #e0f2fe); }
 .cb-product-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
 .cb-product-card:hover .cb-product-card__media img { transform: scale(1.05); }
+.cb-product-card__signal {
+  position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 2;
+  height: 4px; border-radius: 999px;
+  background: linear-gradient(90deg, rgba(99,102,241,0.78), rgba(14,165,198,0.62));
+  box-shadow: 0 10px 24px rgba(99,102,241,0.22);
+}
 .cb-product-card__labels {
   position: absolute; top: 10px; left: 10px; z-index: 2;
   display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
@@ -217,6 +242,11 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   position: relative; border-radius: 26px; overflow: hidden;
   background: radial-gradient(circle at 28% 18%, rgba(99,102,241,0.26), transparent 36%), #111827; height: 100%; display: flex;
   box-shadow: 0 22px 60px rgba(15,23,42,0.16);
+}
+.cb-banner-products__frame {
+  position: absolute; inset: 12px; z-index: 2; pointer-events: none;
+  border-radius: 18px; border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
 }
 .cb-banner-products__products { display: grid; gap: 16px; align-items: start; min-height: 0; }
 .cb-banner-products__products--0 { display: none; }
@@ -294,6 +324,12 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-product-banner__media { position: relative; border-radius: 28px; overflow: hidden; aspect-ratio: 700 / 600; box-shadow: 0 22px 60px rgba(15,23,42,0.12); background: linear-gradient(135deg, #eef2ff, #f8fafc); }
 .cb-product-banner--small .cb-product-banner__media { aspect-ratio: 700 / 460; }
 .cb-product-banner--large .cb-product-banner__media { aspect-ratio: 700 / 740; }
+.cb-product-banner__glass-panel {
+  position: absolute; inset: 16px; z-index: 2; pointer-events: none;
+  border-radius: 24px; border: 1px solid rgba(255,255,255,0.54);
+  background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
+  backdrop-filter: blur(18px) saturate(1.2);
+}
 .cb-product-banner__picture { position: absolute; inset: 0; display: block; }
 .cb-product-banner__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .cb-product-banner__badge { position: absolute; top: 16px; right: 16px; padding: 6px 12px; background-color: #e53e3e; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; border-radius: 6px; z-index: 1; }
@@ -303,6 +339,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    ------------------------------------------------------------ */
 .cb-logo-wall__grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 28px 32px; }
 .cb-logo-wall__item {
+  position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center; opacity: 1;
   min-width: 196px; min-height: 92px; padding: 16px 18px; border-radius: 18px;
   background: rgba(255,255,255,0.78); border: 1px solid rgba(15,23,42,0.08);
@@ -311,7 +348,12 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .cb-logo-wall__item:hover { opacity: 1; transform: translateY(-2px); box-shadow: 0 18px 42px rgba(15,23,42,0.10); }
-.cb-logo-wall__item img { width: 160px; height: 60px; object-fit: contain; display: block; }
+.cb-logo-wall__frame {
+  position: absolute; inset: 5px; z-index: 1; pointer-events: none;
+  border-radius: 14px; border: 1px solid rgba(255,255,255,0.58);
+  background: linear-gradient(135deg, rgba(255,255,255,0.42), rgba(255,255,255,0.08));
+}
+.cb-logo-wall__item img { position: relative; z-index: 2; width: 160px; height: 60px; object-fit: contain; display: block; }
 
 /* ------------------------------------------------------------
    12. CTA MODULE
@@ -339,10 +381,15 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    ------------------------------------------------------------ */
 .cb-faq__list { max-width: 800px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; gap: 12px; }
 .cb-faq__item {
+  position: relative;
   border: 1px solid rgba(15,23,42,0.07); border-radius: 18px; overflow: hidden;
   background: rgba(255,255,255,0.86);
   box-shadow: 0 14px 36px rgba(15,23,42,0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.cb-faq__signal {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(180deg, rgba(99,102,241,0.88), rgba(14,165,198,0.58));
 }
 .cb-faq__item:hover { transform: translateY(-2px); border-color: rgba(99,102,241,0.18); box-shadow: 0 22px 60px rgba(15,23,42,0.10); }
 .cb-faq__item summary { list-style: none; }
@@ -697,6 +744,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   ${pageBgImg ? `.cb-page { background-size: auto 100%; background-position: top center; }\n  ` : ''}.cb-section { padding-top: 24px; padding-bottom: 32px; }
   .cb-section { padding-top: 24px; padding-bottom: 32px; }
   .cb-title-block { padding-top: 10px; padding-bottom: 4px; }
+  .cb-title-block__halo { width: 120px; height: 120px; }
   .cb-hero { flex-direction: column; align-items: stretch; }
   .cb-hero--small,
   .cb-hero--medium,
@@ -704,6 +752,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-hero--image-only.cb-hero--small { aspect-ratio: 750 / 750; }
   .cb-hero--image-only.cb-hero--medium { aspect-ratio: 750 / 850; }
   .cb-hero--image-only.cb-hero--large { aspect-ratio: 750 / 950; }
+  .cb-hero__glass-shell { inset: 12px; border-radius: 20px; }
   .cb-hero__content { position: relative; flex: 0 0 auto; width: 100%; max-width: none; padding: 20px 18px; background: var(--cb-hero-mobile-bg, #1a1a2e); }
   .cb-hero__media { position: relative; inset: auto; flex: 0 0 auto; order: -1; aspect-ratio: 750 / 850; }
   .cb-hero--small .cb-hero__media { aspect-ratio: 750 / 750; }
@@ -870,6 +919,12 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-kv--small  { aspect-ratio: 1920 / 480; }
 .cb-kv--medium { aspect-ratio: 1920 / 640; }
 .cb-kv--large  { aspect-ratio: 1920 / 800; }
+.cb-kv__glass-track {
+  position: absolute; inset: 28px; z-index: 2; pointer-events: none;
+  border-radius: 34px; border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), 0 28px 80px rgba(15,23,42,0.18);
+  backdrop-filter: blur(18px) saturate(1.2);
+}
 .cb-kv__track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
 .cb-kv__slide { flex: 0 0 100%; position: relative; height: 100%; overflow: hidden; }
 .cb-kv__slide:not(.cb-kv__slide--image-only)::after {
@@ -905,6 +960,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-kv--small,
   .cb-kv--medium,
   .cb-kv--large { aspect-ratio: auto; }
+  .cb-kv__glass-track { inset: 12px; border-radius: 20px; bottom: auto; height: calc((100vw - 32px) / (750 / 850) - 24px); }
   .cb-kv__track { height: auto; }
   .cb-kv__slide { display: grid; grid-template-columns: 1fr; grid-template-rows: auto auto; height: auto; }
   .cb-kv__img { position: relative; inset: auto; aspect-ratio: 750 / 850; }
@@ -923,9 +979,11 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-kv__dots { bottom: auto; top: calc((100vw - 32px) / (750 / 850) - 22px); left: 50%; }
   .cb-kv--small .cb-kv__nav--prev,
   .cb-kv--small .cb-kv__nav--next { top: calc((100vw - 32px) / (750 / 750) / 2); }
+  .cb-kv--small .cb-kv__glass-track { height: calc((100vw - 32px) / (750 / 750) - 24px); }
   .cb-kv--small .cb-kv__dots { top: calc((100vw - 32px) / (750 / 750) - 22px); }
   .cb-kv--large .cb-kv__nav--prev,
   .cb-kv--large .cb-kv__nav--next { top: calc((100vw - 32px) / (750 / 950) / 2); }
+  .cb-kv--large .cb-kv__glass-track { height: calc((100vw - 32px) / (750 / 950) - 24px); }
   .cb-kv--large .cb-kv__dots { top: calc((100vw - 32px) / (750 / 950) - 22px); }
 }
 

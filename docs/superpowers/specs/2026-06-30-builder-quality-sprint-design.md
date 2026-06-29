@@ -598,6 +598,8 @@ Acceptance：
 - 不破壞既有尺寸規格。
 - 不讓 Campaign 模組變成 Product 模組重複品。
 
+Status：完成第一階段。General / Campaign 模組已補強視覺層次：KV 與 KV 輪播新增深度層與玻璃框；標題、FAQ、Logo Wall 補上輕量視覺訊號；商品列表、商品輪播、活動 Banner + 商品、單品主打補上活動商品訊號與玻璃層。預覽與匯出 HTML/CSS 已同步，並新增 `npm run verify:general-campaign-visual-upgrade` 鎖定回歸。
+
 ### BQ-012：Resources page repositioning
 
 Goal：處理素材區雞肋感。

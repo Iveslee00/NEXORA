@@ -31,6 +31,8 @@ export function generateHeroHTML(data: HeroData): string {
       ? `<a href="${escapeHtml(data.buttonLink)}" class="cb-hero__link">${mediaPicture}</a>`
       : mediaPicture;
     return `<section class="cb-hero ${heightClass}${imageOnlyClass}"${sectionStyle}>
+  <span class="cb-hero__depth-layer"></span>
+  <span class="cb-hero__glass-shell"></span>
   <div class="cb-hero__media cb-hero__media--full">
           ${linkedMedia}
   </div>
@@ -38,6 +40,8 @@ export function generateHeroHTML(data: HeroData): string {
   }
 
   return `<section class="cb-hero ${heightClass}"${sectionStyle}>
+      <span class="cb-hero__depth-layer"></span>
+      <span class="cb-hero__glass-shell"></span>
       <div class="cb-hero__content">${kicker}
         <h1 class="cb-hero__title"${titleStyle}>${escapeHtml(data.title)}</h1>${subtitle}${button}
       </div>

@@ -7,6 +7,7 @@ export function generateFaqHTML(data: FaqData): string {
   const items = data.items
     .map(
       (item) => `      <details class="cb-faq__item">
+        <span class="cb-faq__signal"></span>
         <summary class="cb-faq__question">
           ${escapeHtml(item.question)}
           <span class="cb-faq__toggle">+</span>
