@@ -161,14 +161,22 @@ npm run verify:auth-foundation
 npm run verify:workshop-demo
 ```
 
-Status：本機驗證完成；正式站 HTTP 檢查待可解析 DNS 的環境補驗。
+Status：自動 smoke test 通過；正式站首頁、登入 API 與 session API 已驗證。瀏覽器人工點擊 Workspace / Builder 入口仍建議在試用前補一次。
 
-2026-06-28 驗證結果：
+2026-06-29 驗證結果：
 
 - `npm run build`：通過。
 - `npm run verify:auth-foundation`：通過。
 - `npm run verify:workshop-demo`：通過。
-- `curl https://campaignbuilder-coral.vercel.app/`：目前本機 shell 回傳 `Could not resolve host`，需改由瀏覽器或可正常 DNS 解析的環境補驗正式站首頁、登入與 Builder 入口。
+- `curl -s -i https://campaignbuilder-coral.vercel.app/`：HTTP 200。
+- `POST https://campaignbuilder-coral.vercel.app/api/auth/login`：HTTP 200。
+- `GET https://campaignbuilder-coral.vercel.app/api/auth/me`：HTTP 200，回傳 `client01` 使用者狀態。
+
+剩餘人工 QA：
+
+- 用瀏覽器實際登入正式站。
+- 確認登入後可看到 NEXORA Workspace。
+- 確認可從 Workspace 進入 NEXORA Builder。
 
 ### NX-004：Vercel 部署與回滾流程驗證
 

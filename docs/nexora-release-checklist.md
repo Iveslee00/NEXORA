@@ -89,7 +89,7 @@
 
 ## 7. 2026-06-28 Trial Hardening Snapshot
 
-本段記錄明天使用者試用前的本機自動檢查狀態。正式上線前仍需補瀏覽器人工 smoke test。
+本段記錄明天使用者試用前的自動檢查狀態。正式上線前仍建議補一次瀏覽器人工 smoke test。
 
 | Check | Result | Note |
 |---|---|---|
@@ -112,3 +112,7 @@
 | NEXORA brand | Pass | `npm run verify:nexora-brand` |
 | TypeScript | Pass | `npm run typecheck` |
 | Production build | Pass | `npm run build` |
+| Production homepage HTTP | Pass | `curl -s -i https://campaignbuilder-coral.vercel.app/` 回 HTTP 200 |
+| Production login API | Pass | `POST /api/auth/login` 回 HTTP 200 |
+| Production session API | Pass | `GET /api/auth/me` 回 HTTP 200，回傳 `client01` |
+| Browser manual smoke | Pending | 仍需在正式站用瀏覽器實際登入、進 Workspace、進 NEXORA Builder |
