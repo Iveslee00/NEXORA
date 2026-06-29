@@ -28,6 +28,7 @@ export function generateProductBenefitsHTML(data: ProductBenefitsData): string {
   const title = textStyle(data.titleColor);
   const text = textStyle(data.textColor);
   const items = data.items.map((item) => `      <article class="cb-product-benefits__item">
+        <span class="cb-product-benefits__signal" aria-hidden="true"></span>
         <p class="cb-product-benefits__metric"${title}>${escapeHtml(item.metric)}</p>
         <h3 class="cb-product-benefits__title"${title}>${escapeHtml(item.title)}</h3>
         <p class="cb-product-benefits__text"${text}>${escapeHtml(item.description)}</p>
@@ -122,6 +123,7 @@ export function generateProductPurchaseHTML(data: ProductPurchaseData): string {
 
   return `<section class="cb-product-purchase cb-product-purchase--${escapeHtml(data.style)} cb-section"${bgStyle(data.backgroundColor)}>
   <div class="cb-container">
+    <span class="cb-product-purchase__glow" aria-hidden="true"></span>
     ${headHTML(data)}
     <div class="cb-product-purchase__action">
       <a class="cb-product-purchase__button" href="${escapeHtml(data.buttonLink || '#')}">${escapeHtml(data.buttonText)}</a>

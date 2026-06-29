@@ -45,6 +45,7 @@ export function ProductBenefitsPreview({ data }: { data: ProductBenefitsData }) 
         <div style={{ display: 'grid', gridTemplateColumns: columns, gap: 18 }}>
           {data.items.map((item) => (
             <article key={item.id} style={{ position: 'relative', display: isStacked && !isMobile ? 'grid' : 'block', gridTemplateColumns: isStacked && !isMobile ? '92px 1fr' : undefined, gap: isStacked ? 22 : undefined, borderRadius: isPainSolution ? 28 : 26, padding: isMobile ? 20 : isStacked ? 26 : 28, background: cardBackground, border: isPainSolution ? '1px solid rgba(79,70,229,0.14)' : '1px solid rgba(15,23,42,0.08)', boxShadow: isPainSolution ? '0 22px 58px rgba(79,70,229,0.10)' : '0 18px 48px rgba(15,23,42,0.08)', overflow: 'hidden', backdropFilter: isStacked ? 'blur(10px)' : undefined }}>
+              <span style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: isPainSolution ? 8 : 5, background: isPainSolution ? 'linear-gradient(180deg, #4f46e5, #22d3ee)' : 'linear-gradient(180deg, rgba(15,23,42,0.20), rgba(15,23,42,0.04))' }} data-visual="benefitSignalBar" />
               {isPainSolution && <span style={{ position: 'absolute', right: -24, top: -24, width: 86, height: 86, borderRadius: 999, background: 'rgba(79,70,229,0.10)' }} />}
               <p style={{ display: 'inline-flex', width: isStacked ? 68 : undefined, height: isStacked ? 68 : undefined, alignItems: isStacked ? 'center' : undefined, justifyContent: isStacked ? 'center' : undefined, borderRadius: isStacked ? 24 : undefined, background: isStacked ? 'linear-gradient(135deg, rgba(248,250,252,0.96), rgba(255,255,255,0.74))' : undefined, margin: '0 0 18px', fontSize: data.style === 'metric-cards' ? '2rem' : '0.9rem', fontWeight: 900, color: titleColor, opacity: data.style === 'metric-cards' || isStacked ? 1 : 0.68 }}>{item.metric}</p>
               <div>
@@ -156,7 +157,8 @@ export function ProductPurchasePreview({ data }: { data: ProductPurchaseData }) 
   const relatedCompactCard = data.style === 'related';
   return (
     <section style={{ ...moduleSurface(data.backgroundColor || '#0f172a'), padding: isMobile ? '40px 16px' : '64px 24px', fontFamily }}>
-      <div style={{ maxWidth: 1080, margin: '0 auto', color: textColor }}>
+      <div style={{ position: 'relative', maxWidth: 1080, margin: '0 auto', color: textColor }}>
+        <span style={{ position: 'absolute', inset: isMobile ? '-12px' : '-24px', borderRadius: 36, background: 'linear-gradient(135deg, rgba(255,255,255,0.10), rgba(99,102,241,0.12), rgba(34,211,238,0.08))', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 30px 90px rgba(0,0,0,0.20)', pointerEvents: 'none' }} data-visual="purchaseGlowFrame" />
         <ProductHead {...data} titleColor={titleColor} textColor={textColor} centered={isCta} />
         <div style={{ textAlign: isCta ? 'center' : 'left', marginBottom: 28 }}>
           <a href={data.buttonLink || '#'} style={{ display: 'inline-flex', minHeight: isCta ? 56 : 48, alignItems: 'center', justifyContent: 'center', borderRadius: 999, background: '#ffffff', color: '#0f172a', padding: isCta ? '0 40px' : '0 32px', fontWeight: 850, textDecoration: 'none', boxShadow: isCta ? 'none' : '0 16px 36px rgba(0,0,0,0.18)' }}>{data.buttonText}</a>

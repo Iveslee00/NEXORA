@@ -41,6 +41,7 @@
     "verify:export-preflight": "node --no-warnings scripts/verify-export-preflight.mjs",
     "verify:export-preflight-ui": "node --no-warnings scripts/verify-export-preflight-ui.mjs",
     "verify:product-builder-industries": "node --no-warnings scripts/verify-product-builder-industries.mjs",
+    "verify:product-page-visual-upgrade": "node --no-warnings scripts/verify-product-page-visual-upgrade.mjs",
     "setup:auth-db": "node --no-warnings scripts/setup-auth-db.mjs",
     "manage:auth-user": "node --no-warnings scripts/manage-auth-user.mjs",
     "start": "next start",

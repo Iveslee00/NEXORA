@@ -21,6 +21,8 @@ export function ProductShowcasePreview({ data }: { data: ProductShowcaseData }) 
   const commerceGrid = data.style === 'split';
   const freshGlow = isSpacious;
   const sectionBackground = data.backgroundColor || (isLuxury ? 'linear-gradient(135deg, #f8fbff 0%, #eaf7ff 48%, #fff7ed 100%)' : '#eefaff');
+  const floatingGlassBadge = !isMobile && (isLuxury || commerceGrid || freshGlow);
+  const ambientPanel = !isMobile && (isLuxury || commerceGrid);
 
   const content = (
     <div style={{
@@ -60,10 +62,12 @@ export function ProductShowcasePreview({ data }: { data: ProductShowcaseData }) 
       boxShadow: !isFull ? (commerceGrid ? '0 22px 58px rgba(79,70,229,0.13)' : '0 24px 70px rgba(15,23,42,0.12)') : undefined,
       border: luxuryFrame ? '1px solid rgba(47,42,37,0.12)' : commerceGrid ? '1px solid rgba(79,70,229,0.12)' : undefined,
     }}>
+      {ambientPanel && <div style={{ position: 'absolute', inset: isLuxury ? '9% 8% 11% 18%' : '7%', borderRadius: 34, background: 'linear-gradient(135deg, rgba(255,255,255,0.52), rgba(255,255,255,0.08))', border: '1px solid rgba(255,255,255,0.42)', backdropFilter: 'blur(18px) saturate(1.2)', pointerEvents: 'none' }} />}
       {isLuxury && <div style={{ position: 'absolute', inset: '12%', borderRadius: '50%', background: 'rgba(125,211,252,0.24)', filter: 'blur(34px)' }} />}
       {freshGlow && <div style={{ position: 'absolute', inset: '-18%', borderRadius: '50%', background: 'rgba(14,165,198,0.18)', filter: 'blur(44px)' }} />}
       {promoRibbon && <div style={{ position: 'absolute', right: 28, top: 28, zIndex: 2, borderRadius: 999, background: '#ef4444', color: '#fff', padding: '10px 18px', fontSize: 13, fontWeight: 900, boxShadow: '0 14px 34px rgba(239,68,68,0.30)' }}>LIMITED OFFER</div>}
       {commerceGrid && <div style={{ position: 'absolute', inset: 18, borderRadius: 24, backgroundImage: 'linear-gradient(rgba(79,70,229,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(79,70,229,0.08) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />}
+      {floatingGlassBadge && <span style={{ position: 'absolute', left: 24, bottom: 24, zIndex: 2, minWidth: 118, borderRadius: 999, padding: '10px 16px', background: 'rgba(255,255,255,0.64)', border: '1px solid rgba(255,255,255,0.60)', boxShadow: '0 18px 44px rgba(15,23,42,0.14)', backdropFilter: 'blur(18px) saturate(1.2)', color: titleColor, fontSize: 12, fontWeight: 900, letterSpacing: '0.08em', textTransform: 'uppercase' }}>{data.eyebrow || 'Featured'}</span>}
       <PreviewImage src={imageSrc} alt="" label={isMobile ? '商品展示 M' : '商品展示 PC'} spec={isMobile ? IMAGE_SPECS.productShowcaseMobile : IMAGE_SPECS.productShowcase} objectFit={isLuxury ? 'contain' : 'cover'} variant="product" />
     </div>
   );

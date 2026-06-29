@@ -378,6 +378,41 @@ function visualDirectionFor(input: ProductBuilderInput) {
   };
 }
 
+function visualHook(input: ProductBuilderInput) {
+  const copy = copyFor(input);
+  const hooks: Record<ProductIndustry, string> = {
+    cleaning: '用清爽明亮的視覺把潔淨感放大，讓商品從第一屏就能被理解。',
+    beauty: '用留白、細節與質感光影強化品牌信任，讓保養價值更容易被感受。',
+    ecommerce: '用白底商品主圖與規格化資訊降低比較成本，讓使用者快速做選擇。',
+    food: '用風味、口感與食用情境建立想像，讓商品看起來更有食慾與檔期感。',
+    electronics: '用規格、功能與場景化利益建立專業感，讓複雜商品更容易被看懂。',
+    fashion: '用風格情境、材質細節與穿搭想像建立質感，讓商品更有記憶點。',
+  };
+  return `${hooks[input.industry]} 目前線別：${copy.label}。`;
+}
+
+function proofHook(input: ProductBuilderInput) {
+  const hooks: Record<ProductIndustry, string> = {
+    cleaning: '信任重點放在溫和、適用場景、清潔效率與日常安心。',
+    beauty: '信任重點放在成分、膚感、使用週期與品牌承諾。',
+    ecommerce: '信任重點放在規格、評價、物流與售後政策。',
+    food: '信任重點放在原料、保存、過敏資訊與食用安心。',
+    electronics: '信任重點放在規格、保固、效能與使用限制。',
+    fashion: '信任重點放在材質、尺寸、保養方式與實穿情境。',
+  };
+  return hooks[input.industry];
+}
+
+function conversionIntent(input: ProductBuilderInput) {
+  const intents: Record<ProductGoal, string> = {
+    sales: '最後一屏要集中火力承接價格、組合與立即購買。',
+    launch: '最後一屏要把新品亮點轉成第一波嘗鮮理由。',
+    comparison: '最後一屏要承接比較結果，讓使用者知道為什麼選這個。',
+    scenario: '最後一屏要回扣使用情境，讓使用者找到自己的購買理由。',
+  };
+  return intents[input.goal];
+}
+
 function createModule(type: ProductModuleType, input: ProductBuilderInput): PageModule {
   const copy = copyFor(input);
   const theme = themeFor(input);
@@ -431,8 +466,8 @@ function createModule(type: ProductModuleType, input: ProductBuilderInput): Page
           title: input.productName,
           subtitle: input.description,
           description: input.industry === 'ecommerce'
-            ? `適合放置 1000 x 1000 去背商品圖，快速呈現商品外觀、規格與購買理由。${direction.hero}`
-            : `適合放置 1000 x 1000 去背商品圖，搭配主題背景建立商品頁質感。${direction.hero}`,
+            ? `適合放置 1000 x 1000 去背商品圖，快速呈現商品外觀、規格與購買理由。${visualHook(input)} ${direction.hero}`
+            : `適合放置 1000 x 1000 去背商品圖，搭配主題背景建立商品頁質感。${visualHook(input)} ${direction.hero}`,
           image: input.mainImage,
           mobileImage: input.mobileImage || input.mainImage,
           buttonText: input.ctaText,
@@ -452,7 +487,7 @@ function createModule(type: ProductModuleType, input: ProductBuilderInput): Page
           style: theme.benefitsStyle,
           eyebrow: theme.eyebrow,
           title: input.goal === 'comparison' ? '先解決購買前最常見的疑慮' : '三個理由，讓商品更容易被選擇',
-          subtitle: '以購買理由重新整理商品利益，而不是只列功能。',
+          subtitle: `以購買理由重新整理商品利益，而不是只列功能。${conversionIntent(input)}`,
           backgroundColor: theme.cardBackground,
           titleColor: theme.titleColor,
           textColor: theme.textColor,
@@ -570,7 +605,7 @@ function createModule(type: ProductModuleType, input: ProductBuilderInput): Page
           style: theme.proofStyle,
           eyebrow: 'Trust',
           title: '補上讓人放心購買的理由',
-          subtitle: '可放評價、認證、保證、檢測或品牌承諾。',
+          subtitle: `可放評價、認證、保證、檢測或品牌承諾。${proofHook(input)}`,
           backgroundColor: theme.softSurface,
           titleColor: theme.titleColor,
           textColor: theme.textColor,
@@ -602,7 +637,7 @@ function createModule(type: ProductModuleType, input: ProductBuilderInput): Page
           style: theme.purchaseStyle,
           eyebrow: input.goal === 'sales' ? 'Shop Now' : 'Next Step',
           title: input.goal === 'launch' ? `立即體驗 ${input.productName}` : '現在入手推薦組合',
-          subtitle: `用購買 CTA 承接最後轉換，也可改成相關商品、推薦組合或單一購買按鈕。${direction.purchase}`,
+          subtitle: `用購買 CTA 承接最後轉換，也可改成相關商品、推薦組合或單一購買按鈕。${conversionIntent(input)} ${direction.purchase}`,
           buttonText: input.ctaText,
           buttonLink: input.ctaLink,
           backgroundColor: theme.darkSurface,

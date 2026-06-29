@@ -543,6 +543,8 @@ Acceptance：
 
 - Cleaning、Beauty、Ecommerce、新增產業生成結果肉眼可區分。
 
+Status：完成第一階段。快速建立輸出與商品頁模組已補強視覺層次：Quick Builder 產生文案加入 visual hook、proof hook、conversion intent；商品展示新增玻璃浮標與環境面板；商品特色新增索引與紋理層；核心賣點新增訊號條；購買轉換新增光框層。預覽與匯出 HTML/CSS 已同步。
+
 ### BQ-009：Product style distinction audit
 
 Goal：盤點 Product 模組 style 是否重複。
@@ -573,6 +575,8 @@ Acceptance：
 
 - Preview and export output match.
 - Mobile layout stable.
+
+Status：完成第一階段。已先針對商品展示、商品特色、核心賣點、購買轉換補強視覺層次，並新增 `npm run verify:product-page-visual-upgrade` 鎖定預覽與匯出一致性。下一階段再處理商品情境、使用步驟、商品資訊與信任證明的更完整設計。
 
 ### BQ-011：General and Campaign module visual upgrades
 
