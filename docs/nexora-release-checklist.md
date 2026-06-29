@@ -60,6 +60,8 @@
 
 ## 4. Product Starter Manual Test
 
+完整人工測試矩陣請使用 `docs/product-page-starter-qa-checklist.md`。本段只保留正式推版前的最小入口檢查。
+
 | Check | Expected | Result | Note |
 |---|---|---|---|
 | Open modal | 可開啟「快速建立」 |  |  |

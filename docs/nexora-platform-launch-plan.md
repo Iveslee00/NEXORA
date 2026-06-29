@@ -803,14 +803,13 @@ Next suggested task:
 
 1. `NX-003`：正式站 smoke test。
 2. `NX-012`：帳號資料與 session QA。
-3. `PS-017`：Product Starter 手動 QA 清單。
-4. `PS-012`：ZIP / `.cmb` 商品頁圖片人工 QA。
-5. `PS-013`：CMS 貼碼商品頁人工 QA。
-6. `PS-011`：商品頁 placeholder hero variant 補齊。
-7. `PS-006`：主題與全站樣式優先順序文件規則。
-8. `PS-008`：適用場景補強。
-9. `NX-014`：正式上線 QA checklist。
-10. `NX-017`：客戶試用回饋表。
+3. `PS-012`：ZIP / `.cmb` 商品頁圖片人工 QA。
+4. `PS-013`：CMS 貼碼商品頁人工 QA。
+5. `PS-011`：商品頁 placeholder hero variant 補齊。
+6. `PS-006`：主題與全站樣式優先順序文件規則。
+7. `PS-008`：適用場景補強。
+8. `NX-014`：正式上線 QA checklist。
+9. `NX-017`：客戶試用回饋表。
 
 原因：
 

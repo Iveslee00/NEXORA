@@ -597,7 +597,16 @@ Acceptance：
 - QA 文件能被人照表操作。
 - 每項有通過 / 失敗 / 備註欄位。
 
-Status：待做。
+Status：完成於目前工作分支；已新增 `docs/product-page-starter-qa-checklist.md`，覆蓋清潔用品 / 美妝 / 電商、四種商品頁目的、四種主題、三種長度、PC / M、CMS、ZIP、`.cmb` 與失敗紀錄。
+
+驗證：
+
+- `git diff --check` 通過。
+
+剩餘人工 QA：
+
+- 依 checklist 實際跑至少 12 組最小測試組合。
+- 將測試結果填回 checklist 或另存試用紀錄。
 
 ### Task PS-018：Product Starter 自動驗證擴充
 
