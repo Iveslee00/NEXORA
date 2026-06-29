@@ -169,6 +169,26 @@ Check Group 和 Export Preflight 的差異：
 - 所有帶 spec 的圖片欄位會顯示建議尺寸與上傳尺寸文案。
 - 全站背景圖使用 `usage="background"`，補充 repeat-y 與 M 版置中裁切說明。
 
+已完成 `BQ-005` 第一階段匯出前檢查資料層：
+
+- 新增 `lib/export/preflight.ts`。
+- `analyzeExportPreflight` 支援 CMS / ZIP / `.cmb` 三種模式。
+- 回傳 `error` / `warning` / `suggestion`，並提供 `hasErrors` 供匯出 UI 判斷。
+- 第一版檢查規則涵蓋：
+  - 必填圖片尚未設定。
+  - CMS 貼碼使用本機上傳圖。
+  - CTA 有文字但連結空白。
+  - 連結仍為 `#`。
+  - M 圖尚未設定。
+  - 錨點導覽目標不存在。
+  - 長頁建議加入錨點導覽。
+  - 商品頁建議加入購買轉換。
+- 下一步 `BQ-006` 將此資料層接到匯出視窗 UI。
+
+驗證：
+
+- `npm run verify:export-preflight`：通過。
+
 驗證：
 
 - `npm run verify:image-field-status`：通過。

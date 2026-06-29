@@ -491,6 +491,8 @@ Acceptance：
 
 - 可用 script 對 demo project 跑檢查。
 
+Status：完成第一階段。已新增 `lib/export/preflight.ts`，支援 CMS / ZIP / `.cmb` 模式，回傳 error / warning / suggestion 與 `hasErrors`。目前規則涵蓋：必填圖片缺漏、CMS 貼碼使用本機圖、CTA 連結缺漏、`#` placeholder、M 圖缺漏、錨點目標不存在、長頁缺錨點導覽、商品頁缺購買轉換。已新增 `npm run verify:export-preflight` 作為文件與資料模型驗證。
+
 ### BQ-006：Export preflight UI
 
 Goal：在匯出視窗顯示檢查結果。

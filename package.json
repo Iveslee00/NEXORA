@@ -38,6 +38,7 @@
     "verify:global-background": "node --no-warnings scripts/verify-global-background.mjs",
     "verify:builder-inspector-ia": "node --no-warnings scripts/verify-builder-inspector-ia.mjs",
     "verify:image-field-status": "node --no-warnings scripts/verify-image-field-status.mjs",
+    "verify:export-preflight": "node --no-warnings scripts/verify-export-preflight.mjs",
     "setup:auth-db": "node --no-warnings scripts/setup-auth-db.mjs",
     "manage:auth-user": "node --no-warnings scripts/manage-auth-user.mjs",
     "start": "next start",
