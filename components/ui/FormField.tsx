@@ -483,6 +483,7 @@ interface ImageFieldProps {
   onChange: (value: string) => void;
   placeholder?: string;
   spec?: ImageSpec;
+  usage?: 'default' | 'background';
 }
 
 const readImageSize = (src: string) => new Promise<{ width: number; height: number }>((resolve, reject) => {
@@ -494,13 +495,24 @@ const readImageSize = (src: string) => new Promise<{ width: number; height: numb
 
 const MAX_UPLOAD_BYTES = 25 * 1024 * 1024;
 
-export function ImageField({ label, value, onChange, placeholder = 'https://…', spec }: ImageFieldProps) {
+export function ImageField({ label, value, onChange, placeholder = 'https://…', spec, usage = 'default' }: ImageFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const isUploaded = value.startsWith('data:image/') || isLocalImageRef(value);
+  const isUrlImage = Boolean(value) && !isUploaded;
   const [previewSrc, setPreviewSrc] = useState('');
   const [error, setError] = useState('');
   const [uploading, setUploading] = useState(false);
   const specLabel = spec ? formatImageSpec(spec) : '';
+  const imageStatus = isUploaded ? '圖片狀態：本機上傳' : isUrlImage ? '圖片狀態：圖片網址' : '圖片狀態：尚未設定';
+  const exportStatus = isUploaded
+    ? 'CMS 貼碼請改用圖片網址；ZIP 匯出會放入 images/。'
+    : isUrlImage
+      ? 'CMS 貼碼可直接使用此圖片網址；ZIP 匯出會保留外部連結。'
+      : '可貼圖片網址，或上傳圖片後用 ZIP 大包交付。';
+  const usageHint = usage === 'background'
+    ? '背景圖會以 repeat-y 方式上下重複；M 版使用同一張 PC 圖置中裁切。'
+    : '上傳圖會先暫存在此瀏覽器，不會直接變成 CMS 圖片網址。';
+  const specHint = spec ? `建議尺寸 ${specLabel}，請上傳 ${specLabel} 圖檔。` : '建議尺寸依模組規格設定；請上傳指定尺寸圖檔。';
 
   useEffect(() => {
     let alive = true;
@@ -631,6 +643,17 @@ export function ImageField({ label, value, onChange, placeholder = 'https://…'
         </div>
       </div>
       {error && <p className="text-xs font-medium text-red-400">{error}</p>}
+      <div className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className={`rounded-full px-2 py-0.5 text-[11px] font-black ${isUploaded ? 'bg-amber-400/15 text-amber-200' : isUrlImage ? 'bg-emerald-400/15 text-emerald-200' : 'bg-slate-500/15 text-slate-400'}`}>
+            {imageStatus}
+          </span>
+          {spec && <span className="rounded-full bg-indigo-400/15 px-2 py-0.5 text-[11px] font-black text-indigo-200">建議尺寸 {specLabel}</span>}
+        </div>
+        <p className="mt-2 text-[11px] leading-relaxed text-slate-500">{specHint}</p>
+        <p className="mt-1 text-[11px] leading-relaxed text-slate-500">{exportStatus}</p>
+        <p className="mt-1 text-[11px] leading-relaxed text-slate-600">{usageHint}</p>
+      </div>
       {value && (
         <div className="overflow-hidden rounded-md border border-slate-700 bg-slate-950">
           <img

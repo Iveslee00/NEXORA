@@ -475,6 +475,8 @@ Acceptance：
 
 - 使用者可分辨 CMS 貼碼應用 URL，ZIP 可用上傳圖。
 
+Status：完成第一階段。已新增圖片欄位狀態提示：本機上傳、圖片網址、尚未設定；補上 CMS 貼碼與 ZIP 圖片處理差異；全站背景圖 repeat-y 使用 background 模式並顯示 PC/M 裁切說明。
+
 ### BQ-005：Export preflight model
 
 Goal：建立匯出前檢查資料模型。

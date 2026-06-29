@@ -231,10 +231,11 @@ export function ModuleLibrary({ pageMode, onAdd, onAddEmail }: Props) {
                     value={pageBackgroundImage}
                     onChange={setPageBackgroundImage}
                     spec={IMAGE_SPECS.pageBackground}
+                    usage="background"
                     placeholder="https://… (圖片網址)"
                   />
                   <p className="-mt-1 text-[11px] leading-relaxed text-slate-600">
-                    M 版使用同一張 PC 背景圖置中裁切，不需另外上傳。
+                    M 版使用同一張 PC 背景圖置中裁切，不需另外上傳。CMS 貼碼需使用圖片網址；ZIP 可打包上傳圖。
                   </p>
                   <ColorPicker label="按鈕色" value={buttonColor} onChange={setButtonColor} onReset={() => setButtonColor('#6366f1')} />
                   <ColorPicker label="按鈕文字色" value={buttonTextColor} onChange={setButtonTextColor} onReset={() => setButtonTextColor('#ffffff')} />

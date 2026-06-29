@@ -159,3 +159,16 @@ Check Group 和 Export Preflight 的差異：
 
 - `npm run verify:builder-inspector-ia`：通過。
 - `npm run typecheck`：通過。
+
+已完成 `BQ-004` 第一階段圖片欄位狀態提示：
+
+- 背景圖 repeat-y 也納入上傳與規格提示。
+- `ImageField` 會顯示「圖片狀態：本機上傳 / 圖片網址 / 尚未設定」。
+- 本機上傳圖會提示「CMS 貼碼請改用圖片網址；ZIP 匯出會放入 images/」。
+- 圖片網址會提示 CMS 貼碼可直接使用。
+- 所有帶 spec 的圖片欄位會顯示建議尺寸與上傳尺寸文案。
+- 全站背景圖使用 `usage="background"`，補充 repeat-y 與 M 版置中裁切說明。
+
+驗證：
+
+- `npm run verify:image-field-status`：通過。
