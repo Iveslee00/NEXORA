@@ -2,6 +2,8 @@
 
 Last updated: 2026-06-29
 
+Before adding or changing any module, also read `docs/module-development-standard.md` and `docs/module-rendering-export-architecture.md`.
+
 ## Core Rule
 
 Module = content structure and business purpose.
@@ -11,6 +13,8 @@ Style = layout, visual treatment, spacing, animation, or presentation variant.
 Do not create a new module only because the section looks different. Create a new module only when the editor needs a different content model, different controls, or different export behavior.
 
 Product Page Starter = recipe generator. It chooses existing modules, module styles, and theme defaults from product input. It does not create a parallel module system.
+
+Taxonomy changes are module-related changes. They require matching updates to registry coverage, preview/export behavior, verifier scripts, and this document.
 
 ## Categories
 

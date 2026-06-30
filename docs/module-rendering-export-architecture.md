@@ -1,5 +1,9 @@
 # NEXORA Builder Module Rendering and Export Architecture
 
+Operational rule: any module-related add, edit, or refactor must follow `docs/module-development-standard.md`.
+
+This file explains the rendering/export architecture. The development standard file defines the required checklist before commit.
+
 ## Current Diagnosis
 
 目前 NEXORA Builder 的 Campaign / Product 模組不是單一路徑渲染：
@@ -115,6 +119,8 @@ Export CSS 必須遵守：
 ## Future Module Rule
 
 Do not add a new module without registering it in the registry.
+
+Do not complete module work without updating the related docs and verifier. 功能做完但文件沒有更新，不算完成。
 
 新增模組最小流程：
 

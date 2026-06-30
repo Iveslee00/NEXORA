@@ -1,11 +1,14 @@
 # NEXORA 網站架構圖
 
-更新日期：2026-06-28
+更新日期：2026-06-30
 
 這份文件記錄目前 NEXORA 的網站架構、資料流與主要模組。之後新增登入、資料庫、匯出、專案檔、圖片策略或新工具時，必須同步更新本文件。
 
 ## 相關文件
 
+- `docs/README.md`：文件入口與更新規則。
+- `docs/module-development-standard.md`：模組新增、修改、重構時的硬性標準。
+- `docs/module-rendering-export-architecture.md`：Builder / Preview / Export 渲染與匯出架構。
 - `docs/module-taxonomy.md`：模組分類與重複模組判斷規則。
 - `docs/nexora-platform-launch-plan.md`：平台級架構、上線階段與 `NX-*` 任務池。
 - `docs/product-page-starter-spec.md`：快速建立 / Product Page Starter 正式規格。
@@ -56,6 +59,7 @@ flowchart TD
   Forms["modules/forms/*"]
   Preview["modules/preview/*"]
   Exporters["modules/exporters/*"]
+  ModuleRegistry["lib/modules/moduleRegistry.ts"]
   ExportLib["lib/export/*"]
   ProductStarter["lib/productBuilder/*"]
   ProjectStorage["lib/projects/localProjectStorage.ts"]
@@ -72,7 +76,8 @@ flowchart TD
   Editor --> ExportLib
   ProductStarter --> Types
   ProductStarter --> Editor
-  ExportLib --> Exporters
+  ExportLib --> ModuleRegistry
+  ModuleRegistry --> Exporters
   AuthApi --> AuthLib
   AuthLib --> DbLib
   DbLib --> Neon["Neon Postgres"]
@@ -100,13 +105,27 @@ flowchart TD
 | `components/editor/ExportModal.tsx` | 貼碼、ZIP、電子報匯出 |
 | `components/editor/ProductBuildModal.tsx` | 快速建立入口，收集產業、商品目的、視覺主題、商品資料 |
 | `modules/forms/*` | 各活動頁模組的設定表單 |
-| `modules/preview/*` | 各活動頁模組的即時預覽 |
-| `modules/exporters/*` | 各活動頁模組的 HTML 匯出 |
+| `modules/preview/*` | 各活動頁模組的即時預覽；由 `ModulePreviewRenderer.tsx` 的 `previewRegistry` 統一分派 |
+| `modules/exporters/*` | 各活動頁模組的 HTML 匯出片段 |
+| `lib/modules/moduleRegistry.ts` | Export 模組 registry，`htmlGenerator.ts` 必須透過此入口渲染模組 |
 | `lib/productBuilder/*` | 商品頁快速生成邏輯，將商品資料轉成既有 PageModule[] |
 | `lib/export/*` | HTML/CSS/JS/ZIP 組合與輸出 |
 | `types/modules.ts` | 活動頁模組型別 |
 | `types/emailModules.ts` | 電子報模組型別 |
 | `types/project.ts` | 專案與 workspace 型別 |
+
+## 模組開發標準
+
+任何動到模組相關檔案的工作，都必須先遵守 `docs/module-development-standard.md`。
+
+硬性規則：
+
+- Builder、Preview、Export 必須以同一份 `PageModule` 資料為來源。
+- Preview 入口是 `modules/preview/ModulePreviewRenderer.tsx` 的 `previewRegistry`。
+- Export 入口是 `lib/modules/moduleRegistry.ts` 的 `moduleRegistry`。
+- 禁止在 `lib/export/htmlGenerator.ts` 重新新增 `switch (module.type)`。
+- 禁止在 `modules/preview/ModulePreviewRenderer.tsx` 重新新增 `switch (module.type)`。
+- 功能做完但文件沒有更新，不算完成。
 
 ## 登入流程
 
@@ -216,6 +235,8 @@ project.cmb
 flowchart TD
   Modules["PageModule[]"]
   HtmlGen["generatePageHTML"]
+  ModuleRegistry["renderModuleExportHTML / moduleRegistry"]
+  Exporters["modules/exporters/*"]
   CssGen["generatePageCSS"]
   EmailGen["generateEmailHTML"]
   ZipGen["packageGenerator / zipGenerator"]
@@ -224,6 +245,8 @@ flowchart TD
   Email["電子報 HTML"]
 
   Modules --> HtmlGen
+  HtmlGen --> ModuleRegistry
+  ModuleRegistry --> Exporters
   Modules --> CssGen
   Modules --> EmailGen
   HtmlGen --> Paste
