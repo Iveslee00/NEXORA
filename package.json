@@ -44,6 +44,8 @@
     "verify:product-page-visual-upgrade": "node --no-warnings scripts/verify-product-page-visual-upgrade.mjs",
     "verify:general-campaign-visual-upgrade": "node --no-warnings scripts/verify-general-campaign-visual-upgrade.mjs",
     "verify:visual-safety": "node --no-warnings scripts/verify-visual-safety.mjs",
+    "verify:product-export-hotfixes": "node --no-warnings scripts/verify-product-export-hotfixes.mjs",
+    "verify:module-rendering-architecture": "node --no-warnings scripts/verify-module-rendering-architecture.mjs",
     "setup:auth-db": "node --no-warnings scripts/setup-auth-db.mjs",
     "manage:auth-user": "node --no-warnings scripts/manage-auth-user.mjs",
     "start": "next start",

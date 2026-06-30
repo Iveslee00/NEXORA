@@ -128,7 +128,7 @@ export const productThemePresets: Record<ProductPageTheme, ProductThemePreset> =
     darkSurface: '#111827',
     darkTitle: '#ffffff',
     darkText: 'rgba(255,255,255,0.80)',
-    showcaseStyle: 'full-bleed',
+    showcaseStyle: 'split',
     benefitsStyle: 'metric-cards',
     featuresStyle: 'grid-4',
     scenesStyle: 'full-bleed',

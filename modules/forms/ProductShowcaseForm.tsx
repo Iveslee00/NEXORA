@@ -7,26 +7,30 @@ import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 interface Props { data: ProductShowcaseData; onChange: (data: ProductShowcaseData) => void }
 
 const styleOptions = [
-  { value: 'full-bleed', label: '滿版形象' },
   { value: 'spacious', label: '留白展示' },
   { value: 'split', label: '左右分欄' },
   { value: 'luxury', label: '精品展示' },
 ];
 
 const styleDescriptions: Record<ProductShowcaseData['style'], string> = {
-  'full-bleed': '滿版形象：適合第一屏或大情境視覺，讓圖片承擔主要氣氛。',
   spacious: '留白展示：適合高質感單品，文字少、圖片要乾淨。',
   split: '左右分欄：電商資訊導購，圖片與文字同等重要，適合講利益點與 CTA。',
   luxury: '精品展示：玻璃文字卡搭配聚焦商品圖，適合想做高級感或主推爆品。',
 };
 
+const normalizeProductShowcaseStyle = (style: ProductShowcaseData['style'] | string): ProductShowcaseData['style'] => {
+  if (style === 'split' || style === 'luxury') return style;
+  return 'spacious';
+};
+
 export function ProductShowcaseForm({ data, onChange }: Props) {
   const set = <K extends keyof ProductShowcaseData>(key: K, val: ProductShowcaseData[K]) => onChange({ ...data, [key]: val });
+  const currentStyle = normalizeProductShowcaseStyle(data.style);
 
   return (
     <div className="space-y-4">
-      <SegmentedField label="樣式" value={data.style} options={styleOptions} onChange={(v) => set('style', v as ProductShowcaseData['style'])} />
-      <p className="rounded-xl border border-cyan-300/15 bg-cyan-300/10 px-3 py-2 text-xs leading-5 text-cyan-100/80">{styleDescriptions[data.style]}</p>
+      <SegmentedField label="樣式" value={currentStyle} options={styleOptions} onChange={(v) => set('style', v as ProductShowcaseData['style'])} />
+      <p className="rounded-xl border border-cyan-300/15 bg-cyan-300/10 px-3 py-2 text-xs leading-5 text-cyan-100/80">{styleDescriptions[currentStyle]}</p>
       <ToggleField label="左右對調" description="左右排版時可交換圖片與文字" value={data.reverse} onChange={(v) => set('reverse', v)} />
       <div className="h-px bg-slate-700/60" />
       <FormField label="Eyebrow" value={data.eyebrow} onChange={(v) => set('eyebrow', v)} />

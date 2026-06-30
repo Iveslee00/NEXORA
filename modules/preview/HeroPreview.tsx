@@ -90,7 +90,7 @@ export function HeroPreview({ data }: { data: HeroData }) {
               {heroImage}
             </div>
           )}
-          <div style={{ position: isMobile ? 'relative' : 'absolute', inset: isMobile ? undefined : 0, zIndex: 2, display: 'flex', alignItems: 'center', background: isMobile ? textBg : 'linear-gradient(90deg, rgba(15,23,42,0.46), rgba(15,23,42,0.16) 48%, rgba(15,23,42,0.04))', color: defaultTextColor }}>
+          <div style={{ position: isMobile ? 'relative' : 'absolute', inset: isMobile ? undefined : 0, zIndex: 2, display: 'flex', alignItems: 'center', background: isMobile ? textBg : 'transparent', color: defaultTextColor }}>
             <div style={{ width: '100%', maxWidth: '1080px', margin: '0 auto', padding: isMobile ? '20px 18px' : '0 40px' }}>
               <div style={{ maxWidth: isMobile ? 'none' : '430px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                 {data.kicker && <span style={{ display: 'block', fontSize: '12px', fontWeight: 600, letterSpacing: '0.12em', opacity: 0.65, marginBottom: '14px', ...textStyle }}>{data.kicker}</span>}

@@ -1,7 +1,13 @@
 import { ProductShowcaseData } from '@/types/modules';
 import { escapeHtml } from '@/lib/utils';
 
+function normalizeProductShowcaseStyle(style: ProductShowcaseData['style'] | string): ProductShowcaseData['style'] {
+  if (style === 'split' || style === 'luxury') return style;
+  return 'spacious';
+}
+
 export function generateProductShowcaseHTML(data: ProductShowcaseData): string {
+  const style = normalizeProductShowcaseStyle(data.style);
   const bg = data.backgroundColor ? ` style="background: ${escapeHtml(data.backgroundColor)}"` : '';
   const titleStyle = data.titleColor ? ` style="color: ${escapeHtml(data.titleColor)}"` : '';
   const textStyle = data.textColor ? ` style="color: ${escapeHtml(data.textColor)}"` : '';
@@ -11,7 +17,7 @@ export function generateProductShowcaseHTML(data: ProductShowcaseData): string {
     : '';
   const button = data.buttonText ? `<a href="${escapeHtml(data.buttonLink || '#')}" class="cb-btn cb-product-showcase__btn">${escapeHtml(data.buttonText)}</a>` : '';
 
-  return `<section class="cb-product-showcase cb-product-showcase--${escapeHtml(data.style)} cb-section"${bg}>
+  return `<section class="cb-product-showcase cb-product-showcase--${escapeHtml(style)} cb-section"${bg}>
   <div class="cb-product-showcase__inner${reverse}">
     <div class="cb-product-showcase__content">
       ${data.eyebrow ? `<p class="cb-product-block-head__eyebrow"${textStyle}>${escapeHtml(data.eyebrow)}</p>` : ''}

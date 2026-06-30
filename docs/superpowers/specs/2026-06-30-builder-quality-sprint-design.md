@@ -680,6 +680,21 @@ Manual QA:
 | CMS strips advanced effects | Keep effects CSS-only and safe; avoid required JS for decorative animation |
 | Assets page over-promises | Reposition as Resources until cloud assets exist |
 
+## 12.1 Hotfix Notes
+
+### 2026-06-30 Module Rendering and Export Parity
+
+- Added `lib/modules/moduleRegistry.ts` as the export registry entry point.
+- `lib/export/htmlGenerator.ts` must render through `renderModuleExportHTML`; no module switch in export generator.
+- `modules/preview/ModulePreviewRenderer.tsx` must use `previewRegistry`; no module switch in preview renderer.
+- Added `docs/module-rendering-export-architecture.md`.
+- Added `verify:module-rendering-architecture`.
+- Added `verify:product-export-hotfixes`.
+- KV / KV 輪播不再輸出黑色漸層濾鏡。
+- `product-showcase` 移除滿版形象樣式；舊資料自動降級為 `spacious`。
+- `product-purchase` 推薦組合預覽與匯出固定顯示前三品。
+- `product-features` 匯出補上 grid overflow 防護與 mobile icon-text 規則。
+
 ## 12. Completion Report Format
 
 Each BQ task completion must report:

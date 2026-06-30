@@ -119,11 +119,6 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
    4. HERO MODULE
    ------------------------------------------------------------ */
 .cb-hero { position: relative; overflow: hidden; display: flex; align-items: center; background: #1a1a2e; color: #ffffff; }
-.cb-hero::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(90deg, rgba(15,23,42,0.58), rgba(15,23,42,0.18) 48%, rgba(15,23,42,0.04));
-}
-.cb-hero--image-only::after { display: none; }
 .cb-hero__depth-layer {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: radial-gradient(circle at 18% 18%, rgba(255,255,255,0.24), transparent 28%), radial-gradient(circle at 76% 66%, rgba(99,102,241,0.22), transparent 30%);
@@ -435,7 +430,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-product-features--icon-text .cb-product-features__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .cb-product-features--cards .cb-product-features__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
 .cb-product-features__item {
-  position: relative; overflow: hidden;
+  position: relative; overflow: hidden; min-width: 0;
   min-height: 164px; border: 1px solid rgba(15,23,42,0.08); border-radius: 22px; padding: 24px 22px;
   background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(248,250,252,0.62));
   box-shadow: 0 18px 46px rgba(15,23,42,0.08);
@@ -463,7 +458,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 }
 .cb-product-features--icon-text .cb-product-features__item {
   min-height: 112px; display: grid; grid-template-columns: 52px 1fr; gap: 16px; align-items: center;
-  border-radius: 999px; background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(250,245,240,0.74));
+  border-radius: 24px; background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(250,245,240,0.74));
 }
 .cb-product-features--grid-6 .cb-product-features__item { min-height: 142px; background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,250,252,0.78)); }
 .cb-product-features__icon {
@@ -482,18 +477,17 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-product-showcase__inner { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
 .cb-product-showcase--spacious .cb-product-showcase__inner { grid-template-columns: 1fr; gap: 42px; text-align: center; }
 .cb-product-showcase--spacious .cb-product-showcase__content { max-width: 680px; margin-left: auto; margin-right: auto; }
-.cb-product-showcase--full-bleed { padding: 0; }
-.cb-product-showcase--full-bleed .cb-product-showcase__inner { max-width: none; padding: 0 0 56px; grid-template-columns: 1fr; }
-.cb-product-showcase--full-bleed .cb-product-showcase__title { font-size: clamp(2.25rem, 6vw, 3.35rem); }
 .cb-product-showcase--luxury { background-image: radial-gradient(circle at 78% 18%, rgba(125,211,252,0.26), transparent 34%), linear-gradient(135deg, rgba(248,251,255,0.95), rgba(234,247,255,0.82) 48%, rgba(255,247,237,0.9)); }
 .cb-product-showcase--luxury .cb-product-showcase__inner { position: relative; display: block; min-height: 640px; }
 .cb-product-showcase__inner--reverse .cb-product-showcase__media { order: -1; }
 /* showcase content stays above overlapping product media */
 .cb-product-showcase__content { position: relative; z-index: 4; max-width: 520px; }
 .cb-product-showcase--split .cb-product-showcase__content {
-  padding: 30px 30px; border-radius: 26px;
-  background: rgba(255,255,255,0.66);
-  box-shadow: 0 18px 54px rgba(79,70,229,0.10);
+  padding: 36px 38px; border-radius: 32px;
+  background: rgba(255,255,255,0.84);
+  border: 1px solid rgba(255,255,255,0.72);
+  box-shadow: 0 28px 76px rgba(15,23,42,0.13);
+  backdrop-filter: blur(14px);
 }
 .cb-product-showcase--luxury .cb-product-showcase__content {
   position: absolute; left: 24px; top: 50%; transform: translateY(-50%); z-index: 5;
@@ -508,6 +502,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-product-showcase__description { margin: 12px 0 0; font-size: 0.96rem; line-height: 1.75; color: #475569; opacity: 0.86; }
 .cb-product-showcase__btn { margin-top: 24px; border-radius: 999px; }
 .cb-product-showcase__media { position: relative; z-index: 1; aspect-ratio: 1 / 1; border-radius: 28px; overflow: hidden; background: #eef2ff; box-shadow: 0 24px 70px rgba(15,23,42,0.12); }
+.cb-product-showcase--spacious .cb-product-showcase__media { width: min(680px, 100%); margin-left: auto; margin-right: auto; }
 .cb-product-showcase__ambient-panel {
   position: absolute; inset: 7%; z-index: 1; pointer-events: none;
   border-radius: 34px;
@@ -523,7 +518,6 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   backdrop-filter: blur(18px) saturate(1.2);
   color: #0f172a; font-size: 12px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase;
 }
-.cb-product-showcase--full-bleed .cb-product-showcase__media { border-radius: 0; min-height: 520px; }
 .cb-product-showcase--split .cb-product-showcase__media {
   border: 1px solid rgba(79,70,229,0.12);
   box-shadow: 0 22px 58px rgba(79,70,229,0.13);
@@ -537,9 +531,6 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   width: 72%; margin-left: auto; aspect-ratio: 920 / 760; border-radius: 36px;
   background: radial-gradient(circle at 50% 42%, rgba(255,255,255,0.98), rgba(224,242,254,0.78) 52%, rgba(219,234,254,0.62));
 }
-.cb-product-showcase--full-bleed .cb-product-showcase__media { aspect-ratio: 1920 / 740; box-shadow: none; }
-.cb-product-showcase--full-bleed .cb-product-showcase__ambient-panel,
-.cb-product-showcase--full-bleed .cb-product-showcase__floating-badge { display: none; }
 .cb-product-showcase__picture { position: absolute; inset: 0; display: block; }
 .cb-product-showcase__picture img { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; object-fit: cover; display: block; }
 .cb-product-showcase--luxury .cb-product-showcase__picture img { object-fit: contain; }
@@ -680,7 +671,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 .cb-product-purchase__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .cb-product-purchase__card { overflow: hidden; border-radius: 22px; background: #ffffff; color: #0f172a; text-decoration: none; box-shadow: 0 18px 48px rgba(0,0,0,0.18); transition: transform 0.2s ease, box-shadow 0.2s ease; }
 .cb-product-purchase__card:hover { transform: translateY(-3px); box-shadow: 0 22px 60px rgba(0,0,0,0.22); }
-.cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: 1.35fr 1fr 1fr; align-items: stretch; }
+.cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
 .cb-product-purchase--bundle .cb-product-purchase__card:first-child { border-radius: 30px; transform: translateY(-10px); box-shadow: 0 26px 70px rgba(0,0,0,0.24); }
 .cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__media::before {
   content: "推薦組合"; position: absolute; left: 14px; top: 14px; z-index: 1;
@@ -713,6 +704,7 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   .cb-product-banner__inner { gap: 40px; }
   .cb-product-features__grid,
   .cb-product-features--grid-6 .cb-product-features__grid,
+  .cb-product-features--icon-text .cb-product-features__grid,
   .cb-product-features--cards .cb-product-features__grid,
   .cb-product-benefits__grid,
   .cb-product-steps__grid,
@@ -830,7 +822,6 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
     position: relative; left: auto; top: auto; transform: none;
     padding: 0; border-radius: 0; background: transparent; box-shadow: none; backdrop-filter: none; border: none;
   }
-  .cb-product-showcase--full-bleed .cb-product-showcase__inner { padding: 0 16px 38px; }
   .cb-product-showcase__inner--reverse .cb-product-showcase__media,
   .cb-product-scenes--right-image .cb-product-scenes__single .cb-product-scenes__media { order: 0; }
   .cb-product-scenes--full-bleed .cb-product-scenes__single { display: grid; }
@@ -840,8 +831,8 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   }
   .cb-product-scenes--full-bleed .cb-product-scenes__media::after { display: none; }
   .cb-product-showcase__media,
-  .cb-product-showcase--full-bleed .cb-product-showcase__media,
   .cb-product-scenes__media { aspect-ratio: 750 / 900; min-height: auto; }
+  .cb-product-features--icon-text .cb-product-features__item { grid-template-columns: 44px 1fr; border-radius: 22px; padding: 18px 20px; }
   .cb-product-info__row { grid-template-columns: 1fr; gap: 6px; }
   .cb-logo-wall__grid { gap: 24px 32px; }
   .cb-logo-wall__item img { width: 160px; height: 60px; }
@@ -924,10 +915,6 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
 }
 .cb-kv__track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
 .cb-kv__slide { flex: 0 0 100%; position: relative; height: 100%; overflow: hidden; }
-.cb-kv__slide:not(.cb-kv__slide--image-only)::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
-  background: linear-gradient(90deg, rgba(15,23,42,0.48), rgba(15,23,42,0.16) 46%, rgba(15,23,42,0.04));
-}
 .cb-kv__slide--image-only { }
 .cb-kv__text {
   position: relative; z-index: 2; width: 100%; max-width: 1080px; height: 100%;

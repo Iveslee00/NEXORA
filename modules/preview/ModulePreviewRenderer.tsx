@@ -1,6 +1,7 @@
 'use client';
 
-import { PageModule } from '@/types/modules';
+import type React from 'react';
+import { ModuleType, PageModule } from '@/types/modules';
 import { TitlePreview } from './TitlePreview';
 import { HeroPreview } from './HeroPreview';
 import { SplitSectionPreview } from './SplitSectionPreview';
@@ -29,33 +30,36 @@ import {
   ProductStepsPreview,
 } from './ProductAdvancedPreview';
 
+type PreviewRegistryRenderer = (module: PageModule, modules: PageModule[]) => React.ReactNode;
+
+export const previewRegistry: Record<ModuleType, PreviewRegistryRenderer> = {
+  'title': (module) => <TitlePreview data={module.data as any} />,
+  'hero': (module) => <HeroPreview data={module.data as any} />,
+  'split-section': (module) => <SplitSectionPreview data={module.data as any} />,
+  'product-grid': (module) => <ProductGridPreview data={module.data as any} />,
+  'banner-products': (module) => <BannerProductsPreview data={module.data as any} />,
+  'product-banner': (module) => <ProductBannerPreview data={module.data as any} />,
+  'product-carousel': (module) => <ProductCarouselPreview data={module.data as any} />,
+  'logo-wall': (module) => <LogoWallPreview data={module.data as any} />,
+  'cta': (module) => <CtaPreview data={module.data as any} />,
+  'faq': (module) => <FaqPreview data={module.data as any} />,
+  'sticky-sidebar': (module) => <StickySidebarPreview data={module.data as any} />,
+  'article-text': (module) => <ArticleTextPreview data={module.data as any} />,
+  'article-image': (module) => <ArticleImagePreview data={module.data as any} />,
+  'hero-carousel': (module) => <HeroCarouselPreview data={module.data as any} />,
+  'bank-promo': (module) => <BankPromoPreview data={module.data as any} />,
+  'anchor-nav': (module, modules) => <AnchorNavPreview data={module.data as any} moduleId={module.id} modules={modules} />,
+  'product-features': (module) => <ProductFeaturesPreview data={module.data as any} />,
+  'product-showcase': (module) => <ProductShowcasePreview data={module.data as any} />,
+  'product-scenes': (module) => <ProductScenesPreview data={module.data as any} />,
+  'product-info': (module) => <ProductInfoPreview data={module.data as any} />,
+  'product-benefits': (module) => <ProductBenefitsPreview data={module.data as any} />,
+  'product-steps': (module) => <ProductStepsPreview data={module.data as any} />,
+  'product-comparison': (module) => <ProductComparisonPreview data={module.data as any} />,
+  'product-proof': (module) => <ProductProofPreview data={module.data as any} />,
+  'product-purchase': (module) => <ProductPurchasePreview data={module.data as any} />,
+};
+
 export function ModulePreviewRenderer({ module, modules = [] }: { module: PageModule; modules?: PageModule[] }) {
-  switch (module.type) {
-    case 'title':            return <TitlePreview data={module.data} />;
-    case 'hero':             return <HeroPreview data={module.data} />;
-    case 'split-section':    return <SplitSectionPreview data={module.data} />;
-    case 'product-grid':     return <ProductGridPreview data={module.data} />;
-    case 'banner-products':  return <BannerProductsPreview data={module.data} />;
-    case 'product-banner':   return <ProductBannerPreview data={module.data} />;
-    case 'product-carousel': return <ProductCarouselPreview data={module.data} />;
-    case 'logo-wall':        return <LogoWallPreview data={module.data} />;
-    case 'cta':              return <CtaPreview data={module.data} />;
-    case 'faq':              return <FaqPreview data={module.data} />;
-    case 'sticky-sidebar':   return <StickySidebarPreview data={module.data} />;
-    case 'article-text':     return <ArticleTextPreview data={module.data} />;
-    case 'article-image':    return <ArticleImagePreview data={module.data} />;
-    case 'hero-carousel':    return <HeroCarouselPreview data={module.data} />;
-    case 'bank-promo':       return <BankPromoPreview data={module.data} />;
-    case 'anchor-nav':       return <AnchorNavPreview data={module.data} moduleId={module.id} modules={modules} />;
-    case 'product-features': return <ProductFeaturesPreview data={module.data} />;
-    case 'product-showcase': return <ProductShowcasePreview data={module.data} />;
-    case 'product-scenes':   return <ProductScenesPreview data={module.data} />;
-    case 'product-info':     return <ProductInfoPreview data={module.data} />;
-    case 'product-benefits': return <ProductBenefitsPreview data={module.data} />;
-    case 'product-steps':    return <ProductStepsPreview data={module.data} />;
-    case 'product-comparison': return <ProductComparisonPreview data={module.data} />;
-    case 'product-proof':    return <ProductProofPreview data={module.data} />;
-    case 'product-purchase': return <ProductPurchasePreview data={module.data} />;
-    default:                 return null;
-  }
+  return previewRegistry[module.type]?.(module, modules) ?? null;
 }

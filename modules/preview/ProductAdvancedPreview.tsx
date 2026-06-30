@@ -155,6 +155,7 @@ export function ProductPurchasePreview({ data }: { data: ProductPurchaseData }) 
   const isCta = data.style === 'cta';
   const bundleHeroCard = data.style === 'bundle';
   const relatedCompactCard = data.style === 'related';
+  const visibleProducts = bundleHeroCard ? data.products.slice(0, 3) : data.products;
   return (
     <section style={{ ...moduleSurface(data.backgroundColor || '#0f172a'), padding: isMobile ? '40px 16px' : '64px 24px', fontFamily }}>
       <div style={{ position: 'relative', maxWidth: 1080, margin: '0 auto', color: textColor }}>
@@ -164,8 +165,8 @@ export function ProductPurchasePreview({ data }: { data: ProductPurchaseData }) 
           <a href={data.buttonLink || '#'} style={{ display: 'inline-flex', minHeight: isCta ? 56 : 48, alignItems: 'center', justifyContent: 'center', borderRadius: 999, background: '#ffffff', color: '#0f172a', padding: isCta ? '0 40px' : '0 32px', fontWeight: 850, textDecoration: 'none', boxShadow: isCta ? 'none' : '0 16px 36px rgba(0,0,0,0.18)' }}>{data.buttonText}</a>
         </div>
         {data.style !== 'cta' && (
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : bundleHeroCard ? '1.35fr 1fr 1fr' : `repeat(${Math.min(data.products.length, 4)}, 1fr)`, gap: relatedCompactCard ? 14 : 18, alignItems: 'stretch' }}>
-            {data.products.map((product, index) => (
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : bundleHeroCard ? 'repeat(3, 1fr)' : `repeat(${Math.min(visibleProducts.length, 4)}, 1fr)`, gap: relatedCompactCard ? 14 : 18, alignItems: 'stretch' }}>
+            {visibleProducts.map((product, index) => (
               <article key={product.id} style={{ overflow: 'hidden', borderRadius: bundleHeroCard && index === 0 ? 30 : relatedCompactCard ? 18 : 22, background: '#ffffff', color: '#0f172a', boxShadow: bundleHeroCard && index === 0 ? '0 26px 70px rgba(0,0,0,0.24)' : relatedCompactCard ? '0 12px 28px rgba(0,0,0,0.12)' : '0 18px 48px rgba(0,0,0,0.18)', transform: bundleHeroCard && index === 0 && !isMobile ? 'translateY(-10px)' : undefined }}>
                 <div style={{ position: 'relative', aspectRatio: relatedCompactCard ? '4 / 3' : '1 / 1', background: '#eef2ff' }}>
                   {bundleHeroCard && index === 0 && <span style={{ position: 'absolute', left: 14, top: 14, zIndex: 1, borderRadius: 999, background: '#0f172a', color: '#ffffff', padding: '6px 10px', fontSize: 12, fontWeight: 850 }}>推薦組合</span>}

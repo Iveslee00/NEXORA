@@ -112,7 +112,8 @@ ${items}
 }
 
 export function generateProductPurchaseHTML(data: ProductPurchaseData): string {
-  const products = data.products.map((product) => `      <a class="cb-product-purchase__card" href="${escapeHtml(product.link || '#')}">
+  const visibleProducts = data.style === 'bundle' ? data.products.slice(0, 3) : data.products;
+  const products = visibleProducts.map((product) => `      <a class="cb-product-purchase__card" href="${escapeHtml(product.link || '#')}">
         <span class="cb-product-purchase__media">${product.image ? `<img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">` : ''}</span>
         <span class="cb-product-purchase__body">
           <span class="cb-product-purchase__brand">${escapeHtml(product.brand)}</span>

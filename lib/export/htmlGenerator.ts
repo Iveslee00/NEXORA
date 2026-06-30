@@ -1,65 +1,11 @@
 import { PageModule } from '@/types/modules';
-import { generateTitleHTML } from '@/modules/exporters/titleExporter';
-import { generateHeroHTML } from '@/modules/exporters/heroExporter';
-import { generateSplitSectionHTML } from '@/modules/exporters/splitSectionExporter';
-import { generateProductGridHTML } from '@/modules/exporters/productGridExporter';
-import { generateBannerProductsHTML } from '@/modules/exporters/bannerProductsExporter';
-import { generateProductBannerHTML } from '@/modules/exporters/productBannerExporter';
-import { generateProductCarouselHTML } from '@/modules/exporters/productCarouselExporter';
-import { generateLogoWallHTML } from '@/modules/exporters/logoWallExporter';
-import { generateCtaHTML } from '@/modules/exporters/ctaExporter';
-import { generateFaqHTML } from '@/modules/exporters/faqExporter';
-import { generateStickySidebarHTML } from '@/modules/exporters/stickySidebarExporter';
-import { generateArticleTextHTML } from '@/modules/exporters/articleTextExporter';
-import { generateArticleImageHTML } from '@/modules/exporters/articleImageExporter';
-import { generateHeroCarouselHTML, generateHeroCarouselScript } from '@/modules/exporters/heroCarouselExporter';
-import { generateBankPromoHTML } from '@/modules/exporters/bankPromoExporter';
-import { generateAnchorNavHTML } from '@/modules/exporters/anchorNavExporter';
-import { generateProductFeaturesHTML } from '@/modules/exporters/productFeaturesExporter';
-import { generateProductShowcaseHTML } from '@/modules/exporters/productShowcaseExporter';
-import { generateProductScenesHTML } from '@/modules/exporters/productScenesExporter';
-import { generateProductInfoHTML } from '@/modules/exporters/productInfoExporter';
-import {
-  generateProductBenefitsHTML,
-  generateProductComparisonHTML,
-  generateProductProofHTML,
-  generateProductPurchaseHTML,
-  generateProductStepsHTML,
-} from '@/modules/exporters/productAdvancedExporter';
+import { generateHeroCarouselScript } from '@/modules/exporters/heroCarouselExporter';
 import { generateCarouselScript } from '@/lib/export/cssGenerator';
 import { getModuleAnchorId } from '@/lib/modules/anchors';
+import { renderModuleExportHTML } from '@/lib/modules/moduleRegistry';
 
 function renderModuleHTML(module: PageModule, modules: PageModule[]): string {
-  const raw = (() => {
-    switch (module.type) {
-    case 'title':           return generateTitleHTML(module.data);
-    case 'hero':            return generateHeroHTML(module.data);
-    case 'split-section':   return generateSplitSectionHTML(module.data);
-    case 'product-grid':    return generateProductGridHTML(module.data);
-    case 'banner-products': return generateBannerProductsHTML(module.data);
-    case 'product-banner':  return generateProductBannerHTML(module.data);
-    case 'product-carousel':return generateProductCarouselHTML(module.data);
-    case 'logo-wall':       return generateLogoWallHTML(module.data);
-    case 'cta':             return generateCtaHTML(module.data);
-    case 'faq':             return generateFaqHTML(module.data);
-    case 'sticky-sidebar':  return generateStickySidebarHTML(module.data);
-    case 'article-text':    return generateArticleTextHTML(module.data);
-    case 'article-image':   return generateArticleImageHTML(module.data);
-    case 'hero-carousel':   return generateHeroCarouselHTML(module.data);
-    case 'bank-promo':      return generateBankPromoHTML(module.data);
-    case 'anchor-nav':      return generateAnchorNavHTML(module.data, module.id, modules);
-    case 'product-features':return generateProductFeaturesHTML(module.data);
-    case 'product-showcase':return generateProductShowcaseHTML(module.data);
-    case 'product-scenes':  return generateProductScenesHTML(module.data);
-    case 'product-info':    return generateProductInfoHTML(module.data);
-    case 'product-benefits':return generateProductBenefitsHTML(module.data);
-    case 'product-steps':   return generateProductStepsHTML(module.data);
-    case 'product-comparison': return generateProductComparisonHTML(module.data);
-    case 'product-proof':   return generateProductProofHTML(module.data);
-    case 'product-purchase':return generateProductPurchaseHTML(module.data);
-    default:                return '';
-    }
-  })();
+  const raw = renderModuleExportHTML(module, { modules });
 
   const anchorName = 'anchorName' in module.data ? module.data.anchorName?.trim() : '';
   if (!raw || !anchorName || module.type === 'anchor-nav') return raw;

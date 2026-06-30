@@ -404,7 +404,7 @@ export interface ProductFeaturesModule extends BaseModule {
   data: ProductFeaturesData;
 }
 
-export type ProductShowcaseStyle = 'full-bleed' | 'spacious' | 'split' | 'luxury';
+export type ProductShowcaseStyle = 'spacious' | 'split' | 'luxury';
 
 export interface ProductShowcaseData extends AnchorableData {
   style: ProductShowcaseStyle;

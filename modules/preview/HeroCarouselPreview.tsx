@@ -151,7 +151,7 @@ export function HeroCarouselPreview({ data }: { data: HeroCarouselData }) {
                     position: isMobile ? 'relative' : 'absolute',
                     inset: isMobile ? undefined : 0,
                     zIndex: 1,
-                    background: isMobile ? 'transparent' : 'linear-gradient(90deg, rgba(15,23,42,0.48), rgba(15,23,42,0.16) 48%, rgba(15,23,42,0.04))',
+                    background: 'transparent',
                     flex: isMobile ? '0 0 auto' : undefined,
                     display: 'flex',
                     flexDirection: 'column',

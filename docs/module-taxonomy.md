@@ -52,7 +52,6 @@ Product-page modules should be fewer than the visible section names. Each base m
   - 重點直排
   - 數字賣點
 - 大圖展示
-  - 滿版圖片 + 文字
   - 上下留白
   - 左右排版：電商導購型，圖片與文字同等重要。
   - 精品風：玻璃文字卡與聚焦商品展示，適合高級感主推。
@@ -77,7 +76,7 @@ Product-page modules should be fewer than the visible section names. Each base m
   - 認證標章：證書格狀卡。
 - 購買轉換
   - 購買資訊 CTA
-  - 推薦組合：主推成套購買，第一張商品作為主組合。
+  - 推薦組合：主推成套購買，預覽與匯出固定顯示前三品。
   - 相關商品：同系列延伸推薦，輕量卡片導購。
 
 Product FAQ does not get its own module. Use the General FAQ module and style/copy it for product questions.
@@ -97,7 +96,7 @@ Brand modules are narrative sections. They should share one consistent content m
 Implemented product-page modules:
 
 - `product-features`：商品特色，支援四宮格、六宮格、Icon + 文字、卡片式。
-- `product-showcase`：大圖展示，支援滿版圖片 + 文字、上下留白、左右排版、精品風。
+- `product-showcase`：大圖展示，支援上下留白、左右排版、精品風；滿版視覺請使用 KV 或商品情境。
 - `product-scenes`：商品情境，支援左圖右文、右圖左文、滿版情境、雙圖情境。
 - `product-info`：商品資訊，支援成分介紹、技術特色、商品規格、商品內容物。
 - `product-benefits`：核心賣點，支援數據卡、痛點解法、堆疊式。
