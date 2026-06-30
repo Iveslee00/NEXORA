@@ -62,7 +62,7 @@ export function ProductShowcasePreview({ data }: { data: ProductShowcaseData }) 
       boxShadow: !isFull ? (commerceGrid ? '0 22px 58px rgba(79,70,229,0.13)' : '0 24px 70px rgba(15,23,42,0.12)') : undefined,
       border: luxuryFrame ? '1px solid rgba(47,42,37,0.12)' : commerceGrid ? '1px solid rgba(79,70,229,0.12)' : undefined,
     }}>
-      {ambientPanel && <div style={{ position: 'absolute', inset: isLuxury ? '9% 8% 11% 18%' : '7%', borderRadius: 34, background: 'linear-gradient(135deg, rgba(255,255,255,0.52), rgba(255,255,255,0.08))', border: '1px solid rgba(255,255,255,0.42)', backdropFilter: 'blur(18px) saturate(1.2)', pointerEvents: 'none' }} />}
+      {ambientPanel && <div style={{ position: 'absolute', inset: isLuxury ? '9% 8% 11% 18%' : '7%', borderRadius: 34, background: 'linear-gradient(135deg, rgba(255,255,255,0.52), rgba(255,255,255,0.08))', border: '1px solid rgba(255,255,255,0.42)', pointerEvents: 'none' }} />}
       {isLuxury && <div style={{ position: 'absolute', inset: '12%', borderRadius: '50%', background: 'rgba(125,211,252,0.24)', filter: 'blur(34px)' }} />}
       {freshGlow && <div style={{ position: 'absolute', inset: '-18%', borderRadius: '50%', background: 'rgba(14,165,198,0.18)', filter: 'blur(44px)' }} />}
       {promoRibbon && <div style={{ position: 'absolute', right: 28, top: 28, zIndex: 2, borderRadius: 999, background: '#ef4444', color: '#fff', padding: '10px 18px', fontSize: 13, fontWeight: 900, boxShadow: '0 14px 34px rgba(239,68,68,0.30)' }}>LIMITED OFFER</div>}

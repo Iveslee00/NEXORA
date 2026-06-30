@@ -44,4 +44,14 @@ for (const [source, token, message] of required) {
   }
 }
 
+const unsafeImageOverlayPatterns = [
+  [/\.cb-product-showcase__ambient-panel\s*\{[^}]*backdrop-filter/s, 'Product showcase ambient panel must not blur the product image'],
+];
+
+for (const [pattern, message] of unsafeImageOverlayPatterns) {
+  if (pattern.test(css)) {
+    throw new Error(message);
+  }
+}
+
 console.log('Product page visual upgrade verification passed.');

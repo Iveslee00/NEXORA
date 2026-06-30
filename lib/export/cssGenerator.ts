@@ -133,7 +133,6 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   position: absolute; inset: 28px; z-index: 3; pointer-events: none;
   border-radius: 34px; border: 1px solid rgba(255,255,255,0.18);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), 0 28px 80px rgba(15,23,42,0.18);
-  backdrop-filter: blur(18px) saturate(1.2);
 }
 .cb-hero--small { aspect-ratio: 1920 / 480; }
 .cb-hero--medium { aspect-ratio: 1920 / 640; }
@@ -328,7 +327,6 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   position: absolute; inset: 16px; z-index: 2; pointer-events: none;
   border-radius: 24px; border: 1px solid rgba(255,255,255,0.54);
   background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
-  backdrop-filter: blur(18px) saturate(1.2);
 }
 .cb-product-banner__picture { position: absolute; inset: 0; display: block; }
 .cb-product-banner__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -514,7 +512,6 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   border-radius: 34px;
   background: linear-gradient(135deg, rgba(255,255,255,0.52), rgba(255,255,255,0.08));
   border: 1px solid rgba(255,255,255,0.42);
-  backdrop-filter: blur(18px) saturate(1.2);
 }
 .cb-product-showcase__floating-badge {
   position: absolute; left: 24px; bottom: 24px; z-index: 3;
@@ -923,7 +920,6 @@ export function generatePageCSS(settings?: Partial<GlobalSettings>): string {
   position: absolute; inset: 28px; z-index: 2; pointer-events: none;
   border-radius: 34px; border: 1px solid rgba(255,255,255,0.18);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), 0 28px 80px rgba(15,23,42,0.18);
-  backdrop-filter: blur(18px) saturate(1.2);
 }
 .cb-kv__track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
 .cb-kv__slide { flex: 0 0 100%; position: relative; height: 100%; overflow: hidden; }

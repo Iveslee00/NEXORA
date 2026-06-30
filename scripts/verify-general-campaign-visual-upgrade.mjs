@@ -41,12 +41,24 @@ const required = [
   [css, '.cb-product-banner__glass-panel', 'Export CSS should style single product glass panel'],
   [css, '.cb-logo-wall__frame', 'Export CSS should style logo wall glass frame'],
   [css, '.cb-faq__signal', 'Export CSS should style FAQ signal line'],
-  [css, 'backdrop-filter: blur(18px) saturate(1.2)', 'Export CSS should include liquid glass depth for General/Campaign modules'],
+  [css, 'box-shadow: inset 0 1px 0 rgba(255,255,255,0.16)', 'Export CSS should include safe glass depth without blurring banner images'],
   [sprintSpec, 'Status：完成第一階段。General / Campaign 模組已補強視覺層次', 'Sprint spec should mark BQ-011 first phase complete'],
 ];
 
 for (const [source, token, message] of required) {
   if (!source.includes(token)) {
+    throw new Error(message);
+  }
+}
+
+const unsafeOverlayPatterns = [
+  [/\.cb-hero__glass-shell\s*\{[^}]*backdrop-filter/s, 'KV glass shell must not blur the banner image'],
+  [/\.cb-kv__glass-track\s*\{[^}]*backdrop-filter/s, 'KV carousel glass track must not blur the banner image'],
+  [/\.cb-product-banner__glass-panel\s*\{[^}]*backdrop-filter/s, 'Single product image glass panel must not blur the product image'],
+];
+
+for (const [pattern, message] of unsafeOverlayPatterns) {
+  if (pattern.test(css)) {
     throw new Error(message);
   }
 }

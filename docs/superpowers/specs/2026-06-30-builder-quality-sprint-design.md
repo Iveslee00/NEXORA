@@ -600,6 +600,8 @@ Acceptance：
 
 Status：完成第一階段。General / Campaign 模組已補強視覺層次：KV 與 KV 輪播新增深度層與玻璃框；標題、FAQ、Logo Wall 補上輕量視覺訊號；商品列表、商品輪播、活動 Banner + 商品、單品主打補上活動商品訊號與玻璃層。預覽與匯出 HTML/CSS 已同步，並新增 `npm run verify:general-campaign-visual-upgrade` 鎖定回歸。
 
+Hotfix：大面積覆蓋圖片的玻璃層不得使用 `backdrop-filter`，避免 KV、KV 輪播、單品主打或商品展示輸出後把圖片整片模糊。已將此規則加入 `npm run verify:general-campaign-visual-upgrade` 與 `npm run verify:product-page-visual-upgrade`。
+
 ### BQ-012：Resources page repositioning
 
 Goal：處理素材區雞肋感。
