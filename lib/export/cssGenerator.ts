@@ -234,11 +234,6 @@ ${getHighRiskModuleCssFragments()}
   background: radial-gradient(circle at 28% 18%, rgba(99,102,241,0.26), transparent 36%), #111827; height: 100%; display: flex;
   box-shadow: 0 22px 60px rgba(15,23,42,0.16);
 }
-.cb-banner-products__frame {
-  position: absolute; inset: 12px; z-index: 2; pointer-events: none;
-  border-radius: 18px; border: 1px solid rgba(255,255,255,0.18);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
-}
 .cb-banner-products__products { display: grid; gap: 16px; align-items: start; min-height: 0; }
 .cb-banner-products__products--0 { display: none; }
 .cb-banner-products__products--1 { grid-template-columns: repeat(1, 168px); }
@@ -315,11 +310,6 @@ ${getHighRiskModuleCssFragments()}
 .cb-product-banner__media { position: relative; border-radius: 28px; overflow: hidden; aspect-ratio: 700 / 600; box-shadow: 0 22px 60px rgba(15,23,42,0.12); background: linear-gradient(135deg, #eef2ff, #f8fafc); }
 .cb-product-banner--small .cb-product-banner__media { aspect-ratio: 700 / 460; }
 .cb-product-banner--large .cb-product-banner__media { aspect-ratio: 700 / 740; }
-.cb-product-banner__glass-panel {
-  position: absolute; inset: 16px; z-index: 2; pointer-events: none;
-  border-radius: 24px; border: 1px solid rgba(255,255,255,0.54);
-  background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
-}
 .cb-product-banner__picture { position: absolute; inset: 0; display: block; }
 .cb-product-banner__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .cb-product-banner__badge { position: absolute; top: 16px; right: 16px; padding: 6px 12px; background-color: #e53e3e; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; border-radius: 6px; z-index: 1; }
@@ -338,11 +328,6 @@ ${getHighRiskModuleCssFragments()}
   transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .cb-logo-wall__item:hover { opacity: 1; transform: translateY(-2px); box-shadow: 0 18px 42px rgba(15,23,42,0.10); }
-.cb-logo-wall__frame {
-  position: absolute; inset: 5px; z-index: 1; pointer-events: none;
-  border-radius: 14px; border: 1px solid rgba(255,255,255,0.58);
-  background: linear-gradient(135deg, rgba(255,255,255,0.42), rgba(255,255,255,0.08));
-}
 .cb-logo-wall__item img { position: relative; z-index: 2; width: 160px; height: 60px; object-fit: contain; display: block; }
 
 /* ------------------------------------------------------------

@@ -57,7 +57,7 @@
 - Export 不得拆散 Preview 中作為同一組排版的 DOM，例如 icon + content、image + card、title + body。
 - Export CSS 必須包含該 variant 的 desktop / tablet / mobile 規則。
 - 有圖片欄位的高風險模組，缺圖時必須使用 `renderImagePlaceholder()` 顯示尺寸，並輸出 `data-image-width` / `data-image-height`。
-- 圖片本身不可再壓上玻璃框線、玻璃面板或玻璃標籤。禁止在 banner / KV / 商品展示圖片上輸出類似 `glass-shell`、`glass-track`、`ambient-panel`、`floating-badge` 的覆蓋層；需要質感時只能放在文字卡、背景層或按鈕，不可壓在圖片視覺上。
+- 圖片本身不可再壓上玻璃框線、玻璃面板、玻璃標籤或任何裝飾框。禁止在所有圖片、Logo、Banner、KV、商品圖、情境圖、單品主打圖上輸出類似 `glass-shell`、`glass-track`、`glass-panel`、`ambient-panel`、`floating-badge`、`__frame` 的覆蓋層；需要質感時只能放在文字卡、背景層或按鈕，不可壓在圖片視覺上。
 
 目標架構：
 
@@ -182,6 +182,8 @@ absolute 只能用於裝飾、badge、背景層，不可作為主要排版基礎
 RWD 不可只存在 Builder Preview。Export CSS 必須包含完整規則。
 
 Builder / Preview 的手機畫布必須透過 `.nexora-preview-mobile-scope` 強制套用 mobile media rules，不能只依賴瀏覽器 viewport。
+
+如果模組使用 `<picture>` 同時輸出 PC / M 圖，Builder 手機預覽必須額外強制替換成 mobile source。原因是 Builder 手機畫布常是「桌機瀏覽器中縮小的手機畫布」，瀏覽器實際 viewport 仍大於 767px，原生 `<source media="(max-width: 767px)">` 不會被選中。此行為由 `SharedModuleView.forceMobilePictureSources()` 維護，並由 `npm run verify:mobile-picture-preview` 驗證。
 
 ### 8. Export 必須獨立可用
 

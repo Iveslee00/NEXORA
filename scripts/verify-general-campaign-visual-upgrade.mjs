@@ -22,18 +22,12 @@ const required = [
   [heroPreview, 'heroDepthLayer', 'KV preview should include depth layer treatment'],
   [titlePreview, 'titleHaloLayer', 'Title preview should include halo layer treatment'],
   [faqPreview, 'faqSignalLine', 'FAQ preview should include signal line treatment'],
-  [logoPreview, 'logoGlassFrame', 'Logo wall preview should include glass frame treatment'],
   [productGridPreview, 'campaignProductSignal', 'Product grid preview should include campaign product signal'],
   [productCarouselPreview, 'carouselProductSignal', 'Product carousel preview should include carousel product signal'],
-  [bannerProductsPreview, 'bannerCommerceFrame', 'Banner + products preview should include commerce frame treatment'],
-  [productBannerPreview, 'singleProductGlassPanel', 'Single product preview should include glass panel treatment'],
   [heroExporter, 'cb-hero__depth-layer', 'KV exporter should output depth layer element'],
   [css, '.cb-hero__depth-layer', 'Export CSS should style KV depth layer'],
   [css, '.cb-title-block__halo', 'Export CSS should style title halo'],
   [css, '.cb-product-card__signal', 'Export CSS should style campaign product signals'],
-  [css, '.cb-banner-products__frame', 'Export CSS should style banner commerce frame'],
-  [css, '.cb-product-banner__glass-panel', 'Export CSS should style single product glass panel'],
-  [css, '.cb-logo-wall__frame', 'Export CSS should style logo wall glass frame'],
   [css, '.cb-faq__signal', 'Export CSS should style FAQ signal line'],
   [sprintSpec, 'Status：完成第一階段。General / Campaign 模組已補強視覺層次', 'Sprint spec should mark BQ-011 first phase complete'],
 ];
@@ -47,11 +41,23 @@ for (const [source, token, message] of required) {
 const unsafeOverlayPatterns = [
   [/cb-hero__glass-shell/, 'KV export must not place a glass frame over the image'],
   [/cb-kv__glass-track/, 'KV carousel export must not place a glass track over the image'],
-  [/\.cb-product-banner__glass-panel\s*\{[^}]*backdrop-filter/s, 'Single product image glass panel must not blur the product image'],
+  [/cb-product-banner__glass-panel/, 'Single product export must not place a glass panel over the image'],
+  [/cb-banner-products__frame/, 'Banner products export must not place a glass frame over the image'],
+  [/cb-logo-wall__frame/, 'Logo wall export must not place a glass frame over logo images'],
+  [/singleProductGlassPanel/, 'Single product preview must not place a glass panel over the image'],
+  [/bannerCommerceFrame/, 'Banner products preview must not place a glass frame over the image'],
+  [/logoGlassFrame/, 'Logo wall preview must not place a glass frame over logo images'],
 ];
 
 for (const [pattern, message] of unsafeOverlayPatterns) {
-  if (pattern.test(css) || pattern.test(heroExporter) || pattern.test(heroCarouselExporter)) {
+  if (
+    pattern.test(css) ||
+    pattern.test(heroExporter) ||
+    pattern.test(heroCarouselExporter) ||
+    pattern.test(productBannerPreview) ||
+    pattern.test(bannerProductsPreview) ||
+    pattern.test(logoPreview)
+  ) {
     throw new Error(message);
   }
 }

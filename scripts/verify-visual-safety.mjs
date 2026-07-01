@@ -7,6 +7,9 @@ const css = read('lib/export/cssGenerator.ts');
 const heroExporter = read('modules/exporters/heroExporter.ts');
 const heroCarouselExporter = read('modules/exporters/heroCarouselExporter.ts');
 const productShowcaseExporter = read('modules/exporters/productShowcaseExporter.ts');
+const productBannerExporter = read('modules/exporters/productBannerExporter.ts');
+const bannerProductsExporter = read('modules/exporters/bannerProductsExporter.ts');
+const logoWallExporter = read('modules/exporters/logoWallExporter.ts');
 const sprintSpec = read('docs/superpowers/specs/2026-06-30-builder-quality-sprint-design.md');
 
 const requiredTokens = [
@@ -46,10 +49,16 @@ const imageGlassOverlayTokens = [
   [heroCarouselExporter, 'cb-kv__glass-track', 'KV carousel export must not place a glass track over the image'],
   [productShowcaseExporter, 'cb-product-showcase__ambient-panel', 'Product showcase export must not place an ambient glass panel over the image'],
   [productShowcaseExporter, 'cb-product-showcase__floating-badge', 'Product showcase export must not place a glass badge over the image'],
+  [productBannerExporter, 'cb-product-banner__glass-panel', 'Single product export must not place a glass panel over the image'],
+  [bannerProductsExporter, 'cb-banner-products__frame', 'Banner products export must not place a glass frame over the image'],
+  [logoWallExporter, 'cb-logo-wall__frame', 'Logo wall export must not place a glass frame over logo images'],
   [css, '.cb-hero__glass-shell', 'Export CSS must not include KV image glass frame styles'],
   [css, '.cb-kv__glass-track', 'Export CSS must not include KV carousel image glass track styles'],
   [css, '.cb-product-showcase__ambient-panel', 'Export CSS must not include product showcase image glass panel styles'],
   [css, '.cb-product-showcase__floating-badge', 'Export CSS must not include product showcase image glass badge styles'],
+  [css, '.cb-product-banner__glass-panel', 'Export CSS must not include single product image glass panel styles'],
+  [css, '.cb-banner-products__frame', 'Export CSS must not include banner image glass frame styles'],
+  [css, '.cb-logo-wall__frame', 'Export CSS must not include logo image glass frame styles'],
 ];
 
 for (const [source, token, message] of imageGlassOverlayTokens) {

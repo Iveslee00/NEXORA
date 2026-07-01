@@ -78,6 +78,8 @@ SharedModuleView
 
 Builder canvas 與 Preview modal 會注入同一份 `generatePageCSS()` 輸出。手機預覽另外使用 `.nexora-preview-mobile-scope` 作用域強制套用 mobile media rules，避免 390px 畫布因瀏覽器視窗大於 768px 而吃桌機樣式。
 
+使用 `<picture>` 的模組還有一層限制：Builder 手機預覽不是實際手機瀏覽器 viewport，因此原生 media query 可能仍選到 PC 圖。`SharedModuleView` 在 mobile preview mode 會透過 `forceMobilePictureSources()` 把 `<img src>` 暫時替換成 mobile `<source srcset>`，讓使用者上傳 M 版 KV / Banner 後，畫布與預覽立即顯示 M 圖。Export HTML 仍保留標準 `<picture>` 結構，給真實裝置自行選圖。
+
 Phase 3 目前落地高風險模組 definition 層：
 
 ```text
@@ -175,7 +177,7 @@ The final target remains a shared `ModuleView` / `ModuleRenderer` path using `mo
 ## Product Export Hotfix Rules
 
 - KV / KV 輪播不輸出黑色漸層濾鏡。
-- KV / KV 輪播 / 商品展示圖片不得再輸出壓在圖片上的玻璃框線、玻璃面板或玻璃標籤；圖片視覺需保持乾淨。
+- 所有圖片、Logo、Banner、KV、商品圖、情境圖、單品主打圖不得再輸出壓在圖片上的玻璃框線、玻璃面板、玻璃標籤或裝飾框；圖片視覺需保持乾淨。
 - `product-showcase` 不提供滿版形象；舊 `full-bleed` data 轉為 `spacious`。
 - `product-showcase` 左右分欄文字卡必須有內距、圓角、邊框、陰影。
 - `product-showcase` 留白展示圖片不可過大，需限制寬度。

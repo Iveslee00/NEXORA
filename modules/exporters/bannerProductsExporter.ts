@@ -40,7 +40,6 @@ export function generateBannerProductsHTML(data: BannerProductsData): string {
   <div class="cb-container">
     <div class="cb-banner-products__inner cb-banner-products__inner${countClass}">
       <a href="${escapeHtml(data.bannerLink || '#')}" class="cb-banner-products__banner">
-        <span class="cb-banner-products__frame"></span>
         ${bannerImg}
         <div class="cb-banner-products__banner-overlay">
           ${data.bannerTitle ? `<p class="cb-banner-products__banner-title"${bannerTitleStyle}>${escapeHtml(data.bannerTitle)}</p>` : ''}

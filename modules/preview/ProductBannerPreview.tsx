@@ -36,15 +36,6 @@ export function ProductBannerPreview({ data }: { data: ProductBannerData }) {
 
   const dividerColor = 'rgba(0,0,0,0.1)';
   const salePriceColor = '#e53e3e';
-  const singleProductGlassPanel: React.CSSProperties = {
-    position: 'absolute',
-    inset: isMobile ? 10 : 16,
-    borderRadius: isMobile ? 18 : 24,
-    border: '1px solid rgba(255,255,255,0.54)',
-    background: 'linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04))',
-    pointerEvents: 'none',
-    zIndex: 1,
-  };
 
   const content = (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', borderRadius: 28, padding: isMobile ? 0 : '30px 32px', ...(!isMobile ? glassPanel : {}) }}>
@@ -87,7 +78,6 @@ export function ProductBannerPreview({ data }: { data: ProductBannerData }) {
 
   const media = (
     <div style={{ position: 'relative', borderRadius: '26px', overflow: 'hidden', aspectRatio: `${mediaSpec.width} / ${mediaSpec.height}`, boxShadow: premiumShadow }}>
-      <span style={singleProductGlassPanel} />
       <PreviewImage src={imageSrc} alt={data.productName || ''} label={isMobile ? '單品主打 M' : '單品主打 PC'} spec={mediaSpec} />
       {data.showBadge && data.badgeText && (
         <span style={{ position: 'absolute', top: '14px', right: '14px', background: '#e53e3e', color: '#fff', fontSize: '12px', fontWeight: 700, letterSpacing: '0.05em', padding: '5px 10px', borderRadius: '6px' }}>

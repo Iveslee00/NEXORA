@@ -8,14 +8,6 @@ import { hoverLift, moduleSurface, softBorder } from './visualStyles';
 
 export function LogoWallPreview({ data }: { data: LogoWallData }) {
   const { isMobile } = useDevice();
-  const logoGlassFrame: React.CSSProperties = {
-    position: 'absolute',
-    inset: 5,
-    borderRadius: 14,
-    border: '1px solid rgba(255,255,255,0.58)',
-    background: 'linear-gradient(135deg, rgba(255,255,255,0.42), rgba(255,255,255,0.08))',
-    pointerEvents: 'none',
-  };
 
   return (
     <section style={{ ...moduleSurface(data.backgroundColor), padding: isMobile ? '24px 16px 32px' : '36px 24px 44px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
@@ -23,7 +15,6 @@ export function LogoWallPreview({ data }: { data: LogoWallData }) {
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: isMobile ? '20px 28px' : '32px 48px' }}>
           {data.logos.map((logo) => (
             <div key={logo.id} style={{ position: 'relative', padding: '14px 18px', borderRadius: 18, background: 'rgba(255,255,255,0.86)', border: softBorder, boxShadow: '0 10px 26px rgba(15,23,42,0.06)', ...hoverLift }}>
-              <span style={logoGlassFrame} />
               <div style={{ position: 'relative', width: '160px', aspectRatio: '160 / 60', overflow: 'hidden', zIndex: 1 }}>
                 <PreviewImage src={logo.image} alt={logo.alt} label="Logo" spec={IMAGE_SPECS.logo} objectFit="contain" />
               </div>

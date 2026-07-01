@@ -52,23 +52,12 @@ export function BannerProductsPreview({ data }: { data: BannerProductsData }) {
   const productMediaStyle: React.CSSProperties = lockDesktopHeight
     ? { height: `${productCardWidth}px` }
     : { aspectRatio: '1/1' };
-  const bannerCommerceFrame: React.CSSProperties = {
-    position: 'absolute',
-    inset: 12,
-    borderRadius: 18,
-    border: '1px solid rgba(255,255,255,0.18)',
-    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.16)',
-    pointerEvents: 'none',
-    zIndex: 2,
-  };
-
   return (
     <section style={{ ...bgStyle, padding: isMobile ? '24px 16px 32px' : '32px 0 40px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
       <div ref={containerRef} style={{ maxWidth: '1080px', margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: isMobile ? '12px' : `${desktopGap}px`, alignItems: lockDesktopHeight ? 'stretch' : 'start' }}>
           {/* Banner */}
           <div style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', background: '#1a1a2e', aspectRatio: lockDesktopHeight ? undefined : bannerAspectRatio, height: lockDesktopHeight ? '100%' : undefined, display: 'flex', boxShadow: premiumShadow }}>
-            <span style={bannerCommerceFrame} />
             <PreviewImage src={bannerSrc} alt={data.bannerTitle} label={isMobile ? '活動 Banner M' : '活動 Banner PC'} spec={bannerSpec} tone="dark" />
             <div style={{ position: 'relative', zIndex: 1, padding: '24px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', width: '100%', background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)' }}>
               {data.bannerTitle && (

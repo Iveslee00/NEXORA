@@ -49,7 +49,6 @@ export function generateProductBannerHTML(data: ProductBannerData): string {
         </div>${button}
       </div>
       <div class="cb-product-banner__media">
-        <span class="cb-product-banner__glass-panel"></span>
         ${productImage}${badge}
       </div>
     </div>
