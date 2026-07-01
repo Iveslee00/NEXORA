@@ -1,5 +1,7 @@
 import { ProductGridData } from '@/types/modules';
+import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 import { escapeHtml } from '@/lib/utils';
+import { renderImagePlaceholder } from '@/modules/definitions/imagePlaceholder';
 import { generateProductCardLabels } from './productCardLabels';
 
 export function generateProductGridHTML(data: ProductGridData): string {
@@ -11,7 +13,7 @@ export function generateProductGridHTML(data: ProductGridData): string {
 
       return `      <a href="${escapeHtml(p.link || '#')}" class="cb-product-card">
         <div class="cb-product-card__media">${labels}
-          <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}">
+          ${p.image ? `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}">` : renderImagePlaceholder('商品圖', IMAGE_SPECS.product)}
           <span class="cb-product-card__signal"></span>
         </div>
         <div class="cb-product-card__body">

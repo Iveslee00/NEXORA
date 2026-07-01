@@ -58,6 +58,8 @@
 
 因此任何模組調整都不能只看 Builder 畫布，必須同時檢查 Export DOM 與 Export CSS。全模組合約由 `npm run verify:shared-module-rendering` 與 `npm run verify:module-export-parity` 負責檢查。
 
+使用者回報過的跨模組問題由 `npm run verify:reported-module-regressions` 負責防回歸；凡是修正空圖、輪播、尺寸 placeholder、標題空字、商品頁版型 badge 等問題，都必須同步更新這支 verifier。
+
 新增模組時必須至少做到：
 
 - Preview 與 Export 使用同一份資料來源。
@@ -69,7 +71,10 @@
 - Export 不得拆散 Preview 中作為同一組排版的 DOM，例如 icon + content、image + card、title + body。
 - Export CSS 必須包含該 variant 的 desktop / tablet / mobile 規則。
 - 有圖片欄位的高風險模組，缺圖時必須使用 `renderImagePlaceholder()` 顯示尺寸，並輸出 `data-image-width` / `data-image-height`。
+- 有圖片欄位的一般模組也不得輸出空 `src`。Logo、商品圖、文章圖、圖文區塊圖、Banner、KV、商品頁圖片在未上傳時都必須顯示尺寸 placeholder，不可出現瀏覽器缺圖 icon。
 - 圖片本身不可再壓上玻璃框線、玻璃面板、玻璃標籤或任何裝飾框。禁止在所有圖片、Logo、Banner、KV、商品圖、情境圖、單品主打圖上輸出類似 `glass-shell`、`glass-track`、`glass-panel`、`ambient-panel`、`floating-badge`、`__frame` 的覆蓋層；需要質感時只能放在文字卡、背景層或按鈕，不可壓在圖片視覺上。
+- 輪播模組在整頁 Export 與 Builder 單模組 Preview 都必須可操作。若互動 JS 只由整頁匯出插入，`SharedModuleView` 必須同步提供 preview-scoped 初始化，不可讓 Builder 畫布或專案卡預覽失效。
+- 可選文字欄位不得在空白時輸出預設字。例如標題區塊的副標沒有填寫時，不應輸出副標 DOM。
 
 目標架構：
 

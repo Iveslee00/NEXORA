@@ -27,7 +27,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
     category: 'General',
     defaultData: {
       titleCn: '主要標題',
-      titleEn: 'Campaign Sale',
+      titleEn: '',
       alignment: 'center',
       titleColor: '',
       backgroundColor: '',

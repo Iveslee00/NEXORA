@@ -70,6 +70,15 @@ const bannerProductsCss = `
 .cb-banner-products .cb-product-card__media .cb-image-placeholder {
   position: absolute;
 }
+.cb-banner-products__banner .cb-image-placeholder__label {
+  font-size: 11px;
+}
+.cb-banner-products__banner .cb-image-placeholder__size {
+  font-size: clamp(1rem, 2vw, 1.35rem);
+}
+.cb-banner-products__banner .cb-image-placeholder__hint {
+  font-size: 11px;
+}
 `;
 
 const productFeaturesCss = `

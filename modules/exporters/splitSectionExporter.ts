@@ -1,5 +1,7 @@
 import { SplitSectionData } from '@/types/modules';
+import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
 import { escapeHtml } from '@/lib/utils';
+import { renderImagePlaceholder } from '@/modules/definitions/imagePlaceholder';
 
 export function generateSplitSectionHTML(data: SplitSectionData): string {
   const reverseClass = data.reverse ? ' cb-split__inner--reverse' : '';
@@ -13,7 +15,7 @@ export function generateSplitSectionHTML(data: SplitSectionData): string {
   const bgOverride = data.backgroundColor ? ` style="background: ${escapeHtml(data.backgroundColor)}"` : '';
   const imageEl = data.image
     ? `<picture class="cb-split__picture">${data.mobileImage ? `\n          <source media="(max-width: 767px)" srcset="${escapeHtml(data.mobileImage)}">` : ''}\n          <img src="${escapeHtml(data.image)}" alt="${escapeHtml(data.title)}">\n        </picture>`
-    : '';
+    : renderImagePlaceholder('圖文區塊', IMAGE_SPECS.split);
 
   return `<section class="cb-split cb-section"${bgOverride}>
   <div class="cb-container">

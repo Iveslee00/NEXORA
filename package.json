@@ -46,6 +46,7 @@
     "verify:visual-safety": "node --no-warnings scripts/verify-visual-safety.mjs",
     "verify:mobile-picture-preview": "node --no-warnings scripts/verify-mobile-picture-preview.mjs",
     "verify:product-export-hotfixes": "node --no-warnings scripts/verify-product-export-hotfixes.mjs",
+    "verify:reported-module-regressions": "node --no-warnings scripts/verify-reported-module-regressions.mjs",
     "verify:shared-module-rendering": "node --no-warnings scripts/verify-shared-module-rendering.mjs",
     "verify:phase3-shared-modules": "node --no-warnings scripts/verify-phase3-shared-modules.mjs",
     "verify:module-rendering-architecture": "node --no-warnings scripts/verify-module-rendering-architecture.mjs",
