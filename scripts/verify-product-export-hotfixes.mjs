@@ -51,6 +51,14 @@ assert(
   css.includes('.cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }'),
   'Bundle purchase export should use a stable three-card grid'
 );
+assert(
+  /\.cb-product-purchase__button\s*\{[^}]*background:\s*\$\{btnColor\};[^}]*color:\s*\$\{btnTextColor\};/s.test(css),
+  'Product purchase buttons should use global button color and button text color'
+);
+assert(
+  !/\.cb-product-purchase__button\s*\{[^}]*background:\s*#ffffff;[^}]*color:\s*#0f172a;/s.test(css),
+  'Product purchase buttons must not be hard-coded as white buttons'
+);
 
 assert(css.includes('.cb-product-features__item {') && css.includes('min-width: 0;'), 'Product feature export cards should prevent grid overflow');
 assert(css.includes('.cb-product-features--icon-text .cb-product-features__item {') && css.includes('border-radius: 24px;'), 'Icon-text product features should not export as oversized pills');

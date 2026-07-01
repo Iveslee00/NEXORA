@@ -182,6 +182,7 @@ The final target remains a shared `ModuleView` / `ModuleRenderer` path using `mo
 - `product-showcase` 左右分欄文字卡必須有內距、圓角、邊框、陰影。
 - `product-showcase` 留白展示圖片不可過大，需限制寬度。
 - `product-showcase` 精品展示圖片必須填滿 media 容器，不可使用 `object-fit: contain` 造成白邊。
+- `product-purchase` CTA / 推薦組合 / 相關商品的購買按鈕必須使用全站按鈕色與按鈕文字色，不可硬寫白底或造成白字白底。
 - `product-purchase` 推薦組合 preview / export 固定顯示前三品。
 - `product-features` export 必須有 grid overflow 防護與 mobile icon-text 規則。
 - `product-features` icon-text export 必須使用 `.cb-product-features__content` 包住 title / text，避免匯出後 grid children 被拆散。
