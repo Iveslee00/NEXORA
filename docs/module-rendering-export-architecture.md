@@ -175,6 +175,7 @@ The final target remains a shared `ModuleView` / `ModuleRenderer` path using `mo
 ## Product Export Hotfix Rules
 
 - KV / KV 輪播不輸出黑色漸層濾鏡。
+- KV / KV 輪播 / 商品展示圖片不得再輸出壓在圖片上的玻璃框線、玻璃面板或玻璃標籤；圖片視覺需保持乾淨。
 - `product-showcase` 不提供滿版形象；舊 `full-bleed` data 轉為 `spacious`。
 - `product-showcase` 左右分欄文字卡必須有內距、圓角、邊框、陰影。
 - `product-showcase` 留白展示圖片不可過大，需限制寬度。

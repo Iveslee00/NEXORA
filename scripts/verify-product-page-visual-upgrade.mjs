@@ -18,24 +18,17 @@ const required = [
   [builder, 'conversionIntent', 'Quick Builder output should include conversion-oriented copy'],
   [builder, 'visualHook', 'Quick Builder output should include visual hook copy'],
   [builder, 'proofHook', 'Quick Builder output should include proof hook copy'],
-  [showcasePreview, 'floatingGlassBadge', 'Product showcase preview should include floating glass badge'],
-  [showcasePreview, 'ambientPanel', 'Product showcase preview should include ambient panel'],
   [featuresPreview, 'featureIndexBadge', 'Product features preview should include index badge treatment'],
   [featuresPreview, 'featureTextureLayer', 'Product features preview should include texture layer'],
   [advancedPreview, 'benefitSignalBar', 'Benefits preview should include signal bar'],
   [advancedPreview, 'purchaseGlowFrame', 'Purchase preview should include glow frame'],
-  [showcaseExporter, 'cb-product-showcase__floating-badge', 'Showcase exporter should output floating badge element'],
-  [showcaseExporter, 'cb-product-showcase__ambient-panel', 'Showcase exporter should output ambient panel element'],
   [featuresExporter, 'cb-product-features__index', 'Features exporter should output feature index'],
   [advancedExporter, 'cb-product-benefits__signal', 'Benefits exporter should output signal bar'],
   [advancedExporter, 'cb-product-purchase__glow', 'Purchase exporter should output glow layer'],
-  [css, '.cb-product-showcase__floating-badge', 'Export CSS should style floating showcase badge'],
-  [css, '.cb-product-showcase__ambient-panel', 'Export CSS should style showcase ambient panel'],
   [css, 'showcase content stays above overlapping product media', 'Export CSS should document showcase layer ordering'],
   [css, '.cb-product-features__index', 'Export CSS should style feature index badges'],
   [css, '.cb-product-benefits__signal', 'Export CSS should style benefit signal bars'],
   [css, '.cb-product-purchase__glow', 'Export CSS should style purchase glow layer'],
-  [css, 'backdrop-filter: blur(18px) saturate(1.2)', 'Export CSS should use liquid glass depth on product modules'],
   [sprintSpec, 'Status：完成第一階段。快速建立輸出與商品頁模組已補強視覺層次', 'Sprint spec should mark BQ-008/BQ-010 first phase complete'],
 ];
 
@@ -46,12 +39,13 @@ for (const [source, token, message] of required) {
 }
 
 const unsafeImageOverlayPatterns = [
-  [/\.cb-product-showcase__ambient-panel\s*\{[^}]*backdrop-filter/s, 'Product showcase ambient panel must not blur the product image'],
+  [/cb-product-showcase__ambient-panel/, 'Product showcase export must not place an ambient glass panel over the image'],
+  [/cb-product-showcase__floating-badge/, 'Product showcase export must not place a floating glass badge over the image'],
   [/\.cb-product-showcase__content\s*\{[^}]*z-index:\s*[0-2]\b/s, 'Product showcase content layer must sit above overlapping product media'],
 ];
 
 for (const [pattern, message] of unsafeImageOverlayPatterns) {
-  if (pattern.test(css)) {
+  if (pattern.test(css) || pattern.test(showcaseExporter)) {
     throw new Error(message);
   }
 }

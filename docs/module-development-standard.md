@@ -57,6 +57,7 @@
 - Export 不得拆散 Preview 中作為同一組排版的 DOM，例如 icon + content、image + card、title + body。
 - Export CSS 必須包含該 variant 的 desktop / tablet / mobile 規則。
 - 有圖片欄位的高風險模組，缺圖時必須使用 `renderImagePlaceholder()` 顯示尺寸，並輸出 `data-image-width` / `data-image-height`。
+- 圖片本身不可再壓上玻璃框線、玻璃面板或玻璃標籤。禁止在 banner / KV / 商品展示圖片上輸出類似 `glass-shell`、`glass-track`、`ambient-panel`、`floating-badge` 的覆蓋層；需要質感時只能放在文字卡、背景層或按鈕，不可壓在圖片視覺上。
 
 目標架構：
 

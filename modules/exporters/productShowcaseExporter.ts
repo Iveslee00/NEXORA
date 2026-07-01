@@ -29,8 +29,6 @@ export function generateProductShowcaseHTML(data: ProductShowcaseData): string {
       ${button}
     </div>
     <div class="cb-product-showcase__media">
-      <span class="cb-product-showcase__ambient-panel" aria-hidden="true"></span>
-      <span class="cb-product-showcase__floating-badge" aria-hidden="true">${escapeHtml(data.eyebrow || 'Featured')}</span>
       ${image}
     </div>
   </div>

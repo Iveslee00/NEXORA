@@ -4,6 +4,9 @@ const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf
 
 const packageJson = read('package.json');
 const css = read('lib/export/cssGenerator.ts');
+const heroExporter = read('modules/exporters/heroExporter.ts');
+const heroCarouselExporter = read('modules/exporters/heroCarouselExporter.ts');
+const productShowcaseExporter = read('modules/exporters/productShowcaseExporter.ts');
 const sprintSpec = read('docs/superpowers/specs/2026-06-30-builder-quality-sprint-design.md');
 
 const requiredTokens = [
@@ -34,6 +37,23 @@ const unsafeLargeBlurPatterns = [
 
 for (const [pattern, message] of unsafeLargeBlurPatterns) {
   if (pattern.test(css)) {
+    throw new Error(message);
+  }
+}
+
+const imageGlassOverlayTokens = [
+  [heroExporter, 'cb-hero__glass-shell', 'KV export must not place a glass frame over the image'],
+  [heroCarouselExporter, 'cb-kv__glass-track', 'KV carousel export must not place a glass track over the image'],
+  [productShowcaseExporter, 'cb-product-showcase__ambient-panel', 'Product showcase export must not place an ambient glass panel over the image'],
+  [productShowcaseExporter, 'cb-product-showcase__floating-badge', 'Product showcase export must not place a glass badge over the image'],
+  [css, '.cb-hero__glass-shell', 'Export CSS must not include KV image glass frame styles'],
+  [css, '.cb-kv__glass-track', 'Export CSS must not include KV carousel image glass track styles'],
+  [css, '.cb-product-showcase__ambient-panel', 'Export CSS must not include product showcase image glass panel styles'],
+  [css, '.cb-product-showcase__floating-badge', 'Export CSS must not include product showcase image glass badge styles'],
+];
+
+for (const [source, token, message] of imageGlassOverlayTokens) {
+  if (source.includes(token)) {
     throw new Error(message);
   }
 }

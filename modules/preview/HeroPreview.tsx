@@ -49,16 +49,6 @@ export function HeroPreview({ data }: { data: HeroData }) {
     mixBlendMode: 'screen',
     zIndex: 1,
   };
-  const heroGlassShell: React.CSSProperties = {
-    position: 'absolute',
-    inset: isMobile ? '12px' : '28px',
-    pointerEvents: 'none',
-    borderRadius: isMobile ? '20px' : '34px',
-    border: '1px solid rgba(255,255,255,0.18)',
-    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.16), 0 28px 80px rgba(15,23,42,0.18)',
-    zIndex: 1,
-  };
-
   const btnStyle: React.CSSProperties = {
     display: 'inline-flex', alignItems: 'center',
     padding: '12px 28px', background: buttonColor, color: buttonTextColor,
@@ -69,7 +59,6 @@ export function HeroPreview({ data }: { data: HeroData }) {
   return (
     <section style={sectionStyle}>
       <span style={heroDepthLayer} />
-      <span style={heroGlassShell} />
       {!showText ? (
         <div style={{ position: 'relative', flex: '1 1 auto', overflow: 'hidden' }}>
           {hasBannerLink ? (
