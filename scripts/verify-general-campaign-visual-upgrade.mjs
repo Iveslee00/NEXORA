@@ -14,6 +14,9 @@ const bannerProductsPreview = read('modules/preview/BannerProductsPreview.tsx');
 const productBannerPreview = read('modules/preview/ProductBannerPreview.tsx');
 const heroExporter = read('modules/exporters/heroExporter.ts');
 const heroCarouselExporter = read('modules/exporters/heroCarouselExporter.ts');
+const productGridExporter = read('modules/exporters/productGridExporter.ts');
+const productCarouselExporter = read('modules/exporters/productCarouselExporter.ts');
+const bannerProductsExporter = read('modules/exporters/bannerProductsExporter.ts');
 const css = read('lib/export/cssGenerator.ts');
 const sprintSpec = read('docs/superpowers/specs/2026-06-30-builder-quality-sprint-design.md');
 
@@ -22,18 +25,26 @@ const required = [
   [heroPreview, 'heroDepthLayer', 'KV preview should include depth layer treatment'],
   [titlePreview, 'titleHaloLayer', 'Title preview should include halo layer treatment'],
   [faqPreview, 'faqSignalLine', 'FAQ preview should include signal line treatment'],
-  [productGridPreview, 'campaignProductSignal', 'Product grid preview should include campaign product signal'],
-  [productCarouselPreview, 'carouselProductSignal', 'Product carousel preview should include carousel product signal'],
   [heroExporter, 'cb-hero__depth-layer', 'KV exporter should output depth layer element'],
   [css, '.cb-hero__depth-layer', 'Export CSS should style KV depth layer'],
   [css, '.cb-title-block__halo', 'Export CSS should style title halo'],
-  [css, '.cb-product-card__signal', 'Export CSS should style campaign product signals'],
   [css, '.cb-faq__signal', 'Export CSS should style FAQ signal line'],
   [sprintSpec, 'Status：完成第一階段。General / Campaign 模組已補強視覺層次', 'Sprint spec should mark BQ-011 first phase complete'],
 ];
 
 for (const [source, token, message] of required) {
   if (!source.includes(token)) {
+    throw new Error(message);
+  }
+}
+
+for (const [source, message] of [
+  [css, 'Export CSS must not include product card signal line'],
+  [productGridExporter, 'Product grid export must not output product card signal line'],
+  [productCarouselExporter, 'Product carousel export must not output product card signal line'],
+  [bannerProductsExporter, 'Banner products export must not output product card signal line'],
+]) {
+  if (source.includes('cb-product-card__signal')) {
     throw new Error(message);
   }
 }

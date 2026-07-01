@@ -64,12 +64,15 @@ ${dotsHTML}
 export function generateHeroCarouselScript(): string {
   return `<script>
 (function() {
+  function initNexoraKvCarousels() {
   document.querySelectorAll('.cb-kv').forEach(function(kv) {
+    if (kv.getAttribute('data-cb-kv-ready') === 'true') return;
+    kv.setAttribute('data-cb-kv-ready', 'true');
     var track = kv.querySelector('.cb-kv__track');
     var slides = kv.querySelectorAll('.cb-kv__slide');
     var dots = kv.querySelectorAll('.cb-kv__dot');
     var total = slides.length;
-    if (total < 2) return;
+    if (!track || total < 2) return;
     var cur = 0;
     var timer = null;
     function goTo(idx) {
@@ -88,6 +91,12 @@ export function generateHeroCarouselScript(): string {
     dots.forEach(function(d, i) { d.addEventListener('click', function() { stopAuto(); goTo(i); startAuto(); }); });
     startAuto();
   });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNexoraKvCarousels);
+  } else {
+    initNexoraKvCarousels();
+  }
 })();
 </script>`;
 }

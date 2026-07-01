@@ -14,6 +14,8 @@ const articleImageExporter = read('modules/exporters/articleImageExporter.ts');
 const logoWallExporter = read('modules/exporters/logoWallExporter.ts');
 const productGridExporter = read('modules/exporters/productGridExporter.ts');
 const productCarouselExporter = read('modules/exporters/productCarouselExporter.ts');
+const bannerProductsExporter = read('modules/exporters/bannerProductsExporter.ts');
+const heroCarouselExporter = read('modules/exporters/heroCarouselExporter.ts');
 const titleExporter = read('modules/exporters/titleExporter.ts');
 const moduleSchemas = read('data/moduleSchemas.ts');
 const css = read('lib/export/cssGenerator.ts');
@@ -25,6 +27,14 @@ assert(
     sharedModuleView.includes("querySelectorAll<HTMLElement>('.cb-kv')") &&
     sharedModuleView.includes("querySelectorAll<HTMLElement>('.cb-carousel')"),
   'Shared module preview should initialize KV and product carousels'
+);
+
+assert(
+  heroCarouselExporter.includes('DOMContentLoaded') &&
+    heroCarouselExporter.includes('data-cb-kv-ready') &&
+    css.includes('DOMContentLoaded') &&
+    css.includes('data-cb-carousel-ready'),
+  'Export carousel scripts should initialize after DOM ready and avoid duplicate initialization'
 );
 
 assert(
@@ -55,6 +65,14 @@ assert(
   productCarouselExporter.includes('p.image ?') &&
     productCarouselExporter.includes("renderImagePlaceholder('商品圖'"),
   'Product carousel should not output broken img tags for empty product images'
+);
+
+assert(
+  !productGridExporter.includes('cb-product-card__signal') &&
+    !productCarouselExporter.includes('cb-product-card__signal') &&
+    !bannerProductsExporter.includes('cb-product-card__signal') &&
+    !css.includes('cb-product-card__signal'),
+  'Product cards should not render the blue signal line'
 );
 
 assert(

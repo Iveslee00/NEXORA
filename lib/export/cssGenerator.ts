@@ -183,12 +183,6 @@ ${getHighRiskModuleCssFragments()}
 .cb-product-card__media { position: relative; aspect-ratio: 1/1; overflow: hidden; background: radial-gradient(circle at 30% 18%, #ffffff, #eef2ff 52%, #e0f2fe); }
 .cb-product-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
 .cb-product-card:hover .cb-product-card__media img { transform: scale(1.05); }
-.cb-product-card__signal {
-  position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 2;
-  height: 4px; border-radius: 999px;
-  background: linear-gradient(90deg, rgba(99,102,241,0.78), rgba(14,165,198,0.62));
-  box-shadow: 0 10px 24px rgba(99,102,241,0.22);
-}
 .cb-product-card__labels {
   position: absolute; top: 10px; left: 10px; z-index: 2;
   display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
@@ -1022,20 +1016,25 @@ function darken(hex: string): string {
 export function generateCarouselScript(): string {
   return `<script>
 (function(){
+  function initNexoraProductCarousels() {
   document.querySelectorAll('.cb-carousel').forEach(function(el){
+    if (el.getAttribute('data-cb-carousel-ready') === 'true') return;
+    el.setAttribute('data-cb-carousel-ready', 'true');
     var outer = el.querySelector('.cb-carousel__track-outer');
     var track = el.querySelector('.cb-carousel__track');
     var items = el.querySelectorAll('.cb-carousel__item');
     var prevBtn = el.querySelector('.cb-carousel__btn--prev');
     var nextBtn = el.querySelector('.cb-carousel__btn--next');
+    if (!outer || !track || items.length < 2) return;
     var cur = 0;
     var GAP = 20;
     function pp(){ return window.innerWidth < 768 ? 2 : window.innerWidth < 1024 ? 3 : 4; }
-    function iw(p){ return (outer.offsetWidth - (p - 1) * GAP) / p; }
+    function iw(p){ return ((outer.offsetWidth || el.offsetWidth) - (p - 1) * GAP) / p; }
     function maxIdx(p){ return Math.max(0, items.length - p); }
     function upd(){
       var p = pp();
       var w = iw(p);
+      if (!isFinite(w) || w <= 0) return;
       var m = maxIdx(p);
       if(cur > m) cur = m;
       Array.prototype.forEach.call(items, function(it){ it.style.flex = '0 0 ' + w + 'px'; });
@@ -1048,6 +1047,12 @@ export function generateCarouselScript(): string {
     upd();
     window.addEventListener('resize', upd);
   });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNexoraProductCarousels);
+  } else {
+    initNexoraProductCarousels();
+  }
 })();
 </script>`;
 }
