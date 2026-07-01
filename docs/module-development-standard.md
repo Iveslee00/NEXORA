@@ -29,6 +29,18 @@
 
 ## 核心原則
 
+### 0. 現行用戶使用中的維護策略
+
+目前已有用戶在正式站建立內容，因此模組工作採取「小步修正、伴隨式清理」策略。
+
+- Bug 優先：使用者回報的顯示、匯出、圖片、RWD、尺寸問題優先處理。
+- 小範圍修改：優先修正 shared/export CSS、module registry、exporter、high-risk definition 中造成問題的單一原因。
+- 不主動大規模重構：不得在一般 bugfix 中一次刪除大量 legacy preview 檔案、改資料格式、替換全模組渲染架構。
+- 清理跟著 bug 走：只有當 bug 明確碰到某個舊檔、舊 verifier、舊規則時，才整理該小範圍。
+- 不破壞既有專案資料：短期必須保留 `{ id, type, data }` 專案格式，不可要求用戶重建既有頁面。
+- 每次修正都補 verifier：修一個 bug，就補一個可重複驗證的防回歸規則。
+- 推送前必須驗證：至少跑與該 bug 相關的 verifier，加上 `typecheck` / `build`；模組顯示或匯出問題需加跑 module/export gates。
+
 ### 1. Registry 是模組入口
 
 新增或修改模組時，必須確認模組已登錄：
