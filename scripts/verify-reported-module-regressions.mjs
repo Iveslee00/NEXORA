@@ -9,6 +9,8 @@ const assert = (condition, message) => {
 };
 
 const sharedModuleView = read('modules/renderers/SharedModuleView.tsx');
+const modulePreviewRenderer = read('modules/preview/ModulePreviewRenderer.tsx');
+const previewModal = read('components/editor/PreviewModal.tsx');
 const previewCanvas = read('components/editor/PreviewCanvas.tsx');
 const splitExporter = read('modules/exporters/splitSectionExporter.ts');
 const articleImageExporter = read('modules/exporters/articleImageExporter.ts');
@@ -38,12 +40,11 @@ assert(
 );
 
 assert(
-  sharedModuleView.includes("closest('summary, button, input, textarea, select, [role=\"button\"]')") &&
+  sharedModuleView.includes("closest('button, input, textarea, select, [role=\"button\"]')") &&
     sharedModuleView.includes('onPointerDownCapture={handlePreviewPointerDownCapture}') &&
-    sharedModuleView.includes("target?.closest('summary')") &&
     !sharedModuleView.includes('normalizePreviewFaqHtml') &&
     !sharedModuleView.includes('data-nexora-faq-trigger'),
-  'Builder shared preview should stop interactive controls from bubbling to module selection'
+  'Builder shared preview should stop interactive controls from bubbling to module selection without treating FAQ as interactive'
 );
 
 assert(
@@ -54,12 +55,21 @@ assert(
 );
 
 assert(
-  sharedModuleView.includes('openFaqIndexesRef') &&
-    sharedModuleView.includes('restorePreviewFaqDetails') &&
-    sharedModuleView.includes("querySelectorAll<HTMLDetailsElement>('details.cb-faq__item')") &&
-    sharedModuleView.includes("details.addEventListener('toggle', onToggle)") &&
-    sharedModuleView.includes('React.useLayoutEffect'),
-  'FAQ builder preview should persist native details open state across injected HTML refreshes'
+  sharedModuleView.includes('expandFaqDetailsForNonExport') &&
+    sharedModuleView.includes('cb-faq__item--expanded') &&
+    sharedModuleView.includes('data-nexora-static-faq="true"') &&
+    !sharedModuleView.includes('openFaqIndexesRef') &&
+    !sharedModuleView.includes('restorePreviewFaqDetails') &&
+    !sharedModuleView.includes("querySelectorAll<HTMLDetailsElement>('details.cb-faq__item')"),
+  'Builder and preview should render FAQ as static expanded content instead of native details'
+);
+
+assert(
+  modulePreviewRenderer.includes('mode?: ModuleRenderMode') &&
+    modulePreviewRenderer.includes('mode =') &&
+    modulePreviewRenderer.includes('<SharedModuleView module={module} modules={modules} mode={mode} />') &&
+    previewModal.includes('mode="preview"'),
+  'Preview modal should pass preview mode through the shared module renderer'
 );
 
 assert(

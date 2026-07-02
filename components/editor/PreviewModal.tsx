@@ -269,7 +269,7 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
                   >
                     {modules.map((module) => (
                       <div key={module.id} id={getPreviewAnchorId(module)}>
-                        <ModulePreviewRenderer module={module} modules={modules} />
+                        <ModulePreviewRenderer module={module} modules={modules} mode="preview" />
                       </div>
                     ))}
                   </div>
@@ -281,7 +281,7 @@ export function PreviewModal({ pageMode, modules, emailModules, onClose }: Props
                   <div ref={contentRef} style={desktopPreviewStyle}>
                     {modules.map((module) => (
                       <div key={module.id} id={getPreviewAnchorId(module)}>
-                        <ModulePreviewRenderer module={module} modules={modules} />
+                        <ModulePreviewRenderer module={module} modules={modules} mode="preview" />
                       </div>
                     ))}
                   </div>

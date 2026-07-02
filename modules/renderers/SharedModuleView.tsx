@@ -29,6 +29,16 @@ export function forceMobilePictureSources(html: string) {
   });
 }
 
+export function expandFaqDetailsForNonExport(html: string) {
+  if (!html.includes('cb-faq__item')) return html;
+
+  return html
+    .replace(/<details class="cb-faq__item">/g, '<div class="cb-faq__item cb-faq__item--expanded" data-nexora-static-faq="true">')
+    .replace(/<summary class="cb-faq__question">/g, '<div class="cb-faq__question cb-faq__question--static">')
+    .replace(/<\/summary>/g, '</div>')
+    .replace(/<\/details>/g, '</div>');
+}
+
 async function resolveLocalImageRefsInHtml(html: string) {
   const refs = Array.from(new Set(html.match(localImagePattern) ?? []));
   if (refs.length === 0) return { html, objectUrls: [] as string[] };
@@ -49,28 +59,6 @@ async function resolveLocalImageRefsInHtml(html: string) {
   });
 
   return { html: resolvedHtml, objectUrls };
-}
-
-function restorePreviewFaqDetails(root: HTMLElement, openFaqIndexes: React.MutableRefObject<Set<number>>) {
-  const cleanups: Array<() => void> = [];
-  const detailsItems = Array.from(root.querySelectorAll<HTMLDetailsElement>('details.cb-faq__item'));
-
-  detailsItems.forEach((details, index) => {
-    details.open = openFaqIndexes.current.has(index);
-
-    const onToggle = () => {
-      if (details.open) {
-        openFaqIndexes.current.add(index);
-      } else {
-        openFaqIndexes.current.delete(index);
-      }
-    };
-
-    details.addEventListener('toggle', onToggle);
-    cleanups.push(() => details.removeEventListener('toggle', onToggle));
-  });
-
-  return () => cleanups.forEach((cleanup) => cleanup());
 }
 
 function initializePreviewCarousels(root: HTMLElement) {
@@ -163,14 +151,12 @@ function initializePreviewCarousels(root: HTMLElement) {
 export function SharedModuleView({ module, modules = [], mode = 'preview' }: ModuleViewProps) {
   const { isMobile } = useDevice();
   const rootRef = React.useRef<HTMLDivElement>(null);
-  const openFaqIndexesRef = React.useRef<Set<number>>(new Set());
   const exportHtml = React.useMemo(() => renderModuleExportHTML(module, { modules }), [module, modules]);
-  const previewHtml = React.useMemo(() => (isMobile ? forceMobilePictureSources(exportHtml) : exportHtml), [exportHtml, isMobile]);
+  const previewHtml = React.useMemo(() => {
+    const responsiveHtml = isMobile ? forceMobilePictureSources(exportHtml) : exportHtml;
+    return mode === 'export' ? responsiveHtml : expandFaqDetailsForNonExport(responsiveHtml);
+  }, [exportHtml, isMobile, mode]);
   const [html, setHtml] = React.useState(previewHtml);
-
-  React.useLayoutEffect(() => {
-    openFaqIndexesRef.current.clear();
-  }, [exportHtml]);
 
   React.useEffect(() => {
     let alive = true;
@@ -207,16 +193,8 @@ export function SharedModuleView({ module, modules = [], mode = 'preview' }: Mod
     };
   }, [html]);
 
-  React.useLayoutEffect(() => {
-    if (mode !== 'builder') return undefined;
-    const root = rootRef.current;
-    if (!root) return undefined;
-
-    return restorePreviewFaqDetails(root, openFaqIndexesRef);
-  }, [html, mode]);
-
   const getInteractivePreviewTarget = React.useCallback((target: HTMLElement | null) => (
-    target?.closest('summary, button, input, textarea, select, [role="button"]') ?? null
+    target?.closest('button, input, textarea, select, [role="button"]') ?? null
   ), []);
 
   const handlePreviewPointerDownCapture = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
@@ -231,11 +209,6 @@ export function SharedModuleView({ module, modules = [], mode = 'preview' }: Mod
   const handlePreviewClickCapture = React.useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     if (mode !== 'builder') return;
     const target = event.target as HTMLElement | null;
-    if (target?.closest('summary')) {
-      event.stopPropagation();
-      return;
-    }
-
     const interactive = getInteractivePreviewTarget(target);
     if (interactive) {
       event.stopPropagation();
