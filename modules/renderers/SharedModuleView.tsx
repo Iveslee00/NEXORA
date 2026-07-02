@@ -16,17 +16,6 @@ function getFirstSrcFromSrcset(srcset: string) {
   return srcset.split(',')[0]?.trim().split(/\s+/)[0] ?? '';
 }
 
-function normalizePreviewFaqHtml(html: string) {
-  if (!html.includes('cb-faq')) return html;
-
-  return html
-    .replaceAll('<details class="cb-faq__item">', '<div class="cb-faq__item" data-nexora-faq-item="true">')
-    .replaceAll('<summary class="cb-faq__question">', '<button type="button" class="cb-faq__question" data-nexora-faq-trigger="true" aria-expanded="false">')
-    .replaceAll('<div class="cb-faq__answer"', '<div class="cb-faq__answer" hidden')
-    .replaceAll('</summary>', '</button>')
-    .replaceAll('</details>', '</div>');
-}
-
 export function forceMobilePictureSources(html: string) {
   return html.replace(picturePattern, (picture) => {
     const sourceMatch = picture.match(mobileSourcePattern);
@@ -60,40 +49,6 @@ async function resolveLocalImageRefsInHtml(html: string) {
   });
 
   return { html: resolvedHtml, objectUrls };
-}
-
-function initializePreviewFaq(root: HTMLElement) {
-  const cleanups: Array<() => void> = [];
-
-  root.querySelectorAll<HTMLElement>('[data-nexora-faq-item="true"]').forEach((item) => {
-    const trigger = item.querySelector<HTMLButtonElement>('[data-nexora-faq-trigger="true"]');
-    const answer = item.querySelector<HTMLElement>('.cb-faq__answer');
-    if (!trigger || !answer) return;
-
-    const onPointerDown = (event: PointerEvent) => {
-      event.stopPropagation();
-    };
-    const onClick = (event: MouseEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-
-      const nextOpen = !item.classList.contains('is-open');
-      item.classList.toggle('is-open', nextOpen);
-      answer.hidden = !nextOpen;
-      trigger.setAttribute('aria-expanded', String(nextOpen));
-    };
-
-    answer.hidden = !item.classList.contains('is-open');
-    trigger.addEventListener('pointerdown', onPointerDown);
-    trigger.addEventListener('click', onClick);
-
-    cleanups.push(() => {
-      trigger.removeEventListener('pointerdown', onPointerDown);
-      trigger.removeEventListener('click', onClick);
-    });
-  });
-
-  return () => cleanups.forEach((cleanup) => cleanup());
 }
 
 function initializePreviewCarousels(root: HTMLElement) {
@@ -180,8 +135,6 @@ function initializePreviewCarousels(root: HTMLElement) {
     });
   });
 
-  cleanups.push(initializePreviewFaq(root));
-
   return () => cleanups.forEach((cleanup) => cleanup());
 }
 
@@ -189,10 +142,7 @@ export function SharedModuleView({ module, modules = [], mode = 'preview' }: Mod
   const { isMobile } = useDevice();
   const rootRef = React.useRef<HTMLDivElement>(null);
   const exportHtml = React.useMemo(() => renderModuleExportHTML(module, { modules }), [module, modules]);
-  const previewHtml = React.useMemo(() => {
-    const deviceHtml = isMobile ? forceMobilePictureSources(exportHtml) : exportHtml;
-    return mode === 'builder' ? normalizePreviewFaqHtml(deviceHtml) : deviceHtml;
-  }, [exportHtml, isMobile, mode]);
+  const previewHtml = React.useMemo(() => (isMobile ? forceMobilePictureSources(exportHtml) : exportHtml), [exportHtml, isMobile]);
   const [html, setHtml] = React.useState(previewHtml);
 
   React.useEffect(() => {
@@ -246,6 +196,11 @@ export function SharedModuleView({ module, modules = [], mode = 'preview' }: Mod
   const handlePreviewClickCapture = React.useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     if (mode !== 'builder') return;
     const target = event.target as HTMLElement | null;
+    if (target?.closest('summary')) {
+      event.stopPropagation();
+      return;
+    }
+
     const interactive = getInteractivePreviewTarget(target);
     if (interactive) {
       event.stopPropagation();
