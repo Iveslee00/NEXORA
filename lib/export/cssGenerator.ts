@@ -648,7 +648,7 @@ ${getHighRiskModuleCssFragments()}
 .cb-product-purchase__card { overflow: hidden; border-radius: 22px; background: #ffffff; color: #0f172a; text-decoration: none; box-shadow: 0 18px 48px rgba(0,0,0,0.18); transition: transform 0.2s ease, box-shadow 0.2s ease; }
 .cb-page a.cb-product-purchase__card { color: #0f172a; }
 .cb-product-purchase__card:hover { transform: translateY(-3px); box-shadow: 0 22px 60px rgba(0,0,0,0.22); }
-.cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+.cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: stretch; }
 .cb-product-purchase--bundle .cb-product-purchase__card:first-child { border-radius: 30px; transform: translateY(-10px); box-shadow: 0 26px 70px rgba(0,0,0,0.24); }
 .cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__media::before {
   content: "推薦組合"; position: absolute; left: 14px; top: 14px; z-index: 1;
@@ -771,6 +771,14 @@ ${getHighRiskModuleCssFragments()}
   .cb-product-purchase__grid,
   .cb-product-purchase--bundle .cb-product-purchase__grid,
   .cb-product-purchase--related .cb-product-purchase__grid { grid-template-columns: 1fr; }
+  .cb-product-purchase__card { display: grid; grid-template-columns: minmax(0, 112px) minmax(0, 1fr); align-items: stretch; }
+  .cb-product-purchase__media { aspect-ratio: auto; min-height: 112px; height: 100%; }
+  .cb-product-purchase__body { display: flex; flex-direction: column; justify-content: center; padding: 14px 14px 14px 0; }
+  .cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__body { padding: 14px 14px 14px 0; }
+  .cb-product-purchase--related .cb-product-purchase__body { padding: 14px 14px 14px 0; }
+  .cb-product-purchase__brand { margin-bottom: 6px; }
+  .cb-product-purchase__name { margin-bottom: 6px; font-size: 0.96rem; }
+  .cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__name { font-size: 1rem; }
   .cb-product-steps--timeline .cb-product-steps__item,
   .cb-product-benefits--stacked .cb-product-benefits__item,
   .cb-product-comparison__row { grid-template-columns: 1fr; }

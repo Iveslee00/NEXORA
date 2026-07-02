@@ -647,8 +647,9 @@ function createModule(type: ProductModuleType, input: ProductBuilderInput): Page
           textColor: theme.darkText,
           products: compact([
             product,
-            input.pageLength !== 'quick' && productFromInput(input, `${input.productName} 補充組`),
-            input.pageLength !== 'quick' && productFromInput(input, `${input.category || copy.defaultCategory} 搭配組`),
+            productFromInput(input, `${input.productName} 補充組`),
+            productFromInput(input, `${input.category || copy.defaultCategory} 搭配組`),
+            productFromInput(input, `${input.productName} 隨手瓶`),
           ]),
         },
       };

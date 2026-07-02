@@ -20,6 +20,8 @@ const productCarouselExporter = read('modules/exporters/productCarouselExporter.
 const bannerProductsExporter = read('modules/exporters/bannerProductsExporter.ts');
 const heroCarouselExporter = read('modules/exporters/heroCarouselExporter.ts');
 const titleExporter = read('modules/exporters/titleExporter.ts');
+const productAdvancedExporter = read('modules/exporters/productAdvancedExporter.ts');
+const productPageBuilder = read('lib/productBuilder/productPageBuilder.ts');
 const moduleSchemas = read('data/moduleSchemas.ts');
 const css = read('lib/export/cssGenerator.ts');
 const highRiskCss = read('modules/definitions/highRiskModuleDefinitions.ts');
@@ -162,6 +164,21 @@ assert(
     css.includes('.cb-product-proof--certifications .cb-product-proof__text') &&
     css.includes('grid-column: 2;'),
   'Certification proof layout should use a stable badge/text grid'
+);
+
+assert(
+  css.includes('.cb-product-purchase__card { display: grid; grid-template-columns: minmax(0, 112px) minmax(0, 1fr);') &&
+    css.includes('.cb-product-purchase__media { aspect-ratio: auto; min-height: 112px; height: 100%; }') &&
+    css.includes('.cb-product-purchase__body { display: flex; flex-direction: column; justify-content: center; padding: 14px 14px 14px 0; }') &&
+    css.includes('.cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__body { padding: 14px 14px 14px 0; }'),
+  'Mobile product-purchase cards should switch to a compact side-by-side layout with reduced body padding'
+);
+
+assert(
+  productAdvancedExporter.includes("data.style === 'bundle' ? data.products.slice(0, 4) : data.products.slice(0, 4)") &&
+    moduleSchemas.includes("mkProduct({ name: '加購清潔配件' })") &&
+    productPageBuilder.includes("productFromInput(input, `${input.productName} 隨手瓶`)"),
+  'Product-purchase should use a four-product source in defaults, quick builder, and export rendering'
 );
 
 assert(

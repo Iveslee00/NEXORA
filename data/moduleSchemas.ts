@@ -508,6 +508,7 @@ export const moduleSchemas: ModuleSchemaItem[] = [
         mkProduct({ name: '推薦組合一', showBadge: true, badgeText: '熱銷' }),
         mkProduct({ name: '補充包組合' }),
         mkProduct({ name: '同系列商品' }),
+        mkProduct({ name: '加購清潔配件' }),
       ],
     },
   },
