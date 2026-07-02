@@ -39,8 +39,18 @@ assert(
 
 assert(
   sharedModuleView.includes("closest('summary, button, input, textarea, select, [role=\"button\"]')") &&
-    sharedModuleView.includes('event.stopPropagation();'),
+    sharedModuleView.includes('onPointerDownCapture={handlePreviewPointerDownCapture}') &&
+    sharedModuleView.includes('normalizePreviewFaqHtml') &&
+    sharedModuleView.includes('data-nexora-faq-trigger'),
   'Builder shared preview should stop interactive controls from bubbling to module selection'
+);
+
+assert(
+  sharedModuleView.includes('initializePreviewFaq') &&
+    sharedModuleView.includes("item.classList.toggle('is-open', nextOpen)") &&
+    sharedModuleView.includes('answer.hidden = !nextOpen') &&
+    css.includes('.cb-faq__item.is-open .cb-faq__toggle'),
+  'FAQ builder preview should use a preview-safe toggle without native details jitter'
 );
 
 assert(

@@ -363,11 +363,12 @@ ${getHighRiskModuleCssFragments()}
 .cb-faq__item:hover { transform: translateY(-2px); border-color: rgba(99,102,241,0.18); box-shadow: 0 22px 60px rgba(15,23,42,0.10); }
 .cb-faq__item summary { list-style: none; }
 .cb-faq__item summary::-webkit-details-marker { display: none; }
-.cb-faq__question { padding: 20px 24px; font-size: 16px; font-weight: 600; color: #1a1a2e; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; transition: background-color 0.15s ease; user-select: none; }
+.cb-faq__question { width: 100%; border: 0; font-family: inherit; text-align: left; background: transparent; padding: 20px 24px; font-size: 16px; font-weight: 600; color: #1a1a2e; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; transition: background-color 0.15s ease; user-select: none; }
 .cb-faq__question:hover { background-color: rgba(99,102,241,0.06); }
 .cb-faq__toggle { flex-shrink: 0; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 300; color: ${btnColor}; transition: transform 0.2s ease; }
-.cb-faq__item[open] .cb-faq__toggle { transform: rotate(45deg); }
+.cb-faq__item[open] .cb-faq__toggle, .cb-faq__item.is-open .cb-faq__toggle { transform: rotate(45deg); }
 .cb-faq__answer { padding: 0 24px 20px; font-size: 15px; line-height: 1.75; color: #4a4a6a; }
+.cb-faq__answer[hidden] { display: none; }
 
 /* ------------------------------------------------------------
    14. STICKY SIDEBAR
