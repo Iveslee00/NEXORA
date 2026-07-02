@@ -14,7 +14,7 @@ export function ProductScenesPreview({ data }: { data: ProductScenesData }) {
   const singleImage = isMobile ? (first?.mobileImage || first?.image) : first?.image;
   const isFull = data.style === 'full-bleed';
   const media = first ? (
-    <div style={{ position: 'relative', aspectRatio: isMobile ? '750 / 900' : isFull ? '1920 / 680' : '900 / 640', borderRadius: isFull ? 0 : 28, overflow: 'hidden', boxShadow: isFull ? undefined : '0 22px 64px rgba(15,23,42,0.12)' }}>
+    <div style={{ position: 'relative', aspectRatio: '1 / 1', borderRadius: isFull ? 0 : 28, overflow: 'hidden', boxShadow: isFull ? undefined : '0 22px 64px rgba(15,23,42,0.12)' }}>
       <PreviewImage src={singleImage} alt="" label={isMobile ? '商品情境 M' : '商品情境 PC'} spec={isMobile ? IMAGE_SPECS.productSceneMobile : IMAGE_SPECS.productScene} variant="scene" />
       {isFull && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(15,23,42,0.56), rgba(15,23,42,0.12) 46%, transparent)' }} />}
     </div>
@@ -52,7 +52,7 @@ export function ProductScenesPreview({ data }: { data: ProductScenesData }) {
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: isMobile ? 18 : 24, marginTop: isMobile ? 28 : 36 }}>
               {data.items.slice(0, 4).map((item) => (
                 <div key={item.id} style={{ borderRadius: 24, overflow: 'hidden', background: '#ffffff', border: '1px solid rgba(15,23,42,0.08)', boxShadow: '0 16px 42px rgba(15,23,42,0.08)' }}>
-                  <div style={{ position: 'relative', aspectRatio: isMobile ? '750 / 900' : '900 / 640' }}>
+                  <div style={{ position: 'relative', aspectRatio: '1 / 1' }}>
                     <PreviewImage src={isMobile ? (item.mobileImage || item.image) : item.image} alt="" label={isMobile ? '商品情境 M' : '商品情境 PC'} spec={isMobile ? IMAGE_SPECS.productSceneMobile : IMAGE_SPECS.productScene} variant="scene" />
                   </div>
                   <div style={{ padding: '20px 22px 22px' }}>

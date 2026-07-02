@@ -1,9 +1,11 @@
 import { ProductScenesData } from '@/types/modules';
 import { escapeHtml } from '@/lib/utils';
+import { IMAGE_SPECS } from '@/lib/assets/imageSpecs';
+import { renderImagePlaceholder } from '@/modules/definitions/imagePlaceholder';
 
 const renderImage = (image: string, mobileImage: string, title: string) => image
   ? `<picture class="cb-product-scenes__picture">${mobileImage ? `\n          <source media="(max-width: 767px)" srcset="${escapeHtml(mobileImage)}">` : ''}\n          <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}">\n        </picture>`
-  : '';
+  : renderImagePlaceholder('商品情境', IMAGE_SPECS.productScene);
 
 export function generateProductScenesHTML(data: ProductScenesData): string {
   const bg = data.backgroundColor ? ` style="background: ${escapeHtml(data.backgroundColor)}"` : '';

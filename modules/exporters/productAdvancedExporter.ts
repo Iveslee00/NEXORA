@@ -24,7 +24,7 @@ function headHTML(data: { eyebrow: string; title: string; subtitle: string; titl
 
 const renderPicture = (image: string, mobileImage: string, title: string) => image
   ? `<picture class="cb-product-steps__picture">${mobileImage ? `\n          <source media="(max-width: 767px)" srcset="${escapeHtml(mobileImage)}">` : ''}\n          <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}">\n        </picture>`
-  : '';
+  : renderImagePlaceholder('步驟圖', IMAGE_SPECS.productScene);
 
 export function generateProductBenefitsHTML(data: ProductBenefitsData): string {
   const title = textStyle(data.titleColor);

@@ -29,6 +29,8 @@ assert.deepEqual(IMAGE_SPECS.splitMobile, spec(750, 562));
 assert.deepEqual(IMAGE_SPECS.article, spec(1200, 420));
 assert.deepEqual(IMAGE_SPECS.articleMobile, spec(750, 420));
 assert.deepEqual(IMAGE_SPECS.product, spec(400, 400));
+assert.deepEqual(IMAGE_SPECS.productScene, spec(1000, 1000));
+assert.deepEqual(IMAGE_SPECS.productSceneMobile, spec(1000, 1000));
 assert.deepEqual(IMAGE_SPECS.logo, spec(160, 60));
 assert.deepEqual(IMAGE_SPECS.bankLogo, spec(160, 60));
 assert.deepEqual(IMAGE_SPECS.hero, spec(1920, 640));

@@ -76,7 +76,7 @@ export function ProductStepsPreview({ data }: { data: ProductStepsData }) {
               <div style={{ display: 'inline-flex', width: 54, height: 54, alignItems: 'center', justifyContent: 'center', borderRadius: 18, background: 'linear-gradient(135deg, #e0f2fe, #eef2ff)', fontSize: '1.35rem', lineHeight: 1, fontWeight: 900, color: titleColor }}>{item.step}</div>
               <div>
                 {data.style === 'image-cards' && (
-                  <div style={{ position: 'relative', aspectRatio: isMobile ? '750 / 900' : '900 / 640', marginBottom: 16, overflow: 'hidden', borderRadius: 16 }}>
+                  <div style={{ position: 'relative', aspectRatio: '1 / 1', marginBottom: 16, overflow: 'hidden', borderRadius: 16 }}>
                     <PreviewImage src={isMobile ? (item.mobileImage || item.image) : item.image} alt="" label={isMobile ? '步驟圖 M' : '步驟圖 PC'} spec={isMobile ? IMAGE_SPECS.productSceneMobile : IMAGE_SPECS.productScene} variant="scene" />
                   </div>
                 )}
