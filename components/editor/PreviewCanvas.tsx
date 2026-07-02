@@ -55,6 +55,11 @@ const getCampaignModuleLabel = (module: PageModule) => {
   return campaignLabels[module.type] ?? module.type;
 };
 
+const isCarouselControlTarget = (target: EventTarget | null) => (
+  target instanceof HTMLElement &&
+  Boolean(target.closest('.cb-kv__nav, .cb-kv__dot, .cb-carousel__btn'))
+);
+
 const emailLabels: Record<string, string> = {
   'email-title': '標題', 'email-image': '純圖片', 'email-promo': '活動區塊',
   'email-kv': 'KV 主視覺', 'email-products': '商品',
@@ -89,10 +94,15 @@ function SortableModule({ module, modules, isSelected, onSelect, onDelete, onDup
     ? 'inset 0 0 0 1px rgba(99,102,241,0.45), 0 1px 0 0 rgba(0,0,0,0.06)'
     : '0 0 0 1px rgba(0,0,0,0.08), 0 1px 0 0 rgba(0,0,0,0.05)';
 
+  const handleCanvasModuleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (isCarouselControlTarget(event.target)) return;
+    onSelect();
+  };
+
   return (
     <div ref={setNodeRef} id={'anchorName' in module.data && module.data.anchorName ? getModuleAnchorId(module.id) : undefined} style={style} className="relative group">
       <div
-        onClick={onSelect}
+        onClick={handleCanvasModuleClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         className="relative cursor-pointer transition-shadow"

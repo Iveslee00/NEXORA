@@ -81,6 +81,14 @@ assert(
 );
 
 assert(
+  previewCanvas.includes('isCarouselControlTarget') &&
+    previewCanvas.includes("'.cb-kv__nav, .cb-kv__dot, .cb-carousel__btn'") &&
+    previewCanvas.includes('handleCanvasModuleClick') &&
+    previewCanvas.includes('if (isCarouselControlTarget(event.target)) return;'),
+  'Builder canvas module selection should ignore carousel controls so in-canvas carousels remain interactive'
+);
+
+assert(
   heroCarouselExporter.includes('DOMContentLoaded') &&
     heroCarouselExporter.includes('data-cb-kv-ready') &&
     css.includes('DOMContentLoaded') &&
