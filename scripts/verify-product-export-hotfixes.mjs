@@ -59,6 +59,13 @@ assert(
   !/\.cb-product-purchase__button\s*\{[^}]*background:\s*#ffffff;[^}]*color:\s*#0f172a;/s.test(css),
   'Product purchase buttons must not be hard-coded as white buttons'
 );
+assert(
+  css.includes('.cb-page a.cb-product-purchase__card { color: #0f172a; }') &&
+    css.includes('.cb-product-purchase__name { display: block; margin-bottom: 8px; font-size: 1rem; font-weight: 850; color: #0f172a; line-height: 1.35; }') &&
+    css.includes('.cb-product-purchase__brand { display: block; margin-bottom: 4px; font-size: 12px; font-weight: 750; color: #64748b; }') &&
+    css.includes('.cb-product-purchase__price { display: block; font-weight: 900; color: #ef4444; }'),
+  'Product purchase cards should use fixed product-card text colors instead of inheriting section colors'
+);
 
 assert(css.includes('.cb-product-features__item {') && css.includes('min-width: 0;'), 'Product feature export cards should prevent grid overflow');
 assert(css.includes('.cb-product-features--icon-text .cb-product-features__item {') && css.includes('border-radius: 24px;'), 'Icon-text product features should not export as oversized pills');
