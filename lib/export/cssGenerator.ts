@@ -891,7 +891,7 @@ ${getHighRiskModuleCssFragments()}
 /* ------------------------------------------------------------
    18. HERO CAROUSEL (KV) MODULE — full-bleed desktop, stacked mobile
    ------------------------------------------------------------ */
-.cb-kv { position: relative; overflow: hidden; }
+.cb-kv { position: relative; overflow: hidden; --cb-kv-mobile-media-height: 0px; }
 .cb-kv--small  { aspect-ratio: 1920 / 480; }
 .cb-kv--medium { aspect-ratio: 1920 / 640; }
 .cb-kv--large  { aspect-ratio: 1920 / 800; }
@@ -939,15 +939,9 @@ ${getHighRiskModuleCssFragments()}
   .cb-kv__img { grid-row: 1; grid-column: 1; }
   .cb-kv__text { grid-row: 2; grid-column: 1; width: 100%; max-width: none; height: auto; padding: 20px 18px; }
   .cb-kv__text--center, .cb-kv__text--right { align-items: flex-start; text-align: left; }
-  .cb-kv__nav--prev { left: 8px; top: calc((100vw - 32px) / (750 / 850) / 2); }
-  .cb-kv__nav--next { right: 8px; top: calc((100vw - 32px) / (750 / 850) / 2); }
-  .cb-kv__dots { bottom: auto; top: calc((100vw - 32px) / (750 / 850) - 22px); left: 50%; }
-  .cb-kv--small .cb-kv__nav--prev,
-  .cb-kv--small .cb-kv__nav--next { top: calc((100vw - 32px) / (750 / 750) / 2); }
-  .cb-kv--small .cb-kv__dots { top: calc((100vw - 32px) / (750 / 750) - 22px); }
-  .cb-kv--large .cb-kv__nav--prev,
-  .cb-kv--large .cb-kv__nav--next { top: calc((100vw - 32px) / (750 / 950) / 2); }
-  .cb-kv--large .cb-kv__dots { top: calc((100vw - 32px) / (750 / 950) - 22px); }
+  .cb-kv__nav--prev { left: 8px; top: calc(var(--cb-kv-mobile-media-height, 0px) / 2); }
+  .cb-kv__nav--next { right: 8px; top: calc(var(--cb-kv-mobile-media-height, 0px) / 2); }
+  .cb-kv__dots { bottom: auto; top: max(16px, calc(var(--cb-kv-mobile-media-height, 0px) - 22px)); left: 50%; }
 }
 
 /* ------------------------------------------------------------
@@ -1028,8 +1022,9 @@ export function generateCarouselScript(): string {
     if (!outer || !track || items.length < 2) return;
     var cur = 0;
     var GAP = 20;
-    function pp(){ return window.innerWidth < 768 ? 2 : window.innerWidth < 1024 ? 3 : 4; }
-    function iw(p){ return ((outer.offsetWidth || el.offsetWidth) - (p - 1) * GAP) / p; }
+    function containerWidth(){ return outer.getBoundingClientRect().width || outer.offsetWidth || el.offsetWidth || window.innerWidth; }
+    function pp(){ var w = containerWidth(); return w < 768 ? 2 : w < 1024 ? 3 : 4; }
+    function iw(p){ return (containerWidth() - (p - 1) * GAP) / p; }
     function maxIdx(p){ return Math.max(0, items.length - p); }
     function upd(){
       var p = pp();
@@ -1045,6 +1040,11 @@ export function generateCarouselScript(): string {
     if(prevBtn) prevBtn.addEventListener('click', function(){ if(cur>0){cur--;upd();} });
     if(nextBtn) nextBtn.addEventListener('click', function(){ if(cur<maxIdx(pp())){cur++;upd();} });
     upd();
+    if (typeof ResizeObserver !== 'undefined') {
+      var observer = new ResizeObserver(upd);
+      observer.observe(outer);
+      observer.observe(el);
+    }
     window.addEventListener('resize', upd);
   });
   }

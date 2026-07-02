@@ -73,75 +73,145 @@ function initializePreviewCarousels(root: HTMLElement) {
     if (!track || slides.length <= 1) return;
 
     let current = 0;
+    const updateMobileControlPosition = () => {
+      const activeSlide = slides[current] ?? slides[0];
+      const media = activeSlide?.querySelector<HTMLElement>('.cb-kv__img');
+      const mediaHeight = media?.getBoundingClientRect().height || 0;
+      if (mediaHeight > 0) {
+        carousel.style.setProperty('--cb-kv-mobile-media-height', `${mediaHeight}px`);
+      }
+    };
     const goTo = (index: number) => {
       current = (index + slides.length) % slides.length;
       track.style.transform = `translateX(-${current * 100}%)`;
       dots.forEach((dot, dotIndex) => {
-        dot.classList.toggle('is-active', dotIndex === current);
+        dot.classList.toggle('cb-kv__dot--active', dotIndex === current);
         dot.setAttribute('aria-current', dotIndex === current ? 'true' : 'false');
       });
+      updateMobileControlPosition();
     };
-    const onPrev = () => goTo(current - 1);
-    const onNext = () => goTo(current + 1);
+    const onPrev = (event: Event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      goTo(current - 1);
+    };
+    const onNext = (event: Event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      goTo(current + 1);
+    };
+    const stopControlPointer = (event: Event) => {
+      event.stopPropagation();
+    };
     const dotHandlers = dots.map((dot, index) => {
-      const handler = () => goTo(index);
+      const handler = (event: Event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        goTo(index);
+      };
       dot.addEventListener('click', handler);
-      return () => dot.removeEventListener('click', handler);
+      dot.addEventListener('pointerdown', stopControlPointer);
+      return () => {
+        dot.removeEventListener('click', handler);
+        dot.removeEventListener('pointerdown', stopControlPointer);
+      };
     });
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateMobileControlPosition) : null;
 
     prev?.addEventListener('click', onPrev);
     next?.addEventListener('click', onNext);
+    prev?.addEventListener('pointerdown', stopControlPointer);
+    next?.addEventListener('pointerdown', stopControlPointer);
+    observer?.observe(carousel);
+    slides.forEach((slide) => {
+      const media = slide.querySelector<HTMLElement>('.cb-kv__img');
+      if (media) observer?.observe(media);
+    });
     goTo(0);
 
     cleanups.push(() => {
       prev?.removeEventListener('click', onPrev);
       next?.removeEventListener('click', onNext);
+      prev?.removeEventListener('pointerdown', stopControlPointer);
+      next?.removeEventListener('pointerdown', stopControlPointer);
       dotHandlers.forEach((cleanup) => cleanup());
+      observer?.disconnect();
+      carousel.style.removeProperty('--cb-kv-mobile-media-height');
     });
   });
 
   root.querySelectorAll<HTMLElement>('.cb-carousel').forEach((carousel) => {
+    if (carousel.getAttribute('data-cb-carousel-ready') === 'true') return;
+    carousel.setAttribute('data-cb-carousel-ready', 'true');
+    const outer = carousel.querySelector<HTMLElement>('.cb-carousel__track-outer');
     const track = carousel.querySelector<HTMLElement>('.cb-carousel__track');
     const items = Array.from(carousel.querySelectorAll<HTMLElement>('.cb-carousel__item'));
     const prev = carousel.querySelector<HTMLButtonElement>('.cb-carousel__btn--prev');
     const next = carousel.querySelector<HTMLButtonElement>('.cb-carousel__btn--next');
-    if (!track || items.length <= 1) return;
+    if (!outer || !track || items.length <= 1) return;
 
     let current = 0;
     const getVisibleCount = () => {
-      const width = carousel.getBoundingClientRect().width || window.innerWidth;
-      if (width < 640) return 1;
-      if (width < 960) return 2;
+      const width = outer.getBoundingClientRect().width || carousel.getBoundingClientRect().width || window.innerWidth;
+      if (width < 768) return 2;
+      if (width < 1024) return 3;
       return 4;
     };
     const update = () => {
       const visibleCount = getVisibleCount();
       const maxIndex = Math.max(0, items.length - visibleCount);
       current = Math.min(current, maxIndex);
-      const itemWidth = items[0]?.getBoundingClientRect().width ?? 0;
       const gapValue = parseFloat(window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap || '0');
       const gap = Number.isFinite(gapValue) ? gapValue : 0;
+      const outerWidth = outer.getBoundingClientRect().width || carousel.getBoundingClientRect().width || 0;
+      const itemWidth = (outerWidth - Math.max(0, visibleCount - 1) * gap) / visibleCount;
+      if (!Number.isFinite(itemWidth) || itemWidth <= 0) return;
+      items.forEach((it) => {
+        it.style.flex = '0 0 ' + itemWidth + 'px';
+      });
       track.style.transform = `translateX(-${current * (itemWidth + gap)}px)`;
+      if (prev) prev.disabled = current === 0;
+      if (next) next.disabled = current >= maxIndex;
     };
-    const onPrev = () => {
+    const onPrev = (event: Event) => {
+      event.preventDefault();
+      event.stopPropagation();
       current = Math.max(0, current - 1);
       update();
     };
-    const onNext = () => {
+    const onNext = (event: Event) => {
+      event.preventDefault();
+      event.stopPropagation();
       const maxIndex = Math.max(0, items.length - getVisibleCount());
       current = Math.min(maxIndex, current + 1);
       update();
     };
+    const stopControlPointer = (event: Event) => {
+      event.stopPropagation();
+    };
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(update) : null;
 
     prev?.addEventListener('click', onPrev);
     next?.addEventListener('click', onNext);
+    prev?.addEventListener('pointerdown', stopControlPointer);
+    next?.addEventListener('pointerdown', stopControlPointer);
     window.addEventListener('resize', update);
+    observer?.observe(outer);
+    observer?.observe(carousel);
     update();
 
     cleanups.push(() => {
       prev?.removeEventListener('click', onPrev);
       next?.removeEventListener('click', onNext);
+      prev?.removeEventListener('pointerdown', stopControlPointer);
+      next?.removeEventListener('pointerdown', stopControlPointer);
       window.removeEventListener('resize', update);
+      observer?.disconnect();
+      items.forEach((it) => {
+        it.style.flex = '';
+      });
+      track.style.transform = '';
+      carousel.removeAttribute('data-cb-carousel-ready');
     });
   });
 
@@ -197,18 +267,24 @@ export function SharedModuleView({ module, modules = [], mode = 'preview' }: Mod
     target?.closest('button, input, textarea, select, [role="button"]') ?? null
   ), []);
 
+  const getCarouselControlTarget = React.useCallback((target: HTMLElement | null) => (
+    target?.closest('.cb-kv__nav, .cb-kv__dot, .cb-carousel__btn') ?? null
+  ), []);
+
   const handlePreviewPointerDownCapture = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (mode !== 'builder') return;
     const target = event.target as HTMLElement | null;
+    if (getCarouselControlTarget(target)) return;
     const interactive = getInteractivePreviewTarget(target);
     if (interactive || target?.closest('a')) {
       event.stopPropagation();
     }
-  }, [getInteractivePreviewTarget, mode]);
+  }, [getCarouselControlTarget, getInteractivePreviewTarget, mode]);
 
   const handlePreviewClickCapture = React.useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     if (mode !== 'builder') return;
     const target = event.target as HTMLElement | null;
+    if (getCarouselControlTarget(target)) return;
     const interactive = getInteractivePreviewTarget(target);
     if (interactive) {
       event.stopPropagation();
@@ -220,7 +296,7 @@ export function SharedModuleView({ module, modules = [], mode = 'preview' }: Mod
       event.preventDefault();
       event.stopPropagation();
     }
-  }, [getInteractivePreviewTarget, mode]);
+  }, [getCarouselControlTarget, getInteractivePreviewTarget, mode]);
 
   return (
     <div

@@ -89,6 +89,27 @@ assert(
 );
 
 assert(
+  sharedModuleView.includes("dot.classList.toggle('cb-kv__dot--active'") &&
+    !sharedModuleView.includes("dot.classList.toggle('is-active'"),
+  'Builder and preview KV carousel should use the same active dot class as export'
+);
+
+assert(
+  sharedModuleView.includes('ResizeObserver') &&
+    sharedModuleView.includes('--cb-kv-mobile-media-height') &&
+    sharedModuleView.includes("it.style.flex = '0 0 ' + itemWidth + 'px'"),
+  'Builder and preview carousel runtime should react to canvas size and compute carousel item width from the container'
+);
+
+assert(
+  css.includes('var(--cb-kv-mobile-media-height') &&
+    !css.includes('calc((100vw - 32px) / (750 / 850)') &&
+    !css.includes('calc((100vw - 32px) / (750 / 750)') &&
+    !css.includes('calc((100vw - 32px) / (750 / 950)'),
+  'Mobile KV carousel controls should be positioned from the module container instead of browser viewport width'
+);
+
+assert(
   splitExporter.includes("renderImagePlaceholder('圖文區塊'") &&
     splitExporter.includes('IMAGE_SPECS.split'),
   'Split section should show image size placeholder when image is missing'
