@@ -51,6 +51,28 @@ async function resolveLocalImageRefsInHtml(html: string) {
   return { html: resolvedHtml, objectUrls };
 }
 
+function restorePreviewFaqDetails(root: HTMLElement, openFaqIndexes: React.MutableRefObject<Set<number>>) {
+  const cleanups: Array<() => void> = [];
+  const detailsItems = Array.from(root.querySelectorAll<HTMLDetailsElement>('details.cb-faq__item'));
+
+  detailsItems.forEach((details, index) => {
+    details.open = openFaqIndexes.current.has(index);
+
+    const onToggle = () => {
+      if (details.open) {
+        openFaqIndexes.current.add(index);
+      } else {
+        openFaqIndexes.current.delete(index);
+      }
+    };
+
+    details.addEventListener('toggle', onToggle);
+    cleanups.push(() => details.removeEventListener('toggle', onToggle));
+  });
+
+  return () => cleanups.forEach((cleanup) => cleanup());
+}
+
 function initializePreviewCarousels(root: HTMLElement) {
   const cleanups: Array<() => void> = [];
 
@@ -141,9 +163,14 @@ function initializePreviewCarousels(root: HTMLElement) {
 export function SharedModuleView({ module, modules = [], mode = 'preview' }: ModuleViewProps) {
   const { isMobile } = useDevice();
   const rootRef = React.useRef<HTMLDivElement>(null);
+  const openFaqIndexesRef = React.useRef<Set<number>>(new Set());
   const exportHtml = React.useMemo(() => renderModuleExportHTML(module, { modules }), [module, modules]);
   const previewHtml = React.useMemo(() => (isMobile ? forceMobilePictureSources(exportHtml) : exportHtml), [exportHtml, isMobile]);
   const [html, setHtml] = React.useState(previewHtml);
+
+  React.useLayoutEffect(() => {
+    openFaqIndexesRef.current.clear();
+  }, [exportHtml]);
 
   React.useEffect(() => {
     let alive = true;
@@ -179,6 +206,14 @@ export function SharedModuleView({ module, modules = [], mode = 'preview' }: Mod
       cleanup?.();
     };
   }, [html]);
+
+  React.useLayoutEffect(() => {
+    if (mode !== 'builder') return undefined;
+    const root = rootRef.current;
+    if (!root) return undefined;
+
+    return restorePreviewFaqDetails(root, openFaqIndexesRef);
+  }, [html, mode]);
 
   const getInteractivePreviewTarget = React.useCallback((target: HTMLElement | null) => (
     target?.closest('summary, button, input, textarea, select, [role="button"]') ?? null

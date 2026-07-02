@@ -54,6 +54,15 @@ assert(
 );
 
 assert(
+  sharedModuleView.includes('openFaqIndexesRef') &&
+    sharedModuleView.includes('restorePreviewFaqDetails') &&
+    sharedModuleView.includes("querySelectorAll<HTMLDetailsElement>('details.cb-faq__item')") &&
+    sharedModuleView.includes("details.addEventListener('toggle', onToggle)") &&
+    sharedModuleView.includes('React.useLayoutEffect'),
+  'FAQ builder preview should persist native details open state across injected HTML refreshes'
+);
+
+assert(
   !previewCanvas.includes('<div className="pointer-events-none select-none overflow-hidden">\\n          <ModulePreviewRenderer module={module} modules={modules} />') &&
     previewCanvas.includes('className="select-none overflow-hidden"'),
   'Builder canvas should not block pointer events for interactive module previews'
