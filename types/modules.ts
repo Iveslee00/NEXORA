@@ -582,7 +582,7 @@ export interface ProductProofModule extends BaseModule {
   data: ProductProofData;
 }
 
-export type ProductPurchaseStyle = 'cta' | 'bundle' | 'related';
+export type ProductPurchaseStyle = 'cta' | 'bundle';
 
 export interface ProductPurchaseData extends AnchorableData {
   style: ProductPurchaseStyle;

@@ -118,8 +118,8 @@ for (const type of mobileRequiredTypes) {
 const parityRules = [
   ['cb-product-features__content', 'Product features export should wrap title/text content like preview'],
   ['.cb-product-features--icon-text .cb-product-features__icon { margin-bottom: 0; }', 'Product feature icon-text export should remove icon bottom margin'],
-  ['cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(3', 'Bundle purchase should export three-column desktop grid'],
-  ['data.products.slice(0, 3)', 'Bundle purchase exporter should match preview visible item count'],
+  ['cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(4', 'Bundle purchase should export four-column desktop grid'],
+  ['data.products.slice(0, 4)', 'Bundle purchase exporter should match preview visible item count'],
   ['cb-product-comparison__cell::before', 'Product comparison should expose mobile column labels'],
   ['cb-product-showcase--spacious .cb-product-showcase__media { width: min(', 'Spacious showcase image should be constrained'],
   ['cb-product-showcase--split .cb-product-showcase__content', 'Split showcase should have a styled text card'],

@@ -154,7 +154,7 @@ export const productThemePresets: Record<ProductPageTheme, ProductThemePreset> =
     ctaBackground: '#4f46e5',
     heroTone: '白底電商、商品主圖突出、資訊規格化',
     proofTone: '規格、物流、評價與售後降低疑慮',
-    purchaseTone: '相關商品、清楚比較、快速加入購買路徑',
+    purchaseTone: '四品推薦、清楚比較、快速加入購買路徑',
     placeholderTone: 'commerce',
     darkSurface: '#111827',
     darkTitle: '#ffffff',
@@ -167,7 +167,7 @@ export const productThemePresets: Record<ProductPageTheme, ProductThemePreset> =
     stepsStyle: 'numbered',
     comparisonStyle: 'product-table',
     proofStyle: 'reviews',
-    purchaseStyle: 'related',
+    purchaseStyle: 'bundle',
   },
 };
 

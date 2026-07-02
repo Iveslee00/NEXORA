@@ -114,7 +114,8 @@ ${items}
 }
 
 export function generateProductPurchaseHTML(data: ProductPurchaseData): string {
-  const visibleProducts = data.style === 'bundle' ? data.products.slice(0, 4) : data.products.slice(0, 4);
+  const style = (data.style as string) === 'related' ? 'bundle' : data.style;
+  const visibleProducts = data.products.slice(0, 4);
   const products = visibleProducts.map((product) => `      <a class="cb-product-purchase__card" href="${escapeHtml(product.link || '#')}">
         <span class="cb-product-purchase__media">${product.image ? `<img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">` : renderImagePlaceholder('商品圖', IMAGE_SPECS.product)}</span>
         <span class="cb-product-purchase__body">
@@ -124,14 +125,14 @@ export function generateProductPurchaseHTML(data: ProductPurchaseData): string {
         </span>
       </a>`).join('\n');
 
-  return `<section class="cb-product-purchase cb-product-purchase--${escapeHtml(data.style)} cb-section"${bgStyle(data.backgroundColor)}>
+  return `<section class="cb-product-purchase cb-product-purchase--${escapeHtml(style)} cb-section"${bgStyle(data.backgroundColor)}>
   <div class="cb-container">
     <span class="cb-product-purchase__glow" aria-hidden="true"></span>
     ${headHTML(data)}
     <div class="cb-product-purchase__action">
       <a class="cb-product-purchase__button" href="${escapeHtml(data.buttonLink || '#')}">${escapeHtml(data.buttonText)}</a>
     </div>
-    ${data.style === 'cta' ? '' : `<div class="cb-product-purchase__grid">
+    ${style === 'cta' ? '' : `<div class="cb-product-purchase__grid">
 ${products}
     </div>`}
   </div>

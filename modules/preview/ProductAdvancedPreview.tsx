@@ -152,10 +152,10 @@ export function ProductPurchasePreview({ data }: { data: ProductPurchaseData }) 
   const { isMobile } = useDevice();
   const titleColor = data.titleColor || '#ffffff';
   const textColor = data.textColor || 'rgba(255,255,255,0.78)';
-  const isCta = data.style === 'cta';
-  const bundleHeroCard = data.style === 'bundle';
-  const relatedCompactCard = data.style === 'related';
-  const visibleProducts = bundleHeroCard ? data.products.slice(0, 3) : data.products;
+  const style = (data.style as string) === 'related' ? 'bundle' : data.style;
+  const isCta = style === 'cta';
+  const bundleHeroCard = style === 'bundle';
+  const visibleProducts = data.products.slice(0, 4);
   return (
     <section style={{ ...moduleSurface(data.backgroundColor || '#0f172a'), padding: isMobile ? '40px 16px' : '64px 24px', fontFamily }}>
       <div style={{ position: 'relative', maxWidth: 1080, margin: '0 auto', color: textColor }}>
@@ -165,16 +165,16 @@ export function ProductPurchasePreview({ data }: { data: ProductPurchaseData }) 
           <a href={data.buttonLink || '#'} style={{ display: 'inline-flex', minHeight: isCta ? 56 : 48, alignItems: 'center', justifyContent: 'center', borderRadius: 999, background: '#ffffff', color: '#0f172a', padding: isCta ? '0 40px' : '0 32px', fontWeight: 850, textDecoration: 'none', boxShadow: isCta ? 'none' : '0 16px 36px rgba(0,0,0,0.18)' }}>{data.buttonText}</a>
         </div>
         {data.style !== 'cta' && (
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : bundleHeroCard ? 'repeat(3, 1fr)' : `repeat(${Math.min(visibleProducts.length, 4)}, 1fr)`, gap: relatedCompactCard ? 14 : 18, alignItems: 'stretch' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: isMobile ? 12 : 18, alignItems: 'stretch' }}>
             {visibleProducts.map((product, index) => (
-              <article key={product.id} style={{ overflow: 'hidden', borderRadius: bundleHeroCard && index === 0 ? 30 : relatedCompactCard ? 18 : 22, background: '#ffffff', color: '#0f172a', boxShadow: bundleHeroCard && index === 0 ? '0 26px 70px rgba(0,0,0,0.24)' : relatedCompactCard ? '0 12px 28px rgba(0,0,0,0.12)' : '0 18px 48px rgba(0,0,0,0.18)', transform: bundleHeroCard && index === 0 && !isMobile ? 'translateY(-10px)' : undefined }}>
-                <div style={{ position: 'relative', aspectRatio: relatedCompactCard ? '4 / 3' : '1 / 1', background: '#eef2ff' }}>
+              <article key={product.id} style={{ overflow: 'hidden', borderRadius: bundleHeroCard && index === 0 && !isMobile ? 30 : isMobile ? 18 : 22, background: '#ffffff', color: '#0f172a', boxShadow: bundleHeroCard && index === 0 && !isMobile ? '0 26px 70px rgba(0,0,0,0.24)' : isMobile ? '0 12px 28px rgba(0,0,0,0.12)' : '0 18px 48px rgba(0,0,0,0.18)', transform: bundleHeroCard && index === 0 && !isMobile ? 'translateY(-10px)' : undefined }}>
+                <div style={{ position: 'relative', aspectRatio: '1 / 1', background: '#eef2ff' }}>
                   {bundleHeroCard && index === 0 && <span style={{ position: 'absolute', left: 14, top: 14, zIndex: 1, borderRadius: 999, background: '#0f172a', color: '#ffffff', padding: '6px 10px', fontSize: 12, fontWeight: 850 }}>推薦組合</span>}
                   <PreviewImage src={product.image} alt="" label="商品圖" spec={IMAGE_SPECS.product} objectFit="contain" variant="product" />
                 </div>
-                <div style={{ padding: relatedCompactCard ? 14 : bundleHeroCard && index === 0 ? 22 : 16 }}>
+                <div style={{ padding: isMobile ? 12 : bundleHeroCard && index === 0 ? 22 : 16 }}>
                   <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 750, color: '#64748b' }}>{product.brand}</p>
-                  <h3 style={{ margin: '0 0 8px', fontSize: bundleHeroCard && index === 0 ? '1.16rem' : relatedCompactCard ? '0.95rem' : '1rem', fontWeight: 850 }}>{product.name}</h3>
+                  <h3 style={{ margin: '0 0 8px', fontSize: isMobile ? '0.9rem' : bundleHeroCard && index === 0 ? '1.16rem' : '1rem', fontWeight: 850 }}>{product.name}</h3>
                   <p style={{ margin: 0, fontWeight: 900, color: '#ef4444', fontSize: bundleHeroCard && index === 0 ? '1.1rem' : undefined }}>{product.salePrice}</p>
                 </div>
               </article>

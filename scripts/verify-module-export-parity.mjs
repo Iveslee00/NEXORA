@@ -99,12 +99,12 @@ assert(
 
 const productAdvancedExporter = read(contracts['product-purchase'].exporter);
 assert(
-  productAdvancedExporter.includes("data.style === 'bundle' ? data.products.slice(0, 3)"),
-  'Product purchase bundle exporter should only render three bundle cards'
+  productAdvancedExporter.includes('const visibleProducts = data.products.slice(0, 4);'),
+  'Product purchase exporter should render up to four purchase cards'
 );
 assert(
-  css.includes('.cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(3'),
-  'Product purchase bundle export CSS should use three desktop columns'
+  css.includes('.cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(4'),
+  'Product purchase bundle export CSS should use four desktop columns'
 );
 
 const genericClassRegex = /(^|\n)\s*\.(title|image|button|container)\b/;

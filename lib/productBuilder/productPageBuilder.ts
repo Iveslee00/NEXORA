@@ -639,7 +639,7 @@ function createModule(type: ProductModuleType, input: ProductBuilderInput): Page
           style: theme.purchaseStyle,
           eyebrow: input.goal === 'sales' ? 'Shop Now' : 'Next Step',
           title: input.goal === 'launch' ? `立即體驗 ${input.productName}` : '現在入手推薦組合',
-          subtitle: `用購買 CTA 承接最後轉換，也可改成相關商品、推薦組合或單一購買按鈕。${conversionIntent(input)} ${direction.purchase}`,
+          subtitle: `用購買 CTA 承接最後轉換，也可改成四品推薦組合或單一購買按鈕。${conversionIntent(input)} ${direction.purchase}`,
           buttonText: input.ctaText,
           buttonLink: input.ctaLink,
           backgroundColor: theme.darkSurface,

@@ -56,13 +56,11 @@ const proofStyleDescriptions: Record<ProductProofData['style'], string> = {
 const purchaseStyleOptions = [
   { value: 'cta', label: 'CTA' },
   { value: 'bundle', label: '推薦組合' },
-  { value: 'related', label: '相關商品' },
 ];
 
 const purchaseStyleDescriptions: Record<ProductPurchaseData['style'], string> = {
   cta: 'CTA：單一轉換區塊，適合頁尾收斂到購買、諮詢或領券。',
   bundle: '推薦組合：固定四品陳列，適合主推成套購買與加價帶購。',
-  related: '相關商品：固定四品延伸推薦，用一致卡片引導繼續逛。',
 };
 
 function SectionHeadFields<T extends {

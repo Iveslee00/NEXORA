@@ -28,8 +28,7 @@ const required = [
   [files.infoForm, '技術：用深色科技感規格板呈現', 'info form should explain technology usage'],
   [files.infoForm, '規格：標準 key-value 表格', 'info form should explain specs usage'],
   [files.infoForm, '內容物：用包裝清單呈現', 'info form should explain contents usage'],
-  [files.advancedForms, '推薦組合：主推成套購買', 'purchase form should explain bundle usage'],
-  [files.advancedForms, '相關商品：同系列延伸推薦', 'purchase form should explain related usage'],
+  [files.advancedForms, '推薦組合：固定四品陳列', 'purchase form should explain bundle usage'],
   [files.advancedPreview, '一般商品', 'mobile comparison preview should expose before column title'],
   [files.advancedPreview, '使用本商品', 'mobile comparison preview should expose after column title'],
   [files.advancedExporter, 'data-label=', 'comparison export should add mobile data labels'],
@@ -39,9 +38,7 @@ const required = [
   [files.advancedPreview, 'certificationGrid', 'certification proof style should be visually distinct'],
   [files.css, '.cb-product-proof--certifications', 'certification proof CSS should be distinct'],
   [files.advancedPreview, 'bundleHeroCard', 'bundle purchase style should be visually distinct'],
-  [files.advancedPreview, 'relatedCompactCard', 'related purchase style should be visually distinct'],
   [files.css, '.cb-product-purchase--bundle', 'bundle purchase CSS should be distinct'],
-  [files.css, '.cb-product-purchase--related', 'related purchase CSS should be distinct'],
   [files.css, '.cb-product-showcase--luxury .cb-product-showcase__content', 'luxury showcase should not reuse split layout'],
   [files.css, 'position: absolute; left: 24px; top: 50%', 'luxury showcase should use a floating content card'],
   [files.css, '.cb-product-info--contents .cb-product-info__table { counter-reset: cb-contents; }', 'contents info should use numbered package list'],
@@ -104,9 +101,8 @@ const styleCoverage = {
     certifications: [[files.css, '.cb-product-proof--certifications'], [files.advancedPreview, 'certificationGrid']],
   },
   ProductPurchaseStyle: {
-    cta: [[files.css, '.cb-product-purchase--cta'], [files.advancedPreview, 'isCta'], [files.advancedExporter, "data.style === 'cta'"]],
-    bundle: [[files.css, '.cb-product-purchase--bundle'], [files.advancedPreview, 'bundleHeroCard'], [files.advancedExporter, "data.style === 'bundle'"]],
-    related: [[files.css, '.cb-product-purchase--related'], [files.advancedPreview, 'relatedCompactCard']],
+    cta: [[files.css, '.cb-product-purchase--cta'], [files.advancedPreview, 'isCta'], [files.advancedExporter, "style === 'cta'"]],
+    bundle: [[files.css, '.cb-product-purchase--bundle'], [files.advancedPreview, 'bundleHeroCard'], [files.advancedExporter, "const style = (data.style as string) === 'related' ? 'bundle' : data.style"]],
   },
 };
 

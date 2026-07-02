@@ -654,18 +654,13 @@ ${getHighRiskModuleCssFragments()}
   content: "推薦組合"; position: absolute; left: 14px; top: 14px; z-index: 1;
   border-radius: 999px; background: #0f172a; color: #ffffff; padding: 6px 10px; font-size: 12px; font-weight: 850;
 }
-.cb-product-purchase--related .cb-product-purchase__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
-.cb-product-purchase--related .cb-product-purchase__card { border-radius: 18px; box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
 .cb-product-purchase__media { position: relative; display: block; aspect-ratio: 1 / 1; background: #eef2ff; }
-.cb-product-purchase--related .cb-product-purchase__media { aspect-ratio: 4 / 3; }
 .cb-product-purchase__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
 .cb-product-purchase__body { display: block; padding: 16px; }
 .cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__body { padding: 22px; }
-.cb-product-purchase--related .cb-product-purchase__body { padding: 14px; }
 .cb-product-purchase__brand { display: block; margin-bottom: 4px; font-size: 12px; font-weight: 750; color: #64748b; }
 .cb-product-purchase__name { display: block; margin-bottom: 8px; font-size: 1rem; font-weight: 850; color: #0f172a; line-height: 1.35; }
 .cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__name { font-size: 1.16rem; }
-.cb-product-purchase--related .cb-product-purchase__name { font-size: 0.95rem; }
 .cb-product-purchase__price { display: block; font-weight: 900; color: #ef4444; }
 .cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__price { font-size: 1.1rem; }
 
@@ -687,8 +682,7 @@ ${getHighRiskModuleCssFragments()}
   .cb-product-steps__grid,
   .cb-product-proof__grid,
   .cb-product-purchase__grid,
-  .cb-product-purchase--bundle .cb-product-purchase__grid,
-  .cb-product-purchase--related .cb-product-purchase__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cb-product-showcase__inner,
   .cb-product-scenes__single { gap: 40px; }
   .cb-banner-products__inner { grid-template-columns: 1fr; height: auto; align-items: start; }
@@ -769,16 +763,13 @@ ${getHighRiskModuleCssFragments()}
   .cb-product-steps__grid,
   .cb-product-proof__grid,
   .cb-product-purchase__grid,
-  .cb-product-purchase--bundle .cb-product-purchase__grid,
-  .cb-product-purchase--related .cb-product-purchase__grid { grid-template-columns: 1fr; }
-  .cb-product-purchase__card { display: grid; grid-template-columns: minmax(0, 112px) minmax(0, 1fr); align-items: stretch; }
-  .cb-product-purchase__media { aspect-ratio: auto; min-height: 112px; height: 100%; }
-  .cb-product-purchase__body { display: flex; flex-direction: column; justify-content: center; padding: 14px 14px 14px 0; }
-  .cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__body { padding: 14px 14px 14px 0; }
-  .cb-product-purchase--related .cb-product-purchase__body { padding: 14px 14px 14px 0; }
-  .cb-product-purchase__brand { margin-bottom: 6px; }
-  .cb-product-purchase__name { margin-bottom: 6px; font-size: 0.96rem; }
-  .cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__name { font-size: 1rem; }
+  .cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .cb-product-purchase__card { border-radius: 18px; box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
+  .cb-product-purchase__body,
+  .cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__body { padding: 12px; }
+  .cb-product-purchase__brand { margin-bottom: 4px; font-size: 11px; }
+  .cb-product-purchase__name,
+  .cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__name { margin-bottom: 6px; font-size: 0.9rem; }
   .cb-product-steps--timeline .cb-product-steps__item,
   .cb-product-benefits--stacked .cb-product-benefits__item,
   .cb-product-comparison__row { grid-template-columns: 1fr; }

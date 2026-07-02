@@ -167,15 +167,15 @@ assert(
 );
 
 assert(
-  css.includes('.cb-product-purchase__card { display: grid; grid-template-columns: minmax(0, 112px) minmax(0, 1fr);') &&
-    css.includes('.cb-product-purchase__media { aspect-ratio: auto; min-height: 112px; height: 100%; }') &&
-    css.includes('.cb-product-purchase__body { display: flex; flex-direction: column; justify-content: center; padding: 14px 14px 14px 0; }') &&
-    css.includes('.cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__body { padding: 14px 14px 14px 0; }'),
-  'Mobile product-purchase cards should switch to a compact side-by-side layout with reduced body padding'
+  css.includes('.cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }') &&
+    css.includes('.cb-product-purchase__card { border-radius: 18px; box-shadow: 0 12px 28px rgba(0,0,0,0.12); }') &&
+    css.includes('.cb-product-purchase__body,') &&
+    css.includes('.cb-product-purchase--bundle .cb-product-purchase__card:first-child .cb-product-purchase__body { padding: 12px; }'),
+  'Mobile product-purchase cards should render as a compact two-column four-product grid'
 );
 
 assert(
-  productAdvancedExporter.includes("data.style === 'bundle' ? data.products.slice(0, 4) : data.products.slice(0, 4)") &&
+  productAdvancedExporter.includes('const visibleProducts = data.products.slice(0, 4);') &&
     moduleSchemas.includes("mkProduct({ name: '加購清潔配件' })") &&
     productPageBuilder.includes("productFromInput(input, `${input.productName} 隨手瓶`)"),
   'Product-purchase should use a four-product source in defaults, quick builder, and export rendering'

@@ -44,12 +44,12 @@ assert(
 );
 
 assert(
-  advancedExporter.includes("data.style === 'bundle' ? data.products.slice(0, 3) : data.products"),
-  'Bundle purchase export should match preview by limiting to three products'
+  advancedExporter.includes('const visibleProducts = data.products.slice(0, 4);'),
+  'Bundle purchase export should match preview by limiting to four products'
 );
 assert(
-  css.includes('.cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }'),
-  'Bundle purchase export should use a stable three-card grid'
+  css.includes('.cb-product-purchase--bundle .cb-product-purchase__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: stretch; }'),
+  'Bundle purchase export should use a stable four-card grid'
 );
 assert(
   /\.cb-product-purchase__button\s*\{[^}]*background:\s*\$\{btnColor\};[^}]*color:\s*\$\{btnTextColor\};/s.test(css),
